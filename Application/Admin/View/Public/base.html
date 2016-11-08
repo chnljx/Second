@@ -7,11 +7,10 @@
     <title><{$title}></title>
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
-    <!-- MyCSS -->
+    <!-- 全局预定义CSS -->
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/global.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/lee.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/liu.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/xie.css">
+    <!-- 自定义CSS -->
+    <block name="mycss"></block>
 </head>
 <body>
     <!-- 头部 -->
@@ -25,5 +24,7 @@
     <script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+    <!-- 自定义JS -->
+    <block name="myjs"></block>
 </body>
 </html>
