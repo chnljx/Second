@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="/Public/css/bootstrap.min.css">
     <!-- MyCSS -->
     <link rel="stylesheet" type="text/css" href="/Public/css/global.css">
-    <link rel="stylesheet" type="text/css" href="/Public/css/home/lee.css">
-    <link rel="stylesheet" type="text/css" href="/Public/css/home/liu.css">
-    <link rel="stylesheet" type="text/css" href="/Public/css/home/xie.css">
+    <link rel="stylesheet" type="text/css" href="/Public/css/admin/lee.css">
+    <link rel="stylesheet" type="text/css" href="/Public/css/admin/liu.css">
+    <link rel="stylesheet" type="text/css" href="/Public/css/admin/xie.css">
 </head>
 <body>
     <!-- 头部 -->

@@ -1,6 +1,6 @@
-<?php 
-namespace Home\Controller;
-use \Think\Controller;
+<?php  
+namespace Admin\Controller;
+use Think\Controller;
 
 /**
 * 当系统找不到请求的控制器名称的时候，系统会尝试定位空控制器

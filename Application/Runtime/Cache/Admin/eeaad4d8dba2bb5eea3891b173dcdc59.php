@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/main.css" media="screen, projection"> <!-- main stylesheet -->
-<link rel="stylesheet" type="text/css" media="all" href="__PUBLIC__/css/tipsy.css" /> <!-- Tipsy implementation -->
+<link rel="stylesheet" type="text/css" href="/Public/css/main.css" media="screen, projection"> <!-- main stylesheet -->
+<link rel="stylesheet" type="text/css" media="all" href="/Public/css/tipsy.css" /> <!-- Tipsy implementation -->
 
 <!--[if lt IE 9]>
     <link rel="stylesheet" type="text/css" href="css/ie8.css" />
 <![endif]-->
 
-<script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script> <!-- uiToTop implementation -->
-<script type="text/javascript" src="__PUBLIC__/js/custom-scripts.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery.tipsy.js"></script> <!-- Tipsy -->
+<script type="text/javascript" src="/Public/js/jquery-2.1.4.min.js"></script> <!-- uiToTop implementation -->
+<script type="text/javascript" src="/Public/js/custom-scripts.js"></script>
+<script type="text/javascript" src="/Public/js/jquery.tipsy.js"></script> <!-- Tipsy -->
 
 <script type="text/javascript">
 
@@ -45,7 +45,7 @@ $(window).load(function(){
 <!-- Universal preloader -->
 <div id="universal-preloader">
     <div class="preloader">
-        <img src="__PUBLIC__/imgs/public/universal-preloader.gif" alt="universal-preloader" class="universal-preloader-preloader" />
+        <img src="/Public/imgs/public/universal-preloader.gif" alt="universal-preloader" class="universal-preloader-preloader" />
     </div>
 </div>
 <!-- Universal preloader -->
@@ -71,7 +71,7 @@ $(window).load(function(){
 
 <!-- top menu -->
 <div class="top-menu">
-    <a href="<{:U('Index/index')}>" class="with-tooltip" title="Return to the home page">返回首页</a>
+    <a href="<?php echo U('Index/index');?>" class="with-tooltip" title="Return to the home page">返回首页</a>
     <!-- <a href="#" class="with-tooltip" title="Navigate through our sitemap">Sitemap</a> | 
     <a href="#" class="with-tooltip" title="Contact us!">Contact</a> | 
     <a href="#" class="with-tooltip" title="Request additional help">Help</a> -->
@@ -102,7 +102,7 @@ $(window).load(function(){
             Don't worry! I'm on it!
         </p>
         <p class="dog-bubble">
-            I wish I had a cookie<br /><img style="margin-top:8px" src="__PUBLIC__/imgs/public/cookie.png" alt="cookie" />
+            I wish I had a cookie<br /><img style="margin-top:8px" src="/Public/imgs/public/cookie.png" alt="cookie" />
         </p>
         <p class="dog-bubble">
             <br />
@@ -120,7 +120,7 @@ $(window).load(function(){
             OK, I'm officially lost now...
         </p>
         <p class="dog-bubble">
-            I think I saw a <br /><img style="margin-top:8px" src="__PUBLIC__/imgs/public/cat.png" alt="cat" />
+            I think I saw a <br /><img style="margin-top:8px" src="/Public/imgs/public/cat.png" alt="cat" />
         </p>
         <p class="dog-bubble">
             What are we supposed to be looking for, anyway? @_@
