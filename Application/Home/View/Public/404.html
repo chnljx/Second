@@ -37,7 +37,7 @@ $(window).load(function(){
 </script>
 
 
-<title>404 - Not found</title>
+<title>404</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 <body>
@@ -71,7 +71,8 @@ $(window).load(function(){
 
 <!-- top menu -->
 <div class="top-menu">
-    <a href="<{:U('Index/index')}>" class="with-tooltip" title="Return to the home page">返回首页</a>
+    <a href="javascript:;" onclick="history.go(-1)" class="with-tooltip" title="Back">返回上一页</a> | 
+    <a href="<{:U('Index/index')}>" class="with-tooltip" title="Return to the home page">去首页</a>
     <!-- <a href="#" class="with-tooltip" title="Navigate through our sitemap">Sitemap</a> | 
     <a href="#" class="with-tooltip" title="Contact us!">Contact</a> | 
     <a href="#" class="with-tooltip" title="Request additional help">Help</a> -->
