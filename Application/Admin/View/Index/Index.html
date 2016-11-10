@@ -35,10 +35,10 @@
                 <ul class="cl">
                     <li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
-                            <li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i> 图片</a></li>
-                            <li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
-                            <li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
+                            <li><a href="javascript:;" onclick="admin_add('添加管理员','<{:U('User/adminadd')}>')"><i class="Hui-iconfont">&#xe62d;</i> 管理员</a></li>
+                            <li><a href="javascript:;" onclick="bartype_add('添加贴吧分类','<{:U('Classify/add')}>')"><i class="Hui-iconfont">&#xe616;</i> 贴吧分类</a></li>
+                            <li><a href="javascript:;" onclick="bar_add('添加贴吧','<{:U('Bar/add')}>')"><i class="Hui-iconfont">&#xe613;</i> 贴吧</a></li>
+                            <li><a href="javascript:;" onclick="member_add('添加用户','<{:U('User/add')}>','','510')"><i class="Hui-iconfont">&#xe611;</i> 用户</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -73,39 +73,48 @@
     <input runat="server" id="divScrollValue" type="hidden" value="" />
     <div class="menu_dropdown bk_2">
         <dl id="menu-member">
-            <dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt><i class="Hui-iconfont">&#xe611;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
                     <li><a _href="<{:U('User/index')}>" data-title="用户列表" href="javascript:;">用户列表</a></li>
-                    <li><a _href="member-del.html" data-title="删除的用户" href="javascript:;">删除的用户</a></li>
-                    <li><a _href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
-                    <li><a _href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
+                    <li><a _href="<{:U('User/recycle')}>" data-title="用户回收站" href="javascript:;">用户回收站</a></li>
+                    <li><a _href="<{:U('User/grade')}>" data-title="等级管理" href="javascript:;">等级管理</a></li>
+                    <li><a _href="<{:U('User/exp')}>" data-title="经验值管理" href="javascript:;">经验值管理</a></li>
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-article">
-            <dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dl id="menu-barboss">
+            <dt><i class="Hui-iconfont">&#xe60d;</i> 吧主管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
+                    <li><a _href="<{:U('User/list')}>" data-title="吧主列表" href="javascript:;">吧主列表</a></li>
+                    <li><a _href="<{:U('User/beg')}>" data-title="申请吧主请求" href="javascript:;">申请吧主请求</a></li>
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-picture">
-            <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dl id="menu-classify">
+            <dt><i class="Hui-iconfont">&#xe616;</i> 贴吧分类管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
+                    <li><a _href="<{:U('Classify/index')}>" data-title="贴吧分类管理" href="javascript:void(0)">贴吧分类列表</a></li>
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-product">
-            <dt><i class="Hui-iconfont">&#xe620;</i> 产品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dl id="menu-bar">
+            <dt><i class="Hui-iconfont">&#xe613;</i> 贴吧管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>
-                    <li><a _href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-                    <li><a _href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
+                    <li><a _href="<{:U('Bar/index')}>" data-title="贴吧列表" href="javascript:void(0)">贴吧列表</a></li>
+                    <li><a _href="<{:U('Bar/beg')}>" data-title="创建贴吧请求" href="javascript:void(0)">创建贴吧请求</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-post">
+            <dt><i class="Hui-iconfont">&#xe623;</i> 帖子管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a _href="<{:U('Post/index')}>" data-title="帖子列表" href="javascript:void(0)">帖子列表</a></li>
+                    <li><a _href="<{:U('Post/recycle')}>" data-title="帖子回收站" href="javascript:void(0)">帖子回收站</a></li>
                 </ul>
             </dd>
         </dl>
@@ -113,8 +122,8 @@
             <dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a></li>
-                    <li><a _href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
+                    <li><a _href="<{:U('Comment/index')}>" data-title="评论列表" href="javascript:;">评论列表</a></li>
+                    <li><a _href="<{:U('Comment/reply')}>" data-title="回复列表" href="javascript:void(0)">回复列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -122,9 +131,18 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-                    <li><a _href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-                    <li><a _href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+                    <li><a _href="<{:U('User/adminlist')}>" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+                    <li><a _href="<{:U('User/limit')}>" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-info">
+            <dt><i class="Hui-iconfont">&#xe602;</i>个人信息<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a _href="info-password.html" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
+                    <li><a _href="info-list.html" data-title="个人信息" href="javascript:void(0)">个人信息列表</a></li>
+                    <li><a _href="info-update.html" data-title="修改个人信息" href="javascript:void(0)">修改个人信息</a></li>
                 </ul>
             </dd>
         </dl>
@@ -176,10 +194,11 @@
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript">
-/*资讯-添加*/
-function article_add(title,url){
+/*管理员-添加*/
+function admin_add(title,url){
     var index = layer.open({
         type: 2,
         title: title,
@@ -187,8 +206,8 @@ function article_add(title,url){
     });
     layer.full(index);
 }
-/*图片-添加*/
-function picture_add(title,url){
+/*贴吧类型-添加*/
+function bartype_add(title,url){
     var index = layer.open({
         type: 2,
         title: title,
@@ -196,8 +215,8 @@ function picture_add(title,url){
     });
     layer.full(index);
 }
-/*产品-添加*/
-function product_add(title,url){
+/*贴吧-添加*/
+function bar_add(title,url){
     var index = layer.open({
         type: 2,
         title: title,

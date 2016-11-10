@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/My97DatePicker/WdatePicker.js"></script>
 <!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -69,13 +70,26 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">附件：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
-				<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
-				<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
-				<input type="file" multiple name="file-2" class="input-file">
+			<label class="form-label col-xs-4 col-sm-3">生日：</label>
+			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
+				<select class="select" size="1" name="birthday_year">
+					<option value="1" selected>1994</option>
+				</select>
+			</div>
+			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
+				<select class="select" size="1" name="birthday_month">
+					<option value="1" selected>02</option>
+				</select>
+			</div>
+			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
+				<select class="select" size="1" name="birthday_day">
+					<option value="1" selected>28</option>
+					
+				</select>
+				<!-- <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;"> -->
 				</span> </div>
 		</div>
+		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
