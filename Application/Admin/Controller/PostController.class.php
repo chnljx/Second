@@ -6,12 +6,16 @@ class PostController extends AdminController
 {
     public function index()
     {
-        echo 'Post';
+        $this->assign('title','帖子管理');
+        $this->assign('part','帖子列表');
+        $this->display();
     }
   
   	// 帖子回收站
   	public function recycle()
     {
-        echo 'Post Recycle';
+        $this->assign('title','帖子管理');
+        $this->assign('part','帖子回收站');
+        $this->display();
     }
 }

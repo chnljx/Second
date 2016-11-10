@@ -6,13 +6,15 @@ class ClassifyController extends AdminController
 {
     public function index()
     {
-        echo 'Bar Classify';
+       	$this->assign('title','贴吧分类管理');
+        $this->assign('part','贴吧分类列表');
+        $this->display();
     }
   
   	
   	 public function add()
     {
-        echo 'Add Bar Classify';
+        $this->display();
     }
 
 }

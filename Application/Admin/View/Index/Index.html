@@ -35,9 +35,9 @@
                 <ul class="cl">
                     <li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="javascript:;" onclick="admin_add('添加管理员','<{:U('User/adminadd')}>')"><i class="Hui-iconfont">&#xe62d;</i> 管理员</a></li>
-                            <li><a href="javascript:;" onclick="bartype_add('添加贴吧分类','<{:U('Classify/add')}>')"><i class="Hui-iconfont">&#xe616;</i> 贴吧分类</a></li>
-                            <li><a href="javascript:;" onclick="bar_add('添加贴吧','<{:U('Bar/add')}>')"><i class="Hui-iconfont">&#xe613;</i> 贴吧</a></li>
+                            <li><a href="javascript:;" onclick="admin_add('添加管理员','<{:U('User/adminadd')}>','','510')"><i class="Hui-iconfont">&#xe62d;</i> 管理员</a></li>
+                            <li><a href="javascript:;" onclick="bartype_add('添加贴吧分类','<{:U('Classify/add')}>','','510')"><i class="Hui-iconfont">&#xe616;</i> 贴吧分类</a></li>
+                            <li><a href="javascript:;" onclick="bar_add('添加贴吧','<{:U('Bar/add')}>','','510')"><i class="Hui-iconfont">&#xe613;</i> 贴吧</a></li>
                             <li><a href="javascript:;" onclick="member_add('添加用户','<{:U('User/add')}>','','510')"><i class="Hui-iconfont">&#xe611;</i> 用户</a></li>
                         </ul>
                     </li>
@@ -48,7 +48,7 @@
                     <li>超级管理员</li>
                     <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="#">个人信息</a></li>
+                            <li><a href="<{:U('User/info')}>"  data-title="个人信息" href="javascript:;">个人信息</a></li>
                             <li><a href="#">切换账户</a></li>
                             <li><a href="#">退出</a></li>
                         </ul>
@@ -78,7 +78,6 @@
                 <ul>
                     <li><a _href="<{:U('User/index')}>" data-title="用户列表" href="javascript:;">用户列表</a></li>
                     <li><a _href="<{:U('User/recycle')}>" data-title="用户回收站" href="javascript:;">用户回收站</a></li>
-                    <li><a _href="<{:U('User/grade')}>" data-title="等级管理" href="javascript:;">等级管理</a></li>
                     <li><a _href="<{:U('User/exp')}>" data-title="经验值管理" href="javascript:;">经验值管理</a></li>
                 </ul>
             </dd>
@@ -140,9 +139,9 @@
             <dt><i class="Hui-iconfont">&#xe602;</i>个人信息<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="info-password.html" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
-                    <li><a _href="info-list.html" data-title="个人信息" href="javascript:void(0)">个人信息列表</a></li>
-                    <li><a _href="info-update.html" data-title="修改个人信息" href="javascript:void(0)">修改个人信息</a></li>
+                    <li><a _href="<{:U('User/password')}>" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
+                    <li><a _href="<{:U('User/info')}>" data-title="个人信息" href="javascript:void(0)">个人信息列表</a></li>
+                    <li><a _href="<{:U('User/update')}>" data-title="修改个人信息" href="javascript:void(0)">修改个人信息</a></li>
                 </ul>
             </dd>
         </dl>
@@ -150,13 +149,7 @@
             <dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li>
-                    <li><a _href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
-                    <li><a _href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li>
-                    <li><a _href="charts-4.html" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>
-                    <li><a _href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
-                    <li><a _href="charts-6.html" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li>
-                    <li><a _href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>
+                    <li><a _href="<{:U('System/index')}>" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
                 </ul>
             </dd>
         </dl>
@@ -198,31 +191,22 @@
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript">
 /*管理员-添加*/
-function admin_add(title,url){
-    var index = layer.open({
-        type: 2,
-        title: title,
-        content: url
-    });
-    layer.full(index);
+function admin_add(title,url,w,h){
+     layer_show(title,url,w,h);
 }
 /*贴吧类型-添加*/
-function bartype_add(title,url){
-    var index = layer.open({
-        type: 2,
-        title: title,
-        content: url
-    });
-    layer.full(index);
+function bartype_add(title,url,w,h){
+     layer_show(title,url,w,h);
 }
 /*贴吧-添加*/
-function bar_add(title,url){
-    var index = layer.open({
-        type: 2,
-        title: title,
-        content: url
-    });
-    layer.full(index);
+function bar_add(title,url,w,h){
+     layer_show(title,url,w,h);
+    // var index = layer.open({
+    //     type: 2,
+    //     title: title,
+    //     content: url
+    // });
+    // layer.full(index);
 }
 /*用户-添加*/
 function member_add(title,url,w,h){

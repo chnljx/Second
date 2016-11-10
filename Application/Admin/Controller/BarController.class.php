@@ -6,17 +6,21 @@ class BarController extends AdminController
 {
     public function index()
     {
-        echo 'Bar';
+        $this->assign('title','贴吧管理');
+        $this->assign('part','贴吧列表');
+        $this->display();
     }
 
     public function add()
     {
-       	echo 'add bar';
+        $this->display();
     }
   
   	// 创建贴吧请求
   	public function beg()
     {
-       	echo 'add bar beg';
+       	$this->assign('title','贴吧管理');
+        $this->assign('part','创建贴吧请求');
+        $this->display();
     }
 }
