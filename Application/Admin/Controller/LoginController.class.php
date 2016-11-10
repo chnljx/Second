@@ -1,8 +1,51 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class LoginController extends AdminController {
-    public function index(){
+
+/**
+* 后台登录操作
+*
+* @author michael <chnljx@126.com>
+* @version 1.0
+*/
+class LoginController extends AdminController 
+{
+    /**
+     * 显示登录界面
+     * @access public        
+     * @return void
+     */
+    public function index()
+    {
         $this->display();
+    }
+
+    /**
+     * 验证码
+     * @access public        
+     * @return void
+     */
+    public function get_verify()
+    {
+        $config = array(
+            'length'        => 1,           // 验证码位数
+            'fontSize'      => 20,          // 验证码字体大小（像素）
+            'imageW'        => 205,         // 验证码宽度
+            'imageH'        => 41,          // 验证码高度
+            'expire'        => 30,          // 验证码的有效期（秒）
+            'reset'         => false,      // 验证成功后是否重置  
+        );
+        $Verify = new \Think\Verify($config);
+        $Verify->entry();
+    }
+
+    /**
+     * 登录
+     * @access public        
+     * @return void
+     */
+    public function dologin()
+    {
+
     }
 }
