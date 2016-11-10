@@ -31,9 +31,7 @@ class LoginController extends AdminController
             'length'        => 1,           // 验证码位数
             'fontSize'      => 20,          // 验证码字体大小（像素）
             'imageW'        => 205,         // 验证码宽度
-            'imageH'        => 41,          // 验证码高度
-            'expire'        => 30,          // 验证码的有效期（秒）
-            'reset'         => false,      // 验证成功后是否重置  
+            'imageH'        => 41,          // 验证码高度 
         );
         $Verify = new \Think\Verify($config);
         $Verify->entry();
@@ -45,7 +43,13 @@ class LoginController extends AdminController
      * @return void
      */
     public function dologin()
-    {
-
+    {   
+        $User = D("User"); // 实例化User对象
+        if (!$User->create()){
+        // 如果创建失败 表示验证没有通过 输出错误提示信息
+            $this->ajaxReturn($User->getError());
+        }else{
+        // 验证通过 可以进行其他数据操作
+        }
     }
 }
