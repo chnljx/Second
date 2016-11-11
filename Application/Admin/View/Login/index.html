@@ -84,20 +84,28 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         $(this).attr('src', src_img+'?verify='+Math.random());
     })
 
-    var error = [];
+    var error;
     $('#name').blur(function(){
       $.ajax({
         type: "POST",
         url: "<{:U('Login/dologin')}>",
         data: "name="+$("#name").val(),
         success: function(msg){
-          if(msg){
-            $('#tips').html(msg);
-            error['name'] = 0;              
-          }else{
-            $('#tips').html('');
-            error['name'] = 1;              
-          }                   
+          switch(msg){
+            case "101":
+              $('#tips').html('');
+              $('#tips').html('请您填写用户名/邮箱');
+              error = 101;
+              break;
+            case "102":
+              $('#tips').html('');
+              error = 102;
+              break;
+            default:
+              $('#tips').html('');
+              error = 100;
+              break;
+          }       
         }
       });
     });
@@ -108,32 +116,49 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         url: "<{:U('Login/dologin')}>",
         data: "passwd="+$("#passwd").val(),
         success: function(msg){
-          if(msg){
-            $('#tips').html(msg);
-            error['passwd'] = 0;              
-          }else{
-            $('#tips').html('');
-            error['passwd'] = 1;              
-          }                   
+          switch(msg){
+            case "103":
+              $('#tips').html('');
+              $('#tips').html('请您填写密码');
+              error = 103;
+              break;
+            case "102":
+              $('#tips').html('');
+              error = 102;
+              break;
+            default:
+              $('#tips').html('');
+              error = 100;
+              break;
+          }                  
         }
       });
     });
 
     $('#verify').blur(function(){
-            $.ajax({
-                type: "POST",
-                url: "<{:U('Login/dologin')}>",
-                data: "verify="+$("#verify").val(),
-                success: function(msg){
-                    if(msg){
-                      $('#tips').html(msg);
-                      error['verify'] = 0;              
-                    }else{
-                      $('#tips').html('');
-                      error['verify'] = 1;              
-                    }                   
-                }
-            });
+      $.ajax({
+        type: "POST",
+        url: "<{:U('Login/dologin')}>",
+        data: "verify="+$("#verify").val(),
+        success: function(msg){
+          switch(msg){
+            case "104":
+              $('#tips').html('');
+              $('#tips').html('请您填写验证码');
+              error = 104;
+              break;
+            case "105":
+              $('#tips').html('');
+              $('#tips').html('验证码错误');
+              error = 105;
+              break;
+            default:
+              $('#tips').html('');
+              error = 100;
+              break;
+          }                    
+        }
+      });
     });
 
     $('#submitbtn').click(function(){
@@ -152,11 +177,12 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         return false;
       }
 
-      if(error['name'] == 0){
+      if(error == 100){
+        return true;
+      }else if(error == 102){
+        $('#tips').html('帐号或密码错误');
         return false;
-      }else if(error['passwd'] == 0){
-        return false;
-      }else if(error['verify'] == 0){
+      }else{
         return false;
       }
     });
