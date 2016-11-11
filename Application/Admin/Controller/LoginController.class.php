@@ -50,6 +50,7 @@ class LoginController extends AdminController
             $this->ajaxReturn($User->getError());
         }else{
         // 验证通过 可以进行其他数据操作
+            $this->redirect('index/index');
         }
     }
 }
