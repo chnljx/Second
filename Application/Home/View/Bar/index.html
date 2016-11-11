@@ -8,7 +8,7 @@
     <meta name="author" content="">
 	
     <title>Newspaper</title>
-	
+   
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
 	
@@ -34,6 +34,11 @@
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
     <![endif]-->
+ <style>
+		.setchose ul li{float: left;width: 100px;list-style: none;}
+    </style>
+	
+
 </head>
 
 <body>
@@ -263,7 +268,7 @@
 							<div class="zoom-container">
 								<div class="zoom-caption">
 								</div>
-								<!-- <img src="__PUBLIC__/looK/images/9.jpg" /> -->
+								<img src="__PUBLIC__/looK/images/9.jpg" />
 							</div>
 							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor inviduntut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.justo duo dolores et ea rebum. Consetetur sadipscing elitr,  consetetur sadipscing elitr elitr. <a href="#">MORE...</a></p>
 						</div>
@@ -338,6 +343,42 @@
 						</div>
 					</div>
 					<hr class="line">
+					<div class="box">
+						<a href="#"><h2 class="vid-name">帖子标题4</h2></a>
+						<div class="info">
+							<h5>By <a href="#">作者名</a></h5>
+							<span><i class="fa fa-calendar"></i> 发表时间</span> 
+							<span><i class="fa fa-comment"></i> 回复数</span>
+							<span><i class="fa fa-heart"></i>被收藏数</span>
+							<ul class="list-inline">
+								<li><a href="#">浏览热度</a></li>
+								<li> - </li>
+								<li>
+									<span class="rating">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+									</span>
+								</li>
+							</ul>
+						</div>
+						<div class="wrap-vid">
+							<div class="zoom-container">
+								<div class="zoom-caption">
+									<span class="vimeo">Vimeo</span>
+									<a href="single.html">
+										<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+									</a>
+									<p>Video's Name</p>
+								</div>
+								<!-- <img src="__PUBLIC__/looK/images/6.jpg" /> -->
+							</div>
+							<p>帖子内容</p>
+							
+						</div>
+					</div><hr class="line">
 					<div class="box">
 						<a href="#"><h2 class="vid-name">帖子标题4</h2></a>
 						<div class="info">
@@ -526,8 +567,7 @@
 								<h3 class="vid-name"><a href="#">我的等级：1</a></h3>
 								<div class="info">
 									<h5><span class="glyphicon glyphicon-user"></span><a href="#">我的本吧信息</a></h5>
-									<!-- <span><i class="fa fa-calendar"></i>25/3/2015</span>  -->
-									<!-- <span><i class="fa fa-heart"></i>1,200</span> -->
+								
 
 								</div>
 							</div>
@@ -575,11 +615,41 @@
 		</div>
 	</div>
 
+	<!-- <hr> -->
+
+<!-- 发帖开始 -->
+<div style="width:770px;margin-left:47px;">
+<hr class="line">
+<div class="box" style="background-color: #f7f7f7;">
+	<a href="#"><h2 class="vid-name"> <span class="glyphicon glyphicon-share"></span> 发帖</h2></a>
+	<form action="">
+	<div class="info">
+		<p>标题
+		<input type="text" name="title">
+		</p>
+	<div class="setchose" style="border:1px solid #999;width:400px;height:30px;">
+		<ul >
+			<li><span class="glyphicon glyphicon-picture"></span>图片</li>			
+			<li><span class="glyphicon glyphicon-file"></span>附件</li>			
+			<li><span class="glyphicon glyphicon-comment"></span>话题</li>			
+		</ul>
+	</div>	
+	</div>
+	<div>
+		<textarea name="" id="" cols="50" rows="7"></textarea>
+	</div>
+	<input type="submit" value="发表">
+</form>
+</div>
+</div>
+
+<!-- 发帖结束-->
+
 	<footer>
-		<div class="wrap-footer">
+		<!-- <div class="wrap-footer">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-4 col-footer footer-1">
+				<div class="row"> -->
+					<!-- <div class="col-md-4 col-footer footer-1">
 						<div class="footer-heading"><h1><span style="color: #fff;">NEWSPAPER</span></h1></div>
 						<div class="content">
 							<p>Never missed any post published in our site. Subscribe to our daly newsletter now.</p>
@@ -589,8 +659,8 @@
 								<input type="submit" value="SUBSCRIBE" class="btn btn-3" />
 							</form>
 						</div>
-					</div>
-					<div class="col-md-4 col-footer footer-2">
+					</div> -->
+				<!-- 	<div class="col-md-4 col-footer footer-2">
 						<div class="footer-heading"><h4>Tags</h4></div>
 						<div class="content">
 							<a href="#">animals</a>
@@ -617,8 +687,8 @@
 							<a href="#">pagination</a>
 							<a href="#">wildlife</a>
 						</div>
-					</div>
-					<div class="col-md-4 col-footer footer-3">
+					</div> -->
+					<!-- <div class="col-md-4 col-footer footer-3">
 						<div class="footer-heading"><h4>Link List</h4></div>
 						<div class="content">
 							<ul>
@@ -628,13 +698,15 @@
 								<li><a href="#">STARTUP COMPANY’S CO-FOUNDER TALKS ON HIS NEW PRODUCT</a></li>
 							</ul>
 						</div>
-					</div>
-				</div>
+					</div> -->
+		<!-- 		</div>
 			</div>
-		</div>
-		<div class="copy-right">
+		</div> -->
+		<!-- <div class="copy-right">
 			<p>Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-		</div>
+		</div> -->
+
+		
 	</footer>
 	<!-- Footer -->
 	
