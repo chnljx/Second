@@ -8,5 +8,6 @@ class UserModel extends Model{
         array('verify','require','请您填写验证码'),
         array('verify','check_verify','验证码不正确',0,'function'), 
         array('name','require','请您填写用户名/邮箱'),
+        array('passwd','require','请您填写密码'),
     );
 }

@@ -84,19 +84,39 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         $(this).attr('src', src_img+'?verify='+Math.random());
     })
 
+    var error = [];
     $('#name').blur(function(){
-            $.ajax({
-                type: "POST",
-                url: "<{:U('Login/dologin')}>",
-                data: "name="+$("#name").val(),
-                success: function(msg){
-                    if(msg){
-                      $('#tips').html(msg);              
-                    }else{
-                      $('#tips').html('');
-                    }                   
-                }
-            });
+      $.ajax({
+        type: "POST",
+        url: "<{:U('Login/dologin')}>",
+        data: "name="+$("#name").val(),
+        success: function(msg){
+          if(msg){
+            $('#tips').html(msg);
+            error['name'] = 0;              
+          }else{
+            $('#tips').html('');
+            error['name'] = 1;              
+          }                   
+        }
+      });
+    });
+
+    $('#passwd').blur(function(){
+      $.ajax({
+        type: "POST",
+        url: "<{:U('Login/dologin')}>",
+        data: "passwd="+$("#passwd").val(),
+        success: function(msg){
+          if(msg){
+            $('#tips').html(msg);
+            error['passwd'] = 0;              
+          }else{
+            $('#tips').html('');
+            error['passwd'] = 1;              
+          }                   
+        }
+      });
     });
 
     $('#verify').blur(function(){
@@ -106,9 +126,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
                 data: "verify="+$("#verify").val(),
                 success: function(msg){
                     if(msg){
-                      $('#tips').html(msg);              
+                      $('#tips').html(msg);
+                      error['verify'] = 0;              
                     }else{
                       $('#tips').html('');
+                      error['verify'] = 1;              
                     }                   
                 }
             });
@@ -127,6 +149,14 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
       if($('#verify').val() == ""){
         $('#tips').html('请您填写验证码');
+        return false;
+      }
+
+      if(error['name'] == 0){
+        return false;
+      }else if(error['passwd'] == 0){
+        return false;
+      }else if(error['verify'] == 0){
         return false;
       }
     });
