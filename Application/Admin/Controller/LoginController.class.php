@@ -25,7 +25,7 @@ class LoginController extends AdminController
      * @access public        
      * @return void
      */
-    public function get_verify()
+    public function getVerify()
     {
         $config = array(
             'length'        => 1,           // 验证码位数
@@ -38,19 +38,22 @@ class LoginController extends AdminController
     }
 
     /**
-     * 登录
+     * ajax验证
      * @access public        
      * @return void
      */
-    public function dologin()
+    public function doLogin()
     {   
         $User = D("User"); // 实例化User对象
         if (!$User->create()){
-        // 如果创建失败 表示验证没有通过 输出错误提示信息
-            $this->ajaxReturn($User->getError());
+            // 如果创建失败 表示验证没有通过 输出错误提示信息
+            if(IS_AJAX){
+                $this->ajaxReturn($User->getError());
+            }else{
+                $this->error($User->getError());
+            }
         }else{
-        // 验证通过 可以进行其他数据操作
-            $this->redirect('index/index');
+            // 验证通过 可以进行其他数据操作
         }
     }
 }
