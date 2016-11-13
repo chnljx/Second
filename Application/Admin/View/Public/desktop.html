@@ -94,23 +94,23 @@
         <tbody>
             <tr>
                 <td>当前浏览器语言 </td>
-                <td><{:print_r($_SERVER['HTTP_ACCEPT_LANGUAGE'])}></td>
+                <td><{$_SERVER['HTTP_ACCEPT_LANGUAGE']}></td>
             </tr>
             <tr>
                 <td>当前浏览器版本 </td>
-                <td><{:print_r($_SERVER['HTTP_USER_AGENT'])}></td>
+                <td><{$_SERVER['HTTP_USER_AGENT']}></td>
             </tr>
             <tr>
                 <td>服务器IP地址</td>
-                <td><{:print_r($_SERVER['REMOTE_ADDR'])}></td>
+                <td><{$_SERVER['SERVER_ADDR']}></td>
             </tr>
             <tr>
                 <td>服务器域名</td>
-                <td><{:print_r($_SERVER['SERVER_NAME'])}></td>
+                <td><{$_SERVER['SERVER_NAME']}></td>
             </tr>
             <tr>
                 <td>服务器端口 </td>
-                <td><{:print_r($_SERVER['SERVER_PORT'])}></td>
+                <td><{$_SERVER['SERVER_PORT']}></td>
             </tr>
             <tr>
                 <td>服务器PHP版本 </td>
@@ -125,8 +125,8 @@
                 <td><{:date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME'])}></td>
             </tr>
             <tr>
-                <td>服务器CPU数量</td>
-                <td><{:print_r($_SERVER['PROCESSOR_IDENTIFIER'])}></td>
+                <td>服务器系统类型及版本号</td>
+                <td><{:php_uname()}></td>
             </tr>
         </tbody>
     </table>
