@@ -70,15 +70,26 @@ class LoginController extends AdminController
                 $map = [];
                 $map['name|email'] = I('post.name');
                 $map['passwd'] = md5(I('post.passwd'));
-                $chcek = M('User');
-                $data = $chcek->where($map)->find();
-                if($data){
+                $data = $User->where($map)->find();
+                if ($data) {
                     session('uid', $data['id']);
                     session('name', $data['name']);
+                    session('loginnum', $data['loginnum']+1);
+                    session('lastdate', $data['lastdate']);
+                    session('lastip', $data['lastip']);
+
+                    // 登录次数自增
+                    $User->where(session('uid'))->setInc('loginnum', 1);
+                    // 更新登录时间和IP
+                    $last['lastdate'] = time();
+                    $last['lastip'] = get_client_ip();
+                    $User->where(session('uid'))->save($last);
+
                     $this->redirect('Index/index');
-                }else{
+                } else {
                     $this->error('账号或密码错误');
                 }
+                
             }
         }
     }
