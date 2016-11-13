@@ -11,6 +11,18 @@ use Think\Controller;
 class LoginController extends AdminController 
 {
     /**
+    * 进入页面时判断是否已经登录
+    * @return void
+    */
+    public function _initialize()
+    {
+        if(session('?uid'))
+        {
+            $this->redirect('Index/index');
+        }
+    }
+
+    /**
      * 显示登录界面
      * @access public        
      * @return void
@@ -54,6 +66,20 @@ class LoginController extends AdminController
             }
         }else{
             // 验证通过 可以进行其他数据操作
+            if(!IS_AJAX){
+                $map = [];
+                $map['name|email'] = I('post.name');
+                $map['passwd'] = md5(I('post.passwd'));
+                $chcek = M('User');
+                $data = $chcek->where($map)->find();
+                if($data){
+                    session('uid', $data['id']);
+                    session('name', $data['name']);
+                    $this->redirect('Index/index');
+                }else{
+                    $this->error('账号或密码错误');
+                }
+            }
         }
     }
 }

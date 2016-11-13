@@ -84,7 +84,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         $(this).attr('src', src_img+'?verify='+Math.random());
     });
 
-    var error = [];
+    var flag = false;
     $('#name').blur(function(){
       $.ajax({
         type: 'POST',
@@ -93,10 +93,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         success: function(msg){
           if(msg){
             $('#tips').html(msg);
-            error['name'] = 0;
           }else{
             $('#tips').html('');
-            error['name'] = 1;
           }
         }
       });
@@ -110,10 +108,8 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
         success: function(msg){
           if(msg){
             $('#tips').html(msg);
-            error['passwd'] = 0;
           }else{
             $('#tips').html('');
-            error['passwd'] = 1;
           }
         }
       });
@@ -123,39 +119,41 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       $.ajax({
         type: 'POST',
         url: "<{:U('Login/doLogin')}>",
-        data: 'verify='+$('#verify').val()+'&name='+$('#name').val()+'&passwd='+$('#passwd').val(),
+        data: 'verify='+$('#verify').val(),
         success: function(msg){
           if(msg){
             $('#tips').html(msg);
-            error['verify'] = 0;
+            flag = false;
           }else{
             $('#tips').html('');
-            error['verify'] = 1;
+            flag = true;
           }
         }
       });
     });
 
     $('#submitbtn').click(function(){
-      if($('#name').val() == ""){
+      if($('#name').val() == ''){
         $('#tips').html('请您填写用户名/邮箱');
         return false;
       }
 
-      /*if($('#passwd').val() == ""){
+      if($('#passwd').val() == ''){
         $('#tips').html('请您填写密码');
         return false;
       }
 
-      if($('#verify').val() == ""){
+      if($('#verify').val() == ''){
         $('#tips').html('请您填写验证码');
         return false;
-      }*/
+      }
 
-      if(error['name'] == 0){
-        $('#tips').html('请您填写用户名/邮箱');
+      if(!flag){
+        verify_img.attr('src', src_img+'?verify='+Math.random());
+        $('#tips').html('验证码错误');
         return false;
       }
+    
     });
 </script>
 </body>
