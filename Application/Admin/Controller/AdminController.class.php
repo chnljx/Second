@@ -26,7 +26,7 @@ class AdminController extends Controller
     */
     public function _initialize()
     {
-    	if(!session('?uid'))
+    	if(!session('?admin_user'))
     	{
     		$this->redirect('Login/index');
     	}
