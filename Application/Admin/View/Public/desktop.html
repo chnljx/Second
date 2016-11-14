@@ -26,8 +26,8 @@
 <body>
 <div class="page-container">
     <p class="f-20 text-success">欢迎进入阡陌后台管理！</p>
-    <p>登录次数：<{$Think.session.loginnum}> </p>
-    <p>上次登录IP：<{$Think.session.lastip}>  上次登录时间：<{$Think.session.lastdate|date="Y-m-d H:i:s",###}></p>
+    <p>登录次数：<{$Think.session.admin_user.loginnum}> </p>
+    <p>上次登录IP：<{$Think.session.admin_user.lastip}>  上次登录时间：<{$Think.session.admin_user.lastdate|date="Y-m-d H:i:s",###}></p>
     <table class="table table-border table-bordered table-bg">
         <thead>
             <tr>
