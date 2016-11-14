@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><{$title}></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace.min.css" />
+	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-skins.min.css" />
+</head>
+<body>
+	
+	<form action="<{:U('Type/doadd')}>" method="post" class='col-md-4'>
+		
+		<div class="form-group">
+		<label for="#" class="">添加分类名称：</label>
+		  <div class="input-group">
+		  	 <input type="text" name="name" class="form-control" aria-label="Amount (to the nearest dollar)">
+			  
+			  <span class="input-group-btn">
+			  	<button class="btn btn-default btn-sm">添加</button>
+			  </span>
+			  
+		  </div>
+		</div>
+		 <input type="hidden" name="pid" value="<present name="Think.get.pid"><{$Think.get.pid}><else />0</present>">
+
+	</form>
+</body>
+</html>
