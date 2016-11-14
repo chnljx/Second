@@ -13,8 +13,12 @@ class UserController extends AdminController
 {
     public function index()
     {
-        $this->assign('title','用户管理');
-        $this->assign('part','用户列表');
+        $this->assign('title', '用户管理');
+        $this->assign('part', '用户列表');
+
+        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 3')->buildSql())->select();
+        // V($data);exit;
+        $this->assign('list', $data);
         $this->display();
     }
 
@@ -27,7 +31,7 @@ class UserController extends AdminController
     public function recycle()
     {
         $this->assign('title','用户管理');
-        $this->assign('part','用户回收站');
+        $this->assign('part','回收站');
         $this->display('User:user-del');
     }
 
@@ -42,17 +46,9 @@ class UserController extends AdminController
     // 吧主列表
     public function list()
     {
-        $this->assign('title','吧主管理');
+        $this->assign('title','用户管理');
         $this->assign('part','吧主列表');
         $this->display('User:barboss-index');
-    }
-  
-    // 申请吧主
-    public function beg()
-    {
-        $this->assign('title','吧主管理');
-        $this->assign('part','申请吧主');
-        $this->display('User:barboss-add');
     }
 
     // 管理员列表
