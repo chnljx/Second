@@ -30,5 +30,27 @@ class AdminController extends Controller
     	{
     		$this->redirect('Login/index');
     	}
+
+        // V($_SESSION);
+
+        //权限过滤
+        $mname = CONTROLLER_NAME; //获取控制器名
+        $aname = ACTION_NAME; //获取方法名
+
+        // echo $mname.'/'.$aname;
+
+        $nodelist = session('admin_user.nodelist'); //获取权限列表
+
+        // V($_SESSION);
+
+        //让超级管理员admin拥有所有权限
+        if(session('admin_user.name') != 'admin'){
+            //验证操作权限
+            if(empty($nodelist[$mname]) || !in_array($aname,$nodelist[$mname])){               
+                $this->display('Public:limit');
+                exit;
+            }
+
+        }
     }
 }

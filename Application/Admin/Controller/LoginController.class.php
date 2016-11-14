@@ -55,7 +55,7 @@ class LoginController extends AdminController
      * @return void
      */
     public function doLogin()
-    {   
+    {     
         $User = D("User"); // 实例化User对象
         if (!$User->create()){
             // 如果创建失败 表示验证没有通过 输出错误提示信息
@@ -67,10 +67,15 @@ class LoginController extends AdminController
         }else{
             // 验证通过 可以进行其他数据操作
             if(!IS_AJAX){
+                // 手动清空验证码session
+                session('d2d977c58444271d9c780187e93f80e5',null);
+
                 $map = [];
                 $map['name|email'] = I('post.name');
                 $map['passwd'] = md5(I('post.passwd'));
                 $data = $User->where($map)->find();
+
+                // 如果用户名和密码匹配则进入，否则显示错误
                 if ($data) {
                     $data['loginnum'] += 1;
                     session('admin_user', $data);
@@ -81,6 +86,38 @@ class LoginController extends AdminController
                     $last['lastdate'] = time();
                     $last['lastip'] = get_client_ip();
                     $User->where(session('admin_user.id'))->save($last);
+
+                    //根据用户id获取对应的节点信息
+                    $list = M('node')->field('mname,aname')->where('id in'.M('role_node')->field('nid')->where("rid in ".M('user_role')->field('rid')->where(array('uid'=>array('eq',$data['id'])))->buildSql())->buildSql())->select();
+
+                    //控制器名转换为大写
+                    foreach ($list as $key => $val) {
+                        $list[$key]['mname'] = ucfirst($val['mname']);
+                    }
+
+                    //查看查询出来的信息
+                    // V($list); exit;
+
+                    $nodelist = array();
+                    $nodelist['Index'] = array('index','desktop');
+                    $nodelist['Logout'] = array('index','desktop');
+                    //遍历重新拼装
+                    foreach($list as $v){
+                        $nodelist[$v['mname']][] = $v['aname'];
+                        //把修改和执行修改 添加和执行添加 拼装到一起
+                        if($v['aname']=="edit"){
+                            $nodelist[$v['mname']][]="save";
+                        }
+                        if($v['aname']=="add"){
+                            $nodelist[$v['mname']][]="doadd";
+                        }
+                    }
+
+                    //将权限信息放置到session中
+                    $_SESSION['admin_user']['nodelist'] = $nodelist;
+
+                    //重组的信息
+                    // V($_SESSION);exit;
 
                     $this->redirect('Index/index');
                 } else {
