@@ -6,7 +6,7 @@ class IndexController extends AdminController {
         $this->display();
     }
 
-    public function welcome(){
-        $this->display('Public:welcome');
+    public function desktop(){
+        $this->display('Public:desktop');
     }
 }
