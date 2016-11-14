@@ -5,7 +5,7 @@ use Think\Controller;
 /**
 * UserController  用户表控制器
 *
-* @author xiao
+* @author michael
 * @version 1.0
 */
 
@@ -17,8 +17,9 @@ class UserController extends AdminController
         $this->assign('part', '用户列表');
 
         $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 3')->buildSql())->select();
-        // V($data);exit;
+        // V(count($data));exit;
         $this->assign('list', $data);
+        $this->assign('num', count($data));
         $this->display();
     }
 
@@ -27,19 +28,37 @@ class UserController extends AdminController
         $this->display('User:user-add');
     }
 
-    // 用户回收站
-    public function recycle()
-    {
-        $this->assign('title','用户管理');
-        $this->assign('part','回收站');
-        $this->display('User:user-del');
+    public function addAction()
+    {   
+        $User = D("UserAdd"); // 实例化User对象
+        if (!$User->create()){
+            // 如果创建失败 表示验证没有通过 输出错误提示信息
+            if(IS_AJAX){    
+                $this->ajaxReturn($User->getError());
+            }else{
+                $this->error($User->getError());
+            }
+        }else{
+            // 验证通过 可以进行其他数据操作
+            if(!IS_AJAX){
+                $id = $User->add();
+                if($id){
+                    $data['uid'] = $id;
+                    $data['rid'] = 3;
+                    M('user_role')->add($data);
+                    $this->success('添加成功');
+                }else{
+                    $this->error('添加失败');
+                }
+            }
+        }
     }
 
     // 经验值
     public function exp()
     {
         $this->assign('title','用户管理');
-        $this->assign('part','经验值');
+        $this->assign('part','等级列表');
         $this->display('User:user-exp');
     }
 

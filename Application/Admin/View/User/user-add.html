@@ -33,77 +33,57 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+	<form action="<{:U('User/addAction')}>" method="post" class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-			</div>
+			<div class="formControls col-xs-8 col-sm-5">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+			</div><span style="color: red; line-height: 30px;" id="nametips"></span>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" checked>
+					<input name="sex" type="radio" id="sex-1" value="1">
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="sex">
+					<input type="radio" id="sex-2" name="sex" value="2">
 					<label for="sex-2">女</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-3" name="sex">
+					<input type="radio" id="sex-3" name="sex" value="3" checked>
 					<label for="sex-3">保密</label>
 				</div>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<div class="formControls col-xs-8 col-sm-5">
 				<input type="text" class="input-text" value="" placeholder="" id="mobile" name="mobile">
-			</div>
+			</div><span style="color: red; line-height: 30px;" id="mobiletips">
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="email" id="email">
-			</div>
+			<div class="formControls col-xs-8 col-sm-5">
+				<input type="text" class="input-text" name="email" id="email">
+			</div><span style="color: red; line-height: 30px;" id="emailtips"></span>
 		</div>
-		<div class="row cl">
-			
+		<div class="row cl">			
 			<label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>密码：</label>
-			<div class="formControls col-xs-4 col-sm-3">
-				<input type="password" class="input-text" placeholder="输入6~14位字母、数字" name="password" id="password">
-			</div>
-		
+			<div class="formControls col-xs-4 col-sm-5">
+				<input type="password" class="input-text" placeholder="输入6~14位字母、数字和符号" name="passwd" id="passwd">
+			</div><span style="color: red; line-height: 30px;" id="passwdtips"></span>			
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>确认密码：</label>
-			<div class="formControls col-xs-4 col-sm-3">
-				<input type="password" class="input-text" placeholder="输入6~14位字母、数字" name="password" id="password">
-			</div>
-			
-		</div>
-		
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
-					<option value="" selected>请选择城市</option>
-					<option value="1">北京</option>
-					<option value="2">上海</option>
-					<option value="3">广州</option>
-				</select>
-				</span> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">备注：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="textarealength(this,100)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
-			</div>
+			<div class="formControls col-xs-4 col-sm-5">
+				<input type="password" class="input-text" placeholder="输入6~14位字母、数字和符号" name="repasswd" id="repasswd">
+			</div><span style="color: red; line-height: 30px;" id="repasswdtips"></span>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button class="btn btn-primary radius" type="submit" id="submitbtn">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</form>
@@ -123,45 +103,92 @@
 <!--请在下方写此页面业务相关的脚本--> 
 <script type="text/javascript">
 $(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
+	$('#name').blur(function(){
+		$.ajax({
+			type: 'POST',
+			url: "<{:U('User/addAction')}>",
+			data: 'name='+$('#name').val(),
+			success: function(msg){
+	          if(msg){
+	            $('#nametips').html(msg);
+	          }else{
+	            $('#nametips').html('');
+	          }
+	        }
+		});
 	});
-	
-	$("#form-member-add").validate({
-		rules:{
-			username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
-			sex:{
-				required:true,
-			},
-			mobile:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
-				required:true,
-			},
-			
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
-			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-		}
+
+	$('#mobile').blur(function(){
+		$.ajax({
+			type: 'POST',
+			url: "<{:U('User/addAction')}>",
+			data: 'mobile='+$('#mobile').val(),
+			success: function(msg){
+	          if(msg){
+	            $('#mobiletips').html(msg);
+	          }else{
+	            $('#mobiletips').html('');
+	          }
+	        }
+		});
 	});
+
+	$('#email').blur(function(){
+		$.ajax({
+			type: 'POST',
+			url: "<{:U('User/addAction')}>",
+			data: 'email='+$('#email').val(),
+			success: function(msg){
+	          if(msg){
+	            $('#emailtips').html(msg);
+	          }else{
+	            $('#emailtips').html('');
+	          }
+	        }
+		});
+	});
+
+	$('#passwd').blur(function(){
+		$.ajax({
+			type: 'POST',
+			url: "<{:U('User/addAction')}>",
+			data: 'passwd='+$('#passwd').val(),
+			success: function(msg){
+	          if(msg){
+	            $('#passwdtips').html(msg);
+	          }else{
+	            $('#passwdtips').html('');
+	          }
+	        }
+		});
+	});
+
+	$('#submitbtn').click(function(){
+      	if($('#name').val() == ''){
+        	$('#nametips').html('请您填写用户名');
+        	return false;
+      	}
+
+		if($('#mobile').val() == ''){
+        	$('#mobiletips').html('请您填写手机');
+        	return false;
+     	}
+
+      	if($('#email').val() == ''){
+        	$('#emailtips').html('请您填写邮箱');
+        	return false;
+      	}
+
+      	if($('#passwd').val() == ''){
+        	$('#passwdtips').html('请您填写密码');
+        	return false;
+      	}
+
+      	if($('#repasswd').val() == ''){
+        	$('#repasswdtips').html('请您填写确认密码');
+        	return false;
+      	}
+    });
 });
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
