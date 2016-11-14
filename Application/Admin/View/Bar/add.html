@@ -37,10 +37,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
 			<div class="formControls col-xs-8 col-sm-9">
+
 				<select class="select" size="1" name="type">
-					<option value="1" selected>娱乐</option>
-					<option value="2">生活</option>
-					<option value="3">体育</option>
+					<volist name="list" id="vo">
+						<option value="<{$vo.id}>" {$ov['pid']?'disabled':''}>
+							<{$vo.html}><{$vo.name}>
+						</option>
+					</volist>
 				</select>
 			</div>
 		</div>
@@ -55,6 +58,12 @@
 			<div class="formControls col-xs-8 col-sm-9">
 				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="textarealength(this,50)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/50</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="radio" value="0">禁用
+				<input class="btn btn-primary radius" type="radio" value="1">启用
 			</div>
 		</div>
 		<div class="row cl">
