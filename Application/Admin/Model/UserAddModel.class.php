@@ -9,8 +9,8 @@ class UserAddModel extends Model{
         // array(验证字段2,验证规则,错误提示,[验证条件,附加规则,验证时间])
         array('name', 'require', '请您填写用户名'),
         array('name','','帐号名称已经存在',0,'unique',1),
-        array('mobile', 'require', '请您填写手机'),
-        array('mobile', '/^1[34578]{1}\d{9}$/', '手机格式不正确'),
+        array('phone', 'require', '请您填写手机'),
+        array('phone', '/^1[34578]{1}\d{9}$/', '手机格式不正确'),
         array('email', 'require', '请您填写邮箱'),
         array('email', 'email', '邮箱格式不正确'),
         array('passwd', 'require', '请您填写密码'),
