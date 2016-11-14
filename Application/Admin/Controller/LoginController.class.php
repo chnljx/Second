@@ -16,7 +16,7 @@ class LoginController extends AdminController
     */
     public function _initialize()
     {
-        if(session('?uid'))
+        if(session('?admin_user'))
         {
             $this->redirect('Index/index');
         }
@@ -72,18 +72,15 @@ class LoginController extends AdminController
                 $map['passwd'] = md5(I('post.passwd'));
                 $data = $User->where($map)->find();
                 if ($data) {
-                    session('uid', $data['id']);
-                    session('name', $data['name']);
-                    session('loginnum', $data['loginnum']+1);
-                    session('lastdate', $data['lastdate']);
-                    session('lastip', $data['lastip']);
+                    $data['loginnum'] += 1;
+                    session('admin_user', $data);
 
                     // 登录次数自增
-                    $User->where(session('uid'))->setInc('loginnum', 1);
+                    $User->where(session('admin_user.id'))->setInc('loginnum', 1);
                     // 更新登录时间和IP
                     $last['lastdate'] = time();
                     $last['lastip'] = get_client_ip();
-                    $User->where(session('uid'))->save($last);
+                    $User->where(session('admin_user.id'))->save($last);
 
                     $this->redirect('Index/index');
                 } else {
