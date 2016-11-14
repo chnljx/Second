@@ -33,12 +33,12 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+	<form action="<{:U('Bar/doadd')}>" method="post" class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<div class="formControls col-xs-8 col-sm-6">
 
-				<select class="select" size="1" name="type">
+				<select class="select" size="1" name="typeid">
 					<volist name="list" id="vo">
 						<option value="<{$vo.id}>" {$ov['pid']?'disabled':''}>
 							<{$vo.html}><{$vo.name}>
@@ -49,25 +49,39 @@
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>吧名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-			</div>
+			<div class="formControls col-xs-8 col-sm-6">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+				
+			</div><span style="color: red; line-height: 30px;" id="nametips"></span>
 		</div>
+		<!-- <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上传头像：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" name="picname">
+			</div>
+		</div> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">简介：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="textarealength(this,50)"></textarea>
+			<div class="formControls col-xs-8 col-sm-6">
+				<textarea name="descr" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="textarealength(this,50)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/50</p>
 			</div>
 		</div>
 		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="radio" value="0">禁用
-				<input class="btn btn-primary radius" type="radio" value="1">启用
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="state" type="radio" id="status-1" checked>
+					<label for="status-1">启用</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-2" name="state">
+					<label for="status-2">禁用</label>
+				</div>
 			</div>
 		</div>
 		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<div class="col-xs-8 col-sm-6 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 			</div>
 		</div>
@@ -86,49 +100,9 @@
 <!--/_footer /作为公共模版分离出去--> 
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript">
-$(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#form-member-add").validate({
-		rules:{
-			username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
-			sex:{
-				required:true,
-			},
-			mobile:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
-				required:true,
-			},
-			
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
-			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-		}
-	});
-});
-</script> 
+
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>
+ 
+		

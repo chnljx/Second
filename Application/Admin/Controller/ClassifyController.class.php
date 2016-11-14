@@ -2,7 +2,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 
-class ClassifyController extends AdminController
+class classifyController extends AdminController
 {
     public function index()
     {
