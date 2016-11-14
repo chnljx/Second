@@ -62,14 +62,12 @@ class LoginController extends AdminController
             if(IS_AJAX){
                 $this->ajaxReturn($User->getError());
             }else{
-                $this->error($User->getError());
+                cookie('name', I('post.name'));
+                $this->error($User->getError(), U('Login/index'));
             }
         }else{
             // 验证通过 可以进行其他数据操作
             if(!IS_AJAX){
-                // 手动清空验证码session
-                session('d2d977c58444271d9c780187e93f80e5',null);
-
                 $map = [];
                 $map['name|email'] = I('post.name');
                 $map['passwd'] = md5(I('post.passwd'));

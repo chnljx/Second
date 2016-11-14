@@ -33,7 +33,7 @@
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
-          <input id="name" name="name" type="text" placeholder="用户名/邮箱" class="input-text size-L">
+          <input id="name" name="name" type="text" placeholder="用户名/邮箱" class="input-text size-L" value="<{$Think.cookie.name}>">
         </div>
       </div>
       <div class="row cl">
@@ -114,24 +114,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
       });
     });
 
-    var flag = false;
-    $('#verify').blur(function(){
-      $.ajax({
-        type: 'POST',
-        url: "<{:U('Login/doLogin')}>",
-        data: 'verify='+$('#verify').val(),
-        success: function(msg){
-          if(msg){
-            $('#tips').html(msg);
-            flag = false;
-          }else{
-            $('#tips').html('');
-            flag = true;
-          }
-        }
-      });
-    });
-
     $('#submitbtn').click(function(){
       if($('#name').val() == ''){
         $('#tips').html('请您填写用户名/邮箱');
@@ -145,12 +127,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
       if($('#verify').val() == ''){
         $('#tips').html('请您填写验证码');
-        return false;
-      }
-
-      if(!flag){
-        $('#tips').html('验证码错误');
-        verify_img.attr('src', src_img+'?verify='+Math.random());
         return false;
       }
     });
