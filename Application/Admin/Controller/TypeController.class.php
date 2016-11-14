@@ -48,7 +48,7 @@ class TypeController extends AdminController
       //获取分类管理
       $list=$type->getHomeCate();
       $this->assign('list',$list);
-      var_dump($list);
+
       $this->display();
     }
 

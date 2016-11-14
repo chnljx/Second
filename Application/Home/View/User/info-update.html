@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<title>个人设置</title> 
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/setinfo.css" /> 
+</head> 
+<body> 
+<!-- main -->
+<div id="content"> 
+    <div class="mod-setting clearfix"> 
+        <div class="setting-title yahei">个人设置</div> 
+        <div class="setting-content clearfix"> 
+            <div class="setting-menu"> 
+                <div class="menu-title menu-profile-current active"> 
+                    <h3>个人资料</h3> 
+                </div> 
+                  <ul class="menu-list"> 
+                   <li class="menu-item basic-link on"><a href="">基本资料</a> </li>
+                   <li class="menu-split"> </li>
+                   <li class="menu-item details-link"><a href="">修改密码</a> </li>
+                   <li class="menu-split"> </li>
+                   <li class="menu-split"> </li>
+                   <li class="menu-item portrait-link"><a href="">头像设置</a> </li>
+                  </ul> 
+                  <div class="menu-title menu-privacy" id="settingPrivacy"> 
+                   <h3>隐私设置</h3> 
+                  </div> 
+                  <ul class="menu-list"> 
+                   <li class="menu-item tieba-link" id="settingPrivacyTieba"><a href="">我在贴吧</a> </li>
+                   <li class="menu-split"> </li>
+                   <li class="menu-item zhidao-link" id="settingPrivacyZhidao"><a href="">我在知道</a> </li>
+                   <li class="menu-split"> </li>
+                   <li class="menu-item wenku-link" id="settingPrivacyWenku"><a href="">我在文库</a> </li>
+                   <li class="menu-split"> </li>
+                   <li class="menu-item baike-link" id="settingPrivacyBaike"><a href="">我在百科</a> </li>
+                   <li class="menu-split"> </li>
+                  </ul> 
+                 </div> 
+                 <div class="setting-detail" id="stthld" style="display: block;"> 
+                  <div class="detail-bg"></div> 
+                  <div class="plzhld clearfix">
+                   <div class="mod-setting-profile" id="1000001" style="display: block;"> 
+                    <div class="setting-profile-title yahei">
+                     <{$title}>
+                    </div> 
+                    <bolck name='main'>
+                    <form id="profile" class="setting-profile-form" method="POST" action=""> 
+                    <table class="setting-profile-table"> 
+                    <tbody> 
+                        <tr> 
+                            <th>性别:</th> 
+                            <td class="line30"> 
+                              	<input name="passport_sex" id="passport-sex-1" type="radio" value="1" /> <label class="profile-gender" for="passport-sex-1">男</label> 
+                              	<input name="passport_sex" id="passport-sex-2" type="radio" value="2" /> <label for="passport-sex-2" class="profile-gender">女</label> 
+                            </td>
+                        </tr>
+                        <tr> 
+                            <th>生日:</th> 
+                            <td> 
+                              <select class="sel_year" rel="2000"> </select> 年 
+                              <select class="sel_month" rel="2"> </select> 月 
+                              <select class="sel_day" rel="14"> </select> 日  
+                         	  </td>
+                        </tr>
+                     
+                        <script src="__PUBLIC__/js/jquery.js"></script> 
+                        <script src="__PUBLIC__/js/birthday.js"></script> 
+                              
+                        <tr> 
+                            <th>居住地:</th> 
+                            <td> 
+                            	<select name="province"></select>
+                              <select name="city"></select>
+                              <select name="area"></select>
+                            </td>
+                        </tr> 
+                        <tr> 
+                            <th class="personal-detail-th">个人简介:</th> 
+                            <td class="personal-detail-td"> 
+                            	<textarea name="passport_userdetail" id="passport_userdetail" class="mod-cus-input mod-cus-input-4"></textarea> <span class="mod-cus-input-tip"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table> 
+                    <input type="submit" class="setting-submit-btn setting-submit-ml100" value="保存" />
+                    </form>
+                    </block> 
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+<script>
+  $(function () { 
+  $.ms_DatePicker({ 
+          YearSelector: ".sel_year", 
+          MonthSelector: ".sel_month", 
+          DaySelector: ".sel_day" 
+    }); 
+  });
+
+</script>
+</body>
+</html>
