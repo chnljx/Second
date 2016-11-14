@@ -22,12 +22,8 @@
 	
 	<!-- Custom Fonts -->
     <link rel="stylesheet" href="__PUBLIC__/look/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
-	
-	<!-- jQuery and Modernizr-->
-	<script src="__PUBLIC__/look/js/jquery-2.1.1.js"></script>
-	
-	<!-- Core JavaScript Files -->  	 
-    <script src="__PUBLIC__/look/js/bootstrap.min.js"></script>
+
+	<block name='head'></block>
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,16 +47,7 @@
 <div class="collapse navbar-collapse navbar-ex1-collapse">
 <ul class="nav navbar-nav">
 	<li><a href="<{:U('Home/Index/index')}>">首页</a></li>
-	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">选择<i class="fa fa-arrow-circle-o-down"></i></a>
-		<div class="dropdown-menu">
-			<div class="dropdown-inner">
-				<ul class="list-unstyled">
-					<li><a href="<{:U('Home/Login/index')}>">登录</a></li>
-					<li><a href="<{:U('Home/Index/re')}>">注册</a></li>
-				</ul>
-			</div>
-		</div>
-	</li>
+	
 	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">类型吧<i class="fa fa-arrow-circle-o-down"></i></a>
 		<div class="dropdown-menu">
 			<div class="dropdown-inner">
@@ -84,6 +71,9 @@
 	   </div>
 	</form>
     </li>
+    
+	<li><a href="<{:U('Home/Login/index')}>">登录</a></li>
+    <li><a href="<{:U('Home/Index/re')}>">注册</a></li>
   </ul>
  </div>
 </nav> <!--导航结束--> 
@@ -675,6 +665,11 @@
 <!-- Footer -->
 
 <!-- JS -->
+<!-- jQuery and Modernizr-->
+<script src="__PUBLIC__/look/js/jquery-2.1.1.js"></script>
+
+<!-- Core JavaScript Files -->  	 
+<script src="__PUBLIC__/look/js/bootstrap.min.js"></script>
 <script src="__PUBLIC__/look/owl-carousel/owl.carousel.js"></script>
 <script>
 $(document).ready(function() {

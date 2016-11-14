@@ -60,24 +60,30 @@
 </head>
 
 <body>
-<header>
 <!-- 模态框 -->
- <div class="modal fade" id='myModal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal fade" id='myModal' style='width:0;height:0;'  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">表情列表</h4>
+          <h4 class="modal-title">添加常逛的吧</h4>
+        </div>
+        <div style='border-bottom:1px solid #ddd'>k</div>
+        <div class="modal-body" style='border-bottom:1px solid #ddd'>
+            吧名称：<input type="text">
+            <button class='btn-primary'>添加</button>
+        </div>
+        <div class="modal-header">
+          <h4 class="modal-title">贴吧精选</h4>
+        </div>
+        <div class="modal-body" style='border-bottom:1px solid #ddd'>
+            。。。。。。。
+        </div>
+        <div class="modal-header">
+          <h4 class="modal-title">分类精选</h4>
         </div>
         <div class="modal-body">
-          <p>小白</p>
-          <p>柯南</p>
-          <p>火影</p>
-          <p>...</p>
-          <p>大白</p>
-          <p>皮卡丘</p>
-          <p>天线宝宝</p>
-
+           。。。。。。。。。。。。。
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><span class='glyphicon glyphicon-off'></span></button>
@@ -86,24 +92,26 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+<header>
+
 	<!--Top-->
 	<nav id="top">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<strong>欢迎来到海贼王吧</strong>
-				</div>
-				<div class="col-md-6">
-					<ul class="list-inline top-link link">
-						<li><a href="index.html"><i class="fa fa-home"></i> 吧名</a></li>
-						<li><a href="contact.html"><i class="fa fa-comments"></i>吧主 </a></li>
-						<li><a href="#"><i class="fa fa-question-circle"></i> 关于此吧</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</nav>
-</header>	
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Welcome to US!</strong>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-inline top-link link">
+            <li><a href="index.html"><i class="fa fa-home"></i> 回到首页</a></li>
+            <li><a href="contact.html"><i class="fa fa-comments"></i> 关于我们</a></li>
+            <li><a href="#"><i class="fa fa-question-circle"></i> 帮助</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
 <!--END Header -->
 
 <!-- main -->
@@ -120,7 +128,7 @@
      <div class="userinfo_middle">
       <div class="userinfo_relation">
        <div class="btn_grounps">
-        <a class="btn-sub btn-small" target="_blank" href=""><i class="icon-edit"></i>编辑资料</a>
+        <a class="btn-sub btn-small" target="_blank" href="<{:U('User:update')}>"><i class="icon-edit"></i>编辑资料</a>
        </div> 
       </div>
       <div class="userinfo_title"> 
@@ -160,21 +168,21 @@
           </div></li> 
          <li> 
           <div class="tbnav_tab_inner"> 
-           <p class="space"> <a class="nav_icon nav_msg" href="" locate="tab_msg#ihome_v1" target="_blank">通知</a></p> 
+           <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:list')}>" locate="tab_msg#ihome_v1" target="_blank">通知</a></p> 
            <span></span> 
           </div></li> 
          <li> 
           <div class="tbnav_tab_inner"> 
-           <p class="space"> <a class="nav_icon nav_collect" href="" locate="tab_collect#ihome_v1" target="_blank">收藏</a></p> 
+           <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:list')}>" locate="tab_collect#ihome_v1" target="_blank">收藏</a></p> 
            <span></span> 
           </div></li> 
          <li> 
           <div class="tbnav_tab_inner"> 
-           <p class="space"> <a class="nav_icon nav_concern" href="" locate="tab_forum#ihome_v1" target="_blank">关注的吧</a></p> 
+           <p class="space"> <a class="nav_icon nav_concern" href="<{:U('User:list')}>" locate="tab_forum#ihome_v1" target="_blank">关注的吧</a></p> 
           </div></li> 
          <li> 
           <div class="tbnav_tab_inner"> 
-           <p class="space"> <a class="nav_icon nav_post" href="" locate="tab_post#ihome_v1" target="_blank">贴子</a></p> 
+           <p class="space"> <a class="nav_icon nav_post" href="<{:U('User:list')}>" locate="tab_post#ihome_v1" target="_blank">贴子</a></p> 
           </div></li> 
          <li> 
           <div class="tbnav_tab_inner"> 

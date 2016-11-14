@@ -20,15 +20,8 @@ class UserController extends HomeController
     */ 
     public function update()
     {
+        $this->assign('title','基本资料');
         $this->display('User:info-update');
-    }
-
-     /*
-        设置的首页
-    */ 
-    public function set()
-    {
-        $this->display('User:set-index');
     }
 
     /*
@@ -36,6 +29,7 @@ class UserController extends HomeController
     */ 
     public function headimg()
     {
+        $this->assign('title','头像设置');
         $this->display('User:img-update');
     }
 
