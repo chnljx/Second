@@ -28,6 +28,7 @@ class UserController extends AdminController
         $this->display('User:user-add');
     }
 
+    // 用户添加操作
     public function addAction()
     {   
         $User = D("UserAdd"); // 实例化User对象
@@ -52,6 +53,39 @@ class UserController extends AdminController
                 }
             }
         }
+    }
+
+    // 禁用帐号操作
+    public function memberStop()
+    {   
+        // echo I('post.id');exit;
+        $data['state'] = 0;
+        $msg = M('User')->where('id='.I('post.id'))->save($data);
+        if($msg === false){
+            echo "停用失败";
+            exit;
+        }
+    }
+
+    // 启用帐号操作
+    public function memberStart()
+    {   
+        // echo I('post.id');exit;
+        $data['state'] = 1;
+        $msg = M('User')->where('id='.I('post.id'))->save($data);
+        if($msg === false){
+            echo "启用失败";
+            exit;
+        }
+    }
+
+    // 显示用户信息
+    public function memberShow()
+    {
+        // $data = M('User')->where('id='.I('get.id'))->find();
+        // V($data);
+        $this->assign('list', $data);
+        $this->display('User:member-show');
     }
 
     // 经验值
