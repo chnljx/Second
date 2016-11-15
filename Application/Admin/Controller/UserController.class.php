@@ -149,19 +149,23 @@ class UserController extends AdminController
         }
     }
 
+    // 吧主列表
+    public function list()
+    {
+        $this->assign('title','用户管理');
+        $this->assign('part','吧主列表');
+        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->select();
+        // V(count($data));exit;
+        $this->assign('list', $data);
+        $this->assign('num', count($data));
+        $this->display('User:barboss-index');
+    }
+
     // 经验值
     public function exp()
     {
         $this->assign('title','用户管理');
         $this->assign('part','等级列表');
         $this->display('User:member-exp');
-    }
-
-    // 吧主列表
-    public function list()
-    {
-        $this->assign('title','用户管理');
-        $this->assign('part','吧主列表');
-        $this->display('User:barboss-index');
     }
 }
