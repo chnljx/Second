@@ -50,15 +50,20 @@ class BarController extends AdminController
         $bar = M('bar');
         //过滤数据,数据验证
         if (!$bar->create()) {
-            if(!IS_AJAX){
-                $this->ajaxReturn($bar->getError());
-            }else{
-                //如果创建数据失败,表示验证没有通过
-                //输出错误信息 并且跳转
-                 $this->error($bar->getError()); 
-            }      
-        } else {
             
+            //如果创建数据失败,表示验证没有通过
+            //输出错误信息 并且跳转
+             $this->error($bar->getError()); 
+               
+        } else {
+            if (empty($_POST['typeid'])) {
+                $this->error('贴吧类型不能为空');
+                return false;
+            }
+            if (empty($_POST['name'])) {
+                $this->error('贴吧名不能为空或0');
+                return false;
+            }
             // 验证通过 执行添加操作
             // 执行添加
             if (M('bar')->add() > 0) {
@@ -76,10 +81,23 @@ class BarController extends AdminController
     * @access public        
     * @return void
     */  
-  	public function beg()
+  	public function barbeg()
     {
        	$this->assign('title','贴吧管理');
         $this->assign('part','创建贴吧请求');
-        $this->display();
+        $this->display('Bar:beg-bar');
+    }
+
+    /**
+    * 用户申请吧主请求页面
+    * @access public        
+    * @return void
+    */  
+    // 申请吧主
+    public function beg()
+    {
+        $this->assign('title','吧主管理');
+        $this->assign('part','申请吧主');
+        $this->display('Bar:beg-barboss');
     }
 }

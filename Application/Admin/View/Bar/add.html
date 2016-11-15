@@ -38,14 +38,15 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
 			<div class="formControls col-xs-8 col-sm-6">
 
-				<select class="select" size="1" name="typeid">
+				<select id='select' class="select" size="1" name="typeid">
+					<option value="">--请选择--</option>
 					<volist name="list" id="vo">
 						<option value="<{$vo.id}>" {$ov['pid']?'disabled':''}>
 							<{$vo.html}><{$vo.name}>
 						</option>
 					</volist>
 				</select>
-			</div>
+			</div><span style="color: red; line-height: 30px;" id="selecttips"></span>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>吧名：</label>
@@ -100,7 +101,46 @@
 <!--/_footer /作为公共模版分离出去--> 
 
 <!--请在下方写此页面业务相关的脚本--> 
-
+<script>
+	$('.select').blur(function(){
+		if ($('.select').val()=='') {
+			$('#selecttips').html('请选择贴吧类别');
+		}else{
+			$('#selecttips').html('');
+		}
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: "<{:U('Bar/doadd')}>",
+		// 	data: 'name='+$('#select').val(),
+		// 	success: function(msg){
+	 //          if(msg){
+	 //            $('#selecttips').html(msg);
+	 //          }else{
+	 //            $('#selecttips').html('');
+	 //          }
+	 //        }
+		// });
+	});
+	$('#name').blur(function(){
+		if ($('#name').val()=='') {
+			$('#nametips').html('请输入贴吧名称');
+		}else{
+			$('#nametips').html('');
+		}
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: "<{:U('Bar/doadd')}>",
+		// 	data: 'name='+$('#name').val(),
+		// 	success: function(msg){
+	 //          if(msg){
+	 //            $('#nametips').html(msg);
+	 //          }else{
+	 //            $('#nametips').html('');
+	 //          }
+	 //        }
+		// });
+	});
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>
