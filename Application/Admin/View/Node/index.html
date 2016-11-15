@@ -32,6 +32,9 @@
 		<thead>
 			<tr class="text-c">
 				<th width="25" style="display: none;"><input type="checkbox" name="" value=""></th>
+				<th width="25" style="display: none;"><input type="text"></th>
+				<th width="25" style="display: none;"><input type="text"></th>
+				<th width="25" style="display: none;"><input type="text"></th>
 				<th>ID</th>
 				<th>节点名</th>
 				<th>模块名</th>
@@ -44,6 +47,9 @@
 			<foreach name="list" item="vo" >
 				<tr class="text-c">
 					<td style="display: none;"><input type="checkbox" value="1" name=""></td>
+					<td style="display: none;"><input type="text"></td>
+					<td style="display: none;"><input type="text"></td>
+					<td style="display: none;"><input type="text"></td>
 					<td><{$vo.id}></td>
 					<td><{$vo.name}></td>
 					<td><{$vo.mname}></td>

@@ -238,39 +238,40 @@
 	<!-- Header -->
 	
 	<!-- /////////////////////////////////////////Content -->
-	<div id="page-content" class="archive-page container">
-		<div class="">
-			<div class="row">
-				<div id="main-content" class="col-md-8">
-					<div class="box">
-						<center><div class="box-header">
-							<h1 class="center">登录</h1>
-						</div></center>
-						<div class="box-content">
-							<div id="contact_form">
-								<form name="form1" id="ff" method="post" action="contact.php">
-									<label>
-									<span>请输入手机号</span>
-									<input type="text"  name="name" id="name" required>
-									</label>
-									<label>
-									<span>请输入密码</span>
-									<input type="password"  name="password" id="name" required>
-									</label>
-									<label>
-									<span>请输入验证码:</span>
-									<input type="text"  name="exc" id="name" required>
-									</label>
-								<!-- 	<label>
-									<span>Your message here:</span>
-									<textarea name="message" id="message"></textarea>
-									</label> -->
-									<center><input class="sendButton" type="submit" name="Submit" value="确认登录"></center>
-								</form>
-							</div>
-						</div>
-					</div>
+<div id="page-content" class="archive-page container">
+<div class="">
+<div class="row">
+	<div id="main-content" class="col-md-8">
+		<div class="box">
+			<center><div class="box-header">
+				<h1 class="center">登录</h1>
+			</div></center>
+			<div class="box-content">
+				<div id="contact_form">
+					<form name="form1" id="ff" method="post" action="contact.php">
+						<label>
+						<span>请输入手机号</span>
+						<input type="text"  name="name" id="name" required>
+						</label>
+						<label>
+						<span>请输入密码</span>
+						<input type="password"  name="password" id="password" required>
+						</label>
+						<label>
+						<span>请输入验证码:</span>
+						<p>
+						<input style="width:200px;" type="text"  name="exc" id="verify" required><img style="float:left;" id="verify_img" src="<{:U('Login/getVerify')}>" title="看不清，换一张" style="cursor:pointer"></p>
+						</label>
+					<!-- 	<label>
+						<span>Your message here:</span>
+						<textarea name="message" id="message"></textarea>
+						</label> -->
+						<center><input class="sendButton" type="submit" name="Submit" value="确认登录"></center>
+					</form>
 				</div>
+			</div>
+		</div>
+	</div>
 				<div id="sidebar" class="col-md-4">
 					<!---- Start Widget ---->
 					<div class="widget wid-follow">
@@ -516,6 +517,7 @@
 
     });
     </script>
-	
+ 
+
 </body>
 </html>
