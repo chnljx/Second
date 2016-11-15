@@ -23,9 +23,9 @@ class UserController extends AdminController
         $this->display();
     }
 
-    public function add()
+    public function memberAdd()
     {
-        $this->display('User:user-add');
+        $this->display('User:member-add');
     }
 
     // 用户添加操作
@@ -70,7 +70,6 @@ class UserController extends AdminController
     // 启用帐号操作
     public function memberStart()
     {   
-        // echo I('post.id');exit;
         $data['state'] = 1;
         $msg = M('User')->where('id='.I('post.id'))->save($data);
         if($msg === false){
@@ -82,10 +81,68 @@ class UserController extends AdminController
     // 显示用户信息
     public function memberShow()
     {
-        // $data = M('User')->where('id='.I('get.id'))->find();
-        // V($data);
+        $data = M('User')->where('id='.I('get.id'))->find();
         $this->assign('list', $data);
         $this->display('User:member-show');
+    }
+
+    // 用户信息修改
+    public function memberEdit()
+    {
+        $data = M('User')->where('id='.I('get.id'))->find();
+        $this->assign('list', $data);
+        $this->display('User:member-edit');
+    }
+
+    // 用户信息修改操作
+    public function editAction()
+    {
+        $User = D("UserEdit"); // 实例化User对象
+        if (!$User->create()){
+            // 如果创建失败 表示验证没有通过 输出错误提示信息
+            // if(IS_AJAX){    
+                // $this->ajaxReturn($User->getError());
+            // }else{
+                $this->error($User->getError());
+            // }
+        }else{
+            // 验证通过 可以进行其他数据操作
+            if($_FILES['picname']['name'] != ''){
+                $config = array(
+                    'maxSize' => 3145728,
+                    'rootPath' => './Upload/img/avatar/',
+                    'saveName' => array('uniqid',''),
+                    'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+                    'autoSub' => true,
+                    'subName' => array('date','Ymd'),
+                );
+                $upload = new \Think\Upload($config);// 实例化上传类
+                // 上传单个文件
+                $info = $upload->uploadOne($_FILES['picname']);
+                if(!$info) {// 上传错误提示错误信息
+                    $this->error($upload->getError());
+                }else{// 上传成功 获取上传文件信息
+                    $path = $info['savepath'].$info['savename'];
+                    $image = new \Think\Image();
+                    $image->open("./Upload/img/avatar/".$path);
+                    // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
+                    $path = time().$info['savename'];
+                    $image->thumb(90, 90)->save('./Upload/img/avatar-thumb/'.$path);
+                }
+            }
+            
+            if($path != ''){
+                $map['picname'] = $path;
+            }
+            $map['sex'] = $_POST['sex'];
+            $map['email'] = $_POST['email'];
+            $map['phone'] = $_POST['phone'];
+            $map['code'] = $_POST['code'];
+            $map['birthday'] = strtotime($_POST['birthday']);
+            $map['descr'] = $_POST['descr'];
+            $User->where('id='.$_POST['id'])->save($map); // 根据条件更新记录
+            $this->success('修改成功');
+        }
     }
 
     // 经验值
@@ -93,7 +150,7 @@ class UserController extends AdminController
     {
         $this->assign('title','用户管理');
         $this->assign('part','等级列表');
-        $this->display('User:user-exp');
+        $this->display('User:member-exp');
     }
 
     // 吧主列表
@@ -102,51 +159,5 @@ class UserController extends AdminController
         $this->assign('title','用户管理');
         $this->assign('part','吧主列表');
         $this->display('User:barboss-index');
-    }
-
-    // 管理员列表
-    public function adminlist()
-    {
-        $this->assign('title','管理员管理');
-        $this->assign('part','管理员列表');
-        $this->display('User:admin-index');
-    }
-
-    // 管理员添加
-    public function adminadd()
-    {
-        $this->display('User:admin-add');
-    }
-  
-    // 权限设置
-    public function limit()
-    {
-        $this->assign('title','管理员管理');
-        $this->assign('part','权限设置');
-        $this->display('User:admin-limit');
-    }
-
-    //个人信息
-    public function info()
-    {
-        $this->assign('title','个人信息');
-        $this->assign('part','个人信息列表');
-        $this->display('User:info');
-    }
-
-    //修改密码
-    public function password()
-    {
-        $this->assign('title','个人信息');
-        $this->assign('part','修改密码');
-        $this->display('User:password');
-    }
-
-    //修改个人信息
-    public function update()
-    {
-        $this->assign('title','个人信息');
-        $this->assign('part','修改个人信息');
-        $this->display('User:info-update');
     }
 }
