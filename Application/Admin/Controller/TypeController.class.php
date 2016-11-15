@@ -11,12 +11,15 @@ class TypeController extends AdminController
       //获取分类信息
       $list=$type->getAdminCate();
       $this->assign('title','贴吧分类管理');
+      $this->assign('part', '贴吧分类列表');
       $this->assign('list',$list);
       $this->display();
     }
 
     public function add()
     {
+      $this->assign('title','贴吧分类管理');
+      $this->assign('part', '添加分类');
       $this->display();
     }
   
@@ -48,6 +51,8 @@ class TypeController extends AdminController
       //获取分类管理
       $list=$type->getHomeCate();
       $this->assign('list',$list);
+      $this->assign('title','贴吧分类管理');
+      $this->assign('part', '贴吧分类树');
 
       $this->display();
     }
