@@ -20,11 +20,13 @@
 </head>
 <body>
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> <{$title}> <span class="c-gray en">&gt;</span> <{$part}> <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-	<div class="page-container">
-		<div class="mt-20">
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="member_add('添加分类','<{:U('Type/add')}>','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加分类</a></span> <span class="r">共有数据：<strong><{$num}></strong> 条</span> </div>
+	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
+				<th width="25" style="display: none;"><input type="checkbox" name="" value=""></th>
 				<th>id</th>
 				<th>类别名</th>
 				<th>父id</th>
@@ -33,21 +35,56 @@
 			</tr>
 		</thead>
 		<tbody>
-			<volist name="list" id="vo">
+			<foreach name="list" item="vo" >
 				<tr class="text-c">
+					<td style="display: none;"><input type="checkbox" value="1" name=""></td>
 					<td><{$vo.id}></td>
 					<td><{$vo.name}></td>
 					<td><{$vo.pid}></td>
 					<td><{$vo.path}></td>
 					<td>
-						<a href="<{:U('Type/add',array('pid'=>$vo['id']))}>">添加子分类</a>
+						<!-- <a href="<{:U('Type/add',array('pid'=>$vo['id']))}>">添加子分类</a> -->
+						<a href="javascript:;" onclick="member_add('添加分类','<{:U('Type/add')}>?pid=<{$vo.id}>','','510')" >添加子分类</a>
 						<a href="<{:U('Type/del',array('id'=>$vo['id']))}>">删除</a>
 					</td>
 				</tr>
-			</volist>
+			</foreach>
 		</tbody>
 	</table>
     </div>
 </div>
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript">
+	$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			$('tr:selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+/*用户-添加*/
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+
+</script>
 </body>
 </html>

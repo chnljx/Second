@@ -19,6 +19,7 @@
 			$this->assign("list",$list);
 			$this->assign('title','节点管理');
       		$this->assign('part', '节点列表');
+      		$this->assign('num', count($list));
 			//加载模板
 			$this->display();
 		}
@@ -74,7 +75,7 @@
 
 		//执行修改操作
 		public function save(){
-			//初始化
+			// 初始化
 			// if(!$this->_model->create()){
 			// 	$this->error($this->_model->getError());
 			// 	exit;

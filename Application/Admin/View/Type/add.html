@@ -6,31 +6,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
 	<title><{$title}></title>
-<!-- 	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
-	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace.min.css" />
-	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-rtl.min.css" />
-	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-skins.min.css" /> -->
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
-<!-- 	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
-	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace.min.css" />
-	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-rtl.min.css" />
-	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-skins.min.css" /> -->
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
-	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> <{$title}> <span class="c-gray en">&gt;</span> <{$part}>
-	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
-    </nav>
-	<br>
-	
-	<form action="<{:U('Type/doadd')}>" method="post" class='col-md-4'>
+
+	<form action="<{:U('Type/doadd')}>" method="post" class="form form-horizontal" id="form-member-add">
 		
-		<div class="form-group">
+		<!-- <div class="form-group">
 		<label for="#" class=""><h3>添加分类名称：</h3></label>
 		<br>
 		  <div class="input-group">
@@ -41,9 +32,19 @@
 			  </span>
 			  
 		  </div>
+		</div> -->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>要添加分类名称：</label>
+			<div class="formControls col-xs-8 col-sm-5">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+			</div><span style="color: red; line-height: 30px;" id="nametips"></span>
 		</div>
 		 <input type="hidden" name="pid" value="<present name="Think.get.pid"><{$Think.get.pid}><else />0</present>">
-
+        <div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button class="btn btn-primary radius" type="submit" id="submitbtn">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+			</div>
+		</div>
 	</form>
 </body>
 </html>

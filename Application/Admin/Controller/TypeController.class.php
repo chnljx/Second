@@ -12,6 +12,7 @@ class TypeController extends AdminController
       $list=$type->getAdminCate();
       $this->assign('title','贴吧分类管理');
       $this->assign('part', '贴吧分类列表');
+      $this->assign('num', count($list));
       $this->assign('list',$list);
       $this->display();
     }
@@ -35,7 +36,7 @@ class TypeController extends AdminController
     };
     //执行添加
     if($type->add()>0){
-      $this->success("添加成功！",U('Type/index'));
+      $this->success("添加成功！",U('Type/add'));
     }else{
       $this->error("添加失败");
     }
