@@ -4,6 +4,7 @@ namespace Admin\Model;
 use \Think\Model;
 
 class TypeModel extends Model{
+<<<<<<< HEAD
     protected $_validate = array(
       array('name','require','分类名不能为空'), //新增或修改时判断username格式
     );
@@ -12,6 +13,8 @@ class TypeModel extends Model{
         array('path','getPath',1,'callback'),  
     );
 
+=======
+>>>>>>> xiao
 
     //获取路径的方法
     protected function getPath(){
@@ -35,6 +38,7 @@ class TypeModel extends Model{
         $list = $this->field($field)->select();
 
         //处理分类信息
+<<<<<<< HEAD
         $list =  $this->getHtmlCate($list, '——', $id, 0);
        // V($list);
         //返回
@@ -58,14 +62,20 @@ class TypeModel extends Model{
             $arr['child'] = $list;
             return $arr;
         }
+=======
+        $list =  $this->getHtmlCate($list, '★', $id, 0);
+>>>>>>> xiao
        // V($list);
         //返回
         return $list;
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> xiao
     /**
      * [unlimitCate 得到经过排序的分类二维数组,用于后台分级显示]
      * @param  [type]  $cate  [结果集]
@@ -90,6 +100,7 @@ class TypeModel extends Model{
         return $arr;
     }
 
+<<<<<<< HEAD
 
     /**
      * [menu 处理返回多维分类数组,用于前台导航显示]
@@ -163,3 +174,6 @@ class TypeModel extends Model{
     }
 
 }
+=======
+}
+>>>>>>> xiao

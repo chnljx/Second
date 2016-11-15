@@ -16,4 +16,8 @@ return array(
     'TMPL_R_DELIM'          =>  '}>',               // 模板引擎普通标签结束标记
     
     'SHOW_PAGE_TRACE'       =>  true,               // 显示页面Trace信息
+     //配置上传目录
+    'TMPL_PARSE_STRING' =>array(
+        '__UPLOAD__' => __ROOT__.'/Upload',
+    ),
 );
