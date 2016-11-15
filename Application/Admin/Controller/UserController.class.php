@@ -134,11 +134,15 @@ class UserController extends AdminController
             if($path != ''){
                 $map['picname'] = $path;
             }
+
+            if($_POST['birthday'] != ''){
+                $map['birthday'] = strtotime($_POST['birthday']);
+            }
+
             $map['sex'] = $_POST['sex'];
             $map['email'] = $_POST['email'];
             $map['phone'] = $_POST['phone'];
             $map['code'] = $_POST['code'];
-            $map['birthday'] = strtotime($_POST['birthday']);
             $map['descr'] = $_POST['descr'];
             $User->where('id='.$_POST['id'])->save($map); // 根据条件更新记录
             $this->success('修改成功');

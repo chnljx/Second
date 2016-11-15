@@ -11,6 +11,6 @@ class UserEditModel extends Model{
         array('phone', '/^1[34578]{1}\d{9}$/', '手机格式不正确'),
         array('email', 'require', '请您填写邮箱'),
         array('email', 'email', '邮箱格式不正确'),
-        array('code', '/^[0-9]{6}$/', '请正确填写您的邮政编码'),
+        array('code', '/^[0-9]{6}$/', '请正确填写您的邮政编码', 2),
     );
 }

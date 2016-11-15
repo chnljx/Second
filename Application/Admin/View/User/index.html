@@ -37,7 +37,7 @@
 				<th width="40">性别</th>
 				<th width="90">手机</th>
 				<th width="150">邮箱</th>
-				<th width="">地址</th>
+				<th width="">个人简介</th>
 				<th width="130">注册时间</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>
@@ -57,7 +57,7 @@
 					</td>
 					<td><{$vo.phone}></td>
 					<td><{$vo.email}></td>
-					<td class="text-l"><{$vo.addr}></td>
+					<td class="text-l"><{$vo.descr}></td>
 					<td><{$vo.regtime|date="Y-m-d H:i:s",###}></td>
 					<td class="td-status">
 						<if condition="$vo.state eq '0'"><span class="label label-error radius">已停用</span>
