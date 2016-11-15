@@ -31,7 +31,7 @@ class TypeController extends AdminController
     $type = D('Type');
     //初始化数据
     if(!$type->create()){
-      $this->error($this->_model->getError());
+      $this->error($type->getError());
       exit;
     };
     //执行添加
