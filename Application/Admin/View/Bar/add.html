@@ -33,7 +33,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<{:U('Bar/doadd')}>" method="post" class="form form-horizontal" id="form-member-add">
+	<form action="<{:U('Bar/doAdd')}>" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
 			<div class="formControls col-xs-8 col-sm-6">
@@ -55,12 +55,12 @@
 				
 			</div><span style="color: red; line-height: 30px;" id="nametips"></span>
 		</div>
-		<!-- <div class="row cl">
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上传头像：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<div class="formControls col-xs-8 col-sm-6">
 				<input type="file" name="picname">
 			</div>
-		</div> -->
+		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>简介：</label>
 			<div class="formControls col-xs-8 col-sm-6">
@@ -72,11 +72,11 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="state" type="radio" id="status-1" checked value='0'>
+					<input name="state" type="radio" id="status-1" checked value='1'>
 					<label for="status-1">启用</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="status-2" name="state" value='1'>
+					<input type="radio" id="status-2" name="state" value='0'>
 					<label for="status-2">禁用</label>
 				</div>
 			</div>
