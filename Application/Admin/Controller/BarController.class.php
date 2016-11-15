@@ -20,7 +20,7 @@ class BarController extends AdminController
     public function index()
     {
         $user = D('bar');
-        $user = $user->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t, qm_user u')->where('b.typeid=t.id and b.uid=u.id and state!=2 and state!=4')->select();
+        $user = $user->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t, qm_user u')->where('b.typeid=t.id and b.uid=u.id and b.state!=2 and b.state!=4')->select();
         $this->assign('title','贴吧管理');
         $this->assign('part','贴吧列表');
         $this->assign('user',$user);
