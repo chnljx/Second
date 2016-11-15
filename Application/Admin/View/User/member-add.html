@@ -130,11 +130,12 @@ $(function(){
 				        }
 				    },
                     dataFilter: function(data, type) { 
-                        if (data) 
-                            return false; 
-                        else 
-                            return true; 
-                    } 
+                        if(data){
+                            return false;
+                        }else{
+                            return true;
+                        } 
+                    }, 
 				},
         	},
             email: {
@@ -158,7 +159,7 @@ $(function(){
         messages: {
         	name: {
                 required: "请您填写用户名",
-                remote: "帐号名称已经存在"
+                remote: "帐号名称已经存在",
             },
             email: {
                 required: "请您填写邮箱",

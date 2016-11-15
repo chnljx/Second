@@ -29,21 +29,21 @@
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
   <span id="tips" style="color: red;margin-left: 160px;"></span>
-    <form class="form form-horizontal" action="<{:U('Login/doLogin')}>" method="post">
+    <form class="form form-horizontal" action="<{:U('Login/doLogin')}>" method="post" id="form-admin-login">
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
-        <div class="formControls col-xs-8">
+        <div class="formControls col-xs-9">
           <input id="name" name="name" type="text" placeholder="用户名/邮箱" class="input-text size-L" value="<{$Think.cookie.name}>">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
-        <div class="formControls col-xs-8">
+        <div class="formControls col-xs-9">
           <input id="passwd" name="passwd" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
-        <div class="formControls col-xs-8 col-xs-offset-3">
+        <div class="formControls col-xs-9 col-xs-offset-3">
           <input id="verify" name="verify" class="input-text size-L" type="text" placeholder="验证码" style="width:150px;">
           <img id="verify_img" src="<{:U('Login/getVerify')}>" title="看不清，换一张" style="cursor:pointer"></div>
       </div>
@@ -56,7 +56,7 @@
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-          <button id="submitbtn" type="submit" class="btn btn-success radius size-L">&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;</button>
+          <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
           <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
         </div>
       </div>
@@ -65,7 +65,7 @@
 </div>
 <div class="footer">Copyright 阡陌 by H-ui.admin.v2.3</div>
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script src="__PUBLIC__/js/jquery.form.min.js"></script>
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -78,6 +78,7 @@ var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " 
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script>
+
     var verify_img = $('#verify_img');
     var src_img = verify_img.attr('src');
     verify_img.click(function(){
