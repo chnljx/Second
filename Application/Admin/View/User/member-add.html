@@ -103,91 +103,86 @@
 <!--请在下方写此页面业务相关的脚本--> 
 <script type="text/javascript">
 $(function(){
-	$('#name').blur(function(){
-		$.ajax({
-			type: 'POST',
-			url: "<{:U('User/addAction')}>",
-			data: 'name='+$('#name').val(),
-			success: function(msg){
-	          if(msg){
-	            $('#nametips').html(msg);
-	          }else{
-	            $('#nametips').html('');
-	          }
-	        }
-		});
-	});
+    $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
+    });
 
-	$('#phone').blur(function(){
-		$.ajax({
-			type: 'POST',
-			url: "<{:U('User/addAction')}>",
-			data: 'phone='+$('#phone').val(),
-			success: function(msg){
-	          if(msg){phone
-	            $('#phonetips').html(msg);
-	          }else{
-	            $('#phonetips').html('');
-	          }
-	        }
-		});
-	});
-
-	$('#email').blur(function(){
-		$.ajax({
-			type: 'POST',
-			url: "<{:U('User/addAction')}>",
-			data: 'email='+$('#email').val(),
-			success: function(msg){
-	          if(msg){
-	            $('#emailtips').html(msg);
-	          }else{
-	            $('#emailtips').html('');
-	          }
-	        }
-		});
-	});
-
-	$('#passwd').blur(function(){
-		$.ajax({
-			type: 'POST',
-			url: "<{:U('User/addAction')}>",
-			data: 'passwd='+$('#passwd').val(),
-			success: function(msg){
-	          if(msg){
-	            $('#passwdtips').html(msg);
-	          }else{
-	            $('#passwdtips').html('');
-	          }
-	        }
-		});
-	});
-
-	$('#submitbtn').click(function(){
-      	if($('#name').val() == ''){
-        	$('#nametips').html('请您填写用户名');
-        	return false;
-      	}
-
-		if($('#phone').val() == ''){
-        	$('#phonetips').html('请您填写手机');
-        	return false;
-     	}
-
-      	if($('#email').val() == ''){
-        	$('#emailtips').html('请您填写邮箱');
-        	return false;
-      	}
-
-      	if($('#passwd').val() == ''){
-        	$('#passwdtips').html('请您填写密码');
-        	return false;
-      	}
-
-      	if($('#repasswd').val() == ''){
-        	$('#repasswdtips').html('请您填写确认密码');
-        	return false;
-      	}
+    // 手机号码验证
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^1[34578]{1}\d{9}$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
+        
+    $("#form-member-add").validate({
+        rules:{
+        	name: {
+        		required: true,
+        		remote: {
+				    url: "<{:U('User/addAction')}>",     //后台处理程序
+				    type: "post",               //数据发送方式
+				    dataType: "json",           //接受数据格式   
+				    data: {                     //要传递的数据
+				        name: function() {
+				            return $("#name").val();
+				        }
+				    },
+                    dataFilter: function(data, type) { 
+                        if (data) 
+                            return false; 
+                        else 
+                            return true; 
+                    } 
+				},
+        	},
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                required: true,
+                isMobile: true,
+            },
+            passwd: {
+            	required: true,
+            	rangelength: [6,14],
+            },
+            repasswd: {
+            	required: true,
+            	rangelength: [6,14],
+            	equalTo: "#passwd",
+            },
+        },
+        messages: {
+        	name: {
+                required: "请您填写用户名",
+                remote: "帐号名称已经存在"
+            },
+            email: {
+                required: "请您填写邮箱",
+            },
+            phone: {
+                required: "请您填写手机号",
+            },
+            passwd: {
+                required: "请您填写密码",               
+            },
+            repasswd: {
+                required: "请您填写确认密码",
+                equalTo: "两次密码输入不一致",
+            },
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            $(form).ajaxSubmit();
+            var index = parent.layer.getFrameIndex(window.name);
+            //parent.$('.btn-refresh').click();
+            parent.layer.close(index);
+        }
     });
 });
 </script> 
