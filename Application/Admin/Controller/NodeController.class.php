@@ -17,11 +17,15 @@
 
 			//分配变量
 			$this->assign("list",$list);
+			$this->assign('title','节点管理');
+      		$this->assign('part', '节点列表');
 			//加载模板
 			$this->display();
 		}
 
 		public function add(){
+			$this->assign('title','节点管理');
+      		$this->assign('part', '添加节点');
 			$this->display();
 		}
 
@@ -34,7 +38,7 @@
 			}
 
 			if($this->_model->add() > 0){
-				$this->success("添加成功！",U('Node/index'));
+				$this->success("添加成功！",U('Node/add'));
 			}else{
 				$this->error("添加失败！");
 			}
@@ -43,11 +47,6 @@
 		//删除操作
 		public function del(){
 
-			// if($this->_model->delete($_GET['id']) > 0){
-			// 	$this->success("删除成功！",U('Node/index'));
-			// }else{
-			// 	$this->error("删除失败");
-			// }
 
 			//实例化
 			  $type=D('node');
@@ -67,6 +66,8 @@
 			$vo = $this->_model->where(array('id'=>array('eq',I('id'))))->find();
 			//向模板分配数据
 			$this->assign('vo',$vo);
+			$this->assign('title','节点管理');
+      		$this->assign('part', '修改节点');
 			//加载模板
 			$this->display();
 		}
@@ -74,17 +75,29 @@
 		//执行修改操作
 		public function save(){
 			//初始化
-			if(!$this->_model->create()){
-				$this->error($this->_model->getError());
-				exit;
-			}
-			//执行修改 
-			if($this->_model->save() >= 0){
-				$this->success("修改成功！",U('Node/index'));
-			}else{
-				$this->error("修改失败");
-			}
-		}
+			// if(!$this->_model->create()){
+			// 	$this->error($this->_model->getError());
+			// 	exit;
+			// }
+			// //执行修改 
+			// if($this->_model->save() >= 0){
+			// 	$this->success("修改成功！",U('Node/index'));
+			// }else{
+			// 	$this->error("修改失败");
+			// }
+
+			if (empty($_POST)) {
+                $this->redirect('Admin/Node/add');
+                exit;
+            }
+            //执行修改
+            M('node')->create();
+            if (M('node')->save() > 0) {
+            $this->success('恭喜您,编辑成功!', U('Node/index'));
+            } else {
+              $this->error('编辑失败....');
+                }
+		    }
 
 		
 	}
