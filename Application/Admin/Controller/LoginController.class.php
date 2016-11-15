@@ -55,7 +55,7 @@ class LoginController extends AdminController
      * @return void
      */
     public function doLogin()
-    {     
+    {   
         cookie('name', I('post.name'));
         $User = D("User"); // 实例化User对象
         if (!$User->create()){
