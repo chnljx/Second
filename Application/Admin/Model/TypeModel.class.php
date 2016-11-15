@@ -57,9 +57,9 @@ class TypeModel extends Model{
             $arr['child'] = $list;
             return $arr;
         }
-=======
+
         $list =  $this->getHtmlCate($list, '★', $id, 0);
->>>>>>> xiao
+
        // V($list);
         //返回
         return $list;
