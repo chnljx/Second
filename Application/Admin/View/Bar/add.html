@@ -38,7 +38,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
 			<div class="formControls col-xs-8 col-sm-6">
 
-				<select id='select' class="select" size="1" name="typeid">
+				<select id='typeid' class="select" size="1" name="typeid">
 					<option value="">--请选择--</option>
 					<volist name="list" id="vo">
 						<option value="<{$vo.id}>" {$ov['pid']?'disabled':''}>
@@ -62,28 +62,28 @@
 			</div>
 		</div> -->
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">简介：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>简介：</label>
 			<div class="formControls col-xs-8 col-sm-6">
-				<textarea name="descr" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="textarealength(this,50)"></textarea>
+				<textarea name="descr" id='descr' cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="textarealength(this,50)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/50</p>
-			</div>
+			</div><span style="color: red; line-height: 30px;" id="descrtips"></span>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="state" type="radio" id="status-1" checked>
+					<input name="state" type="radio" id="status-1" checked value='0'>
 					<label for="status-1">启用</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="status-2" name="state">
+					<input type="radio" id="status-2" name="state" value='1'>
 					<label for="status-2">禁用</label>
 				</div>
 			</div>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-6 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<button class="btn btn-primary radius" type="submit" id="submitbtn">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</form>
@@ -102,44 +102,64 @@
 
 <!--请在下方写此页面业务相关的脚本--> 
 <script>
-	$('.select').blur(function(){
-		if ($('.select').val()=='') {
-			$('#selecttips').html('请选择贴吧类别');
-		}else{
-			$('#selecttips').html('');
-		}
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: "<{:U('Bar/doadd')}>",
-		// 	data: 'name='+$('#select').val(),
-		// 	success: function(msg){
-	 //          if(msg){
-	 //            $('#selecttips').html(msg);
-	 //          }else{
-	 //            $('#selecttips').html('');
-	 //          }
-	 //        }
-		// });
+$(function(){
+	$('#typeid').blur(function(){
+		$.ajax({
+			type: 'POST',
+			url: "<{:U('Bar/doadd')}>",
+			data: 'typeid='+$('#typeid').val(),
+			success: function(msg){
+	          if(msg){
+	            $('#selecttips').html(msg);
+	          }else{
+	            $('#selecttips').html('');
+	          }
+	        }
+		});
 	});
 	$('#name').blur(function(){
-		if ($('#name').val()=='') {
-			$('#nametips').html('请输入贴吧名称');
-		}else{
-			$('#nametips').html('');
-		}
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: "<{:U('Bar/doadd')}>",
-		// 	data: 'name='+$('#name').val(),
-		// 	success: function(msg){
-	 //          if(msg){
-	 //            $('#nametips').html(msg);
-	 //          }else{
-	 //            $('#nametips').html('');
-	 //          }
-	 //        }
-		// });
+		$.ajax({
+			type: 'POST',
+			url: "<{:U('Bar/doadd')}>",
+			data: 'name='+$('#name').val(),
+			success: function(msg){
+	          if(msg){
+	            $('#nametips').html(msg);
+	          }else{
+	            $('#nametips').html('');
+	          }
+	        }
+		});
 	});
+
+	$('#descr').blur(function(){
+		$.ajax({
+			type: 'POST',
+			url: "<{:U('Bar/doadd')}>",
+			data: 'descr='+$('#descr').val(),
+			success: function(msg){
+	          if(msg){
+	            $('#descrtips').html(msg);
+	          }else{
+	            $('#descrtips').html('');
+	          }
+	        }
+		});
+	});
+
+	$('#submitbtn').click(function(){
+		if($('#typeid').val() == ''){
+        	$('#selecttips').html('请选择贴吧类别');
+        	return false;
+     	}
+
+      	if($('#name').val() == ''){
+        	$('#nametips').html('请输入贴吧名称');
+        	return false;
+      	}
+
+    });
+});
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
