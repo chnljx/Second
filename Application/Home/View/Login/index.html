@@ -68,66 +68,7 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="index.html">首页</a></li>
-				<!-- <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <i class="fa fa-arrow-circle-o-down"></i></a>
-					<div class="dropdown-menu">
-						<div class="dropdown-inner">
-							<ul class="list-unstyled">
-								<li><a href="archive.html">Text 101</a></li>
-								<li><a href="archive.html">Text 102</a></li>
-							</ul>
-						</div>
-					</div>
-				</li> -->
-			<!-- 	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Video <i class="fa fa-arrow-circle-o-down"></i></a>
-					<div class="dropdown-menu">
-						<div class="dropdown-inner">
-							<ul class="list-unstyled">
-								<li><a href="archive.html">Text 201</a></li>
-								<li><a href="archive.html">Text 202</a></li>
-								<li><a href="archive.html">Text 203</a></li>
-								<li><a href="archive.html">Text 204</a></li>
-								<li><a href="archive.html">Text 205</a></li>
-							</ul>
-						</div> 
-					</div>
-				</li> -->
-		<!-- 		<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <i class="fa fa-arrow-circle-o-down"></i></a>
-					<div class="dropdown-menu" style="margin-left: -203.625px;">
-						<div class="dropdown-inner">
-							<ul class="list-unstyled">
-								<li><a href="archive.html">Text 301</a></li>
-								<li><a href="archive.html">Text 302</a></li>
-								<li><a href="archive.html">Text 303</a></li>
-								<li><a href="archive.html">Text 304</a></li>
-								<li><a href="archive.html">Text 305</a></li>
-							</ul>
-							<ul class="list-unstyled">
-								<li><a href="archive.html">Text 306</a></li>
-								<li><a href="archive.html">Text 307</a></li>
-								<li><a href="archive.html">Text 308</a></li>
-								<li><a href="archive.html">Text 309</a></li>
-								<li><a href="archive.html">Text 310</a></li>
-							</ul>
-							<ul class="list-unstyled">
-								<li><a href="archive.html">Text 311</a></li>
-								<li><a href="archive.html">Text 312</a></li>
-								<li><a href="archive.html#">Text 313</a></li>
-								<li><a href="archive.html#">Text 314</a></li>
-								<li><a href="archive.html">Text 315</a></li>
-							</ul>
-						</div>
-					</div>
-				</li> -->
-				<!-- <li><a href="archive.html"><i class="fa fa-cubes"></i> Blocks</a></li>
-				<li><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li> -->
 			</ul>
-		<!-- 	<ul class="list-inline navbar-right top-social">
-				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-				<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-				<li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
-				<li><a href="#"><i class="fa fa-youtube"></i></a></li>
-			</ul> -->
 		</div>
 	</nav>
 </header>
@@ -248,25 +189,26 @@
 			</div></center>
 			<div class="box-content">
 				<div id="contact_form">
-					<form name="form1" id="ff" method="post" action="contact.php">
+					<form name="form1" id="ff" method="post" action="<{:U('Login/doLogin')}>">
 						<label>
-						<span>请输入手机号</span>
-						<input type="text"  name="name" id="name" required>
+						<span>请输入手机号:</span>
+						<input type="text"  name="phone" id="name" required value="">
 						</label>
 						<label>
-						<span>请输入密码</span>
+						<span>请输入密码:</span>
 						<input type="password"  name="password" id="password" required>
 						</label>
 						<label>
 						<span>请输入验证码:</span>
 						<p>
-						<input style="width:200px;" type="text"  name="exc" id="verify" required><img style="float:left;" id="verify_img" src="<{:U('Login/getVerify')}>" title="看不清，换一张" style="cursor:pointer"></p>
+						<input style="width:300px;float:left;" type="text"  name="exc" id="verify" required>
+						<img style="float:left;margin-left:10px;margin-top:5px;" id="verify_img" src="<{:U('Login/getVerify')}>" title="看不清，换一张" style="cursor:pointer">
+					    </p>
 						</label>
-					<!-- 	<label>
-						<span>Your message here:</span>
-						<textarea name="message" id="message"></textarea>
-						</label> -->
+						<br><br><br>
+						<p>
 						<center><input class="sendButton" type="submit" name="Submit" value="确认登录"></center>
+					</p>
 					</form>
 				</div>
 			</div>
@@ -375,67 +317,6 @@
 							</div>
 						</div>
 					</div>
-
-					<!---- Start Widget ---->
-				<!-- 	<div class="widget ">
-						<div class="heading"><h4>Top News</h4></div>
-						<div class="content">
-							<div class="wrap-vid">
-								<div class="zoom-container">
-									<div class="zoom-caption">
-										<span class="vimeo">Vimeo</span>
-										<a href="single.html">
-											<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-										</a>
-										<p>Video's Name</p>
-									</div>
-									<img src="__PUBLIC__/look/images/1.jpg" />
-								</div>
-								<h3 class="vid-name"><a href="#">Video's Name</a></h3>
-								<div class="info">
-									<h5>By <a href="#">Kelvin</a></h5>
-									<span><i class="fa fa-calendar"></i>25/3/2015</span> 
-									<span><i class="fa fa-heart"></i>1,200</span>
-								</div>
-							</div>
-							<div class="wrap-vid">
-								<div class="zoom-container">
-									<div class="zoom-caption">
-										<span class="vimeo">Vimeo</span>
-										<a href="single.html">
-											<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-										</a>
-										<p>Video's Name</p>
-									</div>
-									<img src="__PUBLIC__/look/images/2.jpg" />
-								</div>
-								<h3 class="vid-name"><a href="#">Video's Name</a></h3>
-								<div class="info">
-									<h5>By <a href="#">Kelvin</a></h5>
-									<span><i class="fa fa-calendar"></i>25/3/2015</span> 
-									<span><i class="fa fa-heart"></i>1,200</span>
-								</div>
-							</div>
-							<div class="wrap-vid">
-								<div class="zoom-container">
-									<div class="zoom-caption">
-										<span class="vimeo">Vimeo</span>
-										<a href="single.html">
-											<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-										</a>
-										<p>Video's Name</p>
-									</div>
-									<img src="__PUBLIC__/look/images/3.jpg" />
-								</div>
-								<h3 class="vid-name"><a href="#">Video's Name</a></h3>
-								<div class="info">
-									<h5>By <a href="#">Kelvin</a></h5>
-									<span><i class="fa fa-calendar"></i>25/3/2015</span> 
-									<span><i class="fa fa-heart"></i>1,200</span>
-								</div>
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -516,6 +397,61 @@
       });
 
     });
+
+
+    var verify_img = $('#verify_img');
+    var src_img = verify_img.attr('src');
+    verify_img.click(function(){
+        $(this).attr('src', src_img+'?verify='+Math.random());
+    });
+
+$('#name').blur(function(){
+      $.ajax({
+        type: 'POST',
+        url: "<{:U('Login/doLogin')}>",
+        data: 'phone='+$('#name').val(),
+        success: function(msg){
+          if(msg){
+            $('#tips').html(msg);
+          }else{
+            $('#tips').html('');
+          }
+        }
+      });
+    });
+
+$('#password').blur(function(){
+      $.ajax({
+        type: 'POST',
+        url: "<{:U('Login/doLogin')}>",
+        data: 'password='+$('#password').val(),
+        success: function(msg){
+          if(msg){
+            $('#tips').html(msg);
+          }else{
+            $('#tips').html('');
+          }
+        }
+      });
+    });
+
+ $('#submitbtn').click(function(){
+      if($('#phone').val() == ''){
+        $('#tips').html('请您填写手机号');
+        return false;
+      }
+
+      if($('#passwd').val() == ''){
+        $('#tips').html('请您填写密码');
+        return false;
+      }
+
+      if($('#verify').val() == ''){
+        $('#tips').html('请您填写验证码');
+        return false;
+      }
+    });
+
     </script>
  
 
