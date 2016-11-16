@@ -108,9 +108,9 @@ class UserController extends AdminController
             // }
         }else{
             // 验证通过 可以进行其他数据操作
-            if($_FILES['picname']['name'] != ''){
+            if(!empty($_FILES)){
                 $config = array(
-                    'maxSize' => 3145728,
+                    'maxSize' => 5242880,
                     'rootPath' => './Upload/img/avatar/',
                     'saveName' => array('uniqid',''),
                     'exts' => array('jpg', 'gif', 'png', 'jpeg'),
@@ -126,7 +126,6 @@ class UserController extends AdminController
                     $path = $info['savepath'].$info['savename'];
                     $image = new \Think\Image();
                     $image->open("./Upload/img/avatar/".$path);
-                    // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
                     $path = time().$info['savename'];
                     $image->thumb(90, 90)->save('./Upload/img/avatar-thumb/'.$path);
                 }
@@ -159,16 +158,23 @@ class UserController extends AdminController
         // $User = M('Bar')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('__USER__ ON __BAR__.uid = __USER__.id')->select();
         // $Barname = M('Bar')->field('uid,name')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->select();
         // $User = M('Bar')->alias('b')->field('qm_user.*,b.name as barname')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('__USER__ ON b.uid = __USER__.id')->select();
-        $User = M('User')->field('qm_user.*,qm_bar.name barname')->where('qm_user.id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('qm_bar ON qm_user.id = qm_bar.uid')->select();
-        // foreach($Barname as $v){
-        //     $barlist[$v['uid']][] = $v['name'];
-        //     //把修改和执行修改 添加和执行添加 拼装到一起
-        // }
-        // V($User);exit;
-        // V($Barname);exit;
-        $this->assign('list', $User);
-        $this->assign('num', count($User));
-        // $this->assign('barlist',  $barlist);
+        // $User = M('User')->field('qm_user.*,qm_bar.name barname')->where('qm_user.id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('qm_bar ON qm_user.id = qm_bar.uid')->select();
+
+        $User = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->select();
+
+        $arr = array(); //声明一个空数组
+
+        foreach ($User as $v) {
+            $bar = M('bar')->field('name')->where(array('uid'=>array('eq', $v['id']),'state'=>array('eq', 1)))->select();
+            // V($bar);
+            $barname = array_column($bar, 'name');
+            // V($barname);
+            $v['barname'] = $barname;
+            $arr[] = $v;
+        }
+
+        $this->assign('list', $arr);
+        $this->assign('num', count($arr));
         $this->display('User:barboss-index');
     }
 

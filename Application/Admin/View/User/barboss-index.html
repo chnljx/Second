@@ -58,7 +58,9 @@
                     <td><{$vo.phone}></td>
                     <td><{$vo.email}></td>
                     <td class="text-l">
-                        <{$vo.barname}>
+                        <foreach name="vo.barname" item="val">
+                            <{$val}>、
+                        </foreach>
                     </td>
                     <td><{$vo.regtime|date="Y-m-d H:i:s",###}></td>
                     <td class="td-status">
