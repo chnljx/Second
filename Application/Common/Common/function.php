@@ -26,3 +26,37 @@ function V($data)
     print_r($data);
     echo "</pre>";
 }
+
+/**
+ * 格式化输出头衔
+ * @param mixed $data
+ * @return string
+ */
+function grade($param)
+{
+    if ($param >= 6000) {
+        return '闻弦雅士';
+    } elseif ($param >= 3000) {
+        return '惊鸿侠影';
+    } elseif ($param >= 2000) {
+        return '寂寞高手';
+    } elseif ($param >= 1000) {
+        return '风云使者';
+    } elseif ($param >= 500) {
+        return '逍遥游侠';
+    } elseif ($param >= 200) {
+        return '武林新贵';
+    } elseif ($param >= 100) {
+        return '草莽豪杰';
+    } elseif ($param >= 50) {
+        return '人海孤鸿';
+    } elseif ($param >= 30) {
+        return '试剑江湖';
+    } elseif ($param >= 15) {
+        return '赏茶闲客';
+    } elseif ($param >= 5) {
+        return '白衣秀士';
+    } else {
+        return '人在旅途';
+    }   
+}
