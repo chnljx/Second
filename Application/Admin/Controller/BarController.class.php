@@ -103,7 +103,7 @@ class BarController extends AdminController
                 if($_FILES['picname']['name'] != ''){
                     $config = array(
                         'maxSize' => 3145728,
-                        'rootPath' => './Upload/img/admin/',
+                        'rootPath' => './Upload/img/tieba/',
                         'saveName' => array('uniqid',''),
                         'exts' => array('jpg', 'gif', 'png', 'jpeg'),
                         'autoSub' => true,
@@ -117,10 +117,10 @@ class BarController extends AdminController
                     } else {// 上传成功 获取上传文件信息
                         $path = $info['savepath'].$info['savename'];
                         $image = new \Think\Image();
-                        $image->open("./Upload/img/admin/".$path);
+                        $image->open("./Upload/img/tieba/".$path);
                         // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
                         $path = time().$info['savename'];
-                        $image->thumb(100, 100)->save('./Upload/img/admin-thumb/'.$path);
+                        $image->thumb(100, 100)->save('./Upload/img/tieba-thumb/'.$path);
                     }
                 }
                 
@@ -199,7 +199,7 @@ class BarController extends AdminController
                 if($_FILES['picname']['name'] != ''){
                     $config = array(
                         'maxSize' => 3145728,
-                        'rootPath' => './Upload/img/admin/',
+                        'rootPath' => './Upload/img/tieba/',
                         'saveName' => array('uniqid',''),
                         'exts' => array('jpg', 'gif', 'png', 'jpeg'),
                         'autoSub' => true,
@@ -216,7 +216,7 @@ class BarController extends AdminController
                         $image->open("./Upload/img/admin/".$path);
                         // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
                         $path = time().$info['savename'];
-                        $image->thumb(100, 100)->save('./Upload/img/admin-thumb/'.$path);
+                        $image->thumb(100, 100)->save('./Upload/img/tieba-thumb/'.$path);
                     }
                     
                 }
