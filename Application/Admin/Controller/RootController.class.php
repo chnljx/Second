@@ -12,7 +12,11 @@ use Think\Controller;
 class RootController extends AdminController
 {
     public function index()
-    {
-        $this->display();
+    {   
+        $role = M('role')->select();
+        // V($role);exit;
+        $this->assign('list',$role);
+        $this->assign('num',count($role)+1);
+        $this->display('Root:admin-role');
     }
 }
