@@ -16,7 +16,7 @@ class UserController extends AdminController
         $this->assign('title', '用户管理');
         $this->assign('part', '用户列表');
 
-        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 3')->buildSql())->select();
+        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 3 or rid = 2')->buildSql())->select();
         // V(count($data));exit;
         $this->assign('list', $data);
         $this->assign('num', count($data));
@@ -70,6 +70,7 @@ class UserController extends AdminController
     // 启用帐号操作
     public function memberStart()
     {   
+        // echo I('post.id');exit;
         $data['state'] = 1;
         $msg = M('User')->where('id='.I('post.id'))->save($data);
         if($msg === false){
@@ -154,18 +155,32 @@ class UserController extends AdminController
     {
         $this->assign('title','用户管理');
         $this->assign('part','吧主列表');
-        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->select();
-        // V(count($data));exit;
-        $this->assign('list', $data);
-        $this->assign('num', count($data));
+        // $User = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->select();
+        // $User = M('Bar')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('__USER__ ON __BAR__.uid = __USER__.id')->select();
+        // $Barname = M('Bar')->field('uid,name')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->select();
+        // $User = M('Bar')->alias('b')->field('qm_user.*,b.name as barname')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('__USER__ ON b.uid = __USER__.id')->select();
+        $User = M('User')->field('qm_user.*,qm_bar.name barname')->where('qm_user.id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('qm_bar ON qm_user.id = qm_bar.uid')->select();
+        // foreach($Barname as $v){
+        //     $barlist[$v['uid']][] = $v['name'];
+        //     //把修改和执行修改 添加和执行添加 拼装到一起
+        // }
+        // V($User);exit;
+        // V($Barname);exit;
+        $this->assign('list', $User);
+        $this->assign('num', count($User));
+        // $this->assign('barlist',  $barlist);
         $this->display('User:barboss-index');
     }
 
     // 经验值
-    public function exp()
-    {
+    public function grade()
+    {   
+        $data = M('User')->field('id,name,exp,state')->where('id in'.M('user_role')->field('uid')->where('rid = 3 or rid = 2')->buildSql())->select();
+        // V($data);exit;
+        $this->assign('list', $data);
+        $this->assign('num', count($data));
         $this->assign('title','用户管理');
         $this->assign('part','等级列表');
-        $this->display('User:member-exp');
+        $this->display('User:member-grade');
     }
 }

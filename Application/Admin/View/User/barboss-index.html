@@ -21,7 +21,7 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title><{title}></title>
+<title><{$part}></title>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> <{$title}> <span class="c-gray en">&gt;</span> <{$part}> <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -57,7 +57,9 @@
                     </td>
                     <td><{$vo.phone}></td>
                     <td><{$vo.email}></td>
-                    <td class="text-l"><{$vo.descr}></td>
+                    <td class="text-l">
+                        <{$vo.barname}>
+                    </td>
                     <td><{$vo.regtime|date="Y-m-d H:i:s",###}></td>
                     <td class="td-status">
                         <if condition="$vo.state eq '0'"><span class="label label-error radius">已停用</span>
@@ -70,7 +72,8 @@
                         </if>
                     
                     <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<{:U('User/memberEdit')}>?id=<{$vo.id}>','<{$vo.id}>','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-                    <!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a></td> -->
+                    <!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> -->
+                    </td>
                 </tr>
             </foreach>      
         </tbody>
@@ -115,7 +118,7 @@ function member_show(title,url,id,w,h){
 /*用户-停用*/
 function member_stop(obj,id){
     layer.confirm('确认要停用吗？',function(index){
-        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,<{$vo.id}>)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
         $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
         $(obj).remove();
         layer.msg('已停用!',{icon: 5,time:1000});
@@ -131,7 +134,7 @@ function member_stop(obj,id){
 /*用户-启用*/
 function member_start(obj,id){
     layer.confirm('确认要启用吗？',function(index){
-        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,<{$vo.id}>)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,'+id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
         $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
         $(obj).remove();
         layer.msg('已启用!',{icon: 6,time:1000});
