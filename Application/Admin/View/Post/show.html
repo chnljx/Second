@@ -20,43 +20,57 @@
 <!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
-<![endif]--><title>贴吧查看</title>
+<![endif]--><title>帖子查看</title>
 </head>
 <body>
 <div class="cl pd-20" style=" background-color:#5bacb6">
-  <img class="avatar size-XL l" src="__UPLOAD__/img/tieba-thumb/<{$list.picname}>">
+  <img class="avatar size-XL l" src="__UPLOAD__/img/admin-thumb/<{$data.bpic}>">
   <dl style="margin-left:80px; color:#fff">
-    <dt><span class="f-18"><{$list.name}></span></dt>
-    <dd class="pt-10 f-12" style="margin-left:0"><{$list.descr}></dd>
+    <dt><span class="f-18"><{$data.bname}></span></dt>
+    <dd class="pt-10 f-12" style="margin-left:0">简介：<{$data.bdescr}></dd>
   </dl>
 </div>
 <div class="pd-20">
-  <table class="table">
+<table class="table">
     <tbody>
-      <tr>
-        <th class="text-r">贴吧类别：</th>
-        <td><{$type.name}></td>
-      </tr>
-      <tr>
-        <th class="text-r">贴吧名：</th>
-        <td><{$list.name}></td>
-      </tr>
-      <tr>
-        <th class="text-r">注册时间：</th>
-        <td><{$list.ctime|date="Y-m-d H:i:s",###}></td>
-      </tr>
-      <tr>
-        <th class="text-r">状态:</th>
-        <td>
-          <if condition='$list.state eq 0'>隐藏
-          <elseif condition='($list.state eq 1) or ($list.begstate eq 2)'/>正常
-          <elseif condition='$list.begbarstate eq 1'/>请求创建中
-          <elseif condition='$list.begstate eq 3'/>未创建
-          </if>
-        </td>
-      </tr>
+        <tr>
+            <th class="text-r">
+                <img class="avatar size-XL l" src="__UPLOAD__/img/avatar-thumb/<{$data.upic}>">
+            </th>
+            <td><span style='color:blue'><h3><{$data.uname}></h3></span><h4>发帖：</h4></td>
+        </tr>
+        <tr>
+            <th class="text-r">帖子主题：</th>
+            <td><{$data.title}></td>
+        </tr>
+        <tr>
+            <th class="text-r">创建时间：</th>
+            <td><{$data.ctime|date="Y-m-d H:i:s",###}></td>
+        </tr>
+        <tr>
+            <th class="text-r">状态:</th>
+            <td>
+              <if condition='$data.state eq 0'>隐藏
+              <elseif condition='$data.state eq 1'/>显示
+              </if>
+            </td>
+        </tr>
+        <tr>
+            <th class="text-r">帖子内容：</th>
+            <td>
+                <{$data.descr}><br/>
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td>
+                <volist name='pics' id='p'>
+                <img width=120 src="__UPLOAD__/img/admin-thumb/<{$p.picname}>"><br>
+                </volist>            
+            </td>
+        </tr>
     </tbody>
-  </table>
+</table>
 </div>
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script>

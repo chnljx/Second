@@ -38,12 +38,14 @@ body{background:#fff;color:#333;font-family:"Trebuchet MS", Verdana, Arial, Helv
 			<tr>
 				<th>贴吧类型</th><th>注册量</th>
 			</tr>
+			<volist name='types' id='v'>
 			<tr style="color:#0DA068">
-				<td><{$type_one}></td><td><{$num1}></td>
+				<td><{$v.name}></td><td><{$v.count}></td>
 			</tr>
-			<tr style="color:#194E9C">
+			</volist>
+			<!-- <tr style="color:#194E9C">
 				<td><{$type_two}></td><td><{$num2}></td>
-			</tr>
+			</tr> -->
 			<!-- <tr style="color:#ED9C13">
 				<td><{$type-three}></td><td><$num3></td>
 			</tr>
