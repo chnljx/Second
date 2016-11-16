@@ -50,6 +50,7 @@ class CommentController extends AdminController
         $user=M('User')->field('name,picname')->where('id='.I('get.uid'))->find();
         $data = M('Comment')->field('content,ctime')->where('id='.I('get.id'))->find();
         $pic = M('comment_photo')->field('picname')->where('cmtid='.I('get.id'))->select();
+
         // var_dump($pic);
         $this->assign('user', $user);
         $this->assign('list', $data);
