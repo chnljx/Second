@@ -57,7 +57,7 @@ class LoginController extends AdminController
     public function doLogin()
     {   
         cookie('name', I('post.name'));
-        $User = D("User"); // 实例化User对象
+        $User = D("Login"); // 实例化User对象
         if (!$User->create()){
             // 如果创建失败 表示验证没有通过 输出错误提示信息
             if(IS_AJAX){
@@ -74,7 +74,7 @@ class LoginController extends AdminController
                 $data = $User->where($map)->find();
 
                 // 如果用户名和密码匹配则进入，否则显示错误
-                if ($data) {
+                if ($data && $data['state'] == 1) {
                     $data['loginnum'] += 1;
                     session('admin_user', $data);
 
