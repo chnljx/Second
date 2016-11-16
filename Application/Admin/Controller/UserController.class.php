@@ -16,7 +16,8 @@ class UserController extends AdminController
         $this->assign('title', '用户管理');
         $this->assign('part', '用户列表');
 
-        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 3 or rid = 2')->buildSql())->select();
+        $map['name'] = array('eq', '普通用户');
+        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($map)->buildSql())->buildSql())->select();
         // V(count($data));exit;
         $this->assign('list', $data);
         $this->assign('num', count($data));
@@ -160,7 +161,8 @@ class UserController extends AdminController
         // $User = M('Bar')->alias('b')->field('qm_user.*,b.name as barname')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('__USER__ ON b.uid = __USER__.id')->select();
         // $User = M('User')->field('qm_user.*,qm_bar.name barname')->where('qm_user.id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('qm_bar ON qm_user.id = qm_bar.uid')->select();
 
-        $User = M('User')->where('id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->select();
+        $map['name'] = array('eq','吧主');
+        $User = M('User')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($map)->buildSql())->buildSql())->select();
 
         $arr = array(); //声明一个空数组
 
@@ -181,7 +183,8 @@ class UserController extends AdminController
     // 经验值
     public function grade()
     {   
-        $data = M('User')->field('id,name,exp,state')->where('id in'.M('user_role')->field('uid')->where('rid = 3 or rid = 2')->buildSql())->select();
+        $map['name'] = array(array('eq', '吧主'), array('eq', '普通用户'), 'or');
+        $data = M('User')->field('id,name,exp,state')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($map)->buildSql())->buildSql())->select();
         // V($data);exit;
         $this->assign('list', $data);
         $this->assign('num', count($data));
