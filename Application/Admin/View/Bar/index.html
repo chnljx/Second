@@ -57,12 +57,12 @@
                 <td><{$v.uname}></td>
                 <td class="td-status">
                     <if condition='$v.state eq 0'><span class="label label-error radius">已禁用</span>
-                    <elseif condition='($v.state eq 1) or ($v.state eq 3)'/><span class="label label-success radius">已启用</span>
+                    <elseif condition='$v.state eq 1'/><span class="label label-success radius">已启用</span>
                     </if>
                </td>
                 <td class="td-manage">
                     <if condition="$v.state eq '0'"><a style="text-decoration:none" onClick="bar_start(this,<{$v.id}>)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
-                    <elseif condition="($v.state eq '1') or ($v.state eq '3')" /><a style="text-decoration:none" onClick="bar_stop(this,<{$v.id}>)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
+                    <elseif condition="$v.state eq '1'" /><a style="text-decoration:none" onClick="bar_stop(this,<{$v.id}>)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
                     </if>
 
                     <a title="编辑" href="javascript:;" onclick="bar_edit('编辑','<{:U(\'Bar:edit\')}>?id=<{$v.id}>','<{$v.id}>','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
@@ -103,7 +103,7 @@ $(function(){
     });
 });
 /*贴吧-添加*/
-function member_add(title,url,w,h){
+function bar_add(title,url,w,h){
     layer_show(title,url,w,h);
 }
 /*贴吧-查看*/

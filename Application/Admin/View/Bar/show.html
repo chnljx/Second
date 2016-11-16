@@ -49,9 +49,9 @@
         <th class="text-r">状态:</th>
         <td>
           <if condition='$list.state eq 0'>隐藏
-          <elseif condition='($list.state eq 1) or ($list.state eq 3)'/>正常
-          <elseif condition='$list.state eq 2'/>请求创建中
-          <elseif condition='$list.state eq 4'/>未创建
+          <elseif condition='($list.state eq 1) or ($list.begstate eq 2)'/>正常
+          <elseif condition='$list.begbarstate eq 1'/>请求创建中
+          <elseif condition='$list.begstate eq 3'/>未创建
           </if>
         </td>
       </tr>

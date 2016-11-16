@@ -11,7 +11,7 @@ use Think\Controller;
 class BarController extends AdminController
 {
     protected $barbossoption='';//申请吧主请求分类查询
-    protected $baroption='and b.state>1';//创建贴吧请求分类查询
+    protected $baroption='and b.begstate>0';//创建贴吧请求分类查询
 
     /**
     * 显示贴吧列表
@@ -21,7 +21,7 @@ class BarController extends AdminController
     public function index()
     {
         $user = D('bar');
-        $user = $user->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t, qm_user u')->where('b.typeid=t.id and b.uid=u.id and b.state!=2 and b.state!=4')->select();
+        $user = $user->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t, qm_user u')->where('b.typeid=t.id and b.uid=u.id and b.begstate!=1 and b.begstate!=3')->select();
         $this->assign('title','贴吧管理');
         $this->assign('part','贴吧列表');
         $this->assign('user',$user);
@@ -130,6 +130,7 @@ class BarController extends AdminController
                     $data['typeid'] = I('post.typeid');
                     $data['descr'] = I('post.descr');
                     $data['state'] = I('post.state');
+                    $data['begstate'] = 0;
                     $data['ctime'] = time();
                     // 执行添加
                     if ($bar->add($data) > 0) {
@@ -168,8 +169,7 @@ class BarController extends AdminController
     */
     public function edit()
     {
-        var_dump(I('post.id'));die;
-        $list = M('bar')->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t, qm_user u')->where('b.typeid=t.id and b.uid=u.id and b.id='.I('post.id'))->find();
+        $list = M('bar')->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t, qm_user u')->where('b.typeid=t.id and b.uid=u.id and b.id='.I('get.id'))->find();
         $this->assign('list',$list);
         $this->display();
     }
@@ -182,7 +182,7 @@ class BarController extends AdminController
     public function save()
     {
         //得到数据模型
-        $bar = D('Bar');
+        $bar = D('BarEdit');
         //过滤数据,数据验证
         if (!$bar->create()) {
             // 如果创建失败 表示验证没有通过 输出错误提示信息
@@ -195,12 +195,44 @@ class BarController extends AdminController
         } else {
             // 验证通过 可以进行其他数据操作
             if(!IS_AJAX){
-                // 执行添加
-                if ($bar->add() > 0) {
-                    $this->success('添加成功', U('index'));
-                } else {
-                    $this->error('添加失败');
+                // 验证通过 可以进行其他数据操作
+                if($_FILES['picname']['name'] != ''){
+                    $config = array(
+                        'maxSize' => 3145728,
+                        'rootPath' => './Upload/img/admin/',
+                        'saveName' => array('uniqid',''),
+                        'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+                        'autoSub' => true,
+                        'subName' => array('date','Ymd'),
+                    );
+                    $upload = new \Think\Upload($config);// 实例化上传类
+                    // 上传单个文件
+                    $info = $upload->uploadOne($_FILES['picname']);
+                    if(!$info) {// 上传错误提示错误信息
+                        $this->error($upload->getError());
+                    } else {// 上传成功 获取上传文件信息
+                        $path = $info['savepath'].$info['savename'];
+                        $image = new \Think\Image();
+                        $image->open("./Upload/img/admin/".$path);
+                        // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
+                        $path = time().$info['savename'];
+                        $image->thumb(100, 100)->save('./Upload/img/admin-thumb/'.$path);
+                    }
+                    
                 }
+                if($path != ''){
+                    $data['picname'] = $path;   
+                }
+                
+                
+                $data['descr'] = I('post.descr');
+                $data['state'] = I('post.state');
+                // 执行添加
+                if ($bar->where('id='.I('post.id'))->save($data) > 0) {
+                    $this->success('修改成功', U('index'));
+                } else {
+                    $this->error('修改失败');
+                }   
             }
         }
     }
@@ -216,23 +248,23 @@ class BarController extends AdminController
         if (!empty(I('get.option'))) {
             switch(I('get.option')){
                 case 'agreebtn':
-                    $this->baroption='and b.state=3';
+                    $this->baroption='and b.begstate=2';
                     break;
                 case 'refusebtn':
-                    $this->baroption='and b.state=4';
+                    $this->baroption='and b.begstate=3';
                     break;
                 case 'ingbtn':
-                    $this->baroption='and b.state=2';
+                    $this->baroption='and b.begstate=1';
                     break;
                 case 'allbtn':
-                    $this->baroption='and b.state>1';
+                    $this->baroption='and b.begstate>0';
                     break;
                 default:
                     break;
             }
         }
         $data = D('bar');
-        $data = $data->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state, b.uid')->table('qm_bar b, qm_type t, qm_user u')->where("b.typeid=t.id and b.uid=u.id $this->baroption")->select();
+        $data = $data->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.begstate, b.uid')->table('qm_bar b, qm_type t, qm_user u')->where("b.typeid=t.id and b.uid=u.id $this->baroption")->select();
         $this->assign('data',$data);
        	$this->assign('title','贴吧管理');
         $this->assign('part','创建贴吧请求');
@@ -248,11 +280,13 @@ class BarController extends AdminController
     public function refuseBar()
     {
         if (IS_AJAX) {
-            $data['state'] = 4;
+            $data['begstate'] = 3;
             $user = M('bar')->where('id='.I('post.id'))->save($data);
             if ($user == false) {
-                echo '拒绝失败';
-                exit;
+                $this->ajaxReturn(false);
+                
+            } else {
+                $this->ajaxReturn(true);
             }
         }
         
@@ -267,12 +301,15 @@ class BarController extends AdminController
     {
         if (IS_AJAX) {
             
-            $data['state'] = 3;
+            $data['begstate'] = 2;
+            $data['state'] = 1;
             $user = M('bar')->where('id='.I('post.id'))->save($data);
             if ($user == false) {
-                echo '同意失败';
-                exit;
-            }   
+                $this->ajaxReturn(false);                
+               
+            } else {
+                $this->ajaxReturn(true);
+            } 
         }
            
     }
@@ -325,8 +362,9 @@ class BarController extends AdminController
             $data['state'] = 1;
             $user = M('barboss_beg')->where('id='.I('post.id'))->save($data);
             if ($user == false) {
-                echo '拒绝失败';
-                exit;
+                $this->ajaxReturn(false);
+            } else {
+                $this->ajaxReturn(true);
             }
         }
         
@@ -342,15 +380,47 @@ class BarController extends AdminController
         if (IS_AJAX) {
             $uid = M('bar')->field('uid')->where('id='.I('post.bid'))->find();
             // 判断该贴吧是否已经有吧主  没有 则继续执行
-            if ($uid == 1) {
+            if ($uid['uid'] == 1) {
                 $data['state'] = 2;
-                $bar['uid'] = I('post.uid');
                 $user = M('barboss_beg')->where('id='.I('post.id'))->save($data);
-                $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
-                if ($user == false || $msg == false) {
-                    echo '同意失败';
+                // 如果吧主申请表状态没有改变 中断程序
+                if ($user == false ) {
+                    $this->ajaxReturn(false);
                     exit;
+                } else {
+                    
+                    $bar['uid'] = I('post.uid');
+                    $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
+                    if ($msg == false) {
+                        $bar['uid'] = 1;
+                        $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
+                        $this->ajaxReturn(false);
+                    } else {
+                        $role['uid'] = I('post.uid');
+                        $role['rid'] = 2;
+                        $rolenum = M('user_role')->where($role)->find();
+                        // 判断用户角色表中是否已有 没有  进行添加
+                        if ($rolenum) {
+                            $this->ajaxReturn(true);
+                        } else {
+                            $user_role = M('user_role')->add($role);
+                            // 如果用户角色表没有添加成功 则将吧主申请表状态与贴吧的吧主uid恢复
+                            if ($user_role == false) {
+                                $data['state'] = 0;
+                                $bar['uid'] = 1;
+                                $user = M('barboss_beg')->where('id='.I('post.id'))->save($data);
+                                $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
+                                $this->ajaxReturn(false);
+                            } else {
+                                $this->ajaxReturn(true);
+                            }
+                        }
+                        
+                    }
+                    
                 }
+            } else {
+                $this->ajaxReturn(false);
             }    
         }
            

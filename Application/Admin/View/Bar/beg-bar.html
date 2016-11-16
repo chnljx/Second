@@ -27,16 +27,16 @@
                 <td><{$v.tname}></td>
                 <td><{$v.name}></u></td>
                 <td class="text-l"><{$v.descr}></td>
-                <td><img src="__UPLOAD__/img/admin/<{$v.picname}>" width=100 height=100></td>
+                <td><img src="__UPLOAD__/img/admin-thumb/<{$v.picname}>" width=60 height=60></td>
                 <td class="text-l"><{$v.ctime|date="Y-m-d H:i:s",###}></td>
                 <td class="td-status">
-                    <if condition='$v.state eq 2'><span class="label label-primary radius">请求中</span>
-                    <elseif condition='$v.state eq 4'/><span class="label label-error radius">已拒绝</span>
-                    <elseif condition='$v.state eq 3'/><span class="label label-success radius">已同意</span>
+                    <if condition='$v.begstate eq 1'><span class="label label-primary radius">请求中</span>
+                    <elseif condition='$v.begstate eq 3'/><span class="label label-error radius">已拒绝</span>
+                    <elseif condition='$v.begstate eq 2'/><span class="label label-success radius">已同意</span>
                     </if>
                 </td>
                 <td class="td-manage">
-                    <if condition='$v.state eq 2'>
+                    <if condition='$v.begstate eq 1'>
                         <a style="text-decoration:none" onClick="bar_start(this,<{$v.id}>)" href="javascript:;" title="同意"><i class="Hui-iconfont">&#xe6e1;</i></a>
                         <a style="text-decoration:none" onClick="bar_stop(this,<{$v.id}>)" href="javascript:;" title="拒绝"><i class="Hui-iconfont">&#xe631;</i></a>
                     <else/><span class="label label-defaunt radius">无操作</span>
@@ -79,33 +79,52 @@ function member_show(title,url,id,w,h){
 /*请求-拒绝*/
 function bar_stop(obj,id){
     layer.confirm('确认要停用吗？',function(index){
-        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已拒绝</span>');
-        $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
-        $(obj).remove();
-        layer.msg('已拒绝!',{icon: 5,time:1000});
+        
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Bar/refuseBar')}>",
+            data: "id="+id,
+            success: function(data){
+                if (data) { 
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已拒绝</span>');
+                    $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
+                    $(obj).remove();
+                    layer.msg('已拒绝!',{icon: 6,time:1000});
+                } else {
+                    layer.msg('拒绝失败!',{icon: 5,time:1000});
+
+                }
+            }
+        });
+
     });
 
-    $.ajax({
-        type: 'POST',
-        url: "<{:U('Bar/refuseBar')}>",
-        data: "id="+id,
-    });
 }
 
 /*请求-同意*/
 function bar_start(obj,id,uid,bid){
     layer.confirm('确认要启用吗？',function(index){
-        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已同意</span>');
-        $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
-        $(obj).remove();
-        layer.msg('已同意!',{icon: 6,time:1000});
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Bar/agreeBar')}>",
+            data: "id="+id,
+            success: function(data){
+                if (data) {
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已同意</span>');
+                    $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
+                    $(obj).remove();
+                    layer.msg('已同意!',{icon: 6,time:1000});
+                } else {
+                    layer.msg('同意失败!',{icon: 5,time:1000});
+
+                }
+            }
+        });
+
+        
     });
 
-    $.ajax({
-        type: 'POST',
-        url: "<{:U('Bar/agreeBar')}>",
-        data: "id="+id,
-    });
+    
 }
 
 </script> 

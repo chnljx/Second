@@ -91,33 +91,49 @@ function bar_show(title,url,id,w,h){
 /*请求-拒绝*/
 function barboss_stop(obj,id){
     layer.confirm('确认要停用吗？',function(index){
-        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已拒绝</span>');
-        $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
-        $(obj).remove();
-        layer.msg('已拒绝!',{icon: 5,time:1000});
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Bar/refuseBarBoss')}>",
+            data: "id="+id,
+            success: function(data){
+                if (data) {
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已拒绝</span>');
+                    $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
+                    $(obj).remove();
+                    layer.msg('已拒绝!',{icon: 6,time:1000});
+                } else {
+                    layer.msg('拒绝失败!',{icon: 5,time:1000});
+                }
+            }
+        });
+        
     });
 
-    $.ajax({
-        type: 'POST',
-        url: "<{:U('Bar/refuseBarBoss')}>",
-        data: "id="+id,
-    });
+    
 }
 
 /*请求-同意*/
 function barboss_start(obj,id,uid,bid){
     layer.confirm('确认要启用吗？',function(index){
-        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已同意</span>');
-        $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
-        $(obj).remove();
-        layer.msg('已同意!',{icon: 6,time:1000});
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Bar/agreeBarBoss')}>",
+            data: "id="+id+"&uid="+uid+"&bid="+bid,
+            success: function(data){
+                if (data) {
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已同意</span>');
+                    $(obj).parents("tr").find(".td-manage").html('<span class="label label-defaunt radius">无操作</span>');
+                    $(obj).remove();
+                    layer.msg('已同意!',{icon: 6,time:1000});
+                } else {
+                    layer.msg('同意失败!',{icon: 5,time:1000});
+                }
+                
+            }
+        });
+            
     });
 
-    $.ajax({
-        type: 'POST',
-        url: "<{:U('Bar/agreeBarBoss')}>",
-        data: "id="+id+"&uid="+uid+"&bid="+bid,
-    });
 }
 
 </script> 
