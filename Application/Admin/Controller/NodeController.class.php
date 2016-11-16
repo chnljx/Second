@@ -75,20 +75,14 @@
 
 		//执行修改操作
 		public function save(){
-			// 初始化
-			// if(!$this->_model->create()){
-			// 	$this->error($this->_model->getError());
-			// 	exit;
-			// }
-			// //执行修改 
-			// if($this->_model->save() >= 0){
-			// 	$this->success("修改成功！",U('Node/index'));
-			// }else{
-			// 	$this->error("修改失败");
-			// }
 
 			if (empty($_POST)) {
                 $this->redirect('Admin/Node/add');
+                exit;
+            }
+			$Node = D("NodeEdit"); // 实例化Node对象
+			if (!$Node->create()) {
+                $this->error($Node->getError());
                 exit;
             }
             //执行修改
