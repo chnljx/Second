@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- basic styles -->
+	<link href="__PUBLIC__/assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="__PUBLIC__/assets/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace.min.css" />
+	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="__PUBLIC__/assets/css/ace-skins.min.css" />
+	<script src="__PUBLIC__/assets/js/ace-extra.min.js"></script>
+<title>Document</title>
+</head>
+<body>
+<div class="widget-body">
+  <div class="widget-main no-padding">
+	<div class="dialogs">
+	    <div class="itemdiv dialogdiv">
+			<div class="user">
+				<img alt="Alexa's Avatar" src="__UPLOAD__/img/avatar-thumb/<{$user.picname}>" />
+			</div>
+
+			<div class="body">
+				<div class="time">
+					<i class="icon-time"></i>
+					<span class="green"><{$list.ctime|date="Y-m-d H:i:s",###}></span>
+				</div>
+
+				<div class="name">
+					<a href="#"><{$user.name}></a>
+				</div>
+				<div style="width:350px;" class="text">
+				<p><{$list.content}></p>
+				<foreach name="pic" item="p">
+                <div>	
+				    <img style="width:230px;" alt="" src="__UPLOAD__/img/admin-thumb/<{$p.picname}>" />
+			    </div>
+			    </foreach>
+				   
+				</div>
+
+				<!-- <div class="tools">
+					<a href="#" class="btn btn-minier btn-info">
+						<i class="icon-only icon-share-alt"></i>
+					</a>
+				</div> -->
+			</div>
+		</div>
+	  </div><!-- /dialogs -->
+    </div><!-- /widget-main -->
+</div><!-- /widget-body -->
+</body>
+</html>
