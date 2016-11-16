@@ -90,7 +90,7 @@ function bar_show(title,url,id,w,h){
 }
 /*请求-拒绝*/
 function barboss_stop(obj,id){
-    layer.confirm('确认要停用吗？',function(index){
+    layer.confirm('确认要拒绝吗？',function(index){
         $.ajax({
             type: 'POST',
             url: "<{:U('Bar/refuseBarBoss')}>",
@@ -114,7 +114,7 @@ function barboss_stop(obj,id){
 
 /*请求-同意*/
 function barboss_start(obj,id,uid,bid){
-    layer.confirm('确认要启用吗？',function(index){
+    layer.confirm('确认要同意吗？',function(index){
         $.ajax({
             type: 'POST',
             url: "<{:U('Bar/agreeBarBoss')}>",

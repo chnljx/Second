@@ -213,7 +213,7 @@ class BarController extends AdminController
                     } else {// 上传成功 获取上传文件信息
                         $path = $info['savepath'].$info['savename'];
                         $image = new \Think\Image();
-                        $image->open("./Upload/img/admin/".$path);
+                        $image->open("./Upload/img/tieba/".$path);
                         // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
                         $path = time().$info['savename'];
                         $image->thumb(100, 100)->save('./Upload/img/tieba-thumb/'.$path);
@@ -396,6 +396,9 @@ class BarController extends AdminController
                         $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
                         $this->ajaxReturn(false);
                     } else {
+                        // 当申请的贴吧已经有吧主时，状态自动成为 拒绝
+                        // $same['state']=1;
+                        // M('barboss_beg')->where('bid='.I('post.bid').' and id!='.I('post.id'))->save($same);//只能有一个吧主时 除申请成功的吧主外 其他全部申请成为该贴吧的请求状态为已经拒绝 
                         $role['uid'] = I('post.uid');
                         $role['rid'] = 2;
                         $rolenum = M('user_role')->where($role)->find();
@@ -408,6 +411,7 @@ class BarController extends AdminController
                             if ($user_role == false) {
                                 $data['state'] = 0;
                                 $bar['uid'] = 1;
+                                // $user = M('barboss_beg')->where('bid='.I('post.bid'))->save($data);//只能有一个吧主时 全部申请成为该贴吧的请求状态为请求中 
                                 $user = M('barboss_beg')->where('id='.I('post.id'))->save($data);
                                 $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
                                 $this->ajaxReturn(false);
