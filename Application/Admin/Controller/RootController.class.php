@@ -17,13 +17,13 @@ class RootController extends AdminController
         // V($role);exit;
         $this->assign('list',$role);
         $this->assign('num',count($role));
-        $this->display('Root:admin-role');
+        $this->display();
     }
 
     /**
     * 删除角色操作
     */
-    public function delRole()
+    public function delete()
     {
         $role = M('role')->delete(I('post.id'));
         if($role != '0'){
@@ -36,13 +36,13 @@ class RootController extends AdminController
     */
     public function addRole()
     {
-        $this->display('Root:admin-role-add');
+        $this->display();
     }
 
     /**
     * 角色添加操作
     */
-    public function addRoleAction()
+    public function doadd()
     {
         $Role = D("Role"); // 实例化User对象
         if (!$Role->create()){
@@ -68,7 +68,7 @@ class RootController extends AdminController
     /**
     * 角色修改显示页面
     */
-    public function editRole()
+    public function edit()
     {   
         //查找该角色信息
         $role = M('role')->where(array('id'=>array('eq',I('id'))))->find();
@@ -89,13 +89,13 @@ class RootController extends AdminController
         //向模板分配节点信息
         $this->assign('nodes',$nodes);
 
-        $this->display('Root:admin-role-edit');
+        $this->display();
     }
 
     /**
     * 角色修改操作
     */
-    public function addEditAction()
+    public function save()
     {
 
     }
