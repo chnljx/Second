@@ -39,7 +39,7 @@
 			}
 
 			if($this->_model->add() > 0){
-				$this->success("添加成功！",U('Node/add'));
+				$this->success("添加成功！");
 			}else{
 				$this->error("添加失败！");
 			}
@@ -88,7 +88,7 @@
             //执行修改
             M('node')->create();
             if (M('node')->save() > 0) {
-            $this->success('恭喜您,编辑成功!', U('Node/index'));
+            $this->success('恭喜您,编辑成功!');
             } else {
               $this->error('编辑失败....');
                 }
