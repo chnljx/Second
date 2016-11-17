@@ -73,8 +73,13 @@ class LoginController extends AdminController
                 $map['passwd'] = md5(I('post.passwd'));
                 $data = $User->where($map)->find();
 
+                if($data['state'] != 1){
+                    $this->error('账号已被禁用', U('Login/index'));
+                    exit;
+                }
+
                 // 如果用户名和密码匹配则进入，否则显示错误
-                if ($data && $data['state'] == 1) {
+                if ($data) {
                     $data['loginnum'] += 1;
                     session('admin_user', $data);
 
@@ -86,7 +91,7 @@ class LoginController extends AdminController
                     $User->where(session('admin_user.id'))->save($last);
 
                     //根据用户id获取对应的节点信息
-                    $list = M('node')->field('mname,aname')->where('id in'.M('role_node')->field('nid')->where("rid in ".M('user_role')->field('rid')->where(array('uid'=>array('eq',$data['id'])))->buildSql())->buildSql())->select();
+                    $list = M('node')->field('mname,aname')->where('status = 1 and id in'.M('role_node')->field('nid')->where("rid in ".M('user_role')->field('rid')->where(array('uid'=>array('eq',$data['id'])))->buildSql())->buildSql())->select();
 
                     //控制器名转换为大写
                     foreach ($list as $key => $val) {
@@ -94,7 +99,6 @@ class LoginController extends AdminController
                     }
 
                     //查看查询出来的信息
-                    // V($list); exit;
 
                     $nodelist = array();
                     $nodelist['Index'] = array('index','desktop');
@@ -119,7 +123,7 @@ class LoginController extends AdminController
 
                     $this->redirect('Index/index');
                 } else {
-                    $this->error('账号或密码错误');
+                    $this->error('账号或密码错误', U('Login/index'));
                 }
                 
             }
