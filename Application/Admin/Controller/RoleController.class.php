@@ -9,7 +9,7 @@ use Think\Controller;
 * @version 1.0
 */
 
-class RootController extends AdminController
+class RoleController extends AdminController
 {
     public function index()
     {   
@@ -34,7 +34,7 @@ class RootController extends AdminController
     /**
     * 角色添加显示页面
     */
-    public function addRole()
+    public function add()
     {
         $this->display();
     }
@@ -56,6 +56,7 @@ class RootController extends AdminController
             // 验证通过 可以进行其他数据操作
             if(!IS_AJAX){
                 $map['name'] = I('post.name');
+                $map['remark'] = I('post.remark');
                 if($Role->add($map)){
                     $this->success('添加成功');
                 }else{
@@ -88,6 +89,8 @@ class RootController extends AdminController
         $this->assign('ro_nodes',$ro_nodes);
         //向模板分配节点信息
         $this->assign('nodes',$nodes);
+        //角色信息
+        $this->assign('role',$role);
 
         $this->display();
     }
@@ -97,6 +100,21 @@ class RootController extends AdminController
     */
     public function save()
     {
+        $rid = $_POST['id'];
 
+        M('role')->where('id='.$rid)->save(array('remark'=>I('post.remark')));
+
+        //删除该 角色的 所有信息--避免重复添加
+        M('role_node')->where(array('rid'=>array('eq',$rid)))->delete();
+
+        //循环添加
+        foreach($_POST['node'] as $v){
+            $data['nid'] = $v;
+            $data['rid'] = $rid;
+            //执行添加
+            M('role_node')->data($data)->add();
+        }
+
+        $this->success('修改成功');
     }
 }

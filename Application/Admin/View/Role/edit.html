@@ -32,22 +32,32 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<{:U('Root/addRoleAction')}>" method="post" class="form form-horizontal" id="form-admin-role-add">
+	<form action="<{:U('Role/save')}>" method="post" class="form form-horizontal" id="form-admin-role-add">
+        <input type="hidden" name="id" value="<{$role.id}>">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
 			<div class="formControls col-xs-8 col-sm-5">
-				<input type="text" class="input-text" value="" placeholder="" id="name" name="name" datatype="*4-16" nullmsg="橘色名称不能为空">
+				<input type="text" class="input-text" value="<{$role.name}>" placeholder="" id="name" name="name" datatype="*4-16" nullmsg="角色名称不能为空" disabled>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">描述：</label>
 			<div class="formControls col-xs-8 col-sm-5">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="">
+				<input type="text" class="input-text" value="<{$role.remark}>" placeholder="" id="" name="remark">
 			</div>
 		</div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">权限：</label>
+            <div class="formControls col-xs-8 col-sm-5">
+                <volist name="nodes" id="vo"> 
+                    <input type="checkbox" name="node[]"  value="<{$vo.id}>" <if condition="in_array($vo['id'],$ro_nodes) eq true">checked</if>><{$vo.name}>&nbsp;&nbsp;
+                    <if condition="$i%4 eq 0 "><br></if>
+                </volist>
+            </div>
+        </div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+				<button type="submit" class="btn btn-success radius" id="admin-role-save"><i class="icon-ok"></i> 确定</button>
 			</div>
 		</div>
 	</form>
@@ -91,29 +101,11 @@ $(function(){
         rules:{
         	name: {
         		required: true,
-        		remote: {
-				    url: "<{:U('Root/addRoleAction')}>",     //后台处理程序
-				    type: "post",               //数据发送方式
-				    dataType: "json",           //接受数据格式   
-				    data: {                     //要传递的数据
-				        name: function() {
-				            return $("#name").val();
-				        }
-				    },
-                    dataFilter: function(data, type) { 
-                        if(data){
-                            return false;
-                        }else{
-                            return true;
-                        } 
-                    }, 
-				},
         	},
         },
         messages: {
         	name: {
                 required: "请您填写角色名",
-                remote: "角色名称已经存在",
             },
         },
         onkeyup:false,
