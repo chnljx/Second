@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	
-    <title>Newspaper</title>
+    <title>前台</title>
 	
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="__PUBLIC__/look/css/bootstrap.min.css"  type="text/css">
@@ -517,19 +517,23 @@
 <!-- 分类开始 -->
 
 <!-- 登录后显示个人信息 -->
+<if condition='$Think.session.home_user eq ""'>
+<else />
 <div class="widget wid-comment">
 <!-- <div class="heading"><h4></h4></div> -->
 <div class="content">
 <div class="post">
-<a href="single.html">
-	<!-- <img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class="img-circle"/> -->
-	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class=""/>
+	
+	<a href="single.html">
+  	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class=""/>	
 </a>
+	
+
 <div class="wrapper">
 	<a href="#"><h5><{$Think.session.home_user.name}></h5></a>
 	<ul class="list-inline">
-		<li><i class="fa "></i><{$mes1}><{$Think.session.home_user.regtime|date="Y-m-d",###}></li> 
-		<!-- <li><i class="fa "></i>1,200</li> -->
+		<li><i class="fa "></i><{$Think.session.home_user.descr}></li> 
+	<!-- <li><i class="fa "></i>1,200</li> -->
 	</ul>
 	<p><{$mes2}></p>
 	<a href=""><{$emp}></a>
@@ -540,6 +544,7 @@
 </div>
 </div>
 </div>
+</if>
 
 
 <!-- 分类开始 -->
