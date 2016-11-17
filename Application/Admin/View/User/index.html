@@ -26,7 +26,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> <{$title}> <span class="c-gray en">&gt;</span> <{$part}> <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="member_add('添加用户','<{:U('User/memberAdd')}>','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong><{$num}></strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="member_add('添加用户','<{:U('User/add')}>','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong><{$num}></strong> 条</span> </div>
     <div class="mt-20">
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
@@ -48,7 +48,7 @@
                 <tr class="text-c">
                     <td style="display: none;"><input type="checkbox" value="1" name=""></td>
                     <td><{$vo.id}></td>
-                    <td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.name}>','<{:U('User/memberShow')}>?id=<{$vo.id}>','<{$vo.id}>','360','400')"><{$vo.name}></u></td>
+                    <td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.name}>','<{:U('User/info')}>?id=<{$vo.id}>','<{$vo.id}>','360','400')"><{$vo.name}></u></td>
                     <td>
                         <if condition="$vo.sex eq '0'">女
                         <elseif condition="$vo.sex eq '1'" />男
@@ -71,7 +71,7 @@
                         <elseif condition="$vo.state eq '1'" /><a style="text-decoration:none" onClick="member_stop(this,<{$vo.id}>)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
                         </if>
                     
-                    <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<{:U('User/memberEdit')}>?id=<{$vo.id}>','<{$vo.id}>','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+                    <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<{:U('User/edit')}>?id=<{$vo.id}>','<{$vo.id}>','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
                     <!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> -->
                     </td>
                 </tr>
@@ -126,7 +126,7 @@ function member_stop(obj,id){
 
     $.ajax({
         type: 'POST',
-        url: "<{:U('User/memberStop')}>",
+        url: "<{:U('User/stop')}>",
         data: "id="+id,
     });
 }
@@ -142,7 +142,7 @@ function member_start(obj,id){
 
         $.ajax({
         type: 'POST',
-        url: "<{:U('User/memberStart')}>",
+        url: "<{:U('User/start')}>",
         data: "id="+id,
     });
 }

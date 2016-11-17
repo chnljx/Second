@@ -16,7 +16,87 @@ class RootController extends AdminController
         $role = M('role')->select();
         // V($role);exit;
         $this->assign('list',$role);
-        $this->assign('num',count($role)+1);
+        $this->assign('num',count($role));
         $this->display('Root:admin-role');
+    }
+
+    /**
+    * 删除角色操作
+    */
+    public function delRole()
+    {
+        $role = M('role')->delete(I('post.id'));
+        if($role != '0'){
+            echo '删除成功';
+        }
+    }
+
+    /**
+    * 角色添加显示页面
+    */
+    public function addRole()
+    {
+        $this->display('Root:admin-role-add');
+    }
+
+    /**
+    * 角色添加操作
+    */
+    public function addRoleAction()
+    {
+        $Role = D("Role"); // 实例化User对象
+        if (!$Role->create()){
+            // 如果创建失败 表示验证没有通过 输出错误提示信息
+            if(IS_AJAX){    
+                $this->ajaxReturn($Role->getError());
+            }else{
+                $this->error($Role->getError());
+            }
+        }else{
+            // 验证通过 可以进行其他数据操作
+            if(!IS_AJAX){
+                $map['name'] = I('post.name');
+                if($Role->add($map)){
+                    $this->success('添加成功');
+                }else{
+                    $this->error('添加失败');
+                }
+            }
+        }
+    }
+
+    /**
+    * 角色修改显示页面
+    */
+    public function editRole()
+    {   
+        //查找该角色信息
+        $role = M('role')->where(array('id'=>array('eq',I('id'))))->find();
+
+        //查找所有的节点
+        $nodes = M('node')->select();
+
+        //获取该角色的权限
+        $ro_node = M('role_node')->where(array('rid'=>array('eq',$role['id'])))->select();
+        $ro_nodes = array();
+        //遍历重组数组
+        foreach($ro_node as $v){
+            $ro_nodes[] = $v['nid'];
+        }
+        
+        //向模板分配该用户拥有的权限信息
+        $this->assign('ro_nodes',$ro_nodes);
+        //向模板分配节点信息
+        $this->assign('nodes',$nodes);
+
+        $this->display('Root:admin-role-edit');
+    }
+
+    /**
+    * 角色修改操作
+    */
+    public function addEditAction()
+    {
+
     }
 }

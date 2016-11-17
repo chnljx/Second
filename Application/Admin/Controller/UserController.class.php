@@ -11,26 +11,30 @@ use Think\Controller;
 
 class UserController extends AdminController
 {
+    private $roleName = array('name'=>'');  // 角色名称
+
+    // 普通用户显示列表
     public function index()
     {
         $this->assign('title', '用户管理');
         $this->assign('part', '用户列表');
 
-        $map['name'] = array('eq', '普通用户');
-        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($map)->buildSql())->buildSql())->select();
+        $this->roleName['name'] = array('eq', '普通用户');
+        $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($this->roleName)->buildSql())->buildSql())->select();
         // V(count($data));exit;
         $this->assign('list', $data);
         $this->assign('num', count($data));
         $this->display();
     }
 
-    public function memberAdd()
+    // 显示添加页面
+    public function add()
     {
-        $this->display('User:member-add');
+        $this->display();
     }
 
     // 用户添加操作
-    public function addAction()
+    public function doadd()
     {   
         $User = D("User"); // 实例化User对象
         if (!$User->create()){
@@ -46,7 +50,9 @@ class UserController extends AdminController
                 $id = $User->add();
                 if($id){
                     $data['uid'] = $id;
-                    $data['rid'] = 3;
+                    $rid = M('role')->field('id')->where(array('name'=>array('eq', '普通用户')))->find();
+                    $data['rid'] = $rid['id'];
+
                     M('user_role')->add($data);
                     $this->success('添加成功');
                 }else{
@@ -57,7 +63,7 @@ class UserController extends AdminController
     }
 
     // 禁用帐号操作
-    public function memberStop()
+    public function stop()
     {   
         // echo I('post.id');exit;
         $data['state'] = 0;
@@ -69,7 +75,7 @@ class UserController extends AdminController
     }
 
     // 启用帐号操作
-    public function memberStart()
+    public function start()
     {   
         // echo I('post.id');exit;
         $data['state'] = 1;
@@ -81,23 +87,23 @@ class UserController extends AdminController
     }
 
     // 显示用户信息
-    public function memberShow()
+    public function info()
     {
         $data = M('User')->where('id='.I('get.id'))->find();
         $this->assign('list', $data);
-        $this->display('User:member-show');
+        $this->display();
     }
 
     // 用户信息修改
-    public function memberEdit()
+    public function edit()
     {
         $data = M('User')->where('id='.I('get.id'))->find();
         $this->assign('list', $data);
-        $this->display('User:member-edit');
+        $this->display();
     }
 
     // 用户信息修改操作
-    public function editAction()
+    public function save()
     {
         $User = D("User"); // 实例化User对象
         if (!$User->create()){
@@ -109,7 +115,7 @@ class UserController extends AdminController
             // }
         }else{
             // 验证通过 可以进行其他数据操作
-            if(!empty($_FILES)){
+            if(!empty($_FILES['picname']['tmp_name'])){
                 $config = array(
                     'maxSize' => 5242880,
                     'rootPath' => './Upload/img/avatar/',
@@ -151,7 +157,7 @@ class UserController extends AdminController
     }
 
     // 吧主列表
-    public function list()
+    public function barhost()
     {
         $this->assign('title','用户管理');
         $this->assign('part','吧主列表');
@@ -161,8 +167,8 @@ class UserController extends AdminController
         // $User = M('Bar')->alias('b')->field('qm_user.*,b.name as barname')->where('uid in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('__USER__ ON b.uid = __USER__.id')->select();
         // $User = M('User')->field('qm_user.*,qm_bar.name barname')->where('qm_user.id in'.M('user_role')->field('uid')->where('rid = 2')->buildSql())->join('qm_bar ON qm_user.id = qm_bar.uid')->select();
 
-        $map['name'] = array('eq','吧主');
-        $User = M('User')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($map)->buildSql())->buildSql())->select();
+        $this->roleName['name'] = array('eq','吧主');
+        $User = M('User')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($this->roleName)->buildSql())->buildSql())->select();
 
         $arr = array(); //声明一个空数组
 
@@ -177,19 +183,19 @@ class UserController extends AdminController
 
         $this->assign('list', $arr);
         $this->assign('num', count($arr));
-        $this->display('User:barboss-index');
+        $this->display();
     }
 
     // 经验值
     public function grade()
     {   
-        $map['name'] = array(array('eq', '吧主'), array('eq', '普通用户'), 'or');
-        $data = M('User')->field('id,name,exp,state')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($map)->buildSql())->buildSql())->select();
+        $this->roleName['name'] = array(array('eq', '吧主'), array('eq', '普通用户'), 'or');
+        $data = M('User')->field('id,name,exp,state')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($this->roleName)->buildSql())->buildSql())->select();
         // V($data);exit;
         $this->assign('list', $data);
         $this->assign('num', count($data));
         $this->assign('title','用户管理');
         $this->assign('part','等级列表');
-        $this->display('User:member-grade');
+        $this->display();
     }
 }

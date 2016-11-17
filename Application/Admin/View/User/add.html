@@ -33,7 +33,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<{:U('User/addAction')}>" method="post" class="form form-horizontal" id="form-member-add">
+	<form action="<{:U('User/doadd')}>" method="post" class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-5">
@@ -121,7 +121,7 @@ $(function(){
         	name: {
         		required: true,
         		remote: {
-				    url: "<{:U('User/addAction')}>",     //后台处理程序
+				    url: "<{:U('User/doadd')}>",     //后台处理程序
 				    type: "post",               //数据发送方式
 				    dataType: "json",           //接受数据格式   
 				    data: {                     //要传递的数据
