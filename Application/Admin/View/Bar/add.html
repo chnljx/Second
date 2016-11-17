@@ -41,7 +41,7 @@
 				<select id='typeid' class="select" size="1" name="typeid">
 					<option value="">--请选择--</option>
 					<volist name="list" id="vo">
-						<option value="<{$vo.id}>" {$ov['pid']?'disabled':''}>
+						<option value="<{$vo.id}>" <if condition='$vo.pid eq 0'>disabled</if>>
 							<{$vo.html}><{$vo.name}>
 						</option>
 					</volist>
@@ -102,7 +102,7 @@ $(function(){
 	$('#typeid').blur(function(){
 		$.ajax({
 			type: 'POST',
-			url: "<{:U('Bar/doadd')}>",
+			url: "<{:U('Bar/doAdd')}>",
 			data: 'typeid='+$('#typeid').val(),
 			success: function(msg){
 	          if(msg){
@@ -116,7 +116,7 @@ $(function(){
 	$('#name').blur(function(){
 		$.ajax({
 			type: 'POST',
-			url: "<{:U('Bar/doadd')}>",
+			url: "<{:U('Bar/doAdd')}>",
 			data: 'name='+$('#name').val(),
 			success: function(msg){
 	          if(msg){
@@ -131,7 +131,7 @@ $(function(){
 	$('#descr').blur(function(){
 		$.ajax({
 			type: 'POST',
-			url: "<{:U('Bar/doadd')}>",
+			url: "<{:U('Bar/doAdd')}>",
 			data: 'descr='+$('#descr').val(),
 			success: function(msg){
 	          if(msg){

@@ -1,0 +1,149 @@
+<extend name='Bar/index'/>
+<block name='main'>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="link_add('添加链接','<{:U(\'Link/add\')}>','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加链接</a></span> <span class="r">共有链接：<strong><{$data|count=###}></strong> 条</span> </div>
+    <div class="mt-20">
+    <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <thead>
+            <tr class="text-c">
+                <th width="25" style='display: none;'></th>
+                <th width="80">ID</th>
+                <th width="100">链接名</th>
+                <th width="200">链接地址</th>
+                <th width="150" style='display: none;'></th>
+                <th width="150" style='display: none;'></th>
+                <th width="150">加入时间</th>
+                <th width="90" style='display: none;'></th>
+                <th width="70">状态</th>
+                <th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <volist name='data' id='v'>
+            <tr class="text-c">
+                <td style='display: none;'></td>
+                <td><{$v.id}></td>
+                <td><u><a href="<{$v.url}>" target='_black'><{$v.name}></a></u></td>
+                <td><{$v.url}></td>
+                <td style='display: none;'></td>
+                <td style='display: none;'></td>
+                <td class="text-l"><{$v.ctime|date="Y-m-d H:i:s",###}></td>
+                <td style='display: none;'></td>
+                <td class="td-status">
+                    <if condition='$v.state eq 0'><span class="label label-error radius">已隐藏</span>
+                    <elseif condition='$v.state eq 1'/><span class="label label-success radius">已显示</span>
+                    </if>
+               </td>
+                <td class="td-manage">
+                    <if condition="$v.state eq '0'"><a style="text-decoration:none" onClick="link_start(this,<{$v.id}>)" href="javascript:;" title="显示"><i class="Hui-iconfont">&#xe6e1;</i></a>
+                    <elseif condition="$v.state eq '1'" /><a style="text-decoration:none" onClick="link_stop(this,<{$v.id}>)" href="javascript:;" title="隐藏"><i class="Hui-iconfont">&#xe631;</i></a> 
+                    </if>
+
+                    <a title="编辑" href="javascript:;" onclick="link_edit('编辑','<{:U(\'link:edit\')}>?id=<{$v.id}>','<{$v.id}>','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+
+                    <a title="删除" href="javascript:;" onclick="link_del(this,'<{$v.id}>')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            </volist>
+        </tbody>
+    </table>
+    </div>
+</div><!--page-container-->
+</block>
+<block name='js'>
+<script type="text/javascript">
+$(function(){
+    $('.table-sort').dataTable({
+        "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+        "bStateSave": true,//状态保存
+        "aoColumnDefs": [
+          //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+          {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+        ]
+    });
+    $('.table-sort tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $('tr:selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+});
+/*链接-添加*/
+function link_add(title,url,w,h){
+    layer_show(title,url,w,h);
+}
+/*链接-隐藏*/
+function link_stop(obj,id){
+    layer.confirm('确认要隐藏吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Link/stop')}>",
+            data: "id="+id,
+            success: function(data){
+                if (data) {
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="link_start(this,'+id+')" href="javascript:;" title="显示"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已隐藏</span>');
+                    $(obj).remove();
+                    layer.msg('已隐藏!',{icon: 6,time:1000});
+                } else {
+                    layer.msg('隐藏失败!',{icon: 5,time:1000});
+                }
+            }
+        });
+        
+    });   
+}
+
+/*链接-显示*/
+function link_start(obj,id){
+    layer.confirm('确认要显示吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Link/start')}>",
+            data: "id="+id,
+            success: function(data){
+                if (data) {
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="link_stop(this,'+id+')" href="javascript:;" title="隐藏"><i class="Hui-iconfont">&#xe631;</i></a>');
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+                    $(obj).remove();
+                    layer.msg('已显示!',{icon: 6,time:1000});
+                } else {
+                    layer.msg('已隐藏!',{icon: 5,time:1000});
+                }               
+            } 
+            
+        });
+        
+    });   
+}
+
+/*链接-编辑*/
+function link_edit(title,url,id,w,h){
+    layer_show(title,url,w,h);
+}
+/*链接-删除*/
+function link_del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Link/del')}>",
+            data: "id="+id,
+            success: function(data){
+                if (data) {
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+
+                } else {
+                    layer.msg('删除失败!',{icon: 5,time:1000});
+                }
+            }
+        });
+        
+    });      
+}  
+</script>
+
+</block>
