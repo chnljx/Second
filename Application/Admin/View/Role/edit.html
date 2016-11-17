@@ -48,7 +48,7 @@
 		</div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">权限：</label>
-            <div class="formControls col-xs-8 col-sm-5">
+            <div class="formControls col-xs-8 col-sm-9">
                 <volist name="nodes" id="vo"> 
                     <input type="checkbox" name="node[]"  value="<{$vo.id}>" <if condition="in_array($vo['id'],$ro_nodes) eq true">checked</if>><{$vo.name}>&nbsp;&nbsp;
                     <if condition="$i%4 eq 0 "><br></if>
