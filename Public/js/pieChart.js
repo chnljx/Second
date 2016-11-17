@@ -14,7 +14,7 @@ function pieChart() {
   var pullOutLabelPadding = 65;                     // Padding between pulled-out slice and its label  
   var pullOutLabelFont = "bold 16px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
   var pullOutValueFont = "bold 12px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
-  var pullOutValuePrefix = "";                     // Pull-out slice value prefix
+  var pullOutValuePrefix = "数量：";                     // Pull-out slice value prefix
   var pullOutShadowColour = "rgba( 0, 0, 0, .5 )";  // Colour to use for the pull-out slice shadow
   var pullOutShadowOffsetX = 5;                     // X-offset (in pixels) of the pull-out slice shadow
   var pullOutShadowOffsetY = 5;                     // Y-offset (in pixels) of the pull-out slice shadow
