@@ -24,13 +24,6 @@
     <link rel="stylesheet" href="__PUBLIC__/look/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
 
 	<block name='head'></block>
-	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
@@ -70,8 +63,16 @@
 	   </div>
 	</form>
     </li>
-    
-	<li><a href="<{:U('Home/Login/index')}>">登录</a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+	<li> <a href="<{:U('Logout/doLogout')}>"><{$test1}></a></li>	
+	<li> <a href="<{:U('Login/index')}>"><{$test2}></a></li>	
     <li><a href="<{:U('Home/Index/re')}>">注册</a></li>
   </ul>
  </div>
@@ -84,12 +85,6 @@
 <!-- Carousel -->
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 	<!-- Indicators -->
-<!-- 	<ol class="carousel-indicators">
-		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-		<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-		<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-	</ol> -->
-	<!-- Wrapper for slides -->
 
 	<!-- 大轮播图开始 -->
 	<div class="carousel-inner">
@@ -518,11 +513,34 @@
 </div>
 <div class="col-md-3">
 <!---- Start Widget ---->
-<div class="widget wid-tags">
 
-<!-- 若用户登录就把用户登录的信息放在此处 -->
+<!-- 分类开始 -->
 
+<!-- 登录后显示个人信息 -->
+<div class="widget wid-comment">
+<!-- <div class="heading"><h4></h4></div> -->
+<div class="content">
+<div class="post">
+<a href="single.html">
+	<!-- <img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class="img-circle"/> -->
+	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class=""/>
+</a>
+<div class="wrapper">
+	<a href="#"><h5><{$Think.session.home_user.name}></h5></a>
+	<ul class="list-inline">
+		<li><i class="fa "></i><{$mes1}><{$Think.session.home_user.regtime|date="Y-m-d",###}></li> 
+		<!-- <li><i class="fa "></i>1,200</li> -->
+	</ul>
+	<p><{$mes2}></p>
+	<a href=""><{$emp}></a>
+	<foreach name="list" item="vo">
+			<p><a href=""><{$vo.name}></a></p>	
+	</foreach>
 </div>
+</div>
+</div>
+</div>
+
 
 <!-- 分类开始 -->
 <div class="widget wid-comment">
