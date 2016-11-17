@@ -50,13 +50,16 @@
 			<td style="display: none;"><input type="text" value="1" name=""></td>
 			<td style="display: none;"><input type="text" value="1" name=""></td>
 			<td><{$vo.id}></td>
-			<td><{$vo.name}></td>
+			<td><{$vo.html}><{$vo.name}></td>
 			<td><{$vo.pid}></td>
 			<td><{$vo.path}></td>
 			<td>
 				<!-- <a href="<{:U('Type/add',array('pid'=>$vo['id']))}>">添加子分类</a> -->
 				<a href="javascript:;" onclick="member_add('添加分类','<{:U('Type/add')}>?pid=<{$vo.id}>','','510')" >添加子分类</a>
 				<a href="<{:U('Type/del',array('id'=>$vo['id']))}>">删除</a>
+				<a href="javascript:;" onclick="member_edit('修改分类名','<{:U('Type/edit')}>?id=<{$vo.id}>','','510')" >修改分类名</a>
+				<!-- <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<{:U('Type/edit')}>?id=<{$vo.id}>','<{$vo.id}>','','510')" class="ml-5" style="text-decoration:none">修改分类名</a> -->
+				
 			</td>
 			
 		</tr>
@@ -92,8 +95,12 @@
 		}
 	});
 });
-/*用户-添加*/
+/*分类-添加*/
 function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*分类-修改*/
+function member_edit(title,url,w,h){
 	layer_show(title,url,w,h);
 }
 

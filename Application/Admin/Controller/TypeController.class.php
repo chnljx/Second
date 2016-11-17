@@ -36,11 +36,44 @@ class TypeController extends AdminController
     };
     //执行添加
     if($type->add()>0){
-      $this->success("添加成功！",U('Type/add'));
+      $this->success("添加成功！",U('Type/index'));
     }else{
       $this->error("添加失败");
     }
   }
+
+  public function edit()
+    {
+      //查出数据
+      $vo = M('type')->where(array('id'=>array('eq',I('id'))))->find();
+      //向模板分配数据
+      $this->assign('vo',$vo);
+      $this->assign('title','贴吧分类管理');
+      $this->assign('part', '修改分类名');
+      $this->display();
+    }
+
+    //执行修改操作
+    public function save(){
+
+      if (empty($_POST)) {
+                $this->redirect('Admin/Type/edit');
+                exit;
+            }
+      $Type = D("TypeEdit"); // 实例化Node对象
+      if (!$Type->create()) {
+                $this->error($Type->getError());
+                exit;
+            }
+            //执行修改
+            M('type')->create();
+            if (M('type')->save() > 0) {
+            $this->success('恭喜您,编辑成功!', U('Type/index'));
+            } else {
+              $this->error('编辑失败....');
+                }
+        }
+
 
 
     /**

@@ -34,7 +34,7 @@ class TypeModel extends Model{
         $list = $this->field($field)->select();
 
         //处理分类信息
-        $list =  $this->getHtmlCate($list, '——', $id, 0);
+        $list =  $this->getHtmlCate($list, '★', $id, 0);
        // V($list);
         //返回
         return $list;

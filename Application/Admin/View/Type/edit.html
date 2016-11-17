@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+	<title><{$title}></title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+
+	<form action="<{:U('Type/save')}>" method="post" class="form form-horizontal" id="form-member-add">
+		
+		<!-- <div class="form-group">
+		<label for="#" class=""><h3>添加分类名称：</h3></label>
+		<br>
+		  <div class="input-group">
+		  	 <input style="width:200px;height:30px;" type="text" name="name" class="form-control" aria-label="Amount (to the nearest dollar)">
+			  
+			  <span class="input-group-btn">
+			  	<button class="btn btn-default btn-sm">添加</button>
+			  </span>
+			  
+		  </div>
+		</div> -->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>要修改分类名称：</label>
+			<div class="formControls col-xs-8 col-sm-5">
+				<input type="text" class="input-text" value="<{$vo.name}>" placeholder="" id="name" name="name">
+			</div><span style="color: red; line-height: 30px;" id="nametips"></span>
+		</div>
+		 <input type="hidden" name="id" value="<present name="Think.get.id"><{$Think.get.id}><else />0</present>">
+        <div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button class="btn btn-primary radius" type="submit" id="submitbtn">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
+

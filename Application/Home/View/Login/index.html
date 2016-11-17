@@ -189,10 +189,11 @@
 			</div></center>
 			<div class="box-content">
 				<div id="contact_form">
+					<span id="tips" style="color: red;margin-left: 160px;"></span>
 					<form name="form1" id="ff" method="post" action="<{:U('Login/doLogin')}>">
 						<label>
 						<span>请输入手机号:</span>
-						<input type="text"  name="phone" id="name" required value="">
+						<input type="text"  name="phone" id="phone" required value="">
 						</label>
 						<label>
 						<span>请输入密码:</span>
@@ -201,7 +202,7 @@
 						<label>
 						<span>请输入验证码:</span>
 						<p>
-						<input style="width:300px;float:left;" type="text"  name="exc" id="verify" required>
+						<input style="width:300px;float:left;" type="text"  name="verify" id="verify" required>
 						<img style="float:left;margin-left:10px;margin-top:5px;" id="verify_img" src="<{:U('Login/getVerify')}>" title="看不清，换一张" style="cursor:pointer">
 					    </p>
 						</label>
@@ -387,16 +388,29 @@
 	
 	<!-- JS -->
 	<script src="__PUBLIC__/look/owl-carousel/owl.carousel.js"></script>
-    <script>
-    $(document).ready(function() {
-      $("#owl-demo").owlCarousel({
-        autoPlay: 3000,
-        items : 5,
-        itemsDesktop : [1199,4],
-        itemsDesktopSmall : [979,4]
-      });
 
-    });
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+    <script>
+    // $(document).ready(function() {
+    //   $("#owl-demo").owlCarousel({
+    //     autoPlay: 3000,
+    //     items : 5,
+    //     itemsDesktop : [1199,4],
+    //     itemsDesktopSmall : [979,4]
+    //   });
+
+    // });
 
 
     var verify_img = $('#verify_img');
@@ -405,11 +419,11 @@
         $(this).attr('src', src_img+'?verify='+Math.random());
     });
 
-$('#name').blur(function(){
-      $.ajax({
+    $('#phone').blur(function(){
+    $.ajax({
         type: 'POST',
         url: "<{:U('Login/doLogin')}>",
-        data: 'phone='+$('#name').val(),
+        data: 'phone='+$('#phone').val(),
         success: function(msg){
           if(msg){
             $('#tips').html(msg);
@@ -420,7 +434,7 @@ $('#name').blur(function(){
       });
     });
 
-$('#password').blur(function(){
+    $('#password').blur(function(){
       $.ajax({
         type: 'POST',
         url: "<{:U('Login/doLogin')}>",
@@ -435,22 +449,7 @@ $('#password').blur(function(){
       });
     });
 
- $('#submitbtn').click(function(){
-      if($('#phone').val() == ''){
-        $('#tips').html('请您填写手机号');
-        return false;
-      }
 
-      if($('#passwd').val() == ''){
-        $('#tips').html('请您填写密码');
-        return false;
-      }
-
-      if($('#verify').val() == ''){
-        $('#tips').html('请您填写验证码');
-        return false;
-      }
-    });
 
     </script>
  
