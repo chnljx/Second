@@ -28,9 +28,9 @@ class UserController extends AdminController
     }
 
     // 显示添加页面
-    public function add()
+    public function addview()
     {
-        $this->display();
+        $this->display('User:add');
     }
 
     // 用户添加操作
@@ -95,11 +95,11 @@ class UserController extends AdminController
     }
 
     // 用户信息修改
-    public function edit()
+    public function editview()
     {
         $data = M('User')->where('id='.I('get.id'))->find();
         $this->assign('list', $data);
-        $this->display();
+        $this->display('User:edit');
     }
 
     // 用户信息修改操作

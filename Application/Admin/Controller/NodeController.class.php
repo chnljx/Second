@@ -17,8 +17,8 @@
 
 			//分配变量
 			$this->assign("list",$list);
-			$this->assign('title','节点管理');
-      		$this->assign('part', '节点列表');
+			$this->assign('title','管理员管理');
+      		$this->assign('part', '权限管理');
       		$this->assign('num', count($list));
 			//加载模板
 			$this->display();
