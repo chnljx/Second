@@ -4,7 +4,9 @@ use Think\Controller;
 
 class SystemController extends AdminController
 {
-    // 统计总分类下的贴吧数
+    private $where = array('ctime'=>'');  // 角色名称
+
+    // 统计总分类下的贴吧数  饼状图
     public function index()
     {
 
@@ -34,5 +36,69 @@ class SystemController extends AdminController
         $this->display();
     }
 
+    //系统统计表 
+    public function desktop()
+    {
+        var_dump($_POST);
+        $value = empty(I('post.v'))?0:I('post.v');
+        var_dump($value);
+        switch ($value) {
+            // 全部
+            case 0:
+                $where = "";
+                break;
+            // 今日
+            case 1:
+                $where = "'ctime<'.strtotime('tomorrow').' and ctime>'.strtotime('today')";
+                break;
+            // 昨日
+            case 2:
+                $where = "'ctime<'.strtotime('today').' and ctime>'.strtotime('yesterday')";
+                break;
+            // 本周
+            case 3:
+                
+                break;
+            // 本月
+            case 4:
+                
+                break;
+            default:
+                # code...
+                break;
+        }
+        // 统计贴吧分类
+        $type = M('type')->field('count(*) num')->select();
+        // 统计链接
+        $link = M('link')->field('count(*) num')->where($where)->select();
+        // 统计贴吧
+        $bar = M('bar')->field('count(*) num')->where($where)->select();
+        // 统计帖子
+        $post = M('post')->field('count(*) num')->where($where)->select();
+        // 统计用户
+        $user = M('user_role')->field('count(ur.uid) num')->table('qm_user_role ur,qm_role r')->where('r.id=ur.rid and (r.name="普通用户" or r.name="吧主")'.$search)->select();
+
+        if ($where == '') {
+            $search = '';
+        } else {
+            $search = ' and '.$where;
+        }
+        // 统计管理员
+        $huser =M('user_role')->field('count(ur.uid) num')->table('qm_user_role ur,qm_role r')->where('r.id=ur.rid and r.name="管理员"'.$search)->select();
+
+        // 总数
+        $this->assign('type', $type[0]);
+        $this->assign('link', $link[0]);
+        $this->assign('bar', $bar[0]);
+        $this->assign('post', $post[0]);
+        $this->assign('user', $user[0]);
+        $this->assign('huser', $huser[0]);
+
+        // 本周
+        // $linktoday = M('link')->field('count(*) num')->where('ctime<'.strtotime('tomorrow').' and ctime>'.strtotime('today'))->select();
+        // $usertoday = $user->where($this->where)->select();
+        // var_dump($linktoday);
+        $this->display();
+    }
     
 }

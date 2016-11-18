@@ -12,7 +12,4 @@ class IndexController extends AdminController {
         $this->display();
     }
 
-    public function desktop(){
-        $this->display('Public:desktop');
-    }
 }

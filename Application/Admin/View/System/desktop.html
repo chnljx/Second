@@ -31,11 +31,19 @@
     <table class="table table-border table-bordered table-bg">
         <thead>
             <tr>
-                <th colspan="7" scope="col">信息统计</th>
+                <th colspan="7" scope="col">信息统计 
+                <select id='search' onchange="search_start()">
+                    <option value='0' selected>全部</option>
+                    <option value='1'>今日</option>
+                    <option value='2'>昨日</option>
+                    <option value='3'>本周</option>
+                    <option value='4'>本月</option>
+                </select>
+                <span style='float: right;'>贴吧分类库：<{$type.num}></span></th>
             </tr>
-            <tr class="text-c">
+            <tr id='count' class="text-c">
                 <th>统计</th>
-                <th>贴吧分类库</th>
+                <th>友情链接库</th>
                 <th>贴吧库</th>
                 <th>帖子库</th>
                 <th>用户</th>
@@ -45,43 +53,11 @@
         <tbody>
             <tr class="text-c">
                 <td>总数</td>
-                <td>92</td>
-                <td>9</td>
-                <td>0</td>
-                <td>8</td>
-                <td>20</td>
-            </tr>
-            <tr class="text-c">
-                <td>今日</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr class="text-c">
-                <td>昨日</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr class="text-c">
-                <td>本周</td>
-                <td>2</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr class="text-c">
-                <td>本月</td>
-                <td>2</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td><{$link.num}></td>
+                <td><{$bar.num}></td>
+                <td><{$post.num}></td>
+                <td><{$user.num}></td>
+                <td><{$huser.num}></td>
             </tr>
         </tbody>
     </table>
@@ -150,6 +126,23 @@ var _hmt = _hmt || [];
 })();
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
+
+/*時間查詢*/
+function search_start(){
+    var sel = document.getElementById('search').value;
+    console.log(sel);
+    $.ajax({
+        type: 'POST',
+        url: "<{:U('System/desktop')}>",
+        data: "v="+sel,
+        // success: function(data){
+        //     $('#count').parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="bar_start(this,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+        //     $('#count').parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+        //     $('#count').remove();
+        // }
+    });
+}
+
 </script>
 </body>
 </html>
