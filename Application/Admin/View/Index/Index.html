@@ -48,7 +48,7 @@
                     <li><{$limit}></li>
                     <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A"><{$Think.session.admin_user.name}><i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a data-title="个人信息" onclick="member_show('个人信息','<{:U('User/info')}>?id=<{$Think.session.admin_user.id}>','<{$Think.session.admin_user.id}>','360','400')">个人信息</a></li>
+                            <li><a data-title="个人信息" onclick="member_show('个人信息','<{:U('Personal/index')}>','<{$Think.session.admin_user.id}>','360','400')">个人信息</a></li>
                             <li><a href="<{:U('Logout/doLogout')}>">退出</a></li>
                         </ul>
                     </li>
@@ -133,9 +133,9 @@
             <dt><i class="Hui-iconfont">&#xe602;</i>个人信息管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a _href="<{:U('User/password')}>" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
-                    <li><a _href="<{:U('User/info')}>" data-title="个人信息" href="javascript:void(0)">个人信息</a></li>
-                    <li><a _href="<{:U('User/update')}>" data-title="修改个人信息" href="javascript:void(0)">修改个人信息</a></li>
+                    <li><a _href="<{:U('Personal/index')}>" data-title="个人信息" href="javascript:void(0)">个人信息</a></li>
+                    <li><a _href="<{:U('Personal/editview')}>?id=<{$Think.session.admin_user.id}>" data-title="个人信息修改" href="javascript:void(0)">个人信息修改</a></li>
+                    <li><a _href="<{:U('Personal/editpwdview')}>" data-title="密码修改" href="javascript:void(0)">密码修改</a></li>
                 </ul>
             </dd>
         </dl>
@@ -153,6 +153,14 @@
                 <ul>
                     <li><a _href="<{:U('System/desktop')}>" data-title="系统统计表" href="javascript:void(0)">系统统计表</a></li>
                     <li><a _href="<{:U('System/index')}>" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-lunbo">
+            <dt><i class="Hui-iconfont">&#xe61a;</i> 轮播图管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a _href="<{:U('Carousel/index')}>" data-title="轮播图" href="javascript:void(0)">轮播图</a></li>
                 </ul>
             </dd>
         </dl>

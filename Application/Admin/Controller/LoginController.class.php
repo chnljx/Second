@@ -73,13 +73,13 @@ class LoginController extends AdminController
                 $map['passwd'] = md5(I('post.passwd'));
                 $data = $User->where($map)->find();
 
-                if($data['state'] != 1){
-                    $this->error('账号已被禁用', U('Login/index'));
-                    exit;
-                }
-
                 // 如果用户名和密码匹配则进入，否则显示错误
                 if ($data) {
+                    
+                    if($data['state'] != 1){
+                        $this->error('账号已被禁用', U('Login/index'));
+                    }
+
                     $data['loginnum'] += 1;
                     session('admin_user', $data);
 
@@ -103,15 +103,14 @@ class LoginController extends AdminController
                     $nodelist = array();
                     // $nodelist['Index'] = array('index','desktop');
                     $nodelist['Logout'] = array('index','desktop');
-                    $nodelist['User'] = array('user','info');
                     //遍历重新拼装
                     foreach($list as $v){
                         $nodelist[$v['mname']][] = $v['aname'];
                         //把修改和执行修改 添加和执行添加 拼装到一起
-                        if($v['aname']=="edit"){
+                        if($v['aname']=="editview"){
                             $nodelist[$v['mname']][]="save";
                         }
-                        if($v['aname']=="add"){
+                        if($v['aname']=="addview"){
                             $nodelist[$v['mname']][]="doadd";
                         }
                     }

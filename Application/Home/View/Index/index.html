@@ -71,9 +71,12 @@
     <li><a href=""></a></li>
     <li><a href=""></a></li>
     <li><a href=""></a></li>
-	<li> <a href="<{:U('Logout/doLogout')}>"><{$test1}></a></li>	
-	<li> <a href="<{:U('Login/index')}>"><{$test2}></a></li>	
-    <li><a href="<{:U('Home/Index/re')}>">注册</a></li>
+	<if condition='$Think.session.home_user eq ""'>
+		<li><a href="<{:U('Login/index')}>">登录</a></li>
+		<li><a href="">注册</a></li>
+		<else />
+		<li><a href="<{:U('Logout/doLogout')}>">退出</a></li>
+	</if>
   </ul>
  </div>
 </nav> <!--导航结束--> 
@@ -87,6 +90,7 @@
 	<!-- Indicators -->
 
 	<!-- 大轮播图开始 -->
+
 	<div class="carousel-inner">
 		
 		<div class="item active">			
@@ -520,26 +524,27 @@
 <if condition='$Think.session.home_user eq ""'>
 <else />
 <div class="widget wid-comment">
-<!-- <div class="heading"><h4></h4></div> -->
+<div class="heading"><h4>我在贴吧</h4></div>
 <div class="content">
 <div class="post">
 	
 	<a href="single.html">
-  	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class=""/>	
+  	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class="img-circle"/>	
 </a>
 	
 
 <div class="wrapper">
 	<a href="#"><h5><{$Think.session.home_user.name}></h5></a>
-	<ul class="list-inline">
-		<li><i class="fa "></i><{$Think.session.home_user.descr}></li> 
-	<!-- <li><i class="fa "></i>1,200</li> -->
-	</ul>
-	<p><{$mes2}></p>
-	<a href=""><{$emp}></a>
-	<foreach name="list" item="vo">
+	<i><{$Think.session.home_user.descr}></i>
+	<p>注册时间：<{$Think.session.home_user.regtime|date="Y-m-d",###}></p>
+	<p>爱逛的吧：</p>
+	<if condition="$list.name eq ''">
+	    <a href="">你还没有常逛的吧，快去找找吧>>>>>>></a>
+	<else />
+    </if>
+	    <foreach name="list" item="vo">
 			<p><a href=""><{$vo.name}></a></p>	
-	</foreach>
+	    </foreach>
 </div>
 </div>
 </div>
