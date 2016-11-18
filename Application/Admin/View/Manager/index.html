@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -21,12 +21,12 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title><{$part}></title>
+<title>管理员列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> <{$title}> <span class="c-gray en">&gt;</span> <{$part}> <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="r">共有数据：<strong><{$num}></strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="member_add('添加管理员','<{:U('Manager/addview')}>','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong><{$num}></strong> 条</span> </div>
     <div class="mt-20">
     <table class="table table-border table-bordered table-hover table-bg table-sort">
         <thead>
@@ -34,45 +34,54 @@
                 <th width="25" style="display: none;"><input type="checkbox" name="" value=""></th>
                 <th width="80">ID</th>
                 <th width="100">用户名</th>
-                <th width="80">经验值</th>
-                <th width="50">头衔</th>
-                <th width="150" style="display: none;"></th>
-                <th width="" style="display: none;"></th>
-                <th width="130" style="display: none;"></th>
+                <th width="40">性别</th>
+                <th width="90">手机</th>
+                <th width="150">邮箱</th>
+                <th width="">个人简介</th>
+                <th width="130">注册时间</th>
                 <th width="70">状态</th>
                 <th width="100">操作</th>
             </tr>
         </thead>
         <tbody>
             <foreach name="list" item="vo" >
-            <tr class="text-c">
-                <td style="display: none;"><input type="checkbox" value="1" name=""></td>
-                <td><{$vo.id}></td>
-                <td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.name}>','<{:U('User/info')}>?id=<{$vo.id}>','<{$vo.id}>','360','400')"><{$vo.name}></u></td>
-                <td><{$vo.exp}></td>
-                <td><{$vo.exp|grade}></td>
-                <td style="display: none;"></td>
-                <td class="text-l" style="display: none;"></td>
-                <td style="display: none;"></td>
-                <td class="td-status">
-                    <if condition="$vo.state eq '0'"><span class="label label-error radius">已停用</span>
-                    <elseif condition="$vo.state eq '1'" /><span class="label label-success radius">已启用</span>
-                    </if>
-                </td>
-                <td class="td-manage">
-                    <if condition="$vo.state eq '0'"><a style="text-decoration:none" onClick="member_start(this,<{$vo.id}>)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
-                    <elseif condition="$vo.state eq '1'" /><a style="text-decoration:none" onClick="member_stop(this,<{$vo.id}>)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
-                    </if>
-                    <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<{:U('User/editview')}>?id=<{$vo.id}>','<{$vo.id}>','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>  -->
-                    <!-- <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a> -->
-                </td>
-            </tr>
-            </foreach>
+                <if condition="$vo.name neq 'admin'">
+                <tr class="text-c">
+                    <td style="display: none;"><input type="checkbox" value="1" name=""></td>
+                    <td><{$vo.id}></td>
+                    <td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.name}>','<{:U('User/info')}>?id=<{$vo.id}>','<{$vo.id}>','360','600')"><{$vo.name}></u></td>
+                    <td>
+                        <if condition="$vo.sex eq '0'">女
+                        <elseif condition="$vo.sex eq '1'" />男
+                        <elseif condition="$vo.sex eq '2'" />保密
+                        </if>
+                    </td>
+                    <td><{$vo.phone}></td>
+                    <td><{$vo.email}></td>
+                    <td class="text-l">
+                        <{$vo.descr}>
+                    </td>
+                    <td><{$vo.regtime|date="Y-m-d H:i:s",###}></td>
+                    <td class="td-status">
+                        <if condition="$vo.state eq '0'"><span class="label label-error radius">已停用</span>
+                        <elseif condition="$vo.state eq '1'" /><span class="label label-success radius">已启用</span>
+                        </if>
+                    </td>
+                    <td class="td-manage">
+                        <if condition="$vo.state eq '0'"><a style="text-decoration:none" onClick="member_start(this,<{$vo.id}>)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
+                        <elseif condition="$vo.state eq '1'" /><a style="text-decoration:none" onClick="member_stop(this,<{$vo.id}>)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
+                        </if>
+                    
+                    <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<{:U('Manager/editview')}>?id=<{$vo.id}>','<{$vo.id}>','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+                    <!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> -->
+                    </td>
+                </tr>
+                </if>
+            </foreach>      
         </tbody>
     </table>
     </div>
-</div>
+</div><!--page-container-->
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/laypage/1.2/laypage.js"></script> 
@@ -95,7 +104,7 @@ $(function(){
             $(this).removeClass('selected');
         }
         else {
-            $('tr.selected').removeClass('selected');
+            $('tr:selected').removeClass('selected');
             $(this).addClass('selected');
         }
     });

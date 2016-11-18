@@ -1,0 +1,204 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<LINK rel="Bookmark" href="/favicon.ico" >
+<LINK rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://lib.h-ui.net/html5.js"></script>
+<script type="text/javascript" src="http://lib.h-ui.net/respond.min.js"></script>
+<script type="text/javascript" src="http://lib.h-ui.net/PIE_IE678.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/My97DatePicker/WdatePicker.js"></script>
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>添加管理员 - 管理员管理 - H-ui.admin v2.4</title>
+<meta name="keywords" content="H-ui.admin v2.3,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v2.3，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add" action="<{:U('Manager/doadd')}>" method="post">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+			<div class="formControls col-xs-8 col-sm-5">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="sex" type="radio" id="sex-1" value="1">
+					<label for="sex-1">男</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="sex-2" name="sex" value="0">
+					<label for="sex-2">女</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="sex-3" name="sex" value="2" checked>
+					<label for="sex-3">保密</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+			<div class="formControls col-xs-8 col-sm-5">
+				<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-5">
+				<input type="text" class="input-text" name="email" id="email">
+			</div>
+		</div>
+		<div class="row cl">			
+			<label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>密码：</label>
+			<div class="formControls col-xs-4 col-sm-5">
+				<input type="password" class="input-text" placeholder="输入6~14位字母、数字和符号" name="passwd" id="passwd">
+			</div>			
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+			<div class="formControls col-xs-4 col-sm-5">
+				<input type="password" class="input-text" placeholder="输入6~14位字母、数字和符号" name="repasswd" id="repasswd">
+			</div>
+		</div>
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3">角色：</label>
+        <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+            <select class="select" name="rid" size="1">
+                <foreach name="role" item="vo" >
+                    <option value="<{$vo.id}>"><{$vo.name}></option>
+                </foreach>
+            </select>
+            </span> </div>
+    </div>
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+		</div>
+	</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去--> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery.validation/1.14.0/jquery.validate.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery.validation/1.14.0/messages_zh.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.min.js"></script> 
+<!--/_footer /作为公共模版分离出去--> 
+
+<!--请在下方写此页面业务相关的脚本--> 
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+    // 手机号码验证
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^1[34578]{1}\d{9}$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
+        
+    $("#form-admin-add").validate({
+        rules:{
+        	name: {
+        		required: true,
+        		remote: {
+				    url: "<{:U('Manager/doadd')}>",     //后台处理程序
+				    type: "post",               //数据发送方式
+				    dataType: "json",           //接受数据格式   
+				    data: {                     //要传递的数据
+				        name: function() {
+				            return $("#name").val();
+				        }
+				    },
+                    dataFilter: function(data, type) { 
+                        if(data){
+                            return false;
+                        }else{
+                            return true;
+                        } 
+                    }, 
+				},
+        	},
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                required: true,
+                isMobile: true,
+            },
+            passwd: {
+            	required: true,
+            	rangelength: [6,14],
+            },
+            repasswd: {
+            	required: true,
+            	rangelength: [6,14],
+            	equalTo: "#passwd",
+            },
+        },
+        messages: {
+        	name: {
+                required: "请您填写用户名",
+                remote: "帐号名称已经存在",
+            },
+            email: {
+                required: "请您填写邮箱",
+            },
+            phone: {
+                required: "请您填写手机号",
+            },
+            passwd: {
+                required: "请您填写密码",               
+            },
+            repasswd: {
+                required: "请您填写确认密码",
+                equalTo: "两次密码输入不一致",
+            },
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            // $(form).ajaxSubmit();
+            form.submit();
+            // var index = parent.layer.getFrameIndex(window.name);
+            //parent.$('.btn-refresh').click();
+            // parent.layer.close(index);
+        }
+    });
+});
+</script> 
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
