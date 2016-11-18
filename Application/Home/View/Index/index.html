@@ -628,74 +628,100 @@
 </div>
 </div>
 
-<footer>
-<div class="wrap-footer">
-<div class="container">
-<div class="row">
-<div class="col-md-4 col-footer footer-1">
-<div class="footer-heading"><h1><span style="color: #fff;">NEWSPAPER</span></h1></div>
-<div class="content">
-<p>Never missed any post published in our site. Subscribe to our daly newsletter now.</p>
-<strong>Email address:</strong>
-<form action="#" method="post">
-<input type="text" name="your-name" value="" size="40" placeholder="Your Email" />
-<input type="submit" value="SUBSCRIBE" class="btn btn-3" />
-</form>
-</div>
-</div>
-<div class="col-md-4 col-footer footer-2">
-<div class="footer-heading"><h4>Tags</h4></div>
-<div class="content">
-<a href="#">animals</a>
-<a href="#">cooking</a>
-<a href="#">countries</a>
-<a href="#">city</a>
-<a href="#">children</a>
-<a href="#">home</a>
-<a href="#">likes</a>
-<a href="#">photo</a>
-<a href="#">link</a>
-<a href="#">law</a>
-<a href="#">shopping</a>
-<a href="#">skate</a>
-<a href="#">scholl</a>
-<a href="#">video</a>
-<a href="#">travel</a>
-<a href="#">images</a>
-<a href="#">love</a>
-<a href="#">lists</a>
-<a href="#">makeup</a>
-<a href="#">media</a>
-<a href="#">password</a>
-<a href="#">pagination</a>
-<a href="#">wildlife</a>
-</div>
-</div>
-<div class="col-md-4 col-footer footer-3">
-<div class="footer-heading"><h4>Link List</h4></div>
-<div class="content">
-<ul>
-<li><a href="#">MOST VISITED COUNTRIES</a></li>
-<li><a href="#">5 PLACES THAT MAKE A GREAT HOLIDAY</a></li>
-<li><a href="#">PEBBLE TIME STEEL IS ON TRACK TO SHIP IN JULY</a></li>
-<li><a href="#">STARTUP COMPANY’S CO-FOUNDER TALKS ON HIS NEW PRODUCT</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-	<div class="copy-right">
-		<p>Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-	</div>
-</footer>
-<!-- Footer -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>前台</title>
+    
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="__PUBLIC__/look/css/bootstrap.min.css"  type="text/css">
+    
+    <!-- Custom Fonts -->
 
+    <style type="text/css">
+        .wrap-footer{
+            /*background: #EFEFEF;*/
+        }
+        #footer{
+            list-style: none;
+        }
+        #footer li{
+            width:100px;
+            border-right: 1px dashed #999;
+            margin-top: 10px;
+        }
+        .footer-heading{
+            float: left;
+        }
+        .footer {
+            /*background-color: #EFEFEF;*/
+            border-top: 1px solid #E7E7E7;
+            margin: 0;
+            font-size: 12px;
+            text-align: center;
+            clear: both;
+            line-height: 22px;
+            text-align: center;
+            margin: 8px auto 0;
+            display: block;
+        }
+        .content{
+            float:left;
+            margin-left: -15px;
+        }
+    </style>
+<block name='head'></block>
+</head>
+
+<body>
+
+
+<footer>
+
+
+<div class="footer" alog-alias="footer">
+    <div class="wrap-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-footer footer-3">
+                <div class="footer-heading"><h4>友情链接</h4></div>
+                <volist name='data' id='vo'>
+                    <div class="content">
+                        <ul id='footer'>
+                        <volist name='vo' id='v'>
+                            <li><a href="<{$v.url}>"><{$v.name}></a></li>
+                        </volist>
+                        </ul>
+                    </div>
+                </volist>
+                </div>
+            </div>
+        </div>
+        <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"><
+    </div>
+    
+</footer>
+
+
+
+
+<!-- end main -->
+<script src='__PUBLIC__/js/jquery.min.js'></script>
+<script src='__PUBLIC__/js/holder.js'></script>
+  <!-- jQuery and Modernizr-->
+  
+  <!-- Core JavaScript Files -->     
 <!-- JS -->
 <!-- jQuery and Modernizr-->
 <script src="__PUBLIC__/look/js/jquery-2.1.1.js"></script>
 
-<!-- Core JavaScript Files -->  	 
+<!-- Core JavaScript Files -->       
 <script src="__PUBLIC__/look/js/bootstrap.min.js"></script>
 <script src="__PUBLIC__/look/owl-carousel/owl.carousel.js"></script>
 <script>
@@ -722,32 +748,32 @@ $('.form_datetime').datetimepicker({
     //language:  'fr',
     weekStart: 1,
     todayBtn:  1,
-	autoclose: 1,
-	todayHighlight: 1,
-	startView: 2,
-	forceParse: 0,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
     showMeridian: 1
 });
 $('.form_date').datetimepicker({
     language:  'fr',
     weekStart: 1,
     todayBtn:  1,
-	autoclose: 1,
-	todayHighlight: 1,
-	startView: 2,
-	minView: 2,
-	forceParse: 0
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0
 });
 $('.form_time').datetimepicker({
     language:  'fr',
     weekStart: 1,
     todayBtn:  1,
-	autoclose: 1,
-	todayHighlight: 1,
-	startView: 1,
-	minView: 0,
-	maxView: 1,
-	forceParse: 0
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 1,
+    minView: 0,
+    maxView: 1,
+    forceParse: 0
 });
 </script>
 </body>
