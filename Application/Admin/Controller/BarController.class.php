@@ -400,7 +400,7 @@ class BarController extends AdminController
                         // $same['state']=1;
                         // M('barboss_beg')->where('bid='.I('post.bid').' and id!='.I('post.id'))->save($same);//只能有一个吧主时 除申请成功的吧主外 其他全部申请成为该贴吧的请求状态为已经拒绝 
                         $role['uid'] = I('post.uid');
-                        $role['rid'] = 2;
+                        $role['rid'] = 3;
                         $rolenum = M('user_role')->where($role)->find();
                         // 判断用户角色表中是否已有 没有  进行添加
                         if ($rolenum) {
