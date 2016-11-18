@@ -21,7 +21,15 @@ class UserController extends AdminController
 
         $this->roleName['name'] = array('eq', '普通用户');
         $data = M('User')->where('id in'.M('user_role')->field('uid')->where('rid in'.M('role')->field('id')->where($this->roleName)->buildSql())->buildSql())->select();
-        // V(count($data));exit;
+
+        // $nodelist = session('admin_user.nodelist'); //获取权限列表
+        // if(in_array('stop',$nodelist['User'])){
+        //     $flag = 0;
+        // }elseif(in_array('start',$nodelist['User'])){
+        //     $flag = 1;
+        // }
+
+        // $this->assign('flag', $flag);
         $this->assign('list', $data);
         $this->assign('num', count($data));
         $this->display();
