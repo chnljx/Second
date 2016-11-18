@@ -38,7 +38,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-5">
 				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
-			</div><span style="color: red; line-height: 30px;" id="nametips"></span>
+			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
@@ -61,25 +61,25 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-5">
 				<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
-			</div><span style="color: red; line-height: 30px;" id="phonetips">
+			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
 			<div class="formControls col-xs-8 col-sm-5">
 				<input type="text" class="input-text" name="email" id="email">
-			</div><span style="color: red; line-height: 30px;" id="emailtips"></span>
+			</div>
 		</div>
 		<div class="row cl">			
 			<label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>密码：</label>
 			<div class="formControls col-xs-4 col-sm-5">
 				<input type="password" class="input-text" placeholder="输入6~14位字母、数字和符号" name="passwd" id="passwd">
-			</div><span style="color: red; line-height: 30px;" id="passwdtips"></span>			
+			</div>			
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>确认密码：</label>
 			<div class="formControls col-xs-4 col-sm-5">
 				<input type="password" class="input-text" placeholder="输入6~14位字母、数字和符号" name="repasswd" id="repasswd">
-			</div><span style="color: red; line-height: 30px;" id="repasswdtips"></span>
+			</div>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -98,6 +98,7 @@
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery.validation/1.14.0/messages_zh.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.min.js"></script> 
 <!--/_footer /作为公共模版分离出去--> 
 
 <!--请在下方写此页面业务相关的脚本--> 
@@ -179,10 +180,11 @@ $(function(){
         focusCleanup:true,
         success:"valid",
         submitHandler:function(form){
-            $(form).ajaxSubmit();
-            var index = parent.layer.getFrameIndex(window.name);
+            // $(form).ajaxSubmit();
+            form.submit();
+            // var index = parent.layer.getFrameIndex(window.name);
             //parent.$('.btn-refresh').click();
-            parent.layer.close(index);
+            // parent.layer.close(index);
         }
     });
 });
