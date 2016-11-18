@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title>jQuery HTML5动画圆饼图表在线演示</title>
+<link href="__PUBLIC__/css/style.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+body{background:#fff;color:#333;font-family:"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;font-size:0.9em;}
+#container{width:900px;margin:50px auto;}
+#chart, #chartData{border:1px solid #333;background:#ebedf2;}
+#chart{display:block;margin:0 0 50px 0;float:left;cursor:pointer;}
+#chartData{width:200px;margin:0 40px 0 0;float:right;border-collapse:collapse;box-shadow:0 0 1em rgba(0, 0, 0, 0.5);-moz-box-shadow:0 0 1em rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 1em rgba(0, 0, 0, 0.5);background-position:0 -100px;}
+#chartData th, #chartData td{padding:0.5em;border:1px dotted #666;text-align:left;}
+#chartData th{border-bottom:2px solid #333;text-transform:uppercase;}
+#chartData td{cursor:pointer;}
+#chartData td.highlight{background:#eeffff;}
+#chartData tr:hover td{background:#abcdef;}
+
+</style>
+</head>
+<body>
+
+
+<div id="container">
+	
+		<canvas id="chart" width="600" height="400"></canvas>
+		<table id="chartData">
+			<tr>
+				<th>贴吧类型</th><th>贴吧数</th>
+			</tr>
+			<volist name='data' id='v'>
+			<tr style="color:rgb(<{$v.rgb}>);">
+				<td><{$v.name}></td><td><{$v.count}></td>
+			</tr>
+			</volist>
+		</table>
+	</div>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<!--[if IE]>
+<script src="js/excanvas.js"></script>
+<![endif]-->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!--<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>-->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script type="text/javascript" src="__PUBLIC__/js/pieChart.js"></script>
+
+</body>
+</html>

@@ -4,10 +4,57 @@ use Think\Controller;
 
 class SystemController extends AdminController
 {
-    private $where = array('ctime'=>'');  // 角色名称
+
+     //系统统计表 
+    public function index()
+    {
+
+        // 统计贴吧分类
+        $type = M('type')->field('count(*) num')->select();
+        // 统计链接
+        $link = M('link')->field('ctime')->select();
+
+        $linknum  = $this->num($link);
+        $linknum['num'] = count($link);
+
+        // 统计贴吧
+        $bar = M('bar')->field('ctime')->select();
+        $barnum = $this->num($bar);
+        $barnum['num'] = count($bar);
+
+
+        // 统计帖子
+        $post = M('post')->field('ctime')->select();
+        $postnum = $this->num($post);
+        $postnum['num'] = count($post);
+
+        // 统计用户
+
+        $user = M('user_role')->field('u.regtime ctime')->table('qm_user u, qm_user_role ur,qm_role r')->where('r.id=ur.rid and u.id=ur.uid and (r.name="普通用户" or r.name="吧主")')->select();
+        $usernum = $this->num($user);
+        $usernum['num'] = count($user);
+
+        // 统计管理员
+        $huser =M('user_role')->field('u.regtime ctime')->table('qm_user u, qm_user_role ur,qm_role r')->where('r.id=ur.rid and u.id=ur.uid and r.name="管理员"')->select();
+
+        $husernum = $this->num($huser);
+        $husernum['num'] = count($huser);
+
+        // 总数
+        $this->assign('type', $type[0]);
+        $this->assign('link', $linknum);
+        $this->assign('bar', $barnum);
+        $this->assign('post', $postnum);
+        $this->assign('user', $usernum);
+        $this->assign('huser', $husernum);
+
+        // var_dump($link);die;
+        $this->display();
+    }
+    
 
     // 统计总分类下的贴吧数  饼状图
-    public function index()
+    public function charpie()
     {
 
         $arr = [];
@@ -30,75 +77,51 @@ class SystemController extends AdminController
             }      
         }
         
+   
         $this->assign('data',$arr);
         
 
         $this->display();
     }
 
-    //系统统计表 
-    public function desktop()
+    // 计算今天 昨天 本周 上周
+    private function num(array $array)
     {
-        var_dump($_POST);
-        $value = empty(I('post.v'))?0:I('post.v');
-        var_dump($value);
-        switch ($value) {
-            // 全部
-            case 0:
-                $where = "";
-                break;
-            // 今日
-            case 1:
-                $where = "'ctime<'.strtotime('tomorrow').' and ctime>'.strtotime('today')";
-                break;
-            // 昨日
-            case 2:
-                $where = "'ctime<'.strtotime('today').' and ctime>'.strtotime('yesterday')";
-                break;
-            // 本周
-            case 3:
-                
-                break;
-            // 本月
-            case 4:
-                
-                break;
-            default:
-                # code...
-                break;
+         // 今天  
+        $tstart = strtotime('today');
+        $tend = strtotime('tomorrow');
+        // 昨天 
+        $ystart = strtotime('yesterday');
+        $yend = strtotime('today');
+        // 本周 
+        $wstart = strtotime('Monday -1 week');
+        $wend = strtotime('Sunday');
+        // 上周
+        $lwstart = strtotime('last Monday -1 week');
+        $lwend = strtotime('last Sunday');
+
+        $arr['t']=0;
+        $arr['y']=0;
+        $arr['w']=0;
+        $arr['lw']=0;
+        foreach ($array as $va) {
+            foreach ($va as $v) {
+                if ($v<$tend && $v>$tstart) {
+                    $arr['t'] += 1;
+                } elseif ($v<$yend && $v>$ystart) {
+                    $arr['y'] += 1;
+                } elseif ($v<$wend && $v>$wstart) {
+                    $arr['w'] += 1;
+                } elseif ($v<$lwend && $v>$lwstart) {
+                    $arr['lw'] += 1;
+                }
+            } 
         }
-        // 统计贴吧分类
-        $type = M('type')->field('count(*) num')->select();
-        // 统计链接
-        $link = M('link')->field('count(*) num')->where($where)->select();
-        // 统计贴吧
-        $bar = M('bar')->field('count(*) num')->where($where)->select();
-        // 统计帖子
-        $post = M('post')->field('count(*) num')->where($where)->select();
-        // 统计用户
-        $user = M('user_role')->field('count(ur.uid) num')->table('qm_user_role ur,qm_role r')->where('r.id=ur.rid and (r.name="普通用户" or r.name="吧主")'.$search)->select();
-
-        if ($where == '') {
-            $search = '';
-        } else {
-            $search = ' and '.$where;
-        }
-        // 统计管理员
-        $huser =M('user_role')->field('count(ur.uid) num')->table('qm_user_role ur,qm_role r')->where('r.id=ur.rid and r.name="管理员"'.$search)->select();
-
-        // 总数
-        $this->assign('type', $type[0]);
-        $this->assign('link', $link[0]);
-        $this->assign('bar', $bar[0]);
-        $this->assign('post', $post[0]);
-        $this->assign('user', $user[0]);
-        $this->assign('huser', $huser[0]);
-
-        // 本周
-        // $linktoday = M('link')->field('count(*) num')->where('ctime<'.strtotime('tomorrow').' and ctime>'.strtotime('today'))->select();
-        // $usertoday = $user->where($this->where)->select();
-        // var_dump($linktoday);
-        $this->display();
+            var_dump($arr['w']);
+        return $arr;
     }
-    
+
+   
+
 }
+

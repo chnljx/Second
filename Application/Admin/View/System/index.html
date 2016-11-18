@@ -1,55 +1,182 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<title>jQuery HTML5动画圆饼图表在线演示</title>
-<link href="__PUBLIC__/css/style.css" type="text/css" rel="stylesheet" />
-<style type="text/css">
-*{margin:0;padding:0;list-style-type:none;}
-body{background:#fff;color:#333;font-family:"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;font-size:0.9em;}
-#container{width:900px;margin:50px auto;}
-#chart, #chartData{border:1px solid #333;background:#ebedf2;}
-#chart{display:block;margin:0 0 50px 0;float:left;cursor:pointer;}
-#chartData{width:200px;margin:0 40px 0 0;float:right;border-collapse:collapse;box-shadow:0 0 1em rgba(0, 0, 0, 0.5);-moz-box-shadow:0 0 1em rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 1em rgba(0, 0, 0, 0.5);background-position:0 -100px;}
-#chartData th, #chartData td{padding:0.5em;border:1px dotted #666;text-align:left;}
-#chartData th{border-bottom:2px solid #333;text-transform:uppercase;}
-#chartData td{cursor:pointer;}
-#chartData td.highlight{background:#eeffff;}
-#chartData tr:hover td{background:#abcdef;}
 
-</style>
-</head>
-<body>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
 
-
-<div id="container">
-	
-		<canvas id="chart" width="600" height="400"></canvas>
-		<table id="chartData">
-			<tr>
-				<th>贴吧类型</th><th>贴吧数</th>
-			</tr>
-			<volist name='data' id='v'>
-			<tr style="color:rgb(<{$v.rgb}>);">
-				<td><{$v.name}></td><td><{$v.count}></td>
-			</tr>
-			</volist>
-		</table>
-	</div>
-<script src="__PUBLIC__/js/jquery.min.js"></script>
-<!--[if IE]>
-<script src="js/excanvas.js"></script>
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>-->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+<style type="text/css">
+    a{
+        margin-left: 20px;
+        background: pink;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+</style>
+<title>我的桌面</title>
+</head>
+<body>
+<div class="page-container">
+    <p class="f-20 text-success">欢迎进入阡陌后台管理！</p>
+    <p>登录次数：<{$Think.session.admin_user.loginnum}> </p>
+    <p>上次登录IP：<{$Think.session.admin_user.lastip}>  上次登录时间：<{$Think.session.admin_user.lastdate|date="Y-m-d H:i:s",###}></p>
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+            <tr>
+                <th colspan="7" scope="col">信息统计 
+                <a href="<{:U('System:index',array('option'=>'allbtn'))}>">全部</a>
+                <a href="<{:U('System:index',array('option'=>'daybtn'))}>">今日</a>
+                <a href="<{:U('System:index',array('option'=>'yesterdaybtn'))}>">昨日</a>
+                <a href="<{:U('System:index',array('option'=>'weekbtn'))}>">本周</a>
+                <a href="<{:U('System:index',array('option'=>'lastweekbtn'))}>">上一周</a>
+                <span style='float: right;'>贴吧分类库：<{$type.num}></span></th>
+            </tr>
+            <tr id='count' class="text-c">
+                <th>统计</th>
+                <th>友情链接库</th>
+                <th>贴吧库</th>
+                <th>帖子库</th>
+                <th>用户</th>
+                <th>管理员</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-c">
+                <td>总数</td>
+                <td><{$link.num}></td>
+                <td><{$bar.num}></td>
+                <td><{$post.num}></td>
+                <td><{$user.num}></td>
+                <td><{$huser.num}></td>
+            </tr>
+            <tr class="text-c">
+                <td>今日</td>
+                <td><{$link.t}></td>
+                <td><{$bar.t}></td>
+                <td><{$post.t}></td>
+                <td><{$user.t}></td>
+                <td><{$huser.t}></td>
+            </tr>
+            <tr class="text-c">
+                <td>昨日</td>
+                <td><{$link.y}></td>
+                <td><{$bar.y}></td>
+                <td><{$post.y}></td>
+                <td><{$user.y}></td>
+                <td><{$huser.y}></td>
+            </tr>
+            <tr class="text-c">
+                <td>本周</td>
+                <td><{$link.w}></td>
+                <td><{$bar.w}></td>
+                <td><{$post.w}></td>
+                <td><{$user.w}></td>
+                <td><{$huser.w}></td>
+            </tr>
+            <tr class="text-c">
+                <td>上一周</td>
+                <td><{$link.lw}></td>
+                <td><{$bar.lw}></td>
+                <td><{$post.lw}></td>
+                <td><{$user.lw}></td>
+                <td><{$huser.lw}></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-border table-bordered table-bg mt-20">
+        <thead>
+            <tr>
+                <th colspan="2" scope="col">服务器信息</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>当前浏览器语言 </td>
+                <td><{$_SERVER['HTTP_ACCEPT_LANGUAGE']}></td>
+            </tr>
+            <tr>
+                <td>当前浏览器版本 </td>
+                <td><{$_SERVER['HTTP_USER_AGENT']}></td>
+            </tr>
+            <tr>
+                <td>服务器IP地址</td>
+                <td><{$_SERVER['SERVER_ADDR']}></td>
+            </tr>
+            <tr>
+                <td>服务器域名</td>
+                <td><{$_SERVER['SERVER_NAME']}></td>
+            </tr>
+            <tr>
+                <td>服务器端口 </td>
+                <td><{$_SERVER['SERVER_PORT']}></td>
+            </tr>
+            <tr>
+                <td>服务器PHP版本 </td>
+                <td><{$Think.const.PHP_VERSION}></td>
+            </tr>
+            <tr>
+                <td>服务器操作系统 </td>
+                <td><{$Think.const.PHP_OS}></td>
+            </tr>
+            <tr>
+                <td>服务器当前时间 </td>
+                <td><{:date('Y-m-d H:i:s',$_SERVER['REQUEST_TIME'])}></td>
+            </tr>
+            <tr>
+                <td>服务器系统类型及版本号</td>
+                <td><{:php_uname()}></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<footer class="footer mt-20">
+    <div class="container">
+        <p>感谢jQuery、layer、laypage、Validform、UEditor、My97DatePicker、iconfont、Datatables、WebUploaded、icheck、highcharts、bootstrap-Switch<br>
+            Copyright &copy;2015 H-ui.admin v2.3 All Rights Reserved.<br>
+            本后台系统由<a href="http://www.h-ui.net/" target="_blank" title="H-ui前端框架">H-ui前端框架</a>提供前端技术支持</p>
+    </div>
+</footer>
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script>
 
-<script type="text/javascript" src="__PUBLIC__/js/pieChart.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
 
+/*時間查詢*/
+
+</script>
 </body>
 </html>
