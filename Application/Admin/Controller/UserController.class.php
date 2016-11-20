@@ -112,7 +112,7 @@ class UserController extends AdminController
 
     // 用户信息修改操作
     public function save()
-    {
+    {   
         $User = D("User"); // 实例化User对象
         if (!$User->create()){
             // 如果创建失败 表示验证没有通过 输出错误提示信息
@@ -152,6 +152,11 @@ class UserController extends AdminController
 
             if($_POST['birthday'] != ''){
                 $map['birthday'] = strtotime($_POST['birthday']);
+            }
+
+            if($_POST['rid'] != ''){
+                $user_role['rid'] = $_POST['rid'];
+                M('user_role')->where('uid='.$_POST['id'])->save($user_role);
             }
 
             $map['sex'] = $_POST['sex'];

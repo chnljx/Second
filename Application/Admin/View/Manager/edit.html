@@ -88,7 +88,7 @@
                 <span class="select-box" style="width:150px;">
                     <select class="select" name="rid" size="1">
                         <foreach name="role" item="vo">
-                            <option value="<{$vo.id}>" <if condition="$list.id = 5 ">selected</if> ><{$vo.name}></option>
+                            <option value="<{$vo.id}>" <if condition="$user_role.rid eq $vo.id ">selected</if> ><{$vo.name}></option>
                         </foreach>
                     </select>
                 </span>

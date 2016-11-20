@@ -60,20 +60,22 @@ class ManagerController extends AdminController
 
     public function editview()
     {
+    	$uid = I('get.id');
+
         // 显示用户信息
-        $data = M('User')->where('id='.I('get.id'))->find();
-        $this->assign('list', $data);
+        $User = M('User')->where('id='.$uid)->find();
+        $this->assign('list', $User);
 
         // 显示角色信息
         $this->roleName['name'] = array(array('neq', '超级管理员'), array('neq', '吧主'), array('neq', '普通用户'), 'and');
         $role = M('role')->where($this->roleName)->select();
         $this->assign('role', $role);
 
+        // 用户角色rid
+        $user_role = M('user_role')->field('rid')->where("uid=".$uid)->find();
+        $this->assign('user_role', $user_role);
+
         $this->display('Manager:edit');
     }
 
-    public function save()
-    {
-
-    }
 }

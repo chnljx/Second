@@ -26,6 +26,8 @@ class AdminController extends Controller
     */
     public function _initialize()
     {
+        date_default_timezone_set('PRC');
+
     	if(!session('?admin_user'))
     	{
     		$this->redirect('Login/index');
