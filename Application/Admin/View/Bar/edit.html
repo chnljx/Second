@@ -33,7 +33,7 @@
 </head>
 <body>
 <article class="page-container">
-    <form action="<{:U('Bar/save')}>" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+    <form action="<{:U('Bar/save')}>" method="post" class="form form-horizontal" id="form-bar-save" enctype="multipart/form-data">
         <input type="hidden" name="id" value='<{$list.id}>'>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
@@ -97,61 +97,37 @@
 <!--请在下方写此页面业务相关的脚本--> 
 <script>
 $(function(){
-    $('#typeid').blur(function(){
-        $.ajax({
-            type: 'POST',
-            url: "<{:U('Bar/save')}>",
-            data: 'typeid='+$('#typeid').val(),
-            success: function(msg){
-              if(msg){
-                $('#selecttips').html(msg);
-              }else{
-                $('#selecttips').html('');
-              }
-            }
-        });
+    $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
     });
-    $('#name').blur(function(){
-        $.ajax({
-            type: 'POST',
-            url: "<{:U('Bar/save')}>",
-            data: 'name='+$('#name').val(),
-            success: function(msg){
-              if(msg){
-                $('#nametips').html(msg);
-              }else{
-                $('#nametips').html('');
-              }
-            }
-        });
-    });
-
-    $('#descr').blur(function(){
-        $.ajax({
-            type: 'POST',
-            url: "<{:U('Bar/save')}>",
-            data: 'descr='+$('#descr').val(),
-            success: function(msg){
-              if(msg){
-                $('#descrtips').html(msg);
-              }else{
-                $('#descrtips').html('');
-              }
-            }
-        });
-    });
-
-    $('#submitbtn').click(function(){
-        if($('#typeid').val() == ''){
-            $('#selecttips').html('请选择贴吧类别');
-            return false;
+  
+    $("#form-bar-save").validate({
+        rules:{
+            
+            descr: {
+                required: true,
+                rangelength: [10,50],
+            },
+            
+        },
+        messages: {
+            descr: {
+                required: "简介长度不正确",
+            },
+            
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            // $(form).ajaxSubmit();
+            // var index = parent.layer.getFrameIndex(window.name);
+            // //parent.$('.btn-refresh').click();
+            // parent.layer.close(index);
+            form.submit();
         }
-
-        if($('#name').val() == ''){
-            $('#nametips').html('请输入贴吧名称');
-            return false;
-        }
-
     });
 });
 </script>

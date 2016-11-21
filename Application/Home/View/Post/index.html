@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="">
     <meta name="author" content="">
-  
-    <title>Newspaper</title>
+    <meta name="renderer" content="webkit">
+    <title><{$bar.name}></title>
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css"  media="all">
+    
    
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
@@ -21,12 +23,11 @@
   
   <!-- Custom Fonts -->
     <link rel="stylesheet" href="__PUBLIC__/looK/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
-  
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/layui/css/layui.css">
   <!-- jQuery and Modernizr-->
   <script src="__PUBLIC__/looK/js/jquery-2.1.1.js"></script>
-  
-  <!-- Core JavaScript Files -->     
-    <script src="__PUBLIC__/looK/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
   
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,11 +35,75 @@
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
     <![endif]-->
- <style>
-    .setchose ul li{float: left;width: 100px;list-style: none;}
-    #post_header ul li{list-style: none;float: left;width: 150px;line-height: 80px;}
+ <style type="text/css">
+        .container{
+            width:1000px;
+        }
+        .nav-main{
+            margin-top: 10px;
+            width:1000px;
+            height:130px;
+            line-height: 130px;
+            background-color:#f0f0f0;
+        }
+        .nav-main ul{
+            list-style: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-main ul li{
+            float: left;
+            margin-left: 20px;
+            text-align: center;
+
+        }
+        
+        .wrap-footer{
+            /*background: #EFEFEF;*/
+        }
+        #footer{
+            list-style: none;
+        }
+        #footer li{
+            width:100px;
+            border-right: 1px dashed #999;
+            margin-top: 10px;
+        }
+        .footer-heading{
+            float: left;
+        }
+        .footer {
+            /*background-color: #EFEFEF;*/
+            border-top: 1px solid #E7E7E7;
+            margin: 0;
+            font-size: 12px;
+            text-align: center;
+            clear: both;
+            line-height: 22px;
+            text-align: center;
+            margin: 8px auto 0;
+            display: block;
+        }
+        .content{
+            float:left;
+            margin-left: -15px;
+        }
+        .heading{
+            margin-top: 20px;
+        }
+        .setchose ul li{float: left;width: 100px;list-style: none;}
+        .prev,.num,.current,.next{
+            display: block;
+            width:30px;
+            height:30px;
+            background: #fff;
+            text-align: center;
+            float: left;
+            font-size: 20px;
+            color: #999;
+            border:1px solid #999;
+        }
     </style>
-  
 
 </head>
 
@@ -46,163 +111,260 @@
 <header>
   <!--Top-->
   <nav id="top">
-    <div class="container">
-      <div class="row">
+    <div class="row">
         <div class="col-md-6">
-          <strong>欢迎来到海贼王吧</strong>
+            <a href="<{:U('Inter/index')}>"><strong><i class="fa fa-home"></i>首页</strong></a>
         </div>
         <div class="col-md-6">
-          <ul class="list-inline top-link link">
-            <li><a href="index.html"><i class="fa fa-home"></i> 吧名</a></li>
-            <li><a href="contact.html"><i class="fa fa-comments"></i>吧主 </a></li>
-            <li><a href="#"><i class="fa fa-question-circle"></i> 关于此吧</a></li>
-          </ul>
+            <ul class="list-inline top-link link">
+                <li><a href="<{:U('Login/index')}>"> 登录</a></li>
+                <li><a href="">注册 </a></li>
+            </ul>
         </div>
-      </div>
     </div>
-  </nav>
+    </nav>
   
 </header> 
-  <div class="featured container">
-    <div id="owl-demo" class="owl-carousel">
-<div id="post_header" style="width:1200px;height:80px;background-color:#f3f5f8;">
-
-  <ul>
-    <li>
-      <img style="width:70px;height:70px;" src="__PUBLIC__/look/images/10.jpg" alt="">
-    </li>
-    <li><b>海贼王吧</b></li>
-    <li style="color:#b9b1c4">关注：<span style="color:#f9ab55;">6,133,861</span></li>
-    <li style="color:#b9b1c4">帖子：<span style="color:#f9ab55;">6,133,861</span></li>
-      <li style="float:right;width:200px;">
-        <div style="float:left;" ><button class="btn btn-success">签到</button></div>
-        <div style="float:left;" ><span>2016/11/11</span></div>
-      </li>
-
-  </ul>
-</div>
-    </div>
-    
+  
+  <div class='nav-main container'>
+      <ul>
+        <li>
+          <img style="width:100px;height:100px;" src="__UPLOAD__/img/tieba-thumb/<{$arr.bpic}>" alt="">
+        </li>
+        <li><b><{$arr.bname}></b></li>
+        <li style="color:#b9b1c4">关注：<span style="color:#f9ab55;">6,133,861</span></li>
+        <li style="color:#b9b1c4">帖子：<span style="color:#f9ab55;">6,133,861</span></li>
+      </ul>  
+      <span style='float:right'><a href=""><<返回<{$arr.bname}></a></span>
   </div>
   <!-- Header -->
-  <div style="width:1170px;height:30px;background-color:#fafafa;margin-left:48px;line-height:30px;">
-    回复数:19
-  </div>
+  
   <!-- /////////////////////////////////////////Content -->
+       
   <div id="page-content" class="archive-page container">
+        
     <div class="">
       <div class="row">
-        <div id="main-content" class="col-md-8">
+       <div id="main-content" class="col-md-8">
+          <div class="box">
+            <div class="col-md-3">
+              <img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$arr.upic}>" alt="">
+              <p><b><{$arr.uname}></b></p>
+              <p><b><{$arr.exp|grade}></b></p>
+            </div>
+              <div class="col-md-9">
+              <div class='col-md-8'>
+              <h4 style='color:blue;font-weight: bold;font-size: 20px;margin-top:10px;'><{$arr.title}></h4><p><{$arr.descr}></p></div>
+              <div class='col-md-4'><p><span><i class="fa fa-calendar"></i> <{$arr.ctime|date="Y-m-d H:i:s",###}></span></p></div>
+              <a href="" class='btn btn-primary' style="margin-top: 80px;margin-left: 80px;">回复</a>
+            </div>
+            
+            </div>
+            <hr class="line">
+            <foreach name='comment' item='v'>
             <div class="box">
-          <div style="float:left;" class="col-md-3">
-            <img style="width:80px;height:80px;" src="__PUBLIC__/look/images/10.jpg" alt="">
-            <p>用户昵称</p>
-            <p>吧里头衔</p>
-          </div>
-            <div style="float:left;" class="col-md-5">
-            <div class="wrap-vid">
-              <div class="zoom-container">
-                <div class="zoom-caption">
-                </div>
-                <img src="__PUBLIC__/looK/images/7.jpg" />
+              <div class="col-md-3">
+                <img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$v.upic}>" alt="">
+                <p><b><{$v.uname}></b></p>
+                <p><b><{$v.exp|grade}></b></p>
               </div>
-                            
-            </div>
-            <h4>标题title</h4>
-            <p>hhahahha哈哈哈哈哈哈哈哈hhhhh哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
-          </div>
-          <!-- <div style="float:left;" class="col-md-4"></div> -->
-          </div>
-        <hr class="line">
-              <div class="box">
-          <div style="float:left;" class="col-md-3">
-            <img style="width:80px;height:80px;" src="__PUBLIC__/look/images/10.jpg" alt="">
-            <p>用户昵称</p>
-            <p>吧里头衔</p>
-          </div>
-            <div style="float:left;" class="col-md-5">
-            <div class="wrap-vid">
-              <div class="zoom-container">
-                <div class="zoom-caption">
-                </div>
-                <img src="__PUBLIC__/looK/images/7.jpg" />
+                <div class="col-md-9">
+                <div class='col-md-8'>
+                <{$v.content}></p></div>
+                <div class='col-md-4'><p><span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span></p></div>
+                <a href="" class='btn btn-primary' style="margin-top: 80px;margin-left: 80px;">回复</a>
               </div>
-                            
+            
+              </div>
+            <hr class="line">
+            </foreach>
+        <!-- </div>
+        <div id="main-content" class="col-md-8"> -->    
+        <!-- <foreach name='comment' item='v'>
+          <div class="box">
+            <div class="info">
+              
+              <div class="col-md-6">
+                <span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span> 
+              </div>
             </div>
-            <h4>标题title</h4>
-            <p>hhahahha哈哈哈哈哈哈哈哈hhhhh哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
+            <div style='margin-top: 40px'>
+              <div class='col-md-2'>
+                <span><i class="fa fa-comment"></i><{$v.comcount}></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span><i class="fa fa-heart"></i><{$v.count}></span>
+              </div>
+              <div class='col-md-10'> 
+                <div class='col-md-9'> 
+                  <a href="<{:U('Post/index')}>?id=<{$v.id}>"><h4 class="vid-name" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.title}></h4></a>
+                  <div class="wrap-vid" style='margin-top:20px'>
+                  <p><{$v.descr}></p>
+                      <if condition='$v.picnum eq 1'>
+                      <div class="zoom-container">
+                        <img src="__UPLOAD__/img/barpic-thumb/<{$v.pics}>" />
+                      </div>
+                      </if>
+                    </div>
+                </div>  
+                <div class='col-md-3'> 
+                <h5>By <a href="#" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.uname}></a></h5>
+                </div>
+              </div>
+            </div>
           </div>
+          <hr class="line">         
+        </foreach> -->
+
+        <!-- <div> -->
+            <{$page}>
+        <!-- </div> -->
+                
+        <!-- 发表评论开始 -->
+                <div style='background:#EFEFEF;margin-top: 50px'>
+                    <h5 style='color: blue;font-size: 16px;margin-top: 10px'><span class='glyphicon glyphicon-pencil'>发表评论</span></h5>
+                    
+                    <form action="<{:U('Comment/doAdd')}>" method="post">
+                        <input type="hidden" name="bid" value="<{$arr.id}>"> 
+                        <input type="hidden" name="uid" value="5"> 
+                        
+                        <textarea id="demo" name="comment"></textarea>
+                        <input type="submit" name="" value="提交" class='btn btn-primary'>
+                    </form>
+                    <script>
+                        layui.use('layedit', function(){
+                          var layedit = layui.layedit;
+                          layedit.build('demo',{
+                            height: 140,
+                            tool: [
+                              'strong' //加粗
+                              ,'italic' //斜体
+                              ,'underline' //下划线
+                              ,'del' //删除线
+                              
+                              ,'|' //分割线
+                              
+                              ,'left' //左对齐
+                              ,'center' //居中对齐
+                              ,'right' //右对齐
+                              ,'link' //超链接
+                              ,'unlink' //清除链接
+                              ,'face' //表情
+                            ]
+                          }); //建立编辑器
+
+                          
+                        });
+                    </script>
+                    
+        </div> 
+                    
+        <!-- 发表评论结束-->
+        </div>
+        <div id="sidebar" class="col-md-4">
+          <!---- Start Widget ---->
+          <div class="widget wid-follow">
+            <div>
+              <div class="heading"><h4>获得经验</h4></div>
+              <div class="content" style='margin-top: 10px'>
+                  <a href="javascript:;" class="btn btn-danger" style='margin-left: 40px'><span class='glyphicon glyphicon-heart'></span>关注</a>
+                  <button class="btn btn-primary " style='margin-left: 50px'><span class='glyphicon glyphicon-pencil'></span>签到</button>
+              </div>
+            </div>
 
           </div>
-          <hr class="line">
-              <div class="box">
-          <div style="float:left;" class="col-md-3">
-            <img style="width:80px;height:80px;" src="__PUBLIC__/look/images/10.jpg" alt="">
-            <p>用户昵称</p>
-            <p>吧里头衔</p>
-          </div>
-            <div style="float:left;" class="col-md-5">
-            <div class="wrap-vid">
-              <div class="zoom-container">
-                <div class="zoom-caption">
-                </div>
-                <img src="__PUBLIC__/looK/images/7.jpg" />
-              </div>
-                            
-            </div>
-            <h4>标题title</h4>
-            <p>hhahahha哈哈哈哈哈哈哈哈hhhhh哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
-          </div>
 
+                    <if condition='$supfans eq ""'><div class="widget wid-post"  style='display:none'>
+                    <else/><div class="widget wid-post">
+                    </if>
+                    
+          <!---- Start Widget ---->
+          <!-- <div class="widget wid-post"  style='display:none'> -->
+            <div class="heading"><h4>本吧名人</h4></div>
+            <div class="content">
+                        <foreach name='supfans' item='va' key='k'> 
+              <div class="post wrap-vid">
+                <div class="zoom-container">
+                  <img width=100 src="__UPLOAD__/img/avatar-thumb/<{$va.picname}>" />
+                </div>
+                <div class="wrapper">
+                  <h5 class="vid-name"><a href="#"><{$va.name}></a></h5>
+                  <div class="info">
+                    <h6>本吧名气 <a href="#"><{$k+1}></a></h6>
+                    <span><i class="fa fa-calendar"></i>用户等级：<{$va.exp|grade}></span> 
+                    <!-- <span><i class="fa fa-heart"></i>48</span> -->
+                  </div>
+                </div>
+              </div>
+                        </foreach>
+            </div>
+          </div>
+                    
+          <!---- Start Widget ---->
+          <div class="widget ">
+            <div class="heading"><h4>我在本吧</h4></div>
+            <div class="content">
+              <div class="wrap-vid">
+                <div class="zoom-container">
+                  <div class="zoom-caption">
+                    <!-- <span class="vimeo">Vimeo</span> -->
                     <a href="single.html">
                       <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
                     </a>
-                    <!-- <p></p> -->
+                    <p>我的昵称</p>
                   </div>
-
-                  </div>
-
-
-
-<div class="col-md-4" style="float:right;">
-  <div class="box">
-      <div class="widget wid-follow">
-          <div class="heading"><h4>不知道写啥</h4></div>
-            <div class="content">
-              <button class="btn btn-danger">随便</button>
-            </div>
-          
-          </div>
-  </div>
-</div>
-
-
+                  <img src="__PUBLIC__/looK/images/1.jpg" />
                 </div>
+                <h3 class="vid-name"><a href="#">我的等级：1</a></h3>
+                
               </div>
-            </div>
-          <!---- Start Widget ---->
-         
-            
-        </div>
-        </div>
-  
+              
             </div>
           </div>
+
+              <div class="widget ">
+                  <div class="heading"><h4>天气查询</h4></div>
+                  
+              </div>
+        </div>
 
       </div>
     </div>
   </div>
-</div>
+
   <!-- <hr> -->
 
-
   <footer>
-
+    <div class="footer" alog-alias="footer">
+        <div class="wrap-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-footer footer-3">
+                    <div class="footer-heading"><h4>友情链接</h4></div>
+                    <volist name='data' id='vo'>
+                        <div class="content">
+                            <ul id='footer'>
+                            <volist name='vo' id='v'>
+                                <li><a href="<{$v.url}>"><{$v.name}></a></li>
+                            </volist>
+                            </ul>
+                        </div>
+                    </volist>
+                    </div>
+                </div>
+            </div>
+            <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"></a><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"></p>
+        </div>
+    </div>
+    
+    
   </footer>
   <!-- Footer -->
   
   <!-- JS -->
+  <script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
+    <script src="__PUBLIC__/js/bootstrap.js"></script>
   <script src="__PUBLIC__/looK/owl-carousel/owl.carousel.js"></script>
+    
+
     <script>
     $(document).ready(function() {
       $("#owl-demo").owlCarousel({
@@ -210,10 +372,11 @@
         items : 5,
         itemsDesktop : [1199,4],
         itemsDesktopSmall : [979,4]
-      });
-
+         
+        });
+                            
     });
+    
     </script>
-  
 </body>
 </html>
