@@ -5,7 +5,8 @@ class IndexController extends HomeController {
     public function index()
     {
 
-        $photo=M('carousel')->select();
+        $photo=M('carousel')->where('state=1')->select();
+        // var_dump($photo);
 
         if(!empty($_SESSION['home_user'])){
 
