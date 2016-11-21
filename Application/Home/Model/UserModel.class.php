@@ -25,6 +25,7 @@ class UserModel extends Model
     protected $_auto = array (
         // array(完成字段1,完成规则,[完成条件,附加规则]),
         array('passwd', 'md5', 3, 'function') , // 对password字段在新增和编辑的时候使md5函数处理
-        array('regtime', 'time', 1, 'function'), // 对regtime字段在更新的时候写入当前时间戳
+        array('regtime', 'time', 1, 'function'), // 对regtime字段在新增数据的时候写入当前时间戳
+        array('validate', 'uniqid', 1, 'function'),
     );
 }

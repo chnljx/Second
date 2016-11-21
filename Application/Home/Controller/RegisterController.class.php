@@ -46,10 +46,50 @@ class RegisterController extends HomeController
                     $data['rid'] = $rid['id'];
 
                     M('user_role')->add($data);
-                    $this->success('添加成功', U('Login/index'));
+
+                    $msg = M('User')->field('name,email,validate')->where('id='.$id)->find();
+
+                    $url = "http://michael.com/index.php/Home/Register/active?key={$msg['validate']}&uid={$id}";
+
+                    // 邮箱发送激活信息
+                    $result = sendMail($msg['email'], $msg['name'], '阡陌之家在线激活','请点击连接激活帐号：'.$url);
+
+                    if($result){
+                        $this->success("注册成功，请查收邮件，并激活你的帐户", U('Login/index'));
+                    }else{
+                        $this->error("注册成功，激活邮件发送失败");
+                    }
                 }else{
-                    $this->error('添加失败');
+                    $this->error('注册失败');
                 }
+            }
+        }
+    }
+
+    // 邮箱激活处理
+    public function active()
+    {
+        $id=intval($_GET['uid']);
+
+        //查询该用户的激活信息
+        $user = M('User')->where('id='.$id)->find();
+        if(!$user){
+            $this->error('激活链接无效', U('Index/index'));
+        }
+
+        //判断用户是否已激活
+        if($user['active']!=0){
+            $this->error('此用户不需要激活', U('Login/index'));
+        }
+
+        //通过验证
+        if($user['validate']==$_GET['key']){
+            //将数据库中状态修改为激活
+            $row_count = M('user')->where('id='.$id)->save(array('active'=>1));
+            if($row_count !== false){
+                $this->success('激活成功', U('Login/index'));
+            }else{
+                $this->error('激活失败', U('Index/index'));
             }
         }
     }
