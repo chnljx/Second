@@ -45,9 +45,9 @@
 		<div class="dropdown-menu">
 			<div class="dropdown-inner">
 				<ul class="list-unstyled">
-					<li><a href="archive.html">娱乐吧</a></li>
-					<li><a href="archive.html">追剧吧</a></li>
-					<li><a href="archive.html">等等</a></li>
+				<foreach name="bar" item="vo">
+					<li><a href=""><{$vo.name}></a></li>
+				</foreach>
 				</ul>
 			</div> 
 		</div>
@@ -65,7 +65,7 @@
     </li>
 	<if condition='$Think.session.home_user eq ""'>
 		<li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
-		<li><a href="<{:U('Register/index')}>">注册</a></li>
+		<li><a href="">注册</a></li>
 		<else />
 		<li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li>
 	</if>
@@ -85,8 +85,8 @@
 
 	<div class="carousel-inner">
 		
-		<div class="item active">			
-			<img src="__PUBLIC__/look/images/2.jpg" alt="First slide">
+		<div  class="item active">			
+			<img  src="__PUBLIC__/look/images/2.jpg" alt="First slide">
 			<!-- Static Header -->
 			<div class="header-text hidden-xs">
 				<!--一张图片上的字 开始-->
@@ -99,20 +99,6 @@
 				<!-- 图片上的字结束 -->
 			</div><!-- /header-text -->
 		</div>
-
-		
-		<!-- <div class="item">
-			<img style="width:500px;height:400px;" src="__UPLOAD__/img/tieba-thumb/<{$vo.picname}>" alt="Second slide">
-			
-			<div class="header-text hidden-xs">
-				<div class="col-md-12 text-center">
-					<h2>Aenean feugiat in ante et blandit. Vestibulum</h2>
-					<br>
-					<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-					<br>
-				</div>
-			</div>
-		</div> -->
 
 
 	</div>
@@ -146,33 +132,88 @@
 <div id="page-content" class="index-page container">
 <div class="row">
 <div id="main-content"><!-- background not working -->
-	<div class="col-md-6">
-<!--主体内容左边top开始  -->
-<div class="box wrap-vid">
-	<div class="zoom-container">
-		<div class="zoom-caption">
-			<span class="youtube">最热</span>
-			<a href="single.html">
-				<i class="fa fa-play icon-play" style="color: #fff"></i>
-			</a>
-			<p>王下七五海之  女帝</p>
-		</div>
-		<img src="__PUBLIC__/look/images/4.jpg" />
-	</div>
-	<h3 class="vid-name"><a href="#">海贼迷吧</a></h3>
-	<div class="info">
-		<h5>作者 <a href="#">哈哈</a></h5>
-		<span><i class="fa fa-calendar"></i>25/3/2015</span> 
-		<span><i class="fa fa-heart"></i>1,200</span>
-	</div>
-	<p class="more">哈哈哈啦啦啦啦呱呱呱咕咕u咕咕咕咕咕咕咕</p>
-</div>
-<!-- 主体内容左边top结束 -->
 
+
+
+
+<div class="col-md-3">
+<!---- Start Widget ---->
+
+<!-- 分类开始 -->
+
+<!-- 登录后显示个人信息 -->
+<if condition='$Think.session.home_user eq ""'>
+<else />
+<div class="widget wid-comment">
+<div class="heading"><h4>我在贴吧</h4></div>
+<div class="content">
+<div class="post">
+	
+	<a href="single.html">
+  	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class="img-circle"/>	
+</a>
+	
+
+<div class="wrapper">
+	<a href="#"><h5><{$Think.session.home_user.name}></h5></a>
+	<i><{$Think.session.home_user.descr}></i>
+	<p>注册时间：<{$Think.session.home_user.regtime|date="Y-m-d",###}></p>
+	<p>爱逛的吧：</p>
+	<if condition="$list.name eq ''">
+	    <a href="">你还没有常逛的吧，快去找找吧>>>>>>></a>
+	<else />
+    </if>
+	    <foreach name="list" item="vo">
+			<p><a href=""><{$vo.name}></a></p>	
+	    </foreach>
+</div>
+</div>
+</div>
+</div>
+</if>
+
+
+<!-- 分类开始 -->
+<div class="widget wid-comment">
+<div class="heading"><h4>贴吧分类</h4></div>
+<foreach name="type_bar" item="vo">
+	
+<div>
+		<div><{$vo.name}></div>
+	
+</div>
+</foreach>
+</div>
+
+
+
+<!---- 日期开始 ---->
+<div class="widget wid-calendar">
+<div class="heading"><h4>日期</h4></div>
+<div class="content">
+<center><form action="" role="form">        
+<div class="">
+	<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">                </div>
+	<input type="hidden" id="dtp_input2" value="" /><br/>
+</div>
+</form></center>
+</div>
+</div>
+<!---- 日期结束 ---->
+
+</div>
+
+
+
+
+
+
+
+	<div class="col-md-6">
 <!--主体内容左边center 1 开始  -->
 <div class="box">
 <div class="box-header header-vimeo">
-<h2>动漫吧</h2>
+<h2>热血动漫</h2>
 </div>
 <div class="box-content">
 <div class="row">
@@ -184,20 +225,20 @@
 			<a href="single.html">
 				<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
 			</a>
-			<p>火影迷吧</p>
+			<p><{$zxbar.name}></p>
 		</div>
-		<img src="__PUBLIC__/look/images/2.jpg" />
+		<img style="width:200px;" src="__UPLOAD__/img/tieba-thumb/<{$zxbar.picname}>" />
 	</div>
 	<h3 class="vid-name"><a href="#">啦啦</a></h3>
 	<div class="info">
-		<h5>作者 <a href="#">唔哈哈</a></h5>
-		<span><i class="fa fa-calendar"></i>25/3/2015</span> 
-		<span><i class="fa fa-heart"></i>1,200</span>
+		<span><i class="fa fa-calendar"></i><{$zxbar.ctime|date="Y-m-d",###}></span> 
+		<span><i class="fa fa-heart"></i></span>
 	</div>
 </div>
-<p class="more">的顶顶顶顶顶的顶顶顶顶顶的顶顶顶顶顶的顶顶顶顶顶顶顶顶顶顶</p>
+<p class="more"><{$zxbar.descr}></p>
 </div>
 <div class="col-md-6">
+<foreach name="dmbar" item="vo">
 <div class="post wrap-vid">
 	<div class="zoom-container">
 		<div class="zoom-caption">
@@ -205,15 +246,15 @@
 			<a href="single.html">
 				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
 			</a>
-			<p>吧名</p>
+			<p><{$vo.name}></p>
 		</div>
-		<img src="__PUBLIC__/look/images/1.jpg" />
+		<img src="__UPLOAD__/img/tieba-thumb/<{$vo.picname}>" />
 	</div>
 	<div class="wrapper">
-		<h5 class="vid-name"><a href="#">吧名</a></h5>
+		<!-- <h5 class="vid-name"><a href="#"><{$vo.name}></a></h5> -->
 		<div class="info">
-			<h6>作者<a href="#">名字</a></h6>
-			<span><i class="fa fa-heart"></i>1,200 / <i class="fa fa-calendar"></i>25/3/2015</span>
+			<h6>注册时间:<{$vo.ctime|date="Y-m-d",###}></h6>
+			<span><{$vo.descr}></span>
 			<span class="rating">
 				<i class="fa fa-star"></i>
 				<i class="fa fa-star"></i>
@@ -224,84 +265,7 @@
 		</div>
 	</div>
 </div>
-<div class="post wrap-vid">
-	<div class="zoom-container">
-		<div class="zoom-caption">
-			<span class="vimeo">热度</span>
-			<a href="single.html">
-				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
-			</a>
-			<p>吧名</p>
-		</div>
-		<img src="__PUBLIC__/look/images/2.jpg" />
-	</div>
-	<div class="wrapper">
-		<h5 class="vid-name"><a href="#">吧名</a></h5>
-		<div class="info">
-			<h6>作者 <a href="#">名字</a></h6>
-			<span><i class="fa fa-heart"></i>1,200 / <i class="fa fa-calendar"></i>25/3/2015</span>
-			<span class="rating">
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-			</span>
-		</div>
-	</div>
-</div>
-<div class="post wrap-vid">
-	<div class="zoom-container">
-		<div class="zoom-caption">
-			<span class="vimeo">Vimeo</span>
-			<a href="single.html">
-				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
-			</a>
-			<p>Video's Name</p>
-		</div>
-		<img src="__PUBLIC__/look/images/3.jpg" />
-	</div>
-	<div class="wrapper">
-		<h5 class="vid-name"><a href="#">Video's Name</a></h5>
-		<div class="info">
-			<h6>By <a href="#">Kelvin</a></h6>
-			<span><i class="fa fa-heart"></i>1,200 / <i class="fa fa-calendar"></i>25/3/2015</span>
-			<span class="rating">
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star-half"></i>
-			</span>
-		</div>
-	</div>
-</div>
-<div class="post wrap-vid">
-	<div class="zoom-container">
-		<div class="zoom-caption">
-			<span class="vimeo">Vimeo</span>
-			<a href="single.html">
-				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
-			</a>
-			<p>Video's Name</p>
-		</div>
-		<img src="__PUBLIC__/look/images/1.jpg" />
-	</div>
-	<div class="wrapper">
-		<h5 class="vid-name"><a href="#">Video's Name</a></h5>
-		<div class="info">
-			<h6>By <a href="#">Kelvin</a></h6>
-			<span><i class="fa fa-heart"></i>1,200 / <i class="fa fa-calendar"></i>25/3/2015</span>
-			<span class="rating">
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star-half"></i>
-			</span>
-		</div>
-	</div>
-</div>
+</foreach>
 </div>
 </div>
 </div>
@@ -309,70 +273,52 @@
 <!-- 主体内容左边center 1 结束 -->
 
 <!-- 主体内容左边center 2 开始 -->
+
 <div class="box">
 	<div class="box-header header-photo">
 		<h2>摄影吧Photos</h2>
 	</div>
 	<div class="box-content">
 		<div id="owl-demo-2" class="owl-carousel">
+			<foreach name="arr" item="vo">
+
 			<div class="item">
-				<img src="__PUBLIC__/look/images/1.jpg" />
-				<img src="__PUBLIC__/look/images/2.jpg" />
+			<foreach name="vo" item="v">
+		
+				<img style="width:200px;height:100px;" src="__UPLOAD__/img/tieba-thumb/<{$v}>" />
+			</foreach>
 			</div>
-			<div class="item">
-				<img src="__PUBLIC__/look/images/3.jpg" />
-				<img src="__PUBLIC__/look/images/5.jpg" />
-			</div>
-			<div class="item">
-				<img src="__PUBLIC__/look/images/8.jpg" />
-				<img src="__PUBLIC__/look/images/9.jpg" />
-			</div>
-			<div class="item">
-				<img src="__PUBLIC__/look/images/10.jpg" />
-				<img src="__PUBLIC__/look/images/11.jpg" />
-			</div>
-			<div class="item">
-				<img src="__PUBLIC__/look/images/12.jpg" />
-				<img src="__PUBLIC__/look/images/13.jpg" />
-			</div>
+
+             </foreach>
 		</div>
 	</div>
 </div>
+
 <!-- 主体内容center 2 结束 -->
 
 <!-- 主体内容左边foot开始 -->
 <div class="box">
 <div class="box-header header-natural">
-<h2>综艺类最热吧</h2>
+<h2>内地综艺最热吧</h2>
 </div>
 <div class="box-content">
 <div class="row">
+<foreach name="bar_mes" item="vo">
 	<div class="col-md-6">
-		<img src="__PUBLIC__/look/images/6.jpg" />
-		<h3><a href="#">快乐家族吧</a></h3>
-		<span><i class="fa fa-heart"></i> 1,200 / <i class="fa fa-calendar"></i> 25/3/2015 / <i class="fa fa-comment-o"> / </i> 10 <i class="fa fa-eye"></i> 945</span>
+		<img style="width:180px;height:90px;" src="__UPLOAD__/img/tieba-thumb/<{$vo.picname}>" />
+		<h3><a href="#"><{$vo.name}></a></h3>
+		<span><i class="fa fa-heart"></i> 1,200 / <i class="fa fa-calendar"></i> <{$vo.ctime|date="Y-m-d",###}>  </span>
+		<p>
 		<span class="rating">
 			<i class="fa fa-star"></i>
 			<i class="fa fa-star"></i>
 			<i class="fa fa-star"></i>
 			<i class="fa fa-star"></i>
 			<i class="fa fa-star-half"></i>
-		</span>
-		<p>该吧最新帖子内容</p>
+		</span></p>
+		<p><{$vo.descr}></p>
 	</div>
-	<div class="col-md-6">
-		<img src="__PUBLIC__/look/images/7.jpg" />
-		<h3><a href="#">极限挑战吧</a></h3>
-		<span><i class="fa fa-heart"></i> 1,200 / <i class="fa fa-calendar"></i> 25/3/2015 / <i class="fa fa-comment-o"> / </i> 3 <i class="fa fa-eye"></i> 1007</span>
-		<span class="rating">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star-half"></i>
-		</span>
-		<p>最新帖子内容</p>
-	</div>
+</foreach>
 </div>
 </div>
 </div>
@@ -381,6 +327,10 @@
 </div>
 </div>
 <div id="sidebar">
+
+
+
+
 <div class="col-md-3">
 <!---- Start Widget ---->
 <div class="widget wid-vid">
@@ -388,11 +338,6 @@
 		<h4>贴吧热议榜</h4>
 	</div>
 <div class="content">
-	<!-- <ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#most">Most Plays</a></li>
-		<li><a data-toggle="tab" href="#popular">Popular</a></li>
-		<li><a data-toggle="tab" href="#random">Random</a></li>
-	</ul> -->
 <div class="tab-content">
 <div id="most" class="tab-pane fade in active">
     <div class="post wrap-vid">
@@ -480,134 +425,49 @@
 <div class="widget wid-new-post">
 	<div class="heading"><h4>豪友俱乐部</h4></div>
 	<div class="content">
-		<h6>积分 ONE</h6>
-			<img src="__PUBLIC__/look/images/22.jpg" />
-		<p>此人最近发的帖子</p>
-		<h6>积分 TWO</h6>
-			<img src="__PUBLIC__/look/images/1.jpg" />
-		<p>此人最近发的帖子</p>
-		<h6>积分 ONE</h6>
-			<img src="__PUBLIC__/look/images/24.jpg" />
-		<p>此人最近发的帖子</p>
-		<h6>积分 TWO</h6>
-			<img src="__PUBLIC__/look/images/2.jpg" />
-		<p>此人最近发的帖子</p>
-		<h6>积分 ONE</h6>
-			<img src="__PUBLIC__/look/images/4.jpg" />
-		<p>此人最近发的帖子</p>
+	<foreach name="user_exp" item="vo">
+	<div style="margin-top:5px;" class="post wrap-vid">
+	  <div class="zoom-container">
+		<div class="zoom-caption">
+		
+			<a href="single.html">
+				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
+			</a>
+		<!-- <p>Video's Name</p> -->
+		</div>
+	<img style="width:50px;height:50px;" src="__UPLOAD__/img/avatar-thumb/<{$vo.picname}>" />
+   </div>
+	<div class="wrapper">
+		<h5 class="vid-name"><a href="#"><{$vo.name}></a></h5>
+		<div class="info">
+			<h6>积分: <a href="#"><{$vo.exp}></a></h6>
+			<span><{$vo.descr}></span>
+
+		</div>
 	</div>
+   </div>
+   <hr>
+</foreach>
 </div>
 
-</div>
-<div class="col-md-3">
-<!---- Start Widget ---->
-
-<!-- 分类开始 -->
-
-<!-- 登录后显示个人信息 -->
-<if condition='$Think.session.home_user eq ""'>
-<else />
-<div class="widget wid-comment">
-<div class="heading"><h4>我在贴吧</h4></div>
-<div class="content">
-<div class="post">
-	
-	<a href="single.html">
-  	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class="img-circle"/>	
-</a>
-	
-
-<div class="wrapper">
-	<a href="#"><h5><{$Think.session.home_user.name}></h5></a>
-	<i><{$Think.session.home_user.descr}></i>
-	<p>注册时间：<{$Think.session.home_user.regtime|date="Y-m-d",###}></p>
-	<p>爱逛的吧：</p>
-	<if condition="$list.name eq ''">
-	    <a href="">你还没有常逛的吧，快去找找吧>>>>>>></a>
-	<else />
-    </if>
-	    <foreach name="list" item="vo">
-			<p><a href=""><{$vo.name}></a></p>	
-	    </foreach>
-</div>
-</div>
-</div>
-</div>
-</if>
-
-
-<!-- 分类开始 -->
-<div class="widget wid-comment">
-<div class="heading"><h4>贴吧分类</h4></div>
-<div class="content">
-<div class="post">
-<a href="single.html">
-	<img src="__PUBLIC__/look/images/ava-1.jpg" class="img-circle"/>
-</a>
-<div class="wrapper">
-	<a href="#"><h5>Curabitur tincidunt porta lorem.</h5></a>
-	<ul class="list-inline">
-		<li><i class="fa fa-calendar"></i>25/3/2015</li> 
-		<li><i class="fa fa-thumbs-up"></i>1,200</li>
-	</ul>
-</div>
-</div>
-<div class="post">
-<a href="single.html">
-	<img src="__PUBLIC__/look/images/ava-2.png" class="img-circle"/>
-</a>
-<div class="wrapper">
-	<a href="#"><h5>Curabitur tincidunt porta lorem.</h5></a>
-	<ul class="list-inline">
-		<li><i class="fa fa-calendar"></i>25/3/2015</li> 
-		<li><i class="fa fa-thumbs-up"></i>1,200</li>
-	</ul>
-</div>
-</div>
-<div class="post">
-<a href="single.html">
-	<img src="__PUBLIC__/look/images/ava-3.jpeg" class="img-circle"/>
-</a>
-<div class="wrapper">
-	<a href="#"><h5>Curabitur tincidunt porta lorem.</h5></a>
-	<ul class="list-inline">
-		<li><i class="fa fa-calendar"></i>25/3/2015</li> 
-		<li><i class="fa fa-thumbs-up"></i>1,200</li>
-	</ul>
-</div>
-</div>
-<div class="post">
-<a href="single.html">
-	<img src="__PUBLIC__/look/images/ava-4.jpg" class="img-circle"/>
-</a>
-<div class="wrapper">
-	<a href="#"><h5>Curabitur tincidunt porta lorem.</h5></a>
-	<ul class="list-inline">
-		<li><i class="fa fa-calendar"></i>25/3/2015</li> 
-		<li><i class="fa fa-thumbs-up"></i>1,200</li>
-	</ul>
-</div>
-</div>
-</div>
 </div>
 
 
 
-<!---- 日期开始 ---->
-<div class="widget wid-calendar">
-<div class="heading"><h4>日期</h4></div>
-<div class="content">
-<center><form action="" role="form">        
-<div class="">
-	<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">                </div>
-	<input type="hidden" id="dtp_input2" value="" /><br/>
-</div>
-</form></center>
-</div>
-</div>
-<!---- 日期结束 ---->
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 </div>

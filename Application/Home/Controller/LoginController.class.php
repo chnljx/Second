@@ -8,6 +8,11 @@ class LoginController extends HomeController
         $this->display();
     }
 
+    public function reginster() {
+    
+         $this->display();
+    }
+
     /**
      * 验证码
      * @access public        
@@ -51,14 +56,17 @@ class LoginController extends HomeController
                 $data = $User->where($map)->find();
 
                 // 如果手机号和密码匹配则进入，否则显示错误
-                if ($data && $data['state'] == 1) {
-
-                    $_SESSION['home_user']=$data;
-
-                    
-        
-                    $this->redirect('Index/index');
-
+                if ($data) {
+                    if($data['active']==1) {
+                        if($data['state']==1) {
+                            $_SESSION['home_user']=$data;        
+                            $this->redirect('Index/index');
+                        }else {
+                            $this->error('账户已被禁用');
+                        }
+                    }else {
+                        $this->error('账号未激活');
+                    }
                 } else {
                     $this->error('帐号或密码错误');
                 }
