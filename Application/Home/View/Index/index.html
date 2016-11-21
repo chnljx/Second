@@ -65,7 +65,7 @@
     </li>
 	<if condition='$Think.session.home_user eq ""'>
 		<li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
-		<li><a href="">注册</a></li>
+		<li><a href="<{:U('Register/index')}>">注册</a></li>
 		<else />
 		<li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li>
 	</if>
