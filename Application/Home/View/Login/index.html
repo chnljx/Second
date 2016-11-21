@@ -47,7 +47,7 @@
 				</div>
 				<div class="col-md-6">
 					<ul class="list-inline top-link link">
-						<li><a href="index.html"><i class="fa fa-home"></i> 回到首页</a></li>
+						<li><a href="<{:U('Index/index')}>"><i class="fa fa-home"></i> 回到首页</a></li>
 						<li><a href="contact.html"><i class="fa fa-comments"></i> 关于我们</a></li>
 						<li><a href="#"><i class="fa fa-question-circle"></i> 帮助</a></li>
 					</ul>
@@ -67,114 +67,10 @@
 		</div>
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="<{:U('Index/index')}>">首页</a></li>
 			</ul>
 		</div>
 	</nav>
 </header>
-
-	<!--轮播图开始  -->
-	<div class="featured container">
-		<div id="owl-demo" class="owl-carousel">
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/1.jpg" />
-				</div>
-			</div>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/2.jpg" />
-				</div>
-			</div>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/3.jpg" />
-				</div>
-			</div>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/8.jpg" />
-				</div>
-			</div>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/9.jpg" />
-				</div>
-			</div>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/10.jpg" />
-				</div>
-			</div>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/11.jpg" />
-				</div>
-			</div>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<span>Youtube</span>
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-						<p>Video's Name</p>
-					</div>
-					<img src="__PUBLIC__/look/images/12.jpg" />
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- 轮播图结束 -->
 
 	<!-- Header -->
 	
@@ -185,31 +81,66 @@
 	<div id="main-content" class="col-md-8">
 		<div class="box">
 			<center><div class="box-header">
-				<h1 class="center">登录</h1>
+				<h3 class="center">登录</h3>
 			</div></center>
 			<div class="box-content">
 				<div id="contact_form">
 					<span id="tips" style="color: red;margin-left: 160px;"></span>
-					<form name="form1" id="ff" method="post" action="<{:U('Login/doLogin')}>">
-						<label>
+					<!-- <form name="form1" id="ff" method="post" action="<{:U('Login/doLogin')}>"> -->
+					<form action="<{:U('Login/doLogin')}>" method="post" class="form-horizontal" role="form" id="form-register">
+						
+						<div class="form-group"><p>
+                        <label class="col-sm-2 col-sm-offset-1 control-label"><span>用户名</span></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="phone" required id="phone" placeholder="用户名/手机号/邮箱"></p>
+                        </div>
+                        </div>
+                    
+
+					<!-- 	<label>
 						<span>请输入手机/邮箱/用户名:</span>
 						<input type="text"  name="phone" id="phone" required value="">
-						</label>
-						<label>
+						</label> -->
+						
+						<div class="form-group"><p>
+                        <label class="col-sm-2 col-sm-offset-1 control-label"><span>密码</span></label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" name="password" required id="password" placeholder="输入密码"></p>
+                        </div>
+                        </div>
+							
+						<!-- <label>
 						<span>请输入密码:</span>
 						<input type="password"  name="password" id="password" required>
-						</label>
-						<label>
+						</label> -->
+						 <div class="form-group">
+                        <label class="col-sm-2 col-sm-offset-1 control-label">验证码</label>
+                        <div class="col-sm-4">
+                            <input type="type" class="form-control" name="verify" id="verify" required placeholder="">
+                        </div>
+                        <div class="col-sm-3">                         
+                            <img id="verify_img" src="<{:U('Register/getVerify')}>" title="看不清，换一张" style="cursor:pointer;">
+                        </div>
+                    </div>
+						<!-- <label>
 						<span>请输入验证码:</span>
 						<p>
 						<input style="width:300px;float:left;" type="text"  name="verify" id="verify" required>
 						<img style="float:left;margin-left:10px;margin-top:5px;" id="verify_img" src="<{:U('Login/getVerify')}>" title="看不清，换一张" style="cursor:pointer">
 					    </p>
-						</label>
-						<br><br><br>
-						<p>
+						</label> -->
+						<br><br>
+					<!-- 	<p>
 						<center><input class="sendButton" type="submit" name="Submit" value="确认登录"></center>
-					</p>
+					</p> -->
+					 <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-6">
+                          <button type="submit" class="btn btn-success btn-block">登录</button>
+                        </div>
+                    </div>
+                      <div class="col-sm-offset-6">                
+                        <span class="fr">忘记密码？<a href="<{:U('email')}>">找回密码</a></span>
+                    </div><br><br><br><br>
 					</form>
 				</div>
 			</div>

@@ -97,9 +97,9 @@ class CarouselController extends AdminController
               $path = $info['savepath'].$info['savename'];
               $image = new \Think\Image();
               $image->open("./Upload/img/tieba/".$path);
-              // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
+              // 按照原图的比例生成一个最大为350*235的缩略图并保存为thumb.jpg
               $path = time().$info['savename'];
-              $image->thumb(90, 90)->save('./Upload/img/tieba-thumb/'.$path);
+              $image->thumb(350, 235)->save('./Upload/img/tieba-thumb/'.$path);
             }
           }
 
