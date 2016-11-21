@@ -11,7 +11,8 @@ use \Think\Controller;
 class UserController extends HomeController
 {
     public function index()
-    {
+    {   
+        
         $this->display();
     }
 
