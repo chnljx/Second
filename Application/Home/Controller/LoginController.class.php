@@ -8,11 +8,6 @@ class LoginController extends HomeController
         $this->display();
     }
 
-    public function reginster() {
-    
-         $this->display();
-    }
-
     /**
      * 验证码
      * @access public        

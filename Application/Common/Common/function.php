@@ -7,11 +7,10 @@
  * @return boolean
  */
 function check_verify($code, $id = ''){
-    // $config = array(
-    //     'reset'         => false,        // 验证成功后是否重置
-    //     'expire'        => 60,          // 验证码的有效期（秒）
-    // );
-    $verify = new \Think\Verify();
+    $config = array(
+        'reset' => false // 验证成功后是否重置，—————这里才是有效的。
+    );
+    $verify = new \Think\Verify($config);
     return $verify->check($code, $id);
 }
 
