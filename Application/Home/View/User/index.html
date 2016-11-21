@@ -59,40 +59,8 @@
 </head>
 
 <body>
-<!-- 模态框 -->
- <div class="modal fade" id='myModal' style='width:0;height:0;'  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">添加常逛的吧</h4>
-        </div>
-        <div style='border-bottom:1px solid #ddd'>k</div>
-        <div class="modal-body" style='border-bottom:1px solid #ddd'>
-            吧名称：<input type="text">
-            <button class='btn-primary'>添加</button>
-        </div>
-        <div class="modal-header">
-          <h4 class="modal-title">贴吧精选</h4>
-        </div>
-        <div class="modal-body" style='border-bottom:1px solid #ddd'>
-            。。。。。。。
-        </div>
-        <div class="modal-header">
-          <h4 class="modal-title">分类精选</h4>
-        </div>
-        <div class="modal-body">
-           。。。。。。。。。。。。。
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><span class='glyphicon glyphicon-off'></span></button>
-          <button type="button" class="btn btn-primary"><span class='glyphicon glyphicon-floppy-disk'></span></button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-<header>
 
+<header>
 	<!--Top-->
 	<nav id="top">
     <div class="container">
@@ -102,7 +70,7 @@
         </div>
         <div class="col-md-6">
           <ul class="list-inline top-link link">
-            <li><a href="index.html"><i class="fa fa-home"></i> 回到首页</a></li>
+            <li><a href="<{:U('Index/index')}>"><i class="fa fa-home"></i> 回到首页</a></li>
             <li><a href="contact.html"><i class="fa fa-comments"></i> 关于我们</a></li>
             <li><a href="#"><i class="fa fa-question-circle"></i> 帮助</a></li>
           </ul>
@@ -115,13 +83,13 @@
 
 <!-- main -->
 <div class="wrap1" >
-   <div class="wrap2">
+   <div style="margin-top: 130px">
     <div id="headinfo_wrap" class="headinfo_wrap"> 
     </div>
     <div id="userinfo_wrap" class="userinfo_wrap clearfix">
      <div class="userinfo_left ">
       <div class="userinfo_left_head" id="j_userhead" data-sign="106c9955?t=1478689543">
-       <a href="javascript:;" style="" class="userinfo_head"><img src="__UPLOAD__/img/avatar-thumb/1479219991582b1b17e4240.jpg" /></a>
+       <a href="javascript:;" style="" class="userinfo_head"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>
       </div>
      </div>
      <div class="userinfo_middle">
@@ -131,14 +99,14 @@
        </div> 
       </div>
       <div class="userinfo_title"> 
-       <span class="userinfo_username ">簡簡xy單單</span> 
+       <span class="userinfo_username "><{$Think.session.home_user.name}></span> 
       </div>
       <div class="userinfo_num">
        <div class="userinfo_userdata">
         <span class="userinfo_sex userinfo_sex_male"></span>
-        <span>吧龄:2年</span>
+        <span>吧龄：<{$Think.session.home_user.regtime|barage}>年</span>
         <span class="userinfo_split"></span>
-        <span>发贴:1</span> 
+        <span>发贴：1</span> 
        </div>
       </div> 
       <div class="userinfo_honor clearfix"> 
