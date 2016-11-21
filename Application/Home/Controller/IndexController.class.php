@@ -25,7 +25,7 @@ class IndexController extends HomeController {
         // var_dump($bar_mes);
 
         // 豪友俱乐部
-        $user_exp=M('user')->where('state=1')->order('exp desc')->limit('5')->select();
+        $user_exp=M('user')->where("state=1 and name!='admin'")->order('exp desc')->limit('5')->select();
         // var_dump($user_exp);
 
        // 摄影吧图片
@@ -57,6 +57,33 @@ class IndexController extends HomeController {
            // var_dump($data);
         }
 
+
+        // 新闻接口
+        $curl=curl_init();
+        // var_dump($curl);
+
+        // 设置APIKEY url 形式
+        $apikey="";
+        $word=urlencode('哈哈');
+        // URL设置
+        curl_setopt($curl,CURLOPT_URL,' http://api.tianapi.com/keji/?key='.$apikey.'&num=10&word='.$word);
+        // 将curl_exec()获取的信息以文件流的形式返回，而不是直接输出
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        // curl 执行
+        $data=curl_exec();
+        var_dump($data);
+
+        // 关闭curl
+        curl_close($curl);
+        // 处理JSON数据
+        $jsonObj=json_decode($data);
+        // 提取文章列表
+        $newslist=$jsonObj->newslist;
+
+        $this->assign('newslist',$newslist);
+
+
         $this->assign('title','首页');
         $this->assign('bar',$bar);
         $this->assign('dmbar',$dmbar);
@@ -75,4 +102,5 @@ class IndexController extends HomeController {
         $this->assign('list',$data);
         $this->display();
     }
+
 }

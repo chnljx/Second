@@ -65,7 +65,7 @@
     </li>
 	<if condition='$Think.session.home_user eq ""'>
 		<li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
-		<li><a href="">注册</a></li>
+		<li><a href="<{:U('Register/index')}>">注册</a></li>
 		<else />
 		<li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li>
 	</if>
@@ -337,7 +337,12 @@
 	<div class="heading">
 		<h4>贴吧热议榜</h4>
 	</div>
-<div class="content">
+<div>
+	<foreach name="newslist" item="news">
+		<a href="<{$news.url}>" target="_blank"><{$news.title}></a>
+	</foreach>
+</div>
+<!-- <div class="content">
 <div class="tab-content">
 <div id="most" class="tab-pane fade in active">
     <div class="post wrap-vid">
@@ -347,7 +352,7 @@
 			<a href="single.html">
 				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
 			</a>
-		<!-- <p>Video's Name</p> -->
+
 		</div>
 	<img src="__PUBLIC__/look/images/3.jpg" />
    </div>
@@ -373,7 +378,7 @@
 			<a href="single.html">
 				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
 			</a>
-			<!-- <p>帖子标题</p> -->
+
 			</div>
 		<img src="__PUBLIC__/look/images/2.jpg" />
 		</div>
@@ -399,7 +404,6 @@
 	<a href="single.html">
 		<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
 	</a>
-	<!-- <p>Video's Name</p> -->
 	</div>
 	<img src="__PUBLIC__/look/images/1.jpg" />
 	</div>
@@ -420,7 +424,7 @@
 	</div>
 </div>
 </div>
-</div>
+</div> -->
 </div>
 <div class="widget wid-new-post">
 	<div class="heading"><h4>豪友俱乐部</h4></div>
@@ -451,23 +455,6 @@
 </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 </div>
 </div>

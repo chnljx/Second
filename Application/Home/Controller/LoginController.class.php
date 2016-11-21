@@ -74,4 +74,10 @@ class LoginController extends HomeController
             }
         }
     }
+
+
+    public function email()
+    {
+        $this->display();
+    }
 }
