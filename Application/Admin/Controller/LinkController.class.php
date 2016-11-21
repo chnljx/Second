@@ -85,9 +85,9 @@ class LinkController extends Controller
     * @access public        
     * @return void
     */
-    public function add()
+    public function addView()
     {
-        $this->display();
+        $this->display('Link:add');
     }  
 
 
@@ -125,11 +125,11 @@ class LinkController extends Controller
     * @access public        
     * @return void
     */
-    public function edit()
+    public function editView()
     {
         $data = D('Link')->where('id='.I('get.id'))->find();
         $this->assign('data',$data);
-        $this->display();
+        $this->display('Link:edit');
     }  
 
 

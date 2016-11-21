@@ -48,6 +48,7 @@ class SystemController extends AdminController
         $this->assign('user', $usernum);
         $this->assign('huser', $husernum);
 
+        echo '<hr>';
         // var_dump($link);die;
         $this->display();
     }
@@ -95,10 +96,9 @@ class SystemController extends AdminController
         $yend = strtotime('today');
         // 本周 
         $wstart = strtotime('Monday -1 week');
-        $wend = strtotime('Sunday');
+        $wend = strtotime('Monday');
         // 上周
         $lwstart = strtotime('last Monday -1 week');
-        $lwend = strtotime('last Sunday');
 
         $arr['t']=0;
         $arr['y']=0;
@@ -106,18 +106,18 @@ class SystemController extends AdminController
         $arr['lw']=0;
         foreach ($array as $va) {
             foreach ($va as $v) {
-                if ($v<$tend && $v>$tstart) {
+                if ($v<$tend && $v>=$tstart) {
                     $arr['t'] += 1;
-                } elseif ($v<$yend && $v>$ystart) {
+                } elseif ($v<$yend && $v>=$ystart) {
                     $arr['y'] += 1;
-                } elseif ($v<$wend && $v>$wstart) {
+                } 
+                if ($v<$wend && $v>=$wstart) {
                     $arr['w'] += 1;
-                } elseif ($v<$lwend && $v>$lwstart) {
+                } elseif ($v<$wstart && $v>=$lwstart) {
                     $arr['lw'] += 1;
                 }
             } 
         }
-            var_dump($arr['w']);
         return $arr;
     }
 

@@ -70,12 +70,12 @@ class BarController extends AdminController
     * @access public        
     * @return void
     */
-    public function add()
+    public function addView()
     {
         $type = D('Type');
         $list = $type->getAdminCate();
         $this->assign('list',$list);
-        $this->display();
+        $this->display('Bar:add');
     }
 
     /**
@@ -134,7 +134,7 @@ class BarController extends AdminController
                     $data['ctime'] = time();
                     // 执行添加
                     if ($bar->add($data) > 0) {
-                        $this->success('添加成功', U('index'));
+                        $this->success('添加成功', U('addView'));
                     } else {
                         $this->error('添加失败');
                     }   
@@ -167,11 +167,11 @@ class BarController extends AdminController
     * @access public        
     * @return void
     */
-    public function edit()
+    public function editView()
     {
         $list = M('bar')->field('u.name uname, t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t, qm_user u')->where('b.typeid=t.id and b.uid=u.id and b.id='.I('get.id'))->find();
         $this->assign('list',$list);
-        $this->display();
+        $this->display('Bar:edit');
     }
 
     /**
@@ -229,7 +229,7 @@ class BarController extends AdminController
                 $data['state'] = I('post.state');
                 // 执行添加
                 if ($bar->where('id='.I('post.id'))->save($data) > 0) {
-                    $this->success('修改成功', U('index'));
+                    $this->success('修改成功', U('editView').'?id='.I('post.id'));
                 } else {
                     $this->error('修改失败');
                 }   
@@ -400,7 +400,8 @@ class BarController extends AdminController
                         // $same['state']=1;
                         // M('barboss_beg')->where('bid='.I('post.bid').' and id!='.I('post.id'))->save($same);//只能有一个吧主时 除申请成功的吧主外 其他全部申请成为该贴吧的请求状态为已经拒绝 
                         $role['uid'] = I('post.uid');
-                        $role['rid'] = 3;
+                        $rid = M('role')->field('id')->where(array('name'=>array('eq', '吧主')))->find();
+                        $role['rid'] = $rid['id'];
                         $rolenum = M('user_role')->where($role)->find();
                         // 判断用户角色表中是否已有 没有  进行添加
                         if ($rolenum) {

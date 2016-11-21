@@ -33,7 +33,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<{:U('Bar/doAdd')}>" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+	<form action="<{:U('Bar/doAdd')}>" method="post" class="form form-horizontal" id="form-bar-add" enctype="multipart/form-data">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
 			<div class="formControls col-xs-8 col-sm-6">
@@ -98,62 +98,69 @@
 
 <!--请在下方写此页面业务相关的脚本--> 
 <script>
+
 $(function(){
-	$('#typeid').blur(function(){
-		$.ajax({
-			type: 'POST',
-			url: "<{:U('Bar/doAdd')}>",
-			data: 'typeid='+$('#typeid').val(),
-			success: function(msg){
-	          if(msg){
-	            $('#selecttips').html(msg);
-	          }else{
-	            $('#selecttips').html('');
-	          }
-	        }
-		});
-	});
-	$('#name').blur(function(){
-		$.ajax({
-			type: 'POST',
-			url: "<{:U('Bar/doAdd')}>",
-			data: 'name='+$('#name').val(),
-			success: function(msg){
-	          if(msg){
-	            $('#nametips').html(msg);
-	          }else{
-	            $('#nametips').html('');
-	          }
-	        }
-		});
-	});
-
-	$('#descr').blur(function(){
-		$.ajax({
-			type: 'POST',
-			url: "<{:U('Bar/doAdd')}>",
-			data: 'descr='+$('#descr').val(),
-			success: function(msg){
-	          if(msg){
-	            $('#descrtips').html(msg);
-	          }else{
-	            $('#descrtips').html('');
-	          }
-	        }
-		});
-	});
-
-	$('#submitbtn').click(function(){
-		if($('#typeid').val() == ''){
-        	$('#selecttips').html('请选择贴吧类别');
-        	return false;
-     	}
-
-      	if($('#name').val() == ''){
-        	$('#nametips').html('请输入贴吧名称');
-        	return false;
-      	}
-
+    $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
+    });
+  
+    $("#form-bar-add").validate({
+        rules:{
+        	typeid: {
+                required: true,
+              
+            },
+        	name: {
+        		required: true,
+        		remote: {
+				    url: "<{:U('Bar/doadd')}>",     //后台处理程序
+				    type: "post",               //数据发送方式
+				    dataType: "json",           //接受数据格式   
+				    data: {                     //要传递的数据
+				        name: function() {
+				            return $("#name").val();
+				        }
+				    },
+                    dataFilter: function(data, type) { 
+                        if(data){
+                            return false;
+                        }else{
+                            return true;
+                        } 
+                    }, 
+				},
+        	},
+            descr: {
+                required: true,
+                rangelength: [10,50],
+            },
+            
+        },
+        messages: {
+            typeid: {
+                required: "请选择贴吧类别",
+            },
+            name: {
+                required: "请输入贴吧名称",
+                remote: "该贴吧名称已经存在",
+            },
+            descr: {
+                required: "简介长度不正确",
+            },
+            
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            // $(form).ajaxSubmit();
+            // var index = parent.layer.getFrameIndex(window.name);
+            // //parent.$('.btn-refresh').click();
+            // parent.layer.close(index);
+            form.submit();
+        }
     });
 });
 </script>
