@@ -77,9 +77,9 @@
       <div class="tbnav_tab_inner"> 
        <p class="space"> <a class="nav_icon nav_main" href="<{:U('User:index')}>" locate="tab_main#ihome_v1">我的主页</a></p> 
      </div></li> 
-     <li class="focus"> 
+     <li> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_msg" href="#" locate="tab_msg#ihome_v1">通知</a></p> 
+       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:msgview','p=1','html')}>" locate="tab_msg#ihome_v1">通知</a></p> 
        <span></span> 
      </div></li> 
      <li> 
@@ -87,9 +87,9 @@
        <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:list')}>" locate="tab_collect#ihome_v1">收藏</a></p> 
        <span></span> 
      </div></li> 
-     <li> 
+     <li class="focus"> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_post" href="<{:U('User:postview')}>" locate="tab_post#ihome_v1">贴子</a></p> 
+       <p class="space"> <a class="nav_icon nav_post" href="#" locate="tab_post#ihome_v1">贴子</a></p> 
      </div></li> 
    </ul>
  </div>
@@ -97,7 +97,7 @@
   <div id="onekey_sign">
    <a class="onekey_btn" onclick="return false;" href=""><i class="icon_signed"></i></a>
  </div>
- <h1 class="ihome_title"><span class="cut_line">|</span>我的消息</h1>
+ <h1 class="ihome_title"><span class="cut_line">|</span>我的帖子</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
     <foreach name="list" item="vo">
         <div style="width: 690px;border-bottom: 1px solid #F4F4F4;margin-top: 20px;">
