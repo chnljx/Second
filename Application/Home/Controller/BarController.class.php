@@ -11,6 +11,10 @@ class BarController extends HomeController
 {
     public function index()
     {
+        if (empty(I('get.id'))) {
+            $this->display('Public:404');
+            exit;
+        }
         // 图片轮播
         $data = M('picture')->where('bid='.I('get.id'))->limit(12)->select();
         // 贴吧名
