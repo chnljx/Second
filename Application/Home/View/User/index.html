@@ -57,10 +57,9 @@
  </div>
  <div class="userinfo_num">
    <div class="userinfo_userdata">
-    <span class="userinfo_sex userinfo_sex_male"></span>
     <span>吧龄：<{$Think.session.home_user.regtime|barage}>年</span>
     <span class="userinfo_split"></span>
-    <span>发贴：1</span> 
+    <span>发贴：<{$post_count}></span> 
   </div>
 </div> 
 <div class="userinfo_honor clearfix"> 
@@ -108,7 +107,9 @@
  </div>
  <h1 class="ihome_title"><span class="cut_line">|</span>爱逛的吧</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
-   <a data-fid="339" target="_blank" locate="like_forums#ihome_v1" href="" class="u-f-item unsign"><span>柯南</span><span class="forum_level lv1"></span></a>
+    <foreach name="follow" item="vo">
+      <a data-fid="339" target="_blank" locate="like_forums#ihome_v1" href="" class="u-f-item unsign"><span><{$vo.name}></span><!-- <span class="forum_level lv5"></span> --></a>
+    </foreach>
    <!-- <a class="u-f-item add-more-forum j_add_more_forum btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></a>  -->
  </div>
 </div> 
