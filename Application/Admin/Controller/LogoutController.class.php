@@ -16,7 +16,8 @@ class LogoutController extends Controller
     */
 	public function doLogout()
 	{
-		session(null);
+        // session(null);
+		session('admin_user', null);
 		$this->redirect('Login/index');
 	}
 

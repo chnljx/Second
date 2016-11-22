@@ -20,6 +20,11 @@ class UserController extends HomeController
 
     public function index()
     {   
+        $post_count = M('Post')->where('uid='.session('home_user.id'))->count("id");
+        $follow = M('Follow')->alias('f')->field('name')->where('f.uid='.session('home_user.id'))->join('__BAR__ ON f.bid = __BAR__.id')->select();
+
+        $this->assign('post_count', $post_count);
+        $this->assign('follow', $follow);
         $this->display();
     }
 
@@ -29,7 +34,6 @@ class UserController extends HomeController
     public function editview()
     {
         $User = M('User')->where('id='.session('home_user.id'))->find();
-        // V($User);
         $this->assign('user',$User);
         $this->display('User:edit');
     }
@@ -108,7 +112,7 @@ class UserController extends HomeController
                     $image = new \Think\Image();
                     $image->open("./Upload/img/avatar/".$path);
                     $path = time().$info['savename'];
-                    $image->thumb(90, 90)->save('./Upload/img/avatar-thumb/'.$path);
+                    $image->thumb(140, 150)->save('./Upload/img/avatar-thumb/'.$path);
                     session('home_user.picname', $path);
                     M('User')->where('id='.session('home_user.id'))->save(array('picname'=>$path));
                     $this->success('上传头像成功');

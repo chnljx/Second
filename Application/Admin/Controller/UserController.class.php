@@ -142,7 +142,7 @@ class UserController extends AdminController
                     $image = new \Think\Image();
                     $image->open("./Upload/img/avatar/".$path);
                     $path = time().$info['savename'];
-                    $image->thumb(90, 90)->save('./Upload/img/avatar-thumb/'.$path);
+                    $image->thumb(140, 150)->save('./Upload/img/avatar-thumb/'.$path);
                 }
             }
             
