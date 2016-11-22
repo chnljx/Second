@@ -9,7 +9,6 @@ use Think\Controller;
 */
 class CommentController extends HomeController
 {
-    
 
     // 添加评论
     public function doAdd()
@@ -28,35 +27,4 @@ class CommentController extends HomeController
             }   
         }
     }
-
-    // public function upload() 
-    // {
-        /*$config = array(
-            'maxSize' => 3145728,
-            'rootPath' => './Upload/img/post/',
-            'saveName' => array('uniqid',''),
-            'exts' => array('jpg', 'gif', 'png', 'jpeg'),
-            'autoSub' => true,
-            'subName' => array('date','Ymd'),
-        );
-        $upload = new \Think\Upload($config);// 实例化上传类
-        // 上传单个文件
-        $info = $upload->uploadOne($_FILES['picname']);
-        if(!$info) {// 上传错误提示错误信息
-            $this->error($upload->getError());
-        } else {// 上传成功 获取上传文件信息
-            $path = $info['savepath'].$info['savename'];
-            $image = new \Think\Image();
-            $image->open("./Upload/img/post/".$path);
-            // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
-            $path = time().$info['savename'];
-            $image->thumb(100, 100)->save('./Upload/img/post-thumb/'.$path);
-        }*/
-    //     $data = [
-    //         'code' => 0,
-    //         'msg' => '1',
-    //         'data' => ['src' => '1','title' => '1'],
-    //     ];
-    //     $this->ajaxReturn($data);
-    // }
 }

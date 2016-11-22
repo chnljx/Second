@@ -214,7 +214,13 @@
             <hr class="line">
             </foreach>
             <div style='background: #abcdef;display: none;' class='replybox'>
-                <input type="hidden" name="cmtid" value='$v.id' id='cmtid'>
+                <input type="hidden" name="cmtid" value='<{$v.id}>' id='cmtid'>
+                <volist name='array' id='vs'>
+                <div>
+                  <div class='col-md-4'><img src="__UPLOAD__/img/avatar-thumb/<{$vs.picname}>"></div>
+                  <div class='col-md-8'><{$vs.uname}>:<span><{$vs.content}></span></div>
+                </div>
+                </volist>
                 <input type="text" id='content' name="content" style='width:400px;margin-left: 10px;height:30px;margin-top: 20px;' placeholder="" >
                 <a href="javascript:;" class='btn btn-primary replybtn' style='margin-left: 350px'>发送</a>
             </div>
@@ -396,13 +402,14 @@
 
       $(document).on('click','.replybtn',function(){
         // 判断 用户是否登录
-        // if($('Think.session.home_user')=='') {
-              return false;
-        // }
+        if('<{:session("home_user")["id"]}>'=='') {
+            return false;
+        }
         
-        var content = $('#content').html();
-        var uid = 7;
-        var cmtid =$('cmtid').val(); 
+        var content = $('#content').val();
+        console.log(content);
+        var uid = <{:session("home_user")["id"]}>;
+        var cmtid =$('#cmtid').val(); 
 
         if (content=='') {
           return false;

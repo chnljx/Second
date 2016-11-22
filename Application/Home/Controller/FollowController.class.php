@@ -15,13 +15,14 @@ class FollowController extends HomeController
     * @access public        
     * @return void
     */
-    public function stop()
+    public function closebtn()
     {
         if (IS_AJAX) {
-            $del = M('follow')->where('id='.I('post.id'))->delete();
+            $del = M('follow')->where('bid='.I('post.bid').' and uid='.I('post.uid'))->delete();
             if ($del == false) {
-                echo '取消关注失败';
-                exit;
+                $this->ajaxReturn(false);
+            } else {
+                $this->ajaxReturn(true);
             }
         }
         
@@ -32,7 +33,7 @@ class FollowController extends HomeController
     * @access public        
     * @return void
     */
-    public function start()
+    public function startbtn()
     {
         if (IS_AJAX) {
             $data['uid'] = I('post.uid');
@@ -40,10 +41,12 @@ class FollowController extends HomeController
 
             $follow = M('follow')->add($data);
             if ($follow == false) {
-                echo '关注失败';
-                exit;
+                $this->ajaxReturn(false);
+            } else {
+                $this->ajaxReturn(true);
             }
             
         }
         
     }
+}
