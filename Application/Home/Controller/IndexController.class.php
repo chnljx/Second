@@ -6,7 +6,21 @@ class IndexController extends HomeController {
     public function index()
     {
         // 贴吧分类
-        $type_bar=M('type')->field('name,pid')->select();
+        $type_bar=M('type')->where('pid=0')->select();
+        $ptype = $type_bar;
+        /*dump($ptype);
+        die;*/
+
+        foreach ($type_bar as $k => $v) {
+            $b_id=$v['id'];
+            $types=M('type')->where("pid='$b_id'")->select();
+            foreach ($types as $key => $value) {
+                $ptype[$k]['child'][] = $value;
+                //dump($ptype);
+            }
+        }
+        // dump($ptype);
+        // die;
 
 
         // 热血动漫
@@ -47,7 +61,7 @@ class IndexController extends HomeController {
         }        
 
         // 轮播图
-        $photo=M('carousel')->where('state=1')->select();
+        $photo=M('carousel')->where('state=1')->order('id desc')->limit('5')->select();
         // var_dump($photo);
 
         if(!empty($_SESSION['home_user'])){
@@ -63,33 +77,42 @@ class IndexController extends HomeController {
         // var_dump($curl);
 
         // 设置APIKEY url 形式
-        $apikey="";
-        $word=urlencode('哈哈');
+        $apikey="85b64c40553fa3027b064ca0d7e53b7e";
+
         // URL设置
-        curl_setopt($curl,CURLOPT_URL,' http://api.tianapi.com/keji/?key='.$apikey.'&num=10&word='.$word);
+        curl_setopt($curl, CURLOPT_URL, 'http://api.tianapi.com/keji/?key='.$apikey.'&num=5');
         // 将curl_exec()获取的信息以文件流的形式返回，而不是直接输出
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         // curl 执行
-        $data=curl_exec();
+        $datas=curl_exec($curl);
         // var_dump($data);
 
         // 关闭curl
         curl_close($curl);
         // 处理JSON数据
-        $jsonObj=json_decode($data);
+        $jsonObj=json_decode($datas);
         // 提取文章列表
         $newslist=$jsonObj->newslist;
+        // var_dump($newslist);
+        foreach ($newslist as $key => $value) {
+            $array=[];
+            foreach ($value as $k => $v) {
+                $array[$k]=$v;
+            }
+            // dump($arr);
+            $c[]=$array;
+            // dump($c);
+        }
 
-        $this->assign('newslist',$newslist);
-
+        $this->assign('c',$c);
 
         $this->assign('title','首页');
         $this->assign('bar',$bar);
         $this->assign('dmbar',$dmbar);
         $this->assign('zxbar',$zxbar);
 
-        $this->assign('type_bar',$type_bar);
+        $this->assign('ptype',$ptype);
 
         $this->assign('user_exp',$user_exp);
 
@@ -125,5 +148,21 @@ class IndexController extends HomeController {
         $this->assign('data',$arr);
         $this->display();
     }
+
+    public function dosearch()
+    {
+       if(!IS_AJAX){
+        $name = I('post.name');
+        // var_dump($name);
+        $data=M('bar')->where("name='$name'")->find();
+        if($data){
+            $id=$data['id'];
+            $this->redirect("bar/index?id='$id'");
+        }else{
+            $this->error('没有该吧');
+        }
+       } 
+    }
+
 
 }
