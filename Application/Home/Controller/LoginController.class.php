@@ -52,11 +52,17 @@ class LoginController extends HomeController
             if(!IS_AJAX){
                 $map = [];
                 $map['name|phone|email'] = I('post.phone');
-                $map['password'] = md5(I('post.password'));
-                $data = $User->where($map)->find();
+                // $map['name|phone|email'] = I('post.phone');
+                // $map['password'] = md5(I('post.password'));
+                $password = md5(I('post.password'));
 
-                // 如果手机号和密码匹配则进入，否则显示错误
-                if ($data) {
+                // var_dump($map);
+                $data = $User->where($map)->find();
+                if(empty($data)){
+                    $this->error('账户不存在');
+                }elseif($data['passwd']!=$password){
+                         $this->error('密码错误');
+                }else{
                     if($data['active']==1) {
                         if($data['state']==1) {
                             $_SESSION['home_user']=$data;        
@@ -67,17 +73,82 @@ class LoginController extends HomeController
                     }else {
                         $this->error('账号未激活');
                     }
-                } else {
-                    $this->error('帐号或密码错误');
                 }
-                
             }
         }
     }
 
-
-    public function email()
+    // 找回密码
+    public function findwd()
     {
         $this->display();
     }
+    // 找回密码问题
+    public function findwd1()
+    {
+        $name=I('post.name');
+        $phone=I('post.phone');
+        // var_dump($name);
+        $data=M('user')->where("name='$name' and phone='$phone'")->find();
+        if($data){
+            if($data['state']==1){
+                $this->assign('data',$data);
+                $this->display();
+            }else{
+                $this->error('该账户已被禁用');
+            }
+        }else{
+            $this->error('账户名和手机号不匹配');
+        }
+
+    }
+    // 执行找回密码
+    public function dofindwd()
+    {
+         $name=I('post.name'); 
+         $type=I('post.type');
+         // var_dump($name);
+         $data=M('user')->where("name='$name'")->find();
+         $id=$data['id'];
+         $phone=$data['phone'];
+         if(!$data){
+            die('没有得到此用户');
+         } else {
+            $newpwd=rand(100000,999999);
+
+            //发邮件或发短信
+            switch ($type) {
+                case 'email':
+
+                    $msg="您好，新密码是{$newpwd}";
+                    $result=sendMail($data['email'],'密码找回',$msg,'在线测试');
+                    if($result){
+                        $msg='你好，密码已发送到您邮箱,请注意查看';
+                    }else{
+                        $msg='你好，邮件发送失败，您可以选择手机短信重置密码';
+
+                    }
+                    break;
+            }
+
+            //邮件或短信发送成功，更新数据库
+            if($result){
+                $passwd=md5($newpwd);
+                $map['passwd']=$passwd;
+                $user=M('user')->where("id='$id'")->save($map);
+                if($user>0){
+                    echo $msg;
+                }
+
+            }else{
+                echo $msg;
+            }
+
+         }
+
+    }
+
+
+
+
 }

@@ -72,7 +72,7 @@ class IndexController extends HomeController {
 
         // curl 执行
         $data=curl_exec();
-        var_dump($data);
+        // var_dump($data);
 
         // 关闭curl
         curl_close($curl);
