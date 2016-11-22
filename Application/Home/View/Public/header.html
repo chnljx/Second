@@ -1,1 +1,23 @@
-头部
+  <nav id="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Welcome to US!</strong>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-inline top-link link">
+            <if condition="$Think.session.home_user eq ''">             
+            <li><a href="<{:U('Login/index')}>">登录</a></li>
+            <li><a href="<{:U('Register/index')}>">注册</a></li>
+            <else />
+            <li>欢迎您，<a href="<{:U('User/index')}>"><{$Think.session.home_user.name}></a></li>
+            <li><a href="<{:U('Logout/doLogout')}>">退出</a></li>
+            </if>
+            <li><a href="<{:U('Index/index')}>"><i class="fa fa-home"></i> 回到首页</a></li>
+            <li><a href="contact.html"><i class="fa fa-comments"></i> 关于我们</a></li>
+            <li><a href="#"><i class="fa fa-question-circle"></i> 帮助</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>

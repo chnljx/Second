@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
+    <block name="head">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +11,7 @@
     <!-- 全局预定义CSS -->
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/global.css">
     <!-- 自定义CSS -->
-    <block name="mycss"></block>
+    </block>
 </head>
 <body>
     <!-- 头部 -->
@@ -19,12 +20,13 @@
     <block name="main"></block>
     <!-- 底部 -->
     <block name="footer"><include file="Public:footer" /></block>
-
+    
+    <block name="myjs">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
     <!-- 自定义JS -->
-    <block name="myjs"></block>
+    </block>
 </body>
 </html>

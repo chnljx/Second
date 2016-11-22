@@ -110,6 +110,7 @@ class UserController extends HomeController
                     $path = time().$info['savename'];
                     $image->thumb(90, 90)->save('./Upload/img/avatar-thumb/'.$path);
                     session('home_user.picname', $path);
+                    M('User')->where('id='.session('home_user.id'))->save(array('picname'=>$path));
                     $this->success('上传头像成功');
                 }
         }else{

@@ -21,11 +21,11 @@
           <h3>个人资料</h3> 
         </div> 
         <ul class="menu-list"> 
-          <li class="menu-item basic-link <if condition='ACTION_NAME eq editview'>on</if>"><a href="<{:U('User/editview')}>">基本资料</a> </li>
+          <li class="menu-item basic-link <if condition="ACTION_NAME eq 'editview'">on</if>"><a href="<{:U('User/editview')}>">基本资料</a> </li>
           <li class="menu-split"> </li>
-          <li class="menu-item details-link <if condition='ACTION_NAME eq pwdview'>on</if>"><a href="<{:U('User/pwdview')}>">修改密码</a> </li>
+          <li class="menu-item details-link <if condition="ACTION_NAME eq 'pwdview'">on</if>"><a href="<{:U('User/pwdview')}>">修改密码</a> </li>
           <li class="menu-split"> </li>
-          <li class="menu-item portrait-link <if condition='ACTION_NAME eq headview'>on</if>"><a href="<{:U('User/headview')}>">头像设置</a> </li>
+          <li class="menu-item portrait-link <if condition="ACTION_NAME eq 'headview'">on</if>"><a href="<{:U('User/headview')}>">头像设置</a> </li>
         </ul> 
       </div> 
       <block name="main">
