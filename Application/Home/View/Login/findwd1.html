@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>发送新密码到邮箱</title>
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="__PUBLIC__/look/css/style.css">
+    
+    <!-- Owl Carousel Assets -->
+    <link href="__PUBLIC__/look/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="__PUBLIC__/look/owl-carousel/owl.theme.css" rel="stylesheet">
+    
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="__PUBLIC__/look/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<center>
+<div id="page-content" class="archive-page container">
+<div class="row">
+    <div class="col-md-2">
+        
+    </div>
+<div id="main-content" class="col-md-8">
+    <div class="box">
+    <center>
+        <div class="box-header">
+            <h3 class="center">发送新密码到邮箱</h3>
+        </div>
+    </center>
+        <div class="box-content">
+        <div id="contact_form">
+	       <form action="<{:U('Login/dofindwd')}>" method="post" class="form-horizontal" role="form" id="form-register">
+	       	<input type="hidden" name="name" value="<{$data.name}>"/>
+            <input type="radio" name="type" value="email" checked/>邮件
+		    <input type="submit" value="下一步" />
+		    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</center>
+	</form>
+</body>
+
+</html>
