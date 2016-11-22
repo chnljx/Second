@@ -1,0 +1,122 @@
+<extend name="Public:base"/>
+<block name="head">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+  <title>个人中心--阡陌之家</title>
+  
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/style.css">
+  
+  <!-- Owl Carousel Assets -->
+  <link href="__PUBLIC__/looK/owl-carousel/owl.carousel.css" rel="stylesheet">
+  <link href="__PUBLIC__/looK/owl-carousel/owl.theme.css" rel="stylesheet">
+  
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
+  
+  <link rel="stylesheet" href="__PUBLIC__/css/info.css" />  
+
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+</block>
+<block name="main">
+  <div class="wrap1" >
+   <div style="margin-top: 130px">
+    <div id="headinfo_wrap" class="headinfo_wrap"> 
+    </div>
+    <div id="userinfo_wrap" class="userinfo_wrap clearfix">
+     <div class="userinfo_left ">
+      <div class="userinfo_left_head" id="j_userhead" data-sign="106c9955?t=1478689543">
+       <a href="javascript:;" style="" class="userinfo_head"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>
+     </div>
+   </div>
+   <div class="userinfo_middle">
+    <div class="userinfo_relation">
+     <div class="btn_grounps">
+      <a class="btn-sub btn-small" target="_blank" href="<{:U('User:editview')}>"><i class="icon-edit"></i>编辑资料</a>
+    </div> 
+  </div>
+  <div class="userinfo_title"> 
+   <span class="userinfo_username "><{$Think.session.home_user.name}></span> 
+ </div>
+ <div class="userinfo_num">
+   <div class="userinfo_userdata">
+    <span>吧龄：<{$Think.session.home_user.regtime|barage}>年</span>
+    <span class="userinfo_split"></span>
+    <span>发贴：<{$Think.session.home_user.post_count}></span> 
+  </div>
+</div> 
+<div class="userinfo_honor clearfix"> 
+ <span class="icon_wrap  icon_wrap_theme2  icon_slot_wrap j_book_icon"><a href="javascript:void(0)" data-slot="1" data-name="" title="点击添加印记" class="j_slot_null_icon j_icon_slot icon_slot_null_icon" style="top: 0px;left:0px">
+   <div class=" j_icon_slot_refresh"></div></a><a href="javascript:void(0)" title="开启插槽" class="j_icon_slot_buy icon_add_solt" style="top: 0px;left:28px"></a></span> 
+ </div>
+</div>
+</div>
+<div id="container" class="container_wrap clearfix ihome_body">
+ <div class="left_aside ihome_left_aside">
+  <div class="content_wrap"> 
+   <div id="ihome_nav_wrap" class="ihome_nav_wrap">
+    <ul class="ihome_nav_list"> 
+     <li> 
+      <div class="tbnav_tab_inner"> 
+       <p class="space"> <a class="nav_icon nav_main" href="<{:U('User:index')}>" locate="tab_main#ihome_v1">我的主页</a></p> 
+     </div></li> 
+     <li class="focus"> 
+      <div class="tbnav_tab_inner"> 
+       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:msgview')}>" locate="tab_msg#ihome_v1">通知</a></p> 
+       <span></span> 
+     </div></li> 
+     <li> 
+      <div class="tbnav_tab_inner"> 
+       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:list')}>" locate="tab_collect#ihome_v1" target="_blank">收藏</a></p> 
+       <span></span> 
+     </div></li> 
+     <li> 
+      <div class="tbnav_tab_inner"> 
+       <p class="space"> <a class="nav_icon nav_post" href="<{:U('User:list')}>" locate="tab_post#ihome_v1" target="_blank">贴子</a></p> 
+     </div></li> 
+   </ul>
+ </div>
+ <div class="ihome_forum_group ihome_section clearfix"> 
+  <div id="onekey_sign">
+   <a class="onekey_btn" onclick="return false;" href=""><i class="icon_signed"></i></a>
+ </div>
+ <h1 class="ihome_title"><span class="cut_line">|</span>我的消息</h1>
+ <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
+    <foreach name="comment" item="vo">
+        <div style="width: 690px;border-bottom: 1px solid #F4F4F4;margin-top: 20px;">
+            <div style="width: 550px;">
+            <a href="<{:U('Post/index')}>?id=<{$vo.pid}>" style="font-size: 15px;color: #2D64B3;" target="_blank"> <{$vo.uname}>：<{$vo.content}></a>
+            </div>
+            <span style="position: absolute;margin-top: -36px;margin-left: 570px;"><{$vo.ctime|date="Y-m-d H:i",###}></span>
+            <span style="color:#989898;">回复我的主题：“</span><a href="<{:U('Post/index')}>?id=<{$vo.pid}>" target="_blank"><{$vo.title}></a><span style="color:#989898;">”></span> <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" target="_blank"><{$vo.bname}></a>
+        </div>
+    </foreach>
+ </div>
+</div> 
+  <if condition="$comment eq null">
+    <div class="hot_feed_blank">
+        你还没有消息
+    </div>
+  </if>
+</div>
+</div>
+</div> 
+</block>
+<block name="footer">123</block>

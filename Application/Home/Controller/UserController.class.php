@@ -21,7 +21,9 @@ class UserController extends HomeController
     public function index()
     {   
         $post_count = M('Post')->where('uid='.session('home_user.id'))->count("id");
-        $follow = M('Follow')->alias('f')->field('name')->where('f.uid='.session('home_user.id'))->join('__BAR__ ON f.bid = __BAR__.id')->select();
+        $follow = M('Follow')->alias('f')->field('bid,name')->where('f.uid='.session('home_user.id'))->join('__BAR__ ON f.bid = __BAR__.id')->select();
+
+        session('home_user.post_count', $post_count);
 
         $this->assign('post_count', $post_count);
         $this->assign('follow', $follow);
@@ -123,10 +125,15 @@ class UserController extends HomeController
     }
 
     /*
-        个人资料列表
+        通知列表
     */ 
-    public function list()
-    {
-        $this->display('User:info-list');
+    public function msgview()
+    {   
+        $comment = M('Comment')->alias('c')->field('c.uid,c.content,c.ctime,p.id as pid,p.title,b.id as bid,b.name as bname,u.name as uname')->where("c.uid=".session('home_user.id'))->join('__POST__ as p ON c.postid = p.id')->join('__BAR__ as b ON p.bid = b.id')->join('__USER__ as u ON c.uid = u.id')->select();
+        // V($comment);
+        $this->assign('comment', $comment);
+        $this->display('User:msg');
     }
+
+    // ->field('c.uid,c.content,c.ctime,p.title,b.name as bname')
 }

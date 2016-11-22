@@ -75,11 +75,11 @@
     <ul class="ihome_nav_list"> 
      <li class="focus"> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_main" href="" locate="tab_main#ihome_v1">我的主页</a></p> 
+       <p class="space"> <a class="nav_icon nav_main" href="<{:U('User:index')}>" locate="tab_main#ihome_v1">我的主页</a></p> 
      </div></li> 
      <li> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:list')}>" locate="tab_msg#ihome_v1" target="_blank">通知</a></p> 
+       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:msgview')}>" locate="tab_msg#ihome_v1">通知</a></p> 
        <span></span> 
      </div></li> 
      <li> 
@@ -89,15 +89,7 @@
      </div></li> 
      <li> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_concern" href="<{:U('User:list')}>" locate="tab_forum#ihome_v1" target="_blank">关注的吧</a></p> 
-     </div></li> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
        <p class="space"> <a class="nav_icon nav_post" href="<{:U('User:list')}>" locate="tab_post#ihome_v1" target="_blank">贴子</a></p> 
-     </div></li> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
-       <p> <a class="nav_icon nav_achieve" href="">成就</a></p> 
      </div></li> 
    </ul>
  </div>
@@ -105,18 +97,19 @@
   <div id="onekey_sign">
    <a class="onekey_btn" onclick="return false;" href=""><i class="icon_signed"></i></a>
  </div>
- <h1 class="ihome_title"><span class="cut_line">|</span>爱逛的吧</h1>
+ <h1 class="ihome_title"><span class="cut_line">|</span>关注的吧</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
     <foreach name="follow" item="vo">
-      <a data-fid="339" target="_blank" locate="like_forums#ihome_v1" href="" class="u-f-item unsign"><span><{$vo.name}></span><!-- <span class="forum_level lv5"></span> --></a>
+      <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" data-fid="339" target="_blank" locate="like_forums#ihome_v1" href="" class="u-f-item unsign"><span><{$vo.name}></span><!-- <span class="forum_level lv5"></span> --></a>
     </foreach>
    <!-- <a class="u-f-item add-more-forum j_add_more_forum btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></a>  -->
  </div>
 </div> 
-<div class="hot_feed_blank">
-  你还没有关注的吧，
-  <a target="_blank" href="">马上寻找感兴趣的吧！</a>
-</div>
+  <if condition="$follow eq null">
+    <div class="hot_feed_blank">
+        你还没有关注的吧
+    </div>
+  </if>
 </div>
 </div>
 </div> 
