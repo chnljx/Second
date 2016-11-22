@@ -388,12 +388,11 @@ class BarController extends AdminController
                     $this->ajaxReturn(false);
                     exit;
                 } else {
-                    
                     $bar['uid'] = I('post.uid');
                     $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
                     if ($msg == false) {
-                        $bar['uid'] = 1;
-                        $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
+                        $data['state'] = 0;
+                        $user = M('barboss_beg')->where('id='.I('post.id'))->save($data);
                         $this->ajaxReturn(false);
                     } else {
                         // 当申请的贴吧已经有吧主时，状态自动成为 拒绝

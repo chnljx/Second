@@ -11,6 +11,11 @@ class PostController extends HomeController
 {
 	public function index()
 	{
+        session_start();
+        if (empty(I('get.id'))) {
+            $this->display('Public:404');
+            exit;
+        }
         // 楼主
         $arr = M('post')->field('b.name bname, b.picname bpic, u.name uname, u.picname upic, u.exp, p.uid ,p.bid, p.title, p.descr, p.ctime, p.id')->table('qm_user u, qm_bar b, qm_post p')->where('p.id='.I('get.id').' and u.id=p.uid and b.id=p.bid')->find();
         // 分页
@@ -25,6 +30,11 @@ class PostController extends HomeController
         // 分页
         $count = M('comment')->table('qm_user u, qm_comment c')->where('c.postid='.I('get.id').' and c.uid=u.id and c.state=1')->count();
 
+        // 回复
+        foreach ($comment as $k => $v) {
+            $array[$k] = M('reply')->field('u.name, u.picname, r.content')->table('qm_user u,qm_reply r')->where('r.cmtid='.$v['id'].' and r.uid=u.id')->select();
+        }
+
         $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
         $show = $Page->show();// 分页显示输出
         $this->assign('page',$show);
@@ -32,13 +42,19 @@ class PostController extends HomeController
         $this->assign('follow',$follow);
         $this->assign('post',$post);
         $this->assign('arr',$arr);
+        $this->assign('array',$array);
 		$this->display();
 	}
 
     // 添加帖子
     public function doAdd()
     {
+        session_start();
+        if (empty($_SESSION['home_user'])) {
+            $this->error('登录后再发帖，请先登录！！',U('Login/index'));
+        }
         $data = $_POST;
+        
         $post = D("Post"); // 实例化User对象
         if (!$post->create($data)){ 
             $this->error($post->getError());
