@@ -1,0 +1,35 @@
+<extend name="User:edit" />
+<block name="main">
+<div class="setting-detail" id="stthld" style="display: block;"> 
+    <div class="plzhld clearfix">
+        <div class="mod-setting-profile" id="1000001" style="display: block;"> 
+            <div class="setting-profile-title yahei">
+              头像设置
+            </div> 
+            <form id="form-user-edit" class="setting-profile-form" method="POST" action="<{:U('User/headsave')}>" enctype="multipart/form-data"> 
+                <table class="setting-profile-table"> 
+                    <tbody> 
+                    <tr> 
+                        <th></th> 
+                        <td> 
+                            <img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>">
+                        </td>
+                    </tr> 
+                    <tr> 
+                        <th>选择图片:</th> 
+                        <td> 
+                            <input type="file" name="picname">
+                        </td>
+                    </tr> 
+                    <tr>
+                        <th></th>
+                        <td>图片大小限制5MB</td>
+                    </tr>
+                    </tbody>
+                </table>
+                    <input type="submit" class="setting-submit-btn setting-submit-ml100" value="保存" />
+            </form>
+        </div>
+    </div> 
+</div>
+</block>

@@ -4,6 +4,13 @@ use Think\Controller;
 
 class RegisterController extends HomeController
 {
+    public function _initialize()
+    {
+        if(!empty(session('home_user'))){
+            $this->redirect('Index/index');
+        }
+    }
+
     public function index()
     {
         $this->display();

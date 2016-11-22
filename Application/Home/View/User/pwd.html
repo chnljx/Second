@@ -1,0 +1,77 @@
+<extend name="User:edit" />
+<block name="main">
+  <div class="setting-detail" id="stthld" style="display: block;"> 
+    <div class="plzhld clearfix">
+      <div class="mod-setting-profile" id="1000001" style="display: block;"> 
+        <div class="setting-profile-title yahei">
+         修改密码
+       </div> 
+       <form id="form-user-passwd" class="setting-profile-form" method="POST" action="<{:U('User/pwdsave')}>"> 
+        <table class="setting-profile-table"> 
+            <tr> 
+              <th>原密码:</th> 
+              <td> 
+                <input type="password" id="prepasswd" name="prepasswd"> 
+              </td>
+            </tr>
+            <tr> 
+              <th>新密码:</th> 
+              <td> 
+                <input type="password" id="passwd" name="passwd" placeholder="输入6~14位"> 
+              </td>
+            </tr>
+            <tr> 
+              <th>确认密码:</th> 
+              <td> 
+                <input type="password" id="confirmpasswd" name="confirmpasswd" placeholder="输入6~14位"> 
+              </td>
+            </tr> 
+        </table>
+        <input type="submit" class="setting-submit-btn setting-submit-ml100" value="保存" />
+      </form>
+    </div>
+  </div> 
+</div>
+</block>
+<block name="myjs">
+<script>
+    $(function () {
+
+    $('#form-user-passwd').validate({
+      rules: {
+        prepasswd: {
+          required: true,
+        },
+        passwd: {
+          required: true,
+          rangelength: [6,14],
+        },
+        confirmpasswd: {
+          required: true,
+          equalTo: "#passwd",
+        },
+      },
+
+      messages: {
+        prepasswd: {
+          required: "请您填写原密码",
+        },
+        passwd: {
+          required: '请您填写密码',
+          rangelength: '密码长度不合法',
+        },
+        confirmpasswd: {
+          required: '请您填写确认密码',
+          equalTo: '两次密码输入不一致',              
+        },
+      },
+
+      submitHandler:function(form){
+        form.submit();
+      },
+
+    });
+
+  });
+</script>
+</block>
