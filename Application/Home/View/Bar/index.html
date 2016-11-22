@@ -112,6 +112,10 @@
             color: #999;
             border:1px solid #999;
         }
+        /*#main-content #text img{
+            width:40px;
+            height:40px;
+        }*/
     </style>
 	
 
@@ -152,7 +156,6 @@
 			<div class="item">
 				<div class="zoom-container">
 					<div class="zoom-caption">
-						<span>Youtube</span>
 						<a href="single.html">
 							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
 						</a>
@@ -182,26 +185,25 @@
 				<foreach name='list' item='v'>
 					<div class="box">
 						<div class="info">
-							
 							<div class="col-md-6">
 								<span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span> 
 							</div>
 						</div>
 						<div style='margin-top: 40px'>
 							<div class='col-md-2'>
-								<span><i class="fa fa-comment"></i><{$v.comcount}></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<span><i class="fa fa-comment"></i><{$v.comcount}></span>&nbsp;&nbsp;
 								<span><i class="fa fa-heart"></i><{$v.count}></span>
 							</div>
 							<div class='col-md-10'> 
 								<div class='col-md-9'> 
 									<a href="<{:U('Post/index')}>?id=<{$v.id}>"><h4 class="vid-name" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.title}></h4></a>
 									<div class="wrap-vid" style='margin-top:20px'>
-									<p><{$v.descr}></p>
-                                    <if condition='$v.picnum eq 1'>
+									<p id='text'><{$v.descr}></p>
+                                    <!-- <if condition='$v.picnum eq 1'>
     									<div class="zoom-container">
     										<img src="__UPLOAD__/img/barpic-thumb/<{$v.pics}>" />
     									</div>
-                                    </if>
+                                    </if> -->
 								    </div>
 								</div>	
 								<div class='col-md-3'> 
@@ -220,6 +222,40 @@
 				<!-- 发帖开始 -->
                 <div style='background:#EFEFEF;margin-top: 50px'>
                     <h5 style='color: blue;font-size: 16px;margin-top: 10px'><span class='glyphicon glyphicon-pencil'>发表新帖</span></h5>
+                    <span style='font-size: 16px;margin-top: 10px'>标题</span>
+                    <form action="<{:U('Post/doAdd')}>" method="post">
+                        <input type="hidden" name="bid" value="<{$bar.id}>"> 
+                        <input type="hidden" name="uid" value="5"> 
+                        <input type="text" id='title' name="title" style='width:658px;height:40px'>  
+                    <script id="container" name="descr" type="text/plain" style="width:650px;height:220px">
+                    </script>
+                    <!-- 配置文件 -->
+                    <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+                    <!-- 编辑器源码文件 -->
+                    <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+                    <!-- 实例化编辑器 -->
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('container',{
+                            indentValue:'2em'
+                            ,initialFrameWidth:650  //初始化编辑器宽度,默认1000
+                            ,initialFrameHeight:220  //初始化编辑器高度,默认320
+                            ,zindex:650
+                            , toolbars: [[
+                            'fullscreen', 'undo', 'redo', '|',
+                            'bold', 'italic', 'underline', 'fontborder', 'rowspacingbottom', 'lineheight', '|', 'fontfamily', 'fontsize', '|',
+                            'directionalityltr', 'directionalityrtl', 'indent', '|',
+                            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
+                            'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', '|',
+                            'horizontal', 'date', 'time', 'snapscreen'
+                            ]]
+                            //是否启用元素路径，默认是显示
+                            ,elementPathEnabled :false
+                            ,autoHeightEnabled: false
+                        });
+                    </script>
+                    <input type="submit" name="" value="提交" class='btn btn-primary'>
+                    </form>
+                    <!-- <h5 style='color: blue;font-size: 16px;margin-top: 10px'><span class='glyphicon glyphicon-pencil'>发表新帖</span></h5>
                     <span style='font-size: 16px;margin-top: 10px'>标题</span>
                     <form action="<{:U('Post/doAdd')}>" method="post">
                         <input type="hidden" name="bid" value="<{$bar.id}>"> 
@@ -252,7 +288,7 @@
 
                           
                         });
-                    </script>
+                    </script> -->
                     
 				</div> 
                     

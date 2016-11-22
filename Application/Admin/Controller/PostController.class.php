@@ -29,7 +29,7 @@ class PostController extends AdminController
     public function show()
     {
         $data = M('post')->field('b.picname bpic, u.picname upic, u.name uname, b.name bname, b.descr bdescr, p.title, p.descr, p.ctime, p.state')->table('qm_bar b, qm_user u, qm_post p')->where('b.id=p.bid and u.id=p.uid and p.id='.I('get.id'))->find();
-        $pics = M('post_photo')->field('picname')->where('postid='.I('get.id'))->select();
+        // $pics = M('post_photo')->field('picname')->where('postid='.I('get.id'))->select();
         $this->assign('data',$data);
         $this->assign('pics',$pics);
         $this->display();
