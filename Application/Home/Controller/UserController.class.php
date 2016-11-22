@@ -168,6 +168,8 @@ class UserController extends HomeController
 
     public function postview()
     {
+        $post = M('Post')->alias('p')->field('b.id as bid,b.name as bname,p.id as pid,p.title as ptitle')->where("p.uid=".session('home_user.id'))->join('__BAR__ as b ON p.bid = b.id')->select();
+        V($post);
         $this->display('User:post');
     }
     

@@ -36,8 +36,7 @@
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
 </block>
 <block name="main">
-  <div class="wrap1" >
-   <div style="margin-top: 130px">
+   <div style="margin-top: 130px; margin-bottom: 50px;">
     <div id="headinfo_wrap" class="headinfo_wrap"> 
     </div>
     <div id="userinfo_wrap" class="userinfo_wrap clearfix">
@@ -99,15 +98,12 @@
  </div>
  <h1 class="ihome_title"><span class="cut_line">|</span>我的帖子</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
-    <foreach name="list" item="vo">
-        <div style="width: 690px;border-bottom: 1px solid #F4F4F4;margin-top: 20px;">
-            <div style="width: 550px;">
-            <a href="<{:U('Post/index')}>?id=<{$vo.pid}>" style="font-size: 15px;color: #2D64B3;" target="_blank"> <{$vo.uname}>：<{$vo.content}></a>
-            </div>
-            <span style="position: absolute;margin-top: -36px;margin-left: 570px;"><{$vo.ctime|date="Y-m-d H:i",###}></span>
-            <span style="color:#989898;">回复我的主题：“</span><a href="<{:U('Post/index')}>?id=<{$vo.pid}>" target="_blank"><{$vo.title}></a><span style="color:#989898;">”></span> <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" target="_blank"><{$vo.bname}></a>
-        </div>
-    </foreach>
+    <div style="border-bottom: 1px solid #F4F4F4;margin-top: 10px;">
+      在 <a href="#" style="color: #2D64B3;">曼城吧</a> 发贴  <a href="#" style="color: #2D64B3;">今晚赔率多少</a> <a href="#">回复</a> <span style="padding-left: 400px">11-1</span>
+    </div>
+    <div style="border-bottom: 1px solid #F4F4F4;margin-top: 10px;">
+      在 <a href="#" style="color: #2D64B3;">曼城吧</a> 发贴  <a href="#" style="color: #2D64B3;">今晚赔率多少</a> <a href="#">回复</a> <span style="padding-left: 400px">11-1</span>
+    </div>
     <center><{$page}></center>
  </div>
 </div> 
@@ -116,7 +112,6 @@
         你还没有消息
     </div>
   </if>
-</div>
 </div>
 </div> 
 </block>
