@@ -76,7 +76,7 @@
 <ul class="nav navbar-nav">
 	<li><a href="<{:U('Home/Index/index')}>">首页</a></li>
 	
-	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">类型吧<i class="fa fa-arrow-circle-o-down"></i></a>
+<!-- 	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">类型吧<i class="fa fa-arrow-circle-o-down"></i></a>
 		<div class="dropdown-menu">
 			<div class="dropdown-inner">
 				<ul class="list-unstyled">
@@ -86,9 +86,9 @@
 				</ul>
 			</div> 
 		</div>
-	</li>
+	</li> -->
 	<li style="margin-left=500px;">
-		<form class="navbar-form navbar-right" role="search">
+	<form style="margin-left:70px;" class="navbar-form navbar-right" role="search">
 	  <div style="width:400px;" class="input-group">
 	    <input style="width:360px;" type="text" class="form-control" placeholder="请输入要查询的贴吧名"><span class="input-group-btn">
 	      <button class="btn btn-default" type="button">
@@ -190,7 +190,7 @@
 	
 
 <div class="wrapper">
-	<a href="<{:U('User/index')}>"><h5><{$Think.session.home_user.name}></h5></a>
+	<a href="<{:U('User/index')}>?id=<{$Think.session.home_user.id}>"><h5><{$Think.session.home_user.name}></h5></a>
 	<i><{$Think.session.home_user.descr}></i>
 	<p>注册时间：<{$Think.session.home_user.regtime|date="Y-m-d",###}></p>
 	<p>爱逛的吧：</p>
@@ -264,7 +264,7 @@
 		</div>
 		<img style="width:200px;" src="__UPLOAD__/img/tieba-thumb/<{$zxbar.picname}>" />
 	</div>
-	<h3 class="vid-name"><a href="#">啦啦</a></h3>
+	<h3 class="vid-name"><a href="<{:U('bar/index')}>?id=<{$zxbar.id}>"><{$zxbar.name}></a></h3>
 	<div class="info">
 		<span><i class="fa fa-calendar"></i><{$zxbar.ctime|date="Y-m-d",###}></span> 
 		<span><i class="fa fa-heart"></i></span>
@@ -297,6 +297,7 @@
 				<i class="fa fa-star"></i>
 				<i class="fa fa-star-half"></i>
 			</span>
+			<a href="<{:U('bar/index')}>?id=<{$vo.id}>">进入该吧</a>
 		</div>
 	</div>
 </div>
@@ -341,7 +342,7 @@
 <foreach name="bar_mes" item="vo">
 	<div class="col-md-6">
 		<img style="width:180px;height:90px;" src="__UPLOAD__/img/tieba-thumb/<{$vo.picname}>" />
-		<h3><a href="#"><{$vo.name}></a></h3>
+		<h3><a href="<{:U('bar/index')}>?id=<{$vo.id}>"><{$vo.name}></a></h3>
 		<span><i class="fa fa-heart"></i> 1,200 / <i class="fa fa-calendar"></i> <{$vo.ctime|date="Y-m-d",###}>  </span>
 		<p>
 		<span class="rating">
@@ -370,7 +371,7 @@
 <!---- Start Widget ---->
 <div class="widget wid-vid">
 	<div class="heading">
-		<h4>贴吧热议榜</h4>
+		<h4>科技新闻</h4>
 	</div>
 <div>
 	<foreach name="newslist" item="news">
@@ -477,7 +478,7 @@
 	<img style="width:50px;height:50px;" src="__UPLOAD__/img/avatar-thumb/<{$vo.picname}>" />
    </div>
 	<div class="wrapper">
-		<h5 class="vid-name"><a href="#"><{$vo.name}></a></h5>
+		<h5 class="vid-name"><a href="<{:U('User/index')}>?id=<{$vo.id}>"><{$vo.name}></a></h5>
 		<div class="info">
 			<h6>积分: <a href="#"><{$vo.exp}></a></h6>
 			<span><{$vo.descr}></span>
