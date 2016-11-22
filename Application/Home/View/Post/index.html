@@ -103,6 +103,17 @@
             color: #999;
             border:1px solid #999;
         }
+        #root{
+            list-style: none;
+        }
+        #root li{
+            float: left;
+            margin-left: 10px;
+            line-height: 60px;
+        }
+        #root li a:hover{
+          color:blue;
+        }
     </style>
 
 </head>
@@ -132,128 +143,122 @@
           <img style="width:100px;height:100px;" src="__UPLOAD__/img/tieba-thumb/<{$arr.bpic}>" alt="">
         </li>
         <li><b><{$arr.bname}></b></li>
-        <li style="color:#b9b1c4">关注：<span style="color:#f9ab55;">6,133,861</span></li>
-        <li style="color:#b9b1c4">帖子：<span style="color:#f9ab55;">6,133,861</span></li>
+        <li style="color:#b9b1c4">关注：<span style="color:#f9ab55;"><{$follow}></span></li>
+        <li style="color:#b9b1c4">帖子：<span style="color:#f9ab55;"><{$post}></span></li>
       </ul>  
-      <span style='float:right'><a href=""><<返回<{$arr.bname}></a></span>
+      <span style='float:right'><a href="<{:U('Bar/index')}>?id=<{$arr.bid}>"><<返回<{$arr.bname}></a></span>
   </div>
   <!-- Header -->
   
   <!-- /////////////////////////////////////////Content -->
        
   <div id="page-content" class="archive-page container">
-        
+    
     <div class="">
       <div class="row">
+
        <div id="main-content" class="col-md-8">
+       <div style='height:60px;background: #f0f0f0;'>
+       <div class='col-md-8'><h4 style='color:blue;font-weight: bold;font-size: 20px;line-height: 60px;'><{$arr.title}></h4></div>
+        <div class='col-md-4' >
+        <ul id='root'>
+          <li><a href="">只看楼主</a></li>
+          <li><a href="">收藏</a></li>
+          <li><a href='#com'>回复</a></li>
+        </ul>
+        </div>
+        </div>
+        
+        <hr class="line">
+        <if condition='($arr.p eq 0) or ($arr.p eq 1)'>
           <div class="box">
-            <div class="col-md-3">
-              <img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$arr.upic}>" alt="">
-              <p><b><{$arr.uname}></b></p>
+        <else/>
+          <div class="box" style='display: none;'>
+        </if>
+            <div class="col-md-3" style='background: #f0f0f0'>
+              <span style='color:blue;font-size: 20px;'>楼主</span>
+              <a href="<{:U('User/index')}>?id=<{$arr.uid}>"><img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$arr.upic}>" alt=""></a>
+              <p><b><a href="<{:U('User/index')}>?id=<{$arr.uid}>"><{$arr.uname}></a></b></p>
               <p><b><{$arr.exp|grade}></b></p>
             </div>
               <div class="col-md-9">
-              <div class='col-md-8'>
-              <h4 style='color:blue;font-weight: bold;font-size: 20px;margin-top:10px;'><{$arr.title}></h4><p><{$arr.descr}></p></div>
-              <div class='col-md-4'><p><span><i class="fa fa-calendar"></i> <{$arr.ctime|date="Y-m-d H:i:s",###}></span></p></div>
-              <a href="" class='btn btn-primary' style="margin-top: 80px;margin-left: 80px;">回复</a>
+              <div>
+              <p style="margin-top: 20px;"><{$arr.descr}></p></div>
+              <div style="margin-top: 90px;margin-left: 220px;"><p><span><i class="fa fa-calendar"></i> <{$arr.ctime|date="Y-m-d H:i:s",###}></span>
+              <a href='#com'>回复</a></div></p>
             </div>
             
             </div>
             <hr class="line">
+            
             <foreach name='comment' item='v'>
             <div class="box">
-              <div class="col-md-3">
-                <img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$v.upic}>" alt="">
-                <p><b><{$v.uname}></b></p>
+              <div class="col-md-3" style='background: #f0f0f0'>
+              <eq name="v.uid" value="$arr.uid"  >
+                <span style='color:blue;font-size: 20px;'>楼主</span>
+              </eq>
+                <a href="<{:U('User/index')}>?id=<{$v.uid}>"><img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$v.upic}>" alt=""></a>
+                <p><b><a href="<{:U('User/index')}>?id=<{$v.uid}>"><{$v.name}></a></b></p>
                 <p><b><{$v.exp|grade}></b></p>
               </div>
                 <div class="col-md-9">
-                <div class='col-md-8'>
-                <{$v.content}></p></div>
-                <div class='col-md-4'><p><span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span></p></div>
-                <a href="" class='btn btn-primary' style="margin-top: 80px;margin-left: 80px;">回复</a>
+              <div>
+              <p style="margin-top: 20px;"><{$v.content}></p></div>
+              <div style="margin-top: 90px;margin-left: 200px;">
+                <span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span>
+                <a href="javascript:;" class='reply' style='width:80px;height:30px;line-height:30px;text-align:center;display:block;float:right;margin-top:-8px;'>回复</a>
               </div>
-            
               </div>
+              
+            </div>
             <hr class="line">
             </foreach>
-        <!-- </div>
-        <div id="main-content" class="col-md-8"> -->    
-        <!-- <foreach name='comment' item='v'>
-          <div class="box">
-            <div class="info">
-              
-              <div class="col-md-6">
-                <span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span> 
-              </div>
+            <div style='background: #abcdef;display: none;' class='replybox'>
+                <input type="hidden" name="cmtid" value='$v.id' id='cmtid'>
+                <input type="text" id='content' name="content" style='width:400px;margin-left: 10px;height:30px;margin-top: 20px;' placeholder="" >
+                <a href="javascript:;" class='btn btn-primary replybtn' style='margin-left: 350px'>发送</a>
             </div>
-            <div style='margin-top: 40px'>
-              <div class='col-md-2'>
-                <span><i class="fa fa-comment"></i><{$v.comcount}></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span><i class="fa fa-heart"></i><{$v.count}></span>
-              </div>
-              <div class='col-md-10'> 
-                <div class='col-md-9'> 
-                  <a href="<{:U('Post/index')}>?id=<{$v.id}>"><h4 class="vid-name" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.title}></h4></a>
-                  <div class="wrap-vid" style='margin-top:20px'>
-                  <p><{$v.descr}></p>
-                      <if condition='$v.picnum eq 1'>
-                      <div class="zoom-container">
-                        <img src="__UPLOAD__/img/barpic-thumb/<{$v.pics}>" />
-                      </div>
-                      </if>
-                    </div>
-                </div>  
-                <div class='col-md-3'> 
-                <h5>By <a href="#" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.uname}></a></h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr class="line">         
-        </foreach> -->
-
+        
         <!-- <div> -->
             <{$page}>
         <!-- </div> -->
                 
         <!-- 发表评论开始 -->
-                <div style='background:#EFEFEF;margin-top: 50px'>
-                    <h5 style='color: blue;font-size: 16px;margin-top: 10px'><span class='glyphicon glyphicon-pencil'>发表评论</span></h5>
-                    
-                    <form action="<{:U('Comment/doAdd')}>" method="post">
-                        <input type="hidden" name="bid" value="<{$arr.id}>"> 
-                        <input type="hidden" name="uid" value="5"> 
-                        
-                        <textarea id="demo" name="comment"></textarea>
-                        <input type="submit" name="" value="提交" class='btn btn-primary'>
-                    </form>
-                    <script>
-                        layui.use('layedit', function(){
-                          var layedit = layui.layedit;
-                          layedit.build('demo',{
-                            height: 140,
-                            tool: [
-                              'strong' //加粗
-                              ,'italic' //斜体
-                              ,'underline' //下划线
-                              ,'del' //删除线
-                              
-                              ,'|' //分割线
-                              
-                              ,'left' //左对齐
-                              ,'center' //居中对齐
-                              ,'right' //右对齐
-                              ,'link' //超链接
-                              ,'unlink' //清除链接
-                              ,'face' //表情
-                            ]
-                          }); //建立编辑器
-
-                          
-                        });
-                    </script>
+        <div style='background:#EFEFEF;margin-top: 50px' id='com'>
+            <h5 style='color: blue;font-size: 16px;margin-top: 10px'><span class='glyphicon glyphicon-pencil'>发表评论</span></h5>
+            <form action="<{:U('Comment/doAdd')}>" method="post">
+                  <input type="hidden" name="postid" value="<{$arr.id}>"> 
+                  <input type="hidden" name="uid" value="5"> 
+                  
+                  
+            <script id="container" name="content" type="text/plain" style="width:650px;height:220px">
+                </script>
+                <!-- 配置文件 -->
+                <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+                <!-- 编辑器源码文件 -->
+                <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+                <!-- 实例化编辑器 -->
+                <script type="text/javascript">
+                    var ue = UE.getEditor('container',{
+                        indentValue:'2em'
+                        ,initialFrameWidth:650  //初始化编辑器宽度,默认1000
+                        ,initialFrameHeight:220  //初始化编辑器高度,默认320
+                        ,zindex:650
+                        , toolbars: [[
+                        'fullscreen', 'undo', 'redo', '|',
+                        'bold', 'italic', 'underline', 'fontborder', 'rowspacingbottom', 'lineheight', '|', 'fontfamily', 'fontsize', '|',
+                        'directionalityltr', 'directionalityrtl', 'indent', '|',
+                        'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
+                        'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', '|',
+                        'horizontal', 'date', 'time', 'snapscreen'
+                        ]]
+                        //是否启用元素路径，默认是显示
+                        ,elementPathEnabled :false
+                        ,autoHeightEnabled: false
+                    });
+                </script>
+                <input type="submit" name="" value="提交" class='btn btn-primary'>
+            </form>
                     
         </div> 
                     
@@ -272,9 +277,9 @@
 
           </div>
 
-                    <if condition='$supfans eq ""'><div class="widget wid-post"  style='display:none'>
-                    <else/><div class="widget wid-post">
-                    </if>
+            <if condition='$supfans eq ""'><div class="widget wid-post"  style='display:none'>
+            <else/><div class="widget wid-post">
+            </if>
                     
           <!---- Start Widget ---->
           <!-- <div class="widget wid-post"  style='display:none'> -->
@@ -375,6 +380,44 @@
          
         });
                             
+    });
+    $(function(){
+      $(document).on('click','.reply',function(){
+        if ($(this).text()=='回复') {
+          $(this).text('收起回复');
+          $(this).css('background','#abcdef');
+          $(this).parent().after($('.replybox').css('display','block'));
+        } else if ($(this).text()=='收起回复') {
+          $(this).text('回复');
+          $(this).css('background','#fff');
+          $(this).parent().after($('.replybox').css('display','none'));
+        }
+      });
+
+      $(document).on('click','.replybtn',function(){
+        // 判断 用户是否登录
+        // if($('Think.session.home_user')=='') {
+              return false;
+        // }
+        
+        var content = $('#content').html();
+        var uid = 7;
+        var cmtid =$('cmtid').val(); 
+
+        if (content=='') {
+          return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url:"<{:U('Reply/doAdd')}>" ,
+            data: "content="+content+"&uid="+uid+"&cmtid="+cmtid, 
+            success: function(data){
+              alert('data');
+            }  
+        });
+      });
+
     });
     
     </script>

@@ -22,7 +22,7 @@ class CommentController extends HomeController
 
             // 执行添加
             if ($post->add() > 0) {
-                $this->success('添加成功', U('Post/index'));
+                $this->success('添加成功', U('Post/index',array('id'=>$data['postid'])));
             } else {
                 $this->error('添加失败');
             }   
