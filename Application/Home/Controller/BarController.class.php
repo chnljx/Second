@@ -163,6 +163,7 @@ class BarController extends HomeController
                 $this->error('贴吧申请失败');
             }
         }
+    }
 
 
     public function dosearch()
