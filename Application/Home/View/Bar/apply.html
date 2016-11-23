@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>注册--阡陌之家</title>
+    <title>贴吧申请--阡陌之家</title>
     
     <!-- Bootstrap Core CSS -->
     <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
@@ -42,55 +42,46 @@
                 <div id="main-content" class="col-md-8">
                     <center>
                         <div class="box">
-                            <div class="heading"><h3>注册</h3></div><br><br>
-                            <form action="<{:U('Register/doadd')}>" method="post" class="form-horizontal" role="form" id="form-register">
+                            <div class="heading"><h3>贴吧申请</h3></div><br><br>
+                            <form action="<{:U('Bar/doapply')}>" method="post" enctype="multipart/form-data" class="form-horizontal" role="form" id="form-register">
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">用户名</label>
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">贴吧名</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="输入3~10位字符">
+                                        <input type="text" class="form-control" name="name" id="name" value="<{$Think.get.name}>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">手机号</label>
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">贴吧类型</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="您的手机号码">
+                                        <select class="form-control" name="typeid">
+                                            <option value="">--请选择--</option>
+                                            <volist name="list" id="vo">
+                                                <option value="<{$vo.id}>" <if condition='$vo.pid eq 0'>disabled</if>>
+                                                    <{$vo.html}><{$vo.name}>
+                                                </option>
+                                            </volist>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">邮箱</label>
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">贴吧描述</label>
                                     <div class="col-sm-6">
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="您的邮箱地址">
+                                        <textarea id="descr" name="descr" class="form-control" rows="3" style="resize: none;"></textarea>
+                                        <div style="position: absolute;right: 17px;top: 53px;"><span id="word">0</span>/<span>100</span></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">密码</label>
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">贴吧头像</label>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="输入6~14位字母、数字和符号">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">确认密码</label>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="repasswd" id="repasswd" placeholder="输入6~14位字母、数字和符号">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">验证码</label>
-                                    <div class="col-sm-3">
-                                        <input type="type" class="form-control" name="verify" id="verify" placeholder="→ →">
-                                    </div>
-                                    <div class="col-sm-3">                         
-                                        <img id="verify_img" src="<{:U('Register/getVerify')}>" title="看不清，换一张" style="cursor:pointer;">
+                                        <input type="file" name="picname">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-6">
-                                      <button type="submit" class="btn btn-primary btn-block">注册</button>
+                                      <button type="submit" class="btn btn-primary btn-block">申请</button>
                                   </div>
                               </div>
-                              <div class="col-sm-offset-4">                
-                                <span class="fr">已有账号？<a href="<{:U('Login/index')}>">登录</a></span>
-                            </div><br><br><br><br>
+                              <br><br><br><br><br>
                         </form>
                     </div>
                 </center>
@@ -197,139 +188,16 @@
       var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
       document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
   </script>
-
-  <script>
-    $(document).ready(function(){
-        var verify_img = $('#verify_img');
-        var src_img = verify_img.attr('src');
-        verify_img.click(function(){
-            $(this).attr('src', src_img+'?verify='+Math.random());
-        });
-
-        // 手机号码验证
-        jQuery.validator.addMethod("isMobile", function(value, element) {
-            var length = value.length;
-            var mobile = /^1[34578]{1}\d{9}$/;
-            return this.optional(element) || (length == 11 && mobile.test(value));
-        }, "请正确填写您的手机号码");
-
-        $("#form-register").validate({
-            rules: {
-                name: {
-                    required: true,
-                    rangelength: [3,10],
-                    remote: {
-                        url: "<{:U('Register/doadd')}>",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            name: function() {
-                                return $("#name").val();
-                            }
-                        },
-                        dataFilter: function(data) {
-                            if(data){
-                                return false;
-                            }else{
-                                return true;
-                            }
-                        },
-                    },
-                },
-                phone: {
-                    required: true,
-                    isMobile: true,
-                },
-                email: {
-                    required: true,
-                    email: true,
-                },
-                passwd: {
-                    required: true,
-                    rangelength: [6,14],
-                },
-                repasswd: {
-                    required: true,
-                    equalTo: "#passwd",
-                },
-                verify: {
-                    required: true,
-                    remote: {
-                        url: "<{:U('Register/doadd')}>",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            verify: function() {
-                                return $("#verify").val();
-                            }
-                        },
-                        dataFilter: function(data) {
-                            if(data){
-                                return false;
-                            }else{
-                                return true;
-                            }
-                        },
-                    },
-                },
-            },
-            messages: {
-                name: {
-                    required: '请您填写用户名',
-                    rangelength: '用户名长度不合法',
-                    remote: '用户名已经存在',
-                },
-                phone: {
-                    required: '请您填写手机号码',
-                },
-                email: {
-                    required: '请您填写邮箱',
-                },
-                passwd: {
-                    required: '请您填写密码',
-                    rangelength: '密码长度不合法',
-                },
-                repasswd: {
-                    required: '请您填写确认密码',
-                    equalTo: '两次密码输入不一致',              
-                },
-                verify: {
-                    required: '请您填写验证码',
-                    remote: '验证码错误',
-                },
-            },
-
-            errorElement : 'span',
-            errorClass : 'help-block',
-
-            //自定义错误消息放到哪里
-            errorPlacement : function(error, element) {
-                element.next().remove();//删除显示图标
-                element.after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
-                element.closest('.form-group').append(error);//显示错误消息提示
-            },
-            //给未通过验证的元素进行处理
-            highlight : function(element) {
-                $(element).closest('.form-group').addClass('has-error has-feedback');
-            },
-            //验证通过的处理
-            success : function(label) {
-                var el=label.closest('.form-group').find("input");
-                el.next().remove();//与errorPlacement相似
-                el.after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
-                label.closest('.form-group').removeClass('has-error').addClass("has-feedback has-success");
-                label.remove();
-            },
-
-            submitHandler: function(form){
-                form.submit();
-            },
-
-        });
-
+<script>
+    $("#descr").keyup(function(){
+      var len = $(this).val().length;
+      if(len > 100){
+        $(this).val($(this).val().substring(0,100));
+        var num = 100;
+      }else{      
+        var num = len;
+      }
+      $("#word").text(num);
     });
-
-
-
 </script>
 </block>

@@ -159,7 +159,7 @@ class IndexController extends HomeController {
             $id=$data['id'];
             $this->redirect("bar/index?id='$id'");
         }else{
-            $this->error('没有该吧');
+            $this->error('找不到该吧，即将跳到申请界面', U('Bar/apply', array('name'=>$name)), 3);
         }
        } 
     }

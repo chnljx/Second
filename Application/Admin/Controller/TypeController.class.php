@@ -36,7 +36,7 @@ class TypeController extends AdminController
     };
     //执行添加
     if($type->add()>0){
-      $this->success("添加成功！",U('Type/index'));
+      $this->success("添加成功！");
     }else{
       $this->error("添加失败");
     }
