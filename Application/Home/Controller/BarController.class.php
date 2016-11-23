@@ -9,6 +9,14 @@ use Think\Controller;
 */
 class BarController extends HomeController 
 {
+
+    // public function _initialize()
+    // {
+    //     if(empty(session('home_user'))){
+    //         $this->error('请先登录', U('Login/index'));
+    //     }
+    // }
+
     public function index()
     {
         session_start();
@@ -57,7 +65,6 @@ class BarController extends HomeController
         $this->assign('bar',$bar);
         $this->assign('follow',$follow);
         $this->assign('supfans',$supfans);
-        $this->display();
 
 
         // 天气
@@ -81,17 +88,12 @@ class BarController extends HomeController
         // dump($res);
         // exit;
         $data = $res->results;
-        // if(empty($data)){
-        //     echo "查无数据";
-        // }
-        // dump($data);exit;
-        // $daily = ;
-        // dump($daily);exit;
+        
         $city = $data[0]->location->name;
         $daily = $data[0]->daily;
         // dump($daily);
         $update = $data[0]->last_update;
-        // var_dump($update);exit;
+        
         // $linklist=M('link')->select();
         // $this->assign('linklist',$linklist);
         $this->assign('city',$city);
@@ -116,13 +118,23 @@ class BarController extends HomeController
        } 
     }
 
+    // 申请吧主
     public function boss() 
     {
         if(empty(session('home_user')))
         {
             $this->error('请先登录', U('Login/index'));
+            exit;
         }
 
-        
+        $arr = M('bar')->field('id, name, uid')->where('id='.I('get.bid'))->find();
+        if ($arr['uid'] != 1) {
+             $this->error('该吧已有吧主,申请失败',U('Index/index'));
+             exit;
+        }  
+
+        $this->assign('arr',$arr);
+        $this->display();  
+   
     }
 }

@@ -82,5 +82,9 @@ class PostController extends HomeController
         }
     }
 
-    
+    //百度分享
+    public function baidu(){
+        $this->display('Post/index');
+    }
+
 }

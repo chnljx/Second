@@ -109,6 +109,7 @@
             
           </li>
           <li><a href='#com'>回复</a></li>
+          
         </ul>
         </div>
         </div>
@@ -273,10 +274,10 @@
             </div>
             </if>
 
-              <div class="widget ">
+              <!-- <div class="widget ">
                   <div class="heading"><h4>天气查询</h4></div>
                   
-              </div>
+              </div> -->
         </div>
 
       </div>
@@ -316,8 +317,8 @@
   <script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
     <script src="__PUBLIC__/js/bootstrap.js"></script>
   <script src="__PUBLIC__/looK/owl-carousel/owl.carousel.js"></script>
-    
-
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","weixin","renren","tqq","tqf","douban","thx","fbook","twi","linkedin"],"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"1","bdPos":"right","bdTop":"100"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <script>
     $(document).ready(function() {
       $("#owl-demo").owlCarousel({
@@ -345,7 +346,10 @@
       $(document).on('click','.replybtn',function(){
         // 判断 用户是否登录
         if('<{:session("home_user")["id"]}>'=='') {
-            alert('请先登录');
+            layer.open({
+              title: '回复'
+              ,content: '请先登录'
+            });
             return false;
         }
         var placeholder = $(this).prev().attr('placeholder');
@@ -354,7 +358,11 @@
         var content = $(this).prev().val();
         // console.log(content);
         if (content=='') {
-          alert('请输入回复内容');
+          layer.open({
+              title: '取消关注'
+              ,content: '请输入回复内容'
+            });
+          
           return false;
         }
         content = placeholder+':'+content;
@@ -393,7 +401,10 @@
 //  收藏帖子
     function coll(id) {
       if ('<{:session("home_user")["id"]}>' == "") {
-            alert('请先登录');
+            layer.open({
+              title: '收藏'
+              ,content: '请先登录'
+            });
             return false;
         }
         var uid = <{:session("home_user")["id"]}>;
@@ -415,7 +426,10 @@
     //  取消收藏帖子
     function delcoll(id) {
       if ('<{:session("home_user")["id"]}>' == "") {
-            alert('请先登录');
+            layer.open({
+              title: '取消收藏'
+              ,content: '请先登录'
+            });
             return false;
         }
         var uid = <{:session("home_user")["id"]}>;
@@ -435,16 +449,25 @@
 
     $('.reply').blur(function(){
         if ($(this).val().length == '') {
-            alert('请输入回复');
+            layer.open({
+              title: '回复'
+              ,content: '请输入回复'
+            });
         } else if ($(this).val().length > 30) {
-            alert('回复长度不正确');
+            layer.open({
+              title: '回复'
+              ,content: '回复长度不正确'
+            });
         }
     });
 
     // 取消关注贴吧
     function closebtn() {
         if ('<{:session("home_user")["id"]}>' == "") {
-            alert('请先登录');
+            layer.open({
+              title: '取消关注'
+              ,content: '请先登录'
+            });
             return false;
         }
         var bid = $('#bid').val();
@@ -457,7 +480,10 @@
                 if (data) {
                     $('.actionbtn').html('<a href="javascript:;" class="btn btn-danger" onclick="start()" style=\'margin-left:40px\'><span class=\'glyphicon glyphicon-heart\'></span>关注</a>');
                 } else {
-                    alert(data);
+                    layer.open({
+                      title: '取消关注'
+                      ,content: '取消关注失败'
+                    });
                 }
             }
         });
@@ -467,7 +493,10 @@
     function start() {
         
         if ('<{:session("home_user")["id"]}>' == "") {
-            alert('请先登录');
+            layer.open({
+              title: '关注'
+              ,content: '请先登录'
+            });
             return false;
         }
         var uid = <{:session("home_user")["id"]}>;
@@ -480,7 +509,10 @@
                 if (data) {
                     $('.actionbtn').html('<a href="javascript:;" onclick="closebtn()" class="btn btn-default" style="margin-left:40px"><span class="glyphicon glyphicon-ok" ></span>已关注 | 取消</a>');
                 } else {
-                    alert(data);
+                    layer.open({
+                      title: '关注'
+                      ,content: '关注失败'
+                    });
                 }
             }
         });
