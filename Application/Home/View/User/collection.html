@@ -36,19 +36,12 @@
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
 </block>
 <block name="main">
-<include file="User:nav" />
- <h1 class="ihome_title"><span class="cut_line">|</span>我的消息</h1>
+  <include file="User:nav" />
+ <h1 class="ihome_title"><span class="cut_line">|</span>我的收藏</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
-    <foreach name="list" item="vo">
-        <div style="width: 690px;border-bottom: 1px solid #F4F4F4;margin-top: 20px;">
-            <div style="width: 550px;">
-            <a href="<{:U('Post/index')}>?id=<{$vo.pid}>" style="font-size: 15px;color: #2D64B3;" target="_blank"> <{$vo.uname}>：<{$vo.content}></a>
-            </div>
-            <span style="position: absolute;margin-top: -36px;margin-left: 570px;"><{$vo.ctime|date="Y-m-d H:i",###}></span>
-            <span style="color:#989898;">回复我的主题：“</span><a href="<{:U('Post/index')}>?id=<{$vo.pid}>" target="_blank"><{$vo.title}></a><span style="color:#989898;">”></span> <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" target="_blank"><{$vo.bname}></a>
-        </div>
-    </foreach>
-    <center><{$page}></center>
+    <div style="width: 690px; height: 50px; border-bottom:1px solid #F4F4F4;">
+      
+    </div>
  </div>
 </div> 
   <if condition="$list eq null">
