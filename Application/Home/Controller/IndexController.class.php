@@ -161,7 +161,7 @@ class IndexController extends HomeController {
             $this->ajaxReturn($id);
         }else{
 
-            $this->error('找不到该吧，即将跳到申请界面', U('Bar/apply', array('name'=>$name)), 3);
+            // $this->error('找不到该吧，即将跳到申请界面', U('Bar/apply', array('name'=>$name)), 3);
 
             $this->ajaxReturn(false);
 

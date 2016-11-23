@@ -81,7 +81,7 @@
 <ul class="nav navbar-nav">
 	<li><a href="<{:U('Home/Index/index')}>">首页</a></li>
 	<li style="margin-left=500px;">
-  <div style="width:400px;" class="input-group">
+  <div style="width:400px;margin-left:50px;margin-top:5px;" class="input-group">
 	    <input style="width:360px;" type="text" class="form-control" placeholder="请输入要查询的贴吧名" name="name" id="name"><span class="input-group-btn">
 	      <button class="btn btn-default" type="submit" onclick="search()">搜索</button>
 	    </span>
@@ -481,7 +481,9 @@ function search()
 {
    $.post("<{:U('Type/dosearch')}>", {'name': $('#name').val()}, function(data) {
         if(data === false) {
-            alert("没有该吧");
+            // alert("没有该吧");
+            // location.assign('<{:U("Bar/apply", "","",true)}>');
+            alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Bar/apply")}>";
         } else {
             location.assign('<{:U("bar/index", "","",true)}>?id=' + data);
         }
