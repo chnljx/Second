@@ -3,19 +3,19 @@ namespace Home\Controller;
 use Think\Controller;
 
 /**
-* BarController 贴吧操作
+* CollectionController 帖子操作
 *
 * @author xiao
 * @version 1.0
 */
-class FollowController extends HomeController
+class CollectionController extends HomeController
 {
     /**
     * 帖子取消收藏
     * @access public        
     * @return void
     */
-    public function decoll()
+    public function delcoll()
     {
         session_start();
         if (empty($_SESSION['home_user'])) {
@@ -49,8 +49,8 @@ class FollowController extends HomeController
             $data['selfid'] = I('post.selfid');
             $data['postid'] = I('post.postid');
 
-            $follow = M('collection')->add($data);
-            if ($follow == false) {
+            $coll = M('collection')->add($data);
+            if ($coll == false) {
                 $this->ajaxReturn(false);
             } else {
                 $this->ajaxReturn(true);
