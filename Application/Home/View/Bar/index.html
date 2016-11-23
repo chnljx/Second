@@ -170,7 +170,7 @@
     <div class='nav-main container'>
         <ul>
             <li><a href="">看帖</a></li>
-            <li><a href="">图片</a></li>
+            <!-- <li><a href="">图片</a></li> -->
         </ul>
     </div>
 	<!-- Header -->
@@ -193,7 +193,7 @@
                 </div>
                 <div class="col-md-9">
                     <div>
-                        <a href="<{:U('Post/index')}>?id=<{$v.id}>"><h4 class="vid-name" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.title}></h4></a>
+                        <a href="<{:U('Post/index')}>?id=<{$v.id}>" target='_blank'><h4 class="vid-name" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.title}></h4></a>
                         <p style="margin-top: 20px;"><{$v.descr}></p>
                     </div>
                     <div style="margin-top: 50px;margin-left: 220px;"><p><span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span>
@@ -321,9 +321,9 @@
     								<img width=100 src="__UPLOAD__/img/avatar-thumb/<{$va.picname}>" />
     							</div>
     							<div class="wrapper">
-    								<h5 class="vid-name"><a href="#"><{$va.name}></a></h5>
+    								<h5 class="vid-name"><{$va.name}>></h5>
     								<div class="info">
-    									<h6>本吧名气 <a href="#"><{$k+1}></a></h6>
+    									<h6>本吧名气<{$k+1}></h6>
     									<span><i class="fa fa-calendar"></i>用户等级：<{$va.exp|grade}></span> 
     									<!-- <span><i class="fa fa-heart"></i>48</span> -->
     								</div>
@@ -334,10 +334,10 @@
 				</div>
                 <input type="hidden" id="uid" name="uid" value="<{$Think.session.home_user.id}>">
 				<!---- Start Widget ---->
-                <if condition='$Think.session.home_user eq ""  or ($user eq "")'>
+                <if condition='$Think.session.home_user.id eq "" '>
                 <else/>
 				<div class="widget ">
-					<div class="heading"><h4>我在本吧</h4></div>
+					<div class="heading"><h4>个人信息</h4></div>
 					<div class="content">
 						<div class="wrap-vid">
 							<div class="zoom-container">
@@ -453,7 +453,6 @@
                 if (data) {
                     $('.actionbtn').html('<a href="javascript:;" onclick="closebtn()" class="btn btn-default" style="margin-left:40px"><span class="glyphicon glyphicon-ok" ></span>已关注 | 取消</a>');
 
-                    $('#closebtn').click();
                 } else {
                     alert(data);
                 }

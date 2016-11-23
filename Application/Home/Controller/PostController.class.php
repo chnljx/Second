@@ -16,8 +16,14 @@ class PostController extends HomeController
             $this->display('Public:404');
             exit;
         }
+
         // 楼主
         $arr = M('post')->field('b.name bname, b.picname bpic, u.name uname, u.picname upic, u.exp, p.uid ,p.bid, p.title, p.descr, p.ctime, p.id')->table('qm_user u, qm_bar b, qm_post p')->where('p.id='.I('get.id').' and u.id=p.uid and b.id=p.bid')->find();
+        if (!empty($_SESSION['home_user'])) {
+            $user = M('follow')->where('bid='.$arr['bid'].' and uid='.$_SESSION['home_user']['id'])->find();
+            $coll = M('collection')->where('postid='.I('get.id').' and selfid='.$_SESSION['home_user']['id'])->find();
+            
+        }
         // 分页
         $arr['p']=$_GET['p'];
         // 关注人数
@@ -30,14 +36,20 @@ class PostController extends HomeController
         // 分页
         $count = M('comment')->table('qm_user u, qm_comment c')->where('c.postid='.I('get.id').' and c.uid=u.id and c.state=1')->count();
 
+         // 贴吧名人
+        $supfans = M('follow')->field('u.name, u.exp, u.picname')->table('qm_user u, qm_follow f')->where('f.bid='.$arr['bid'].' and f.uid=u.id')->order('u.exp desc')->limit(3)->select();
+
         // 回复
         foreach ($comment as $k => $v) {
-            $array[$k] = M('reply')->field('u.name, u.picname, r.content')->table('qm_user u,qm_reply r')->where('r.cmtid='.$v['id'].' and r.uid=u.id')->select();
+            $comment[$k]['r'] = M('reply')->field('u.name, u.picname, r.content')->table('qm_user u,qm_reply r')->where('r.cmtid='.$v['id'].' and r.uid=u.id')->select();
         }
-
+        // dump($comment);
         $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
         $show = $Page->show();// 分页显示输出
         $this->assign('page',$show);
+        $this->assign('user',$user);
+        $this->assign('coll',$coll);
+        $this->assign('supfans',$supfans);
         $this->assign('comment',$comment);
         $this->assign('follow',$follow);
         $this->assign('post',$post);
@@ -52,6 +64,7 @@ class PostController extends HomeController
         session_start();
         if (empty($_SESSION['home_user'])) {
             $this->error('登录后再发帖，请先登录！！',U('Login/index'));
+            exit;
         }
         $data = $_POST;
         
@@ -69,34 +82,5 @@ class PostController extends HomeController
         }
     }
 
-    // public function upload() 
-    // {
-        /*$config = array(
-            'maxSize' => 3145728,
-            'rootPath' => './Upload/img/post/',
-            'saveName' => array('uniqid',''),
-            'exts' => array('jpg', 'gif', 'png', 'jpeg'),
-            'autoSub' => true,
-            'subName' => array('date','Ymd'),
-        );
-        $upload = new \Think\Upload($config);// 实例化上传类
-        // 上传单个文件
-        $info = $upload->uploadOne($_FILES['picname']);
-        if(!$info) {// 上传错误提示错误信息
-            $this->error($upload->getError());
-        } else {// 上传成功 获取上传文件信息
-            $path = $info['savepath'].$info['savename'];
-            $image = new \Think\Image();
-            $image->open("./Upload/img/post/".$path);
-            // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
-            $path = time().$info['savename'];
-            $image->thumb(100, 100)->save('./Upload/img/post-thumb/'.$path);
-        }*/
-    //     $data = [
-    //         'code' => 0,
-    //         'msg' => '1',
-    //         'data' => ['src' => '1','title' => '1'],
-    //     ];
-    //     $this->ajaxReturn($data);
-    // }
+    
 }
