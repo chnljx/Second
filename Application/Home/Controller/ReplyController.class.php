@@ -9,9 +9,15 @@ use Think\Controller;
 */
 class ReplyController extends HomeController
 {
+
     // 添加回复
     public function doAdd()
     {
+        session_start();
+        if (empty($_SESSION['home_user'])) {
+            $this->error('登录后再回复，请先登录！！',U('Login/index'));
+            exit;
+        }
         if (IS_AJAX) {
             $data = $_POST;
             $reply = D("Reply"); // 实例化User对象
@@ -21,7 +27,9 @@ class ReplyController extends HomeController
                 $id = $reply->add();
                 // 执行添加
                 if ($id > 0) {
-                    echo '添加成功';
+                    $this->ajaxReturn(true);
+                } else {
+                    $this->ajaxReturn(false);
                 }
             }
         }  

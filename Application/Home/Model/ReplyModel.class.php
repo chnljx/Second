@@ -7,6 +7,7 @@ class ReplyModel extends Model{
     protected $_validate = array(
         // array(验证字段2,验证规则,错误提示,[验证条件,附加规则,验证时间])
         array('content','require','请填写回复内容'),
+        array('content','1,30','内容长度不正确', 0, 'length'),
         
     );
 

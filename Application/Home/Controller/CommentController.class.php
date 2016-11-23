@@ -13,6 +13,11 @@ class CommentController extends HomeController
     // 添加评论
     public function doAdd()
     {
+        session_start();
+        if (empty($_SESSION['home_user'])) {
+            $this->error('登录后再评论，请先登录！！',U('Login/index'));
+            exit;
+        }
         $data = $_POST;
         $post = D("Comment"); // 实例化User对象
         if (!$post->create($data)){ 
