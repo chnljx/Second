@@ -1,0 +1,330 @@
+<extend name="Public:base"/>
+<block name="head">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>注册--阡陌之家</title>
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="__PUBLIC__/look/css/style.css">
+    
+    <!-- Owl Carousel Assets -->
+    <link href="__PUBLIC__/look/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="__PUBLIC__/look/owl-carousel/owl.theme.css" rel="stylesheet">
+    
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="__PUBLIC__/look/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
+</block>
+<block name="main">
+    <header>
+        <!--Navigation-->
+        <nav id="menu" class="navbar container">
+            <div class="navbar-header">
+                <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+                <a class="navbar-brand" href="#">
+                    <div class="logo"><span>阡陌之家</span></div>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <!-- Header -->
+    
+    <!-- /////////////////////////////////////////Content -->
+    <div id="page-content" class="archive-page container">
+        <div class="">
+            <div class="row">
+                <div id="main-content" class="col-md-8">
+                    <center>
+                        <div class="box">
+                            <div class="heading"><h3>注册</h3></div><br><br>
+                            <form action="<{:U('Register/doadd')}>" method="post" class="form-horizontal" role="form" id="form-register">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">用户名</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="输入3~10位字符">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">手机号</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="您的手机号码">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">密码</label>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="输入6~14位字母、数字和符号">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">确认密码</label>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control" name="repasswd" id="repasswd" placeholder="输入6~14位字母、数字和符号">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">验证码</label>
+                                    <div class="col-sm-3">
+                                        <input type="type" class="form-control" name="verify" id="verify" placeholder="→ →">
+                                    </div>
+                                    <div class="col-sm-3">                         
+                                        <img id="verify_img" src="<{:U('Register/getVerify')}>" title="看不清，换一张" style="cursor:pointer;">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-6">
+                                      <button type="submit" class="btn btn-primary btn-block">注册</button>
+                                  </div>
+                              </div>
+                              <div class="col-sm-offset-4">                
+                                <span class="fr">已有账号？<a href="<{:U('Login/index')}>">登录</a></span>
+                            </div><br><br><br><br>
+                        </form>
+                    </div>
+                </center>
+            </div>
+            <div id="sidebar" class="col-md-4">
+                <!-- Start Widget -->
+                <div class="widget wid-follow">
+                    <div class="heading"><h4>阡陌之家</h4></div>
+                    <div class="content">
+                        <img src="__PUBLIC__/look/images/banner.jpg" />
+                    </div>
+                </div>
+                <!-- Start Widget -->
+                <!-- <div class="widget wid-post">
+                    <div class="heading"><h4>广告</h4></div>
+                    <div class="content">
+                        <div class="post wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span class="youtube">Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="__PUBLIC__/look/images/1.jpg" />
+                            </div>
+                            <div class="wrapper">
+                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
+                                <div class="info">
+                                    <h6>By <a href="#">Kelvin</a></h6>
+                                    <span><i class="fa fa-calendar"></i>25/3/2015</span> 
+                                    <span><i class="fa fa-heart"></i>1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span class="vimeo">Vimeo</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="__PUBLIC__/look/images/2.jpg" />
+                            </div>
+                            <div class="wrapper">
+                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
+                                <div class="info">
+                                    <h6>By <a href="#">Kelvin</a></h6>
+                                    <span><i class="fa fa-calendar"></i>25/3/2015</span> 
+                                    <span><i class="fa fa-heart"></i>1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span class="youtube">Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="__PUBLIC__/look/images/3.jpg" />
+                            </div>
+                            <div class="wrapper">
+                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
+                                <div class="info">
+                                    <h6>By <a href="#">Kelvin</a></h6>
+                                    <span><i class="fa fa-calendar"></i>25/3/2015</span> 
+                                    <span><i class="fa fa-heart"></i>1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+</block>
+<block name="myjs">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__PUBLIC__/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery.validation/1.14.0/jquery.validate.min.js"></script> 
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery.validation/1.14.0/messages_zh.min.js"></script> 
+
+    <!-- JS -->
+    <script src="__PUBLIC__/look/owl-carousel/owl.carousel.js"></script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+      })();
+      var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+      document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+
+  <script>
+    $(document).ready(function(){
+        var verify_img = $('#verify_img');
+        var src_img = verify_img.attr('src');
+        verify_img.click(function(){
+            $(this).attr('src', src_img+'?verify='+Math.random());
+        });
+
+        // 手机号码验证
+        jQuery.validator.addMethod("isMobile", function(value, element) {
+            var length = value.length;
+            var mobile = /^1[34578]{1}\d{9}$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "请正确填写您的手机号码");
+
+        $("#form-register").validate({
+            rules: {
+                name: {
+                    required: true,
+                    rangelength: [3,10],
+                    remote: {
+                        url: "<{:U('Register/doadd')}>",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            name: function() {
+                                return $("#name").val();
+                            }
+                        },
+                        dataFilter: function(data) {
+                            if(data){
+                                return false;
+                            }else{
+                                return true;
+                            }
+                        },
+                    },
+                },
+                phone: {
+                    required: true,
+                    isMobile: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                passwd: {
+                    required: true,
+                    rangelength: [6,14],
+                },
+                repasswd: {
+                    required: true,
+                    equalTo: "#passwd",
+                },
+                verify: {
+                    required: true,
+                    remote: {
+                        url: "<{:U('Register/doadd')}>",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            verify: function() {
+                                return $("#verify").val();
+                            }
+                        },
+                        dataFilter: function(data) {
+                            if(data){
+                                return false;
+                            }else{
+                                return true;
+                            }
+                        },
+                    },
+                },
+            },
+            messages: {
+                name: {
+                    required: '请您填写用户名',
+                    rangelength: '用户名长度不合法',
+                    remote: '用户名已经存在',
+                },
+                phone: {
+                    required: '请您填写手机号码',
+                },
+                email: {
+                    required: '请您填写邮箱',
+                },
+                passwd: {
+                    required: '请您填写密码',
+                    rangelength: '密码长度不合法',
+                },
+                repasswd: {
+                    required: '请您填写确认密码',
+                    equalTo: '两次密码输入不一致',              
+                },
+                verify: {
+                    required: '请您填写验证码',
+                    remote: '验证码错误',
+                },
+            },
+
+            errorElement : 'span',
+            errorClass : 'help-block',
+
+            //自定义错误消息放到哪里
+            errorPlacement : function(error, element) {
+                element.next().remove();//删除显示图标
+                element.after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+                element.closest('.form-group').append(error);//显示错误消息提示
+            },
+            //给未通过验证的元素进行处理
+            highlight : function(element) {
+                $(element).closest('.form-group').addClass('has-error has-feedback');
+            },
+            //验证通过的处理
+            success : function(label) {
+                var el=label.closest('.form-group').find("input");
+                el.next().remove();//与errorPlacement相似
+                el.after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+                label.closest('.form-group').removeClass('has-error').addClass("has-feedback has-success");
+                label.remove();
+            },
+
+            submitHandler: function(form){
+                form.submit();
+            },
+
+        });
+
+    });
+
+
+
+</script>
+</block>

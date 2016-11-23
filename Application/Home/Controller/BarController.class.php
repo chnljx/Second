@@ -58,8 +58,49 @@ class BarController extends HomeController
         $this->assign('follow',$follow);
         $this->assign('supfans',$supfans);
         $this->display();
+
+
+        // 天气
+        $ch = curl_init();
+        $c= empty($_POST['city'])?'shanghai':$_POST['city'];
+
+          // var_dump($c);exit;
+        $location = $c;
+        $url = 'http://apis.baidu.com/thinkpage/weather_api/suggestion?location='.$location.'&language=zh-Hans&unit=c&start=0&days=3';
+        $header = array(
+            'apikey: b848d17197e4ead6adc43f2af62b4ac8',
+        );
+        // 添加apikey到header
+        curl_setopt($ch, CURLOPT_HTTPHEADER  , $header);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // 执行HTTP请求
+        curl_setopt($ch , CURLOPT_URL , $url);
+        $res = curl_exec($ch);
+
+        $res = json_decode($res);
+        // dump($res);
+        // exit;
+        $data = $res->results;
+        // if(empty($data)){
+        //     echo "查无数据";
+        // }
+        // dump($data);exit;
+        // $daily = ;
+        // dump($daily);exit;
+        $city = $data[0]->location->name;
+        $daily = $data[0]->daily;
+        // dump($daily);
+        $update = $data[0]->last_update;
+        // var_dump($update);exit;
+        // $linklist=M('link')->select();
+        // $this->assign('linklist',$linklist);
+        $this->assign('city',$city);
+        $this->assign('update',$update);
+        $this->assign('daily',$daily);
+        $this->display();
     }
     
+
     // 贴吧创建申请
     public function apply()
     {
@@ -120,5 +161,31 @@ class BarController extends HomeController
                 $this->error('贴吧申请失败');
             }
         }
+
+
+    public function dosearch()
+    {
+       if(!IS_AJAX){
+        $name = I('post.name');
+        // var_dump($name);
+        $data=M('bar')->where("name='$name'")->find();
+        if($data){
+            $id=$data['id'];
+            $this->redirect("bar/index?id='$id'");
+        }else{
+            $this->error('没有该吧');
+        }
+       } 
+    }
+
+    public function boss() 
+    {
+        if(empty(session('home_user')))
+        {
+            $this->error('请先登录', U('Login/index'));
+        }
+
+        
+
     }
 }

@@ -101,9 +101,9 @@
           <li>
             <span class='collbtn'>
               <if condition='($Think.session.home_user eq null) or ($coll eq null)'>
-                  <a href="javascript:;" onclick="collection(<{$arr.id}>)">收藏</a>
+                  <a href="javascript:;" onclick="coll(<{$arr.id}>)">收藏</a>
               <else/>
-                  <a href="javascript:;" onclick="delcollection(<{$arr.id}>)">已收藏</a>
+                  <a href="javascript:;" onclick="delcoll(<{$arr.id}>)">已收藏</a>
               </if>
             </span>
             
@@ -262,9 +262,9 @@
               <div class="content">
                 <div class="wrap-vid">
                   <div class="zoom-container">
-                    <img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" />                
+                    <a href="<{:U('User/index')}>"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" />                
                   </div>
-                  <h3 style='color:blue;font-size: 20px'><a href="<{$Think.session.home_user.id}>"><{$Think.session.home_user.name}></a></h3>
+                  <h3 style='color:blue;font-size: 20px'><a href="<{:U('User/index')}>"><{$Think.session.home_user.name}></a></h3>
                   <h3 class="vid-name" style='color:blue;font-size: 20px'>我的等级：<{$Think.session.home_user.exp|grade}></h3>
                   <h3 class="vid-name">注册时间<{$Think.session.home_user.regtime|date="Y-m-d H:i:s",###}></h3>
                 </div>
@@ -391,21 +391,19 @@
     });
 
 //  收藏帖子
-    function collection(id) {
+    function coll(id) {
       if ('<{:session("home_user")["id"]}>' == "") {
             alert('请先登录');
             return false;
         }
-        console.log(id);
         var uid = <{:session("home_user")["id"]}>;
-        console.log(uid);
         $.ajax({
             type:"POST",
             url: "<{:U('Collection/coll')}>",
             data: 'selfid='+uid+'&postid='+id,
             success: function(data){
                 if (data) {
-                    $('.collbtn').html('<a href="javascript:;" onclick="delcollection('+id+')">已收藏</a>');
+                    $('.collbtn').html('<a href="javascript:;" onclick="delcoll('+id+')">已收藏</a>');
                 } else {
                     alert(data);
                 }
@@ -415,7 +413,7 @@
 
 
     //  取消收藏帖子
-    function delcollection(id) {
+    function delcoll(id) {
       if ('<{:session("home_user")["id"]}>' == "") {
             alert('请先登录');
             return false;
@@ -427,13 +425,21 @@
             data: 'selfid='+uid+'&postid='+id,
             success: function(data){
                 if (data) {
-                    $('.collbtn').html('<a href="javascript:;" onclick="collection('+id+')">收藏</a>');
+                    $('.collbtn').html('<a href="javascript:;" onclick="coll('+id+')">收藏</a>');
                 } else {
                     alert(data);
                 }
             }
         });
     }
+
+    $('.reply').blur(function(){
+        if ($(this).val().length == '') {
+            alert('请输入回复');
+        } else if ($(this).val().length > 30) {
+            alert('回复长度不正确');
+        }
+    });
 
     // 取消关注贴吧
     function closebtn() {
