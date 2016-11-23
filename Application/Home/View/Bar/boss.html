@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>注册--阡陌之家</title>
+    <title>吧主申请--阡陌之家</title>
     
     <!-- Bootstrap Core CSS -->
     <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
                     <center>
                         <div class="box">
                             <div class="heading"><h3>申请吧主</h3></div><br><br>
-                            <form action="<{:U('Register/doadd')}>" method="post" class="form-horizontal" role="form" id="form-register">
+                            <form action="<{:U('Bar/boss')}>" method="post" class="form-horizontal" role="form" id="form-register">
                                 <input type="hidden" name="uid" value="<{$arr.uid}>">
                                 <input type="hidden" name="bid" value="<{$arr.id}>">
                                 <div class="form-group">
@@ -55,7 +55,11 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-offset-1 control-label">手机号</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="您的手机号码">
+                                        <input class='col-sm-12' type="text" class="form-control" name="phone" id="phone" placeholder="您的手机号码">
+                                        <div class='col-sm-12'>
+                                            <button class='col-md-6' style='background:#4B97E4;margin-top: 5px;margin-left: -15px;color:#eee;' onclick='sendsms()' id = 'send' class='btn btn-info btn-block btn-sm'>点击发送验证码</button>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 
@@ -71,7 +75,7 @@
                                       <button type="submit" class="btn btn-primary btn-block">确认请求</button>
                                   </div>
                               </div>
-                              <br><br><br><br>
+                              <br><br><br>
                         </form>
                     </div>
                 </center>
@@ -150,7 +154,32 @@
 
     });
 
+    function sendsms(){
+       $.post("<{:U('Phone/sendSms')}>",{'val':"<{$list['phone']}>"},function(res){
+            console.log(res);
+            if (res == 'true'){
+                 $('#send').html('已发送,60秒后重新输入');
+                 $('#send').attr('disabled','disabled');
+                 timer = setInterval(demo,1000);
+            }else{
+                layer.tips('发送失败','#smsinput');
+            }
+       })
+        
+    }
 
+    function demo(){ 
+        if (m<=0) {
+             $('#send').html('发送');
+             $('#send').removeAttr('disabled');
+             clearInterval(timer);
+        }else{
+            $('#send').html('已发送,'+m+'秒后重新输入');
+            m--;
+
+        }
+
+    }
 
 </script>
 </block>

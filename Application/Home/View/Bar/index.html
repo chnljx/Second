@@ -266,7 +266,7 @@
 						</div>
 						<div class='col-md-8'>
 							<if condition='$bar.uname eq "admin"'>
-								<a href='<{:U("Bar/boss")}>?bid=<{$bar.id}>&uid=<{$Think.session.home_user.id}>'  class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</a>
+								<a href='<{:U("Bar/boss")}>?id=<{$bar.id}>&uid=<{$Think.session.home_user.id}>'  class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</a>
 							<else/>
 								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6></a>
 							</if>
