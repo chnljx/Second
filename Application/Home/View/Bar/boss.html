@@ -42,12 +42,14 @@
                 <div id="main-content" class="col-md-8">
                     <center>
                         <div class="box">
-                            <div class="heading"><h3>注册</h3></div><br><br>
+                            <div class="heading"><h3>申请吧主</h3></div><br><br>
                             <form action="<{:U('Register/doadd')}>" method="post" class="form-horizontal" role="form" id="form-register">
+                                <input type="hidden" name="uid" value="<{$arr.uid}>">
+                                <input type="hidden" name="bid" value="<{$arr.id}>">
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">用户名</label>
+                                    <label class="col-sm-2 col-sm-offset-1 control-label">贴吧</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="输入3~10位字符">
+                                        <input type="text" class="form-control" value='<{$arr.name}>' readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -58,34 +60,18 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">密码</label>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="输入6~14位字母、数字和符号">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-offset-1 control-label">确认密码</label>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="repasswd" id="repasswd" placeholder="输入6~14位字母、数字和符号">
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-sm-2 col-sm-offset-1 control-label">验证码</label>
-                                    <div class="col-sm-3">
-                                        <input type="type" class="form-control" name="verify" id="verify" placeholder="→ →">
-                                    </div>
-                                    <div class="col-sm-3">                         
-                                        <img id="verify_img" src="<{:U('Register/getVerify')}>" title="看不清，换一张" style="cursor:pointer;">
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control" name="passwd" id="passwd">
                                     </div>
                                 </div>
+                                
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-6">
-                                      <button type="submit" class="btn btn-primary btn-block">注册</button>
+                                      <button type="submit" class="btn btn-primary btn-block">确认请求</button>
                                   </div>
                               </div>
-                              <div class="col-sm-offset-4">                
-                                <span class="fr">已有账号？<a href="<{:U('Login/index')}>">登录</a></span>
-                            </div><br><br><br><br>
+                              <br><br><br><br>
                         </form>
                     </div>
                 </center>
@@ -99,71 +85,7 @@
                     </div>
                 </div>
                 <!-- Start Widget -->
-                <!-- <div class="widget wid-post">
-                    <div class="heading"><h4>广告</h4></div>
-                    <div class="content">
-                        <div class="post wrap-vid">
-                            <div class="zoom-container">
-                                <div class="zoom-caption">
-                                    <span class="youtube">Youtube</span>
-                                    <a href="single.html">
-                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-                                    </a>
-                                    <p>Video's Name</p>
-                                </div>
-                                <img src="__PUBLIC__/look/images/1.jpg" />
-                            </div>
-                            <div class="wrapper">
-                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
-                                <div class="info">
-                                    <h6>By <a href="#">Kelvin</a></h6>
-                                    <span><i class="fa fa-calendar"></i>25/3/2015</span> 
-                                    <span><i class="fa fa-heart"></i>1,200</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post wrap-vid">
-                            <div class="zoom-container">
-                                <div class="zoom-caption">
-                                    <span class="vimeo">Vimeo</span>
-                                    <a href="single.html">
-                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-                                    </a>
-                                    <p>Video's Name</p>
-                                </div>
-                                <img src="__PUBLIC__/look/images/2.jpg" />
-                            </div>
-                            <div class="wrapper">
-                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
-                                <div class="info">
-                                    <h6>By <a href="#">Kelvin</a></h6>
-                                    <span><i class="fa fa-calendar"></i>25/3/2015</span> 
-                                    <span><i class="fa fa-heart"></i>1,200</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post wrap-vid">
-                            <div class="zoom-container">
-                                <div class="zoom-caption">
-                                    <span class="youtube">Youtube</span>
-                                    <a href="single.html">
-                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-                                    </a>
-                                    <p>Video's Name</p>
-                                </div>
-                                <img src="__PUBLIC__/look/images/3.jpg" />
-                            </div>
-                            <div class="wrapper">
-                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
-                                <div class="info">
-                                    <h6>By <a href="#">Kelvin</a></h6>
-                                    <span><i class="fa fa-calendar"></i>25/3/2015</span> 
-                                    <span><i class="fa fa-heart"></i>1,200</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                
             </div>
         </div>
     </div>
@@ -195,11 +117,6 @@
 
   <script>
     $(document).ready(function(){
-        var verify_img = $('#verify_img');
-        var src_img = verify_img.attr('src');
-        verify_img.click(function(){
-            $(this).attr('src', src_img+'?verify='+Math.random());
-        });
 
         // 手机号码验证
         jQuery.validator.addMethod("isMobile", function(value, element) {
@@ -210,110 +127,19 @@
 
         $("#form-register").validate({
             rules: {
-                name: {
-                    required: true,
-                    rangelength: [3,10],
-                    remote: {
-                        url: "<{:U('Register/doadd')}>",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            name: function() {
-                                return $("#name").val();
-                            }
-                        },
-                        dataFilter: function(data) {
-                            if(data){
-                                return false;
-                            }else{
-                                return true;
-                            }
-                        },
-                    },
-                },
+               
                 phone: {
                     required: true,
                     isMobile: true,
                 },
-                email: {
-                    required: true,
-                    email: true,
-                },
-                passwd: {
-                    required: true,
-                    rangelength: [6,14],
-                },
-                repasswd: {
-                    required: true,
-                    equalTo: "#passwd",
-                },
-                verify: {
-                    required: true,
-                    remote: {
-                        url: "<{:U('Register/doadd')}>",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            verify: function() {
-                                return $("#verify").val();
-                            }
-                        },
-                        dataFilter: function(data) {
-                            if(data){
-                                return false;
-                            }else{
-                                return true;
-                            }
-                        },
-                    },
-                },
+                
             },
             messages: {
-                name: {
-                    required: '请您填写用户名',
-                    rangelength: '用户名长度不合法',
-                    remote: '用户名已经存在',
-                },
+                
                 phone: {
                     required: '请您填写手机号码',
                 },
-                email: {
-                    required: '请您填写邮箱',
-                },
-                passwd: {
-                    required: '请您填写密码',
-                    rangelength: '密码长度不合法',
-                },
-                repasswd: {
-                    required: '请您填写确认密码',
-                    equalTo: '两次密码输入不一致',              
-                },
-                verify: {
-                    required: '请您填写验证码',
-                    remote: '验证码错误',
-                },
-            },
-
-            errorElement : 'span',
-            errorClass : 'help-block',
-
-            //自定义错误消息放到哪里
-            errorPlacement : function(error, element) {
-                element.next().remove();//删除显示图标
-                element.after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
-                element.closest('.form-group').append(error);//显示错误消息提示
-            },
-            //给未通过验证的元素进行处理
-            highlight : function(element) {
-                $(element).closest('.form-group').addClass('has-error has-feedback');
-            },
-            //验证通过的处理
-            success : function(label) {
-                var el=label.closest('.form-group').find("input");
-                el.next().remove();//与errorPlacement相似
-                el.after('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
-                label.closest('.form-group').removeClass('has-error').addClass("has-feedback has-success");
-                label.remove();
+                
             },
 
             submitHandler: function(form){

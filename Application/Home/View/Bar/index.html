@@ -357,6 +357,10 @@
                 </if>
                 <div class="widget ">
                     <div class="heading"><h4>天气查询</h4></div>
+                    <!-- <form action="<{:U('Bar/index')}>" method="post">
+                        <input type="text" name="city" value="" placeholder="请输入城市名拼音:">
+                        <button>查询</button>
+                    </form> -->
                     <if condition="$daily eq null">
                        查无数据!
                     <else/>
@@ -427,7 +431,7 @@
 	<script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
     <script src="__PUBLIC__/js/bootstrap.js"></script>
 	<script src="__PUBLIC__/looK/owl-carousel/owl.carousel.js"></script>
-    
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
 
     <script>
     $(document).ready(function() {
@@ -442,31 +446,40 @@
     });
     $('#title').blur(function(){
         if ($(this).val().length == '') {
-            alert('请输入标题');
+            layer.open({
+              title: '标题'
+              ,content: '标题不为空'
+            });
         } else if ($(this).val().length > 30) {
-            alert('标题长度不正确');
+            layer.open({
+              title: '标题'
+              ,content: '标题长度不正确'
+            });
         }
     });
 
-    $('#name').blur(function(){
-        $.ajax({
-            type: 'POST',
-            url: "<{:U('Bar/dosearch')}>",
-            data: 'name='+$('#name').val(),
-            success: function(msg){
-              if(msg){
-                $('#tips').html(msg);
-              }else{
-                $('#tips').html('');
-              }
-            }
-          });
-        });
+    // $('#name').blur(function(){
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: "<{:U('Bar/dosearch')}>",
+    //         data: 'name='+$('#name').val(),
+    //         success: function(msg){
+    //           if(msg){
+    //             $('#tips').html(msg);
+    //           }else{
+    //             $('#tips').html('');
+    //           }
+    //         }
+    //       });
+    //     });
 
     function closebtn() {
         var uid = $('#uid').val();
         if (uid == "") {
-            alert('请先登录');
+            layer.open({
+              title: '取消关注'
+              ,content: '请先登录'
+            }); 
             return false;
         }
         var bid = $('#bid').val();
@@ -478,7 +491,10 @@
                 if (data) {
                     $('.actionbtn').html('<a href="javascript:;" class="btn btn-danger" onclick="start()" style=\'margin-left:40px\'><span class=\'glyphicon glyphicon-heart\'></span>关注</a>');
                 } else {
-                    alert(data);
+                    layer.open({
+                      title: '取消关注'
+                      ,content: '取消关注失败'
+                    }); 
                 }
             }
         });
@@ -488,7 +504,10 @@
         var uid = $('#uid').val();
         console.log(uid);
         if (uid == "") {
-            alert('请先登录');
+            layer.open({
+              title: '关注'
+              ,content: '请先登录'
+            });
             return false;
         }
         var bid = $('#bid').val();
@@ -501,7 +520,10 @@
                     $('.actionbtn').html('<a href="javascript:;" onclick="closebtn()" class="btn btn-default" style="margin-left:40px"><span class="glyphicon glyphicon-ok" ></span>已关注 | 取消</a>');
 
                 } else {
-                    alert(data);
+                    layer.open({
+                      title: '关注'
+                      ,content: '关注失败'
+                    }); 
                 }
             }
         });
