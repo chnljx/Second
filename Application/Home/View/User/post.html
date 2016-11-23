@@ -36,74 +36,14 @@
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
 </block>
 <block name="main">
-   <div style="margin-top: 130px; margin-bottom: 50px;">
-    <div id="headinfo_wrap" class="headinfo_wrap"> 
-    </div>
-    <div id="userinfo_wrap" class="userinfo_wrap clearfix">
-     <div class="userinfo_left ">
-      <div class="userinfo_left_head" id="j_userhead" data-sign="106c9955?t=1478689543">
-       <a href="javascript:;" style="" class="userinfo_head"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>
-     </div>
-   </div>
-   <div class="userinfo_middle">
-    <div class="userinfo_relation">
-     <div class="btn_grounps">
-      <a class="btn-sub btn-small" target="_blank" href="<{:U('User:editview')}>"><i class="icon-edit"></i>编辑资料</a>
-    </div> 
-  </div>
-  <div class="userinfo_title"> 
-   <span class="userinfo_username "><{$Think.session.home_user.name}></span> 
- </div>
- <div class="userinfo_num">
-   <div class="userinfo_userdata">
-    <span>吧龄：<{$Think.session.home_user.regtime|barage}>年</span>
-    <span class="userinfo_split"></span>
-    <span>发贴：<{$Think.session.home_user.post_count}></span> 
-  </div>
-</div> 
-<div class="userinfo_honor clearfix"> 
- <span class="icon_wrap  icon_wrap_theme2  icon_slot_wrap j_book_icon"><a href="javascript:void(0)" data-slot="1" data-name="" title="点击添加印记" class="j_slot_null_icon j_icon_slot icon_slot_null_icon" style="top: 0px;left:0px">
-   <div class=" j_icon_slot_refresh"></div></a><a href="javascript:void(0)" title="开启插槽" class="j_icon_slot_buy icon_add_solt" style="top: 0px;left:28px"></a></span> 
- </div>
-</div>
-</div>
-<div id="container" class="container_wrap clearfix ihome_body">
- <div class="left_aside ihome_left_aside">
-  <div class="content_wrap"> 
-   <div id="ihome_nav_wrap" class="ihome_nav_wrap">
-    <ul class="ihome_nav_list"> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_main" href="<{:U('User:index')}>" locate="tab_main#ihome_v1">我的主页</a></p> 
-     </div></li> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:msgview','p=1','html')}>" locate="tab_msg#ihome_v1">通知</a></p> 
-       <span></span> 
-     </div></li> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:list')}>" locate="tab_collect#ihome_v1">收藏</a></p> 
-       <span></span> 
-     </div></li> 
-     <li class="focus"> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_post" href="#" locate="tab_post#ihome_v1">贴子</a></p> 
-     </div></li> 
-   </ul>
- </div>
- <div class="ihome_forum_group ihome_section clearfix"> 
-  <div id="onekey_sign">
-   <a class="onekey_btn" onclick="return false;" href=""><i class="icon_signed"></i></a>
- </div>
+<include file="User:nav" />
  <h1 class="ihome_title"><span class="cut_line">|</span>我的帖子</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
-    <div style="border-bottom: 1px solid #F4F4F4;margin-top: 10px;">
-      在 <a href="#" style="color: #2D64B3;">曼城吧</a> 发贴  <a href="#" style="color: #2D64B3;">今晚赔率多少</a> <a href="#">回复</a> <span style="padding-left: 400px">11-1</span>
+    <foreach name="list" item="vo">
+    <div style="border-bottom: 1px solid #F4F4F4;margin-top: 10px;width: 680px;">
+      在 <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" style="color: #2D64B3;" target="_blank"><{$vo.bname}></a> 发贴  <a href="<{:U('Post/index')}>?id=<{$vo.pid}>" style="color: #2D64B3;" target="_blank"><{$vo.ptitle}></a> <a href="<{:U('Post/index')}>?id=<{$vo.pid}>" target="_blank">回复</a> <span style="position:absolute;right:20px;"><{$vo.pctime|date="Y-m-d H:i",###}></span>
     </div>
-    <div style="border-bottom: 1px solid #F4F4F4;margin-top: 10px;">
-      在 <a href="#" style="color: #2D64B3;">曼城吧</a> 发贴  <a href="#" style="color: #2D64B3;">今晚赔率多少</a> <a href="#">回复</a> <span style="padding-left: 400px">11-1</span>
-    </div>
+    </foreach>
     <center><{$page}></center>
  </div>
 </div> 

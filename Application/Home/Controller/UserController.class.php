@@ -168,9 +168,38 @@ class UserController extends HomeController
 
     public function postview()
     {
-        $post = M('Post')->alias('p')->field('b.id as bid,b.name as bname,p.id as pid,p.title as ptitle')->where("p.uid=".session('home_user.id'))->join('__BAR__ as b ON p.bid = b.id')->select();
-        V($post);
+        $post = M('Post');
+        $list = $post->alias('p')->field('b.id as bid,b.name as bname,p.id as pid,p.title as ptitle,p.ctime as pctime')->where("p.uid=".session('home_user.id'))->join('__BAR__ as b ON p.bid = b.id')->order('p.ctime desc')->page($_GET['p'].',10')->select();
+        $this->assign('list',$list);
+        $count = $post->alias('p')->field('b.id as bid,b.name as bname,p.id as pid,p.title as ptitle,p.ctime as pctime')->where("p.uid=".session('home_user.id'))->join('__BAR__ as b ON p.bid = b.id')->count();// 查询满足要求的总记录数
+        $Page = new \Think\Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数
+
+        $Page->setConfig('first','首页');
+        $Page->setConfig('last','尾页');
+        $Page->setConfig('prev','上一页');
+        $Page->setConfig('next','下一页');
+        
+        $Page->setConfig('theme','
+            <nav>
+              <ul class="pagination">
+                <li>%FIRST%</li>
+                <li>%UP_PAGE%</li>
+                <li>%LINK_PAGE%</li>
+                <li>%DOWN_PAGE%</li>
+                <li>%END%</li>
+              </ul>
+            </nav>
+        ');
+
+        $show = $Page->show();// 分页显示输出
+        $this->assign('page',$show);// 赋值分页输出
+
         $this->display('User:post');
+    }
+
+    public function collectionview()
+    {
+        $this->display('User:collection');
     }
     
 }

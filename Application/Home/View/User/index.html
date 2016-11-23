@@ -36,70 +36,11 @@
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
 </block>
 <block name="main">
-   <div style="margin-top: 130px; margin-bottom: 50px;">
-    <div id="headinfo_wrap" class="headinfo_wrap"> 
-    </div>
-    <div id="userinfo_wrap" class="userinfo_wrap clearfix">
-     <div class="userinfo_left ">
-      <div class="userinfo_left_head" id="j_userhead" data-sign="106c9955?t=1478689543">
-       <a href="javascript:;" style="" class="userinfo_head"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>
-     </div>
-   </div>
-   <div class="userinfo_middle">
-    <div class="userinfo_relation">
-     <div class="btn_grounps">
-      <a class="btn-sub btn-small" target="_blank" href="<{:U('User:editview')}>"><i class="icon-edit"></i>编辑资料</a>
-    </div> 
-  </div>
-  <div class="userinfo_title"> 
-   <span class="userinfo_username "><{$Think.session.home_user.name}></span> 
- </div>
- <div class="userinfo_num">
-   <div class="userinfo_userdata">
-    <span>吧龄：<{$Think.session.home_user.regtime|barage}>年</span>
-    <span class="userinfo_split"></span>
-    <span>发贴：<{$post_count}></span> 
-  </div>
-</div> 
-<div class="userinfo_honor clearfix"> 
- <span class="icon_wrap  icon_wrap_theme2  icon_slot_wrap j_book_icon"><a href="javascript:void(0)" data-slot="1" data-name="" title="点击添加印记" class="j_slot_null_icon j_icon_slot icon_slot_null_icon" style="top: 0px;left:0px">
-   <div class=" j_icon_slot_refresh"></div></a><a href="javascript:void(0)" title="开启插槽" class="j_icon_slot_buy icon_add_solt" style="top: 0px;left:28px"></a></span> 
- </div>
-</div>
-</div>
-<div id="container" class="container_wrap clearfix ihome_body">
- <div class="left_aside ihome_left_aside">
-  <div class="content_wrap"> 
-   <div id="ihome_nav_wrap" class="ihome_nav_wrap">
-    <ul class="ihome_nav_list"> 
-     <li class="focus"> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_main" href="#" locate="tab_main#ihome_v1">我的主页</a></p> 
-     </div></li> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:msgview','p=1','html')}>" locate="tab_msg#ihome_v1">通知</a></p> 
-       <span></span> 
-     </div></li> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:list')}>" locate="tab_collect#ihome_v1">收藏</a></p> 
-       <span></span> 
-     </div></li> 
-     <li> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_post" href="<{:U('User:postview')}>" locate="tab_post#ihome_v1">贴子</a></p> 
-     </div></li> 
-   </ul>
- </div>
- <div class="ihome_forum_group ihome_section clearfix"> 
-  <div id="onekey_sign">
-   <a class="onekey_btn" onclick="return false;" href=""><i class="icon_signed"></i></a>
- </div>
+<include file="User:nav" />
  <h1 class="ihome_title"><span class="cut_line">|</span>关注的吧</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
     <foreach name="follow" item="vo">
-      <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" data-fid="339" target="_blank" locate="like_forums#ihome_v1" href="" class="u-f-item unsign"><span><{$vo.name}></span><!-- <span class="forum_level lv5"></span> --></a>
+      <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" data-fid="339" target="_blank" locate="like_forums#ihome_v1" href="" class="u-f-item unsign"><span><{$vo.name}></span><span class="forum_level lv0"></span></a>
     </foreach>
    <!-- <a class="u-f-item add-more-forum j_add_more_forum btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></a>  -->
  </div>
