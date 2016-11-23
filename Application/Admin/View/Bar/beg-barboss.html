@@ -24,7 +24,7 @@
             <tr class="text-c">
                 <td style='display: none;'></td>
                 <td><{$v.id}></td>
-                <td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$v.uname}>','<{:U(\'User/memberShow\')}>?id=<{$v.uid}>','<{$v.uid}>','360','400')"><{$v.uname}></u></td>
+                <td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$v.uname}>','<{:U(\'User/info\')}>?id=<{$v.uid}>','<{$v.uid}>','360','400')"><{$v.uname}></u></td>
                 <td>
                     <if condition='$v.sex eq 0'>女
                     <elseif condition='$v.sex eq 1'/>男

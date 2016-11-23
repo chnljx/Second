@@ -125,29 +125,31 @@
 <header>
 	<!--Top-->
     <nav id="top">
-    <div class="row">
+    <div class="row" style="margin: 0">
         <div class="col-md-6">
-            <a href="<{:U('Inter/index')}>"><strong><i class="fa fa-home"></i>首页</strong></a>
+            <a href="<{:U('Home/Index/index')}>"><strong><i class="fa fa-home"></i>首页</strong></a>
         </div>
         <div class="col-md-6">
             <ul class="list-inline top-link link">
-                <li><a href="<{:U('Login/index')}>"> 登录</a></li>
-                <li><a href="">注册 </a></li>
+                <if condition='$Think.session.home_user eq ""'>
+                  <li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
+                  <li><a href="<{:U('Register/index')}>">注册</a></li>
+                  <else />
+                  <li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li>
+                </if>
             </ul>
         </div>
     </div>
     </nav>
 	<!-- <nav id="top"> -->
 	<div class="container">
-	<form class="navbar-form navbar-right" role="search">
-	  <div style="width:400px;" class="input-group">
-	    <input style="width:360px;" type="text" class="form-control" placeholder="请输入要查询的贴吧名"><span class="input-group-btn">
-	      <button class="btn btn-default" type="button">
-	        <span class="glyphicon glyphicon-search"></span>
-	      </button>
-	    </span>
-	   </div>
-   </form>
+	<form action="<{:U('Bar/dosearch')}>" method="post" style="margin-left:70px;" class="navbar-form navbar-right" role="search">
+      <div style="width:400px;" class="input-group">
+        <input style="width:360px;" type="text" class="form-control" placeholder="请输入要查询的贴吧名" name="name" id="name"><span class="input-group-btn">
+          <button class="btn btn-default" type="submit">搜索</button>
+        </span>
+       </div>
+    </form>
 </header>	
 <!-- 轮播图 -->
 	<div class="featured container">
@@ -197,7 +199,9 @@
                         <p style="margin-top: 20px;"><{$v.descr}></p>
                     </div>
                     <div style="margin-top: 50px;margin-left: 220px;"><p><span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span>
-                    </div></p>   
+                    </div> 
+                    
+                    </p>   
                 </div>
                 
             </div>
@@ -262,9 +266,9 @@
 						</div>
 						<div class='col-md-8'>
 							<if condition='$bar.uname eq "admin"'>
-								<button class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</button>
+								<a href='<{:U("Bar/boss")}>?bid=<{$bar.id}>&uid=<{$Think.session.home_user.id}>'  class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</a>
 							<else/>
-								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6><a href="">详情>>></a>
+								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6></a>
 							</if>
 							<h6 style='color:#999;margin-top: 10px;font-weight: bold'>目录：<{$bar.tname}></h6>
 							<p style='color:#999;margin-top: 10px'><b>简介：<{$bar.descr}></b></p>
@@ -341,9 +345,9 @@
 					<div class="content">
 						<div class="wrap-vid">
 							<div class="zoom-container">
-								<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" />								
+								<a href="<{:U('User/index')}>"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>								
 							</div>
-                            <h3 style='color:blue;font-size: 20px'><a href="<{$Think.session.home_user.id}>"><{$Think.session.home_user.name}></a></h3>
+                            <h3 style='color:blue;font-size: 20px'><a href="<{:U('User/index')}>"><{$Think.session.home_user.name}></a></h3>
 							<h3 class="vid-name" style='color:blue;font-size: 20px'>我的等级：<{$Think.session.home_user.exp|grade}></h3>
 							<h3 class="vid-name">注册时间<{$Think.session.home_user.regtime|date="Y-m-d H:i:s",###}></h3>
 						</div>
@@ -353,7 +357,36 @@
                 </if>
                 <div class="widget ">
                     <div class="heading"><h4>天气查询</h4></div>
-                    
+                    <if condition="$daily eq null">
+                       查无数据!
+                    <else/>
+                    <table width="280" style="text-align:center;margin-top: 15px"> 
+                        <span style="margin-top: 15px;font-size: 16px">城市:<{$city}></span>
+                        <tr>
+                            <th>天气:</th>
+                            <th>气温:</th>
+                            <th>日期:</th>
+                        </tr>
+                        
+                        <volist name="daily" id="t">
+                            <tr>
+                                <td>
+                                    <{$t->text_day}> 转 
+                                    <{$t->text_night}>
+                                </td>
+                                <td>
+                                     <{$t->low}>℃ ~
+                                     <{$t->high}>℃
+                                </td>
+                                <td>
+                                    <{$t->date}>
+                                </td>
+                            </tr>
+
+                        </volist>
+                    </table>
+                    </if>
+                    </div>
                 </div>
 			</div>
 
@@ -415,6 +448,20 @@
         }
     });
 
+    $('#name').blur(function(){
+        $.ajax({
+            type: 'POST',
+            url: "<{:U('Bar/dosearch')}>",
+            data: 'name='+$('#name').val(),
+            success: function(msg){
+              if(msg){
+                $('#tips').html(msg);
+              }else{
+                $('#tips').html('');
+              }
+            }
+          });
+        });
 
     function closebtn() {
         var uid = $('#uid').val();
