@@ -45,11 +45,12 @@
    <!-- <a class="u-f-item add-more-forum j_add_more_forum btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></a>  -->
  </div>
 </div> 
-  <if condition="$follow eq null">
     <div class="hot_feed_blank">
+    <if condition="$follow eq null">
         你还没有关注的吧
+        <else/>&nbsp;
+    </if>
     </div>
-  </if>
 </div>
 </div> 
 </block>

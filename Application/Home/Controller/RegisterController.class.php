@@ -56,7 +56,7 @@ class RegisterController extends HomeController
 
                     $msg = M('User')->field('name,email,validate')->where('id='.$id)->find();
 
-                    $url = "http://michael.com/index.php/Home/Register/active?key={$msg['validate']}&uid={$id}";
+                    $url = "<a href='http://michael.com/index.php/Home/Register/active?key={$msg['validate']}&uid={$id}' target='_blank'>http://michael.com/index.php/Home/Register/active?key={$msg['validate']}&uid={$id}</a>";
 
                     // 邮箱发送激活信息
                     $result = sendMail($msg['email'], $msg['name'], '阡陌之家在线激活','请点击连接激活帐号：'.$url);

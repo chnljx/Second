@@ -5,7 +5,7 @@ use \Think\Controller;
 /**
 * UserController 用户资料
 *
-* @author xiao
+* @author michael
 * @version 1.0
 */
 class UserController extends HomeController
@@ -199,6 +199,33 @@ class UserController extends HomeController
 
     public function collectionview()
     {
+        $collection = M('Collection');
+
+        $list = $collection->alias('co')->field('p.title as ptitle,p.id as pid,b.name as bname,b.id as bid,u.id as uid,u.name as uname')->where("co.selfid=".session('home_user.id'))->join('__POST__ as p ON p.id = co.postid')->join('__BAR__ as b ON p.bid = b.id')->join('__USER__ as u on p.uid = u.id')->page($_GET['p'].',10')->select();
+        $this->assign('list',$list);
+        $count = $collection->alias('co')->field('p.title as ptitle,p.id as pid,b.name as bname,b.id as bid,u.id as uid,u.name as uname')->where("co.selfid=".session('home_user.id'))->join('__POST__ as p ON p.id = co.postid')->join('__BAR__ as b ON p.bid = b.id')->join('__USER__ as u on p.uid = u.id')->count();// 查询满足要求的总记录数
+        $Page = new \Think\Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数
+
+        $Page->setConfig('first','首页');
+        $Page->setConfig('last','尾页');
+        $Page->setConfig('prev','上一页');
+        $Page->setConfig('next','下一页');
+        
+        $Page->setConfig('theme','
+            <nav>
+              <ul class="pagination">
+                <li>%FIRST%</li>
+                <li>%UP_PAGE%</li>
+                <li>%LINK_PAGE%</li>
+                <li>%DOWN_PAGE%</li>
+                <li>%END%</li>
+              </ul>
+            </nav>
+        ');
+
+        $show = $Page->show();// 分页显示输出
+        $this->assign('page',$show);// 赋值分页输出
+        
         $this->display('User:collection');
     }
     

@@ -39,14 +39,17 @@
   <include file="User:nav" />
  <h1 class="ihome_title"><span class="cut_line">|</span>我的收藏</h1>
  <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
-    <div style="width: 690px; height: 50px; border-bottom:1px solid #F4F4F4;">
-      
+    <foreach name="list" item="vo">
+    <div style="width: 690px; height: 30px; border-bottom:1px solid #F4F4F4;margin-top: 10px;">
+      <a href="<{:U('Post/index')}>?id=<{$vo.pid}>" target="_blank" style="color:#2D64B3;"><{$vo.ptitle}></a> > <a href="<{:U('Bar/index')}>?id=<{$vo.bid}>" target="_blank"><{$vo.bname}></a> &nbsp;<{$vo.uname}>
     </div>
+    </foreach>
+    <center><{$page}></center>
  </div>
 </div> 
   <if condition="$list eq null">
     <div class="hot_feed_blank">
-        你还没有消息
+        你还没有收藏
     </div>
   </if>
 </div>

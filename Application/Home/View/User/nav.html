@@ -36,7 +36,7 @@
   <ul class="ihome_nav_list"> 
   <li <if condition="ACTION_NAME eq 'index'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_main" href="<{:U('User:index')}>" locate="tab_main#ihome_v1">我的主页</a></p> 
+       <p class="space"> <a class="nav_icon nav_main" href="<{:U('User:index')}>" locate="tab_main#ihome_v1">主页</a></p> 
      </div>
   </li> 
   <li <if condition="ACTION_NAME eq 'msgview'">class="focus"</if>> 
@@ -47,7 +47,7 @@
   </li> 
   <li <if condition="ACTION_NAME eq 'collectionview'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:collectionview')}>" locate="tab_collect#ihome_v1">收藏</a></p> 
+       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:collectionview','p=1','html')}>" locate="tab_collect#ihome_v1">收藏</a></p> 
        <span></span> 
      </div>
   </li> 
