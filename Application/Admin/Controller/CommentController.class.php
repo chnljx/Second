@@ -15,7 +15,7 @@ class CommentController extends AdminController
     }
 
     // 禁用评论操作
-    public function memberStop()
+    public function Stop()
     {
         $data['state'] = 0;
         $mes=M('Comment')->where('id='.I('post.id'))->save($data);
@@ -26,7 +26,7 @@ class CommentController extends AdminController
     }
 
     // 启用评论操作
-    public function memberStart()
+    public function Start()
     {   
         $data['state'] = 1;
         $mes = M('Comment')->where('id='.I('post.id'))->save($data);
@@ -62,7 +62,7 @@ class CommentController extends AdminController
     public function replyShow()
     {
         $user=M('User')->field('name,picname')->where('id='.I('get.uid'))->find();
-        $data = M('replay')->field('content,ctime')->where('id='.I('get.id'))->find();
+        $data = M('reply')->field('content,ctime')->where('id='.I('get.id'))->find();
         $this->assign('user', $user);
         $this->assign('list', $data);
         $this->display('replay-show');
@@ -73,7 +73,7 @@ class CommentController extends AdminController
     // 回复
     public function reply()
     {
-        $data=M('replay')->select();
+        $data=M('reply')->select();
         $this->assign('list',$data);
         $this->assign('title','评论管理');
         $this->assign('part','回复列表');
@@ -82,10 +82,10 @@ class CommentController extends AdminController
     }
 
     // 禁用回复操作
-    public function replayStop()
+    public function replyStop()
     {
         $data['state'] = 0;
-        $mes=M('replay')->where('id='.I('post.id'))->save($data);
+        $mes=M('reply')->where('id='.I('post.id'))->save($data);
         if(!$mes) {
             echo "停用失败";
             exit;
@@ -93,10 +93,10 @@ class CommentController extends AdminController
     }
 
     // 启用回复操作
-    public function replayStart()
+    public function replyStart()
     {   
         $data['state'] = 1;
-        $mes = M('replay')->where('id='.I('post.id'))->save($data);
+        $mes = M('reply')->where('id='.I('post.id'))->save($data);
         if(!$mes){
             echo "启用失败";
             exit;

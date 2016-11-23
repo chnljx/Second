@@ -77,7 +77,7 @@ class IndexController extends HomeController {
         // var_dump($curl);
 
         // 设置APIKEY url 形式
-        $apikey="85b64c40553fa3027b064ca0d7e53b7e";
+        // $apikey="85b64c40553fa3027b064ca0d7e53b7e";
 
         // URL设置
         curl_setopt($curl, CURLOPT_URL, 'http://api.tianapi.com/keji/?key='.$apikey.'&num=5');
@@ -149,20 +149,24 @@ class IndexController extends HomeController {
         $this->display();
     }
 
+    
     public function dosearch()
     {
-       if(!IS_AJAX){
+
+       if(IS_AJAX){
         $name = urlencode(rtrim(I('post.name'), '吧').'吧');
-        // var_dump($name);
         $data=M('bar')->where("name='$name'")->find();
         if($data){
             $id=$data['id'];
-            $this->redirect("bar/index?id='$id'");
+            $this->ajaxReturn($id);
         }else{
+
             $this->error('找不到该吧，即将跳到申请界面', U('Bar/apply', array('name'=>$name)), 3);
+
+            $this->ajaxReturn(false);
+
         }
        } 
     }
-
 
 }

@@ -60,6 +60,7 @@
             float:left;
             margin-left: -15px;
         }
+        .heading ul li:hover{background-color: red;}
     </style>
 
 	<block name='head'></block>
@@ -79,26 +80,12 @@
 <div class="collapse navbar-collapse navbar-ex1-collapse">
 <ul class="nav navbar-nav">
 	<li><a href="<{:U('Home/Index/index')}>">首页</a></li>
-	
-<!-- 	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">类型吧<i class="fa fa-arrow-circle-o-down"></i></a>
-		<div class="dropdown-menu">
-			<div class="dropdown-inner">
-				<ul class="list-unstyled">
-				<foreach name="bar" item="vo">
-					<li><a href=""><{$vo.name}></a></li>
-				</foreach>
-				</ul>
-			</div> 
-		</div>
-	</li> -->
 	<li style="margin-left=500px;">
-	<form action="<{:U('Index/dosearch')}>" method="post" style="margin-left:70px;" class="navbar-form navbar-right" role="search">
-	  <div style="width:400px;" class="input-group">
+  <div style="width:400px;" class="input-group">
 	    <input style="width:360px;" type="text" class="form-control" placeholder="请输入要查询的贴吧名" name="name" id="name"><span class="input-group-btn">
-	      <button class="btn btn-default" type="submit">搜索</button>
+	      <button class="btn btn-default" type="submit" onclick="search()">搜索</button>
 	    </span>
 	   </div>
-	</form>
     </li>
 	<if condition='$Think.session.home_user eq ""'>
 		<li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
@@ -187,13 +174,13 @@
 <div class="content">
 <div class="post">
 	
-	<a href="single.html">
+	<a href="<{:U('User/index')}>?id=<{$Think.session.home_user.id}>" target="_blank">
   	<img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" class="img-circle"/>	
 </a>
 	
 
 <div class="wrapper">
-	<a href="<{:U('User/index')}>?id=<{$Think.session.home_user.id}>"><h5><{$Think.session.home_user.name}></h5></a>
+	<a href="<{:U('User/index')}>?id=<{$Think.session.home_user.id}>" target="_blank"><h5><{$Think.session.home_user.name}></h5></a>
 	<i><{$Think.session.home_user.descr}></i>
 	<p>注册时间：<{$Think.session.home_user.regtime|date="Y-m-d",###}></p>
 	<p>爱逛的吧：</p>
@@ -215,14 +202,13 @@
 <div class="widget wid-comment">
 <div class="heading"><h4>贴吧分类</h4></div>
 
-
 <ul style="background-color:white;" class="layui-nav layui-nav-tree">
 	<foreach name="ptype" item="p">
 	    <li class="layui-nav-item ">
 	        <a  style="color:#333;" href="javascript:;"><{$p.name}></a>
 	            <dl class="layui-nav-child">
 	            	<foreach name="p['child']" item="ch">
-	                    <dd><a style="color:black;" href=""><{$ch.name}></a></dd>
+	                    <dd><a target="_blank" style="color:black;" href="<{:U('type/index')}>?id=<{$ch.id}>"><{$ch.name}></a></dd>
 	                </foreach>
 	            </dl>
 	    </li>
@@ -249,12 +235,6 @@
 
 </div>
 
-
-
-
-
-
-
 	<div class="col-md-6">
 <!--主体内容左边center 1 开始  -->
 <div class="box">
@@ -268,14 +248,11 @@
 	<div class="zoom-container">
 		<div class="zoom-caption">
 			<span class="vimeo">最新</span>
-			<a href="single.html">
-				<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-			</a>
 			<p><{$zxbar.name}></p>
 		</div>
 		<img style="width:200px;" src="__UPLOAD__/img/tieba-thumb/<{$zxbar.picname}>" />
 	</div>
-	<h3 class="vid-name"><a href="<{:U('bar/index')}>?id=<{$zxbar.id}>"><{$zxbar.name}></a></h3>
+	<h3 class="vid-name"><a href="<{:U('bar/index')}>?id=<{$zxbar.id}>"  target="_blank"><{$zxbar.name}></a></h3>
 	<div class="info">
 		<span><i class="fa fa-calendar"></i><{$zxbar.ctime|date="Y-m-d",###}></span> 
 		<span><i class="fa fa-heart"></i></span>
@@ -289,18 +266,16 @@
 	<div class="zoom-container">
 		<div class="zoom-caption">
 			<span class="vimeo">热度</span>
-			<a href="single.html">
-				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
-			</a>
-			<p><{$vo.name}></p>
+			<!-- <p><a href="<{:U('bar/index')}>?id=<{$vo.id}>" target="_blank"><{$vo.name}></a></p> -->
 		</div>
 		<img src="__UPLOAD__/img/tieba-thumb/<{$vo.picname}>" />
 	</div>
 	<div class="wrapper">
 		<!-- <h5 class="vid-name"><a href="#"><{$vo.name}></a></h5> -->
+		 <a href="<{:U('bar/index')}>?id=<{$vo.id}>" target="_blank"><{$vo.name}></a>
 		<div class="info">
-			<h6>注册时间:<{$vo.ctime|date="Y-m-d",###}></h6>
 			<span><{$vo.descr}></span>
+			<h6>注册时间:<{$vo.ctime|date="Y-m-d",###}></h6>
 			<span class="rating">
 				<i class="fa fa-star"></i>
 				<i class="fa fa-star"></i>
@@ -308,7 +283,6 @@
 				<i class="fa fa-star"></i>
 				<i class="fa fa-star-half"></i>
 			</span>
-			<a href="<{:U('bar/index')}>?id=<{$vo.id}>">进入该吧</a>
 		</div>
 	</div>
 </div>
@@ -352,8 +326,8 @@
 <div class="row">
 <foreach name="bar_mes" item="vo">
 	<div class="col-md-6">
-		<img style="width:180px;height:90px;" src="__UPLOAD__/img/tieba-thumb/<{$vo.picname}>" />
-		<h3><a href="<{:U('bar/index')}>?id=<{$vo.id}>"><{$vo.name}></a></h3>
+		<a href="<{:U('bar/index')}>?id=<{$vo.id}>" target="_blank"><img style="width:180px;height:90px;" src="__UPLOAD__/img/tieba-thumb/<{$vo.picname}>" /></a>
+		<h3><a href="<{:U('bar/index')}>?id=<{$vo.id}>" target="_blank"><{$vo.name}></a></h3>
 		<span><i class="fa fa-heart"></i> 1,200 / <i class="fa fa-calendar"></i> <{$vo.ctime|date="Y-m-d",###}>  </span>
 		<p>
 		<span class="rating">
@@ -401,18 +375,13 @@
 	<div style="margin-top:5px;" class="post wrap-vid">
 	  <div class="zoom-container">
 		<div class="zoom-caption">
-		
-			<a href="single.html">
-				<i class="fa fa-play-circle-o fa-3x" style="color: #fff"></i>
-			</a>
-		<!-- <p>Video's Name</p> -->
 		</div>
 	<img style="width:50px;height:50px;" src="__UPLOAD__/img/avatar-thumb/<{$vo.picname}>" />
    </div>
 	<div class="wrapper">
-		<h5 class="vid-name"><a href="<{:U('User/index')}>?id=<{$vo.id}>"><{$vo.name}></a></h5>
+		<h5 class="vid-name"><{$vo.name}></h5>
 		<div class="info">
-			<h6>积分: <a href="#"><{$vo.exp}></a></h6>
+			<h6>积分:<{$vo.exp}></h6>
 			<span><{$vo.descr}></span>
 
 		</div>
@@ -448,7 +417,7 @@
                 </div>
             </div>
         </div>
-        <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"><
+        <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"></a>
     </div>
     
 </footer>
@@ -508,20 +477,18 @@ $('#word').blur(function(){
     });
 
 
-$('#name').blur(function(){
-$.ajax({
-    type: 'POST',
-    url: "<{:U('Index/dosearch')}>",
-    data: 'name='+$('#name').val(),
-    success: function(msg){
-      if(msg){
-        $('#tips').html(msg);
-      }else{
-        $('#tips').html('');
-      }
-    }
-  });
-});
+function search()
+{
+   $.post("<{:U('Type/dosearch')}>", {'name': $('#name').val()}, function(data) {
+        if(data === false) {
+            alert("没有该吧");
+        } else {
+            location.assign('<{:U("bar/index", "","",true)}>?id=' + data);
+        }
+        
+   });
+}
+
 
 
 $('.form_datetime').datetimepicker({
