@@ -152,7 +152,7 @@ class IndexController extends HomeController {
     public function dosearch()
     {
        if(!IS_AJAX){
-        $name = I('post.name');
+        $name = rtrim(I('post.name'), '吧').'吧';
         // var_dump($name);
         $data=M('bar')->where("name='$name'")->find();
         if($data){
