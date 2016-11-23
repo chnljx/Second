@@ -51,9 +51,9 @@
 					<td><{$vo.id}></td>
 					<td><{$vo.cmtid}></td>
 					<!-- <td><{$vo.uid}></td> -->
-					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.uid}>','<{:U('Comment/userShow')}>?id=<{$vo.uid}>','<{$vo.uid}>','360','400')"><{$vo.uid}></u></td>
+					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.uid}>','<{:U('User/info')}>?id=<{$vo.uid}>','<{$vo.uid}>','360','400')"><{$vo.uid}></u></td>
 					<!-- <td><{$vo.to_uid}></td> -->
-					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.to_uid}>','<{:U('Comment/userShow')}>?id=<{$vo.to_uid}>','<{$vo.to_uid}>','360','400')"><{$vo.to_uid}></u></td>
+					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.to_uid}>','<{:U('User/info')}>?id=<{$vo.to_uid}>','<{$vo.to_uid}>','360','400')"><{$vo.to_uid}></u></td>
 					<!-- <td><{$vo.content}></td> -->
 					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('<{$vo.uid}>','<{:U('Comment/replyShow')}>?id=<{$vo.id}>&uid=<{$vo.uid}>&cid=<{$vo.cmtid}>','<{$vo.id}>','500','550')">详情</u></td>
 					<td><{$vo.ctime|date="Y-m-d H:i:s",###}></td>
@@ -112,7 +112,7 @@ function replay_stop(obj,id){
 
 	$.ajax({
 		type: 'POST',
-		url: "<{:U('Comment/replayStop')}>",
+		url: "<{:U('Comment/replyStop')}>",
 		data: "id="+id,
 	});
 }
@@ -128,7 +128,7 @@ function replay_start(obj,id){
 
 		$.ajax({
 		type: 'POST',
-		url: "<{:U('Comment/replayStart')}>",
+		url: "<{:U('Comment/replyStart')}>",
 		data: "id="+id,
 	});
 }

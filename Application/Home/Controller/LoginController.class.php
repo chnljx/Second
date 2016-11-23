@@ -137,7 +137,7 @@ class LoginController extends HomeController
                 $map['passwd']=$passwd;
                 $user=M('user')->where("id='$id'")->save($map);
                 if($user>0){
-                    echo $msg;
+                    $this->success('你好，密码已发送到您邮箱,请注意查看',U('Login/index'));
                 }
 
             }else{
