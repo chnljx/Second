@@ -116,6 +116,15 @@
             width:40px;
             height:40px;
         }*/
+
+        .ptitle{
+            font-size: 15px;
+            color: #2D64B3;
+        }
+        .ptitle:hover{
+            text-decoration: underline;
+            color: #2D64B3;
+        }
     </style>
 	
 
@@ -185,7 +194,7 @@
       <div class="row">
 
        <div id="main-content" class="col-md-8">
-            <foreach name='list' item='v'>
+            <!-- <foreach name='list' item='v'>
             <div class="box">
                 <div class="col-md-3" >
                     <a href="<{:U('User/index')}>?id=<{$v.uid}>"><img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$v.upic}>" alt=""></a>
@@ -208,7 +217,26 @@
             <hr class="line">
             </foreach>
             
-            <{$page}>
+            <{$page}> -->
+
+            <div class="box">
+                <table class="table table-hover">
+                    <tbody>
+                    <foreach name='list' item='v'>
+                        <tr>
+                            <td class="col-md-1"><span class="badge" style="width:35px;color:#666666;background-color: #F7F7F7;"><{$v.comcount}></span></td>
+                            <td class="col-md-7">
+                                <p><a href="#" class="ptitle"><{$v.title}></a></p>
+                                <span style="font-size: 10px;"><{$v.descr}></span>
+                            </td>
+                            <td><{$v.uname}></td>
+                            <td><{$v.ctime|date="Y-m-d H:i:s",###}></td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+                <{$page}>
+            </div>
         
                 
         <!-- 发表评论开始 -->
