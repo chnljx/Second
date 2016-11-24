@@ -27,6 +27,8 @@ class ReplyController extends HomeController
                 $id = $reply->add();
                 // 执行添加
                 if ($id > 0) {
+                    $exp['exp']=10;
+                    M('User')->where('id='.$data['uid'])->save($exp);
                     $this->ajaxReturn(true);
                 } else {
                     $this->ajaxReturn(false);

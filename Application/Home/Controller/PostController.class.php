@@ -17,6 +17,11 @@ class PostController extends HomeController
             exit;
         }
 
+        $post = M('post')->field('state')->where('id='.I('get.id'))->find();
+        if($post == 0){
+            $this->error('该帖已被删除');
+            exit;
+        }
         // 楼主
         $arr = M('post')->field('b.name bname, b.picname bpic, u.name uname, u.picname upic, u.exp, p.uid ,p.bid, p.title, p.descr, p.ctime, p.id')->table('qm_user u, qm_bar b, qm_post p')->where('p.id='.I('get.id').' and u.id=p.uid and b.id=p.bid')->find();
         if (!empty($_SESSION['home_user'])) {
@@ -41,7 +46,10 @@ class PostController extends HomeController
 
         // 回复
         foreach ($comment as $k => $v) {
-            $comment[$k]['r'] = M('reply')->field('u.name, u.picname, r.content')->table('qm_user u,qm_reply r')->where('r.cmtid='.$v['id'].' and r.uid=u.id')->select();
+            $comment[$k]['r'] = M('reply')->field('u.name, u.picname, r.content, u.id, r.id rid')->table('qm_user u,qm_reply r')->where('r.cmtid='.$v['id'].' and r.uid=u.id and r.state=1')->select();
+            foreach ($comment[$k]['r'] as $ks=>$vs) {
+                $comment[$k]['r'][$ks]['t']= M('reply')->field('u.name')->table('qm_user u,qm_reply r')->where('r.id='.$vs['rid'].' and r.to_uid=u.id and r.uid='.$vs['id'])->find();
+            }
         }
         // dump($comment);
         $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
@@ -54,7 +62,6 @@ class PostController extends HomeController
         $this->assign('follow',$follow);
         $this->assign('post',$post);
         $this->assign('arr',$arr);
-        $this->assign('array',$array);
 		$this->display();
 	}
 
@@ -66,15 +73,24 @@ class PostController extends HomeController
             $this->error('登录后再发帖，请先登录！！',U('Login/index'));
             exit;
         }
+
+        $bar = M('bar')->field('state')->where('id='.I('post.bid'))->find();
+        if($bar == 0){
+            $this->error('该吧已被禁用', U('Index/index'));
+            exit;
+        }
+
+
         $data = $_POST;
         
         $post = D("Post"); // 实例化User对象
         if (!$post->create($data)){ 
             $this->error($post->getError());
         }else{
-
             // 执行添加
             if ($post->add() > 0) {
+                $exp['exp']=100;
+                M('User')->where('id='.$data['uid'])->save($exp);
                 $this->success('添加成功', U('Bar/index',array('id'=>$data['bid'])));
             } else {
                 $this->error('添加失败');

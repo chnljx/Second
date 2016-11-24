@@ -294,6 +294,18 @@
                         <div class='col-md-4'>
                             <img src="__UPLOAD__/img/tieba-thumb/<{$bar.picname}>" width=100>
                             <input type="hidden" id='bid' value='<{$bar.id}>'>
+
+						</div>
+						<div class='col-md-8'>
+							<if condition='$bar.uname eq "admin"'>
+								<a href='<{:U("Bar/boss")}>?id=<{$bar.id}>&uid=<{$Think.session.home_user.id}>'  class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</a>
+							<else/>
+								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6></a>
+							</if>
+							<h6 style='color:#999;margin-top: 10px;font-weight: bold'>目录：<{$bar.tname}></h6>
+							<p style='color:#999;margin-top: 10px'><b>简介：<{$bar.descr}></b></p>
+						</div>
+
                         </div>
                         <div class='col-md-8'>
                             <if condition='$bar.uname eq "admin"'>
@@ -351,6 +363,7 @@
                     <div class="heading"><h4>本吧名人</h4></div>
                     <div class="content">
                         <foreach name='supfans' item='va' key='k'> 
+
                             <div class="post wrap-vid">
                                 <div class="zoom-container">
                                     <img width=100 src="__UPLOAD__/img/avatar-thumb/<{$va.picname}>" />
@@ -364,6 +377,21 @@
                                     </div>
                                 </div>
                             </div>
+
+    						<div class="post wrap-vid">
+    							<div class="zoom-container">
+    								<img width=100 src="__UPLOAD__/img/avatar-thumb/<{$va.picname}>" />
+    							</div>
+    							<div class="wrapper">
+    								<h5 class="vid-name"><{$va.name}></h5>
+    								<div class="info">
+    									<h6>本吧名气<{$k+1}></h6>
+    									<span><i class="fa fa-calendar"></i>用户等级：<{$va.exp|grade}></span> 
+    									<!-- <span><i class="fa fa-heart"></i>48</span> -->
+    								</div>
+    							</div>
+    						</div>
+
                         </foreach>
                     </div>
                 </div>

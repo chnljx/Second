@@ -10,12 +10,13 @@ use Think\Controller;
 class BarController extends HomeController 
 {
 
-    // public function _initialize()
-    // {
-    //     if(empty(session('home_user'))){
-    //         $this->error('请先登录', U('Login/index'));
-    //     }
-    // }
+    public function _initialize()
+    {
+        $bar = M('bar')->field('state')->where('id='.I('get.id'))->find();
+        if($bar == 0){
+            $this->error('该吧已被禁用', U('Index/index'));
+        }
+    }
 
     public function index()
     {
@@ -34,7 +35,9 @@ class BarController extends HomeController
         // 关注人数
         $follow = M('follow')->where('bid='.I('get.id'))->count();
         // 帖子
-        $list = M('post')->field('u.name uname,u.picname upic, p.title, p.descr, p.state, p.ctime, p.id')->table('qm_user u,qm_post p')->where('p.bid='.I('get.id').' and p.state=1 and p.uid=u.id')->order('p.ctime desc')->page($_GET['p'],10)->select();
+
+        $list = M('post')->field('u.name uname,u.picname upic, p.title, p.descr, p.state, p.ctime, p.id')->table('qm_user u,qm_post p')->where('p.bid='.I('get.id').' and p.state=1 and p.uid=u.id and p.state=1')->order('p.ctime desc')->page($_GET['p'],5)->select();
+
         // 分页
         $count = M('post')->table('qm_user u,qm_post p')->where('p.bid='.I('get.id').' and p.state=1 and p.uid=u.id')->count();
 
@@ -209,15 +212,28 @@ class BarController extends HomeController
         }
 
 
-        $arr = M('bar')->field('id, name, uid')->where('id='.I('get.bid'))->find();
+
+        $arr = M('bar')->field('id, name, uid')->where('id='.I('get.id'))->find();
+
         if ($arr['uid'] != 1) {
              $this->error('该吧已有吧主,申请失败',U('Index/index'));
              exit;
         }  
 
+
+
         $this->assign('arr',$arr);
         $this->display();  
    
+
+    }
+    public function phoneyzm(){
+        $sms = I('post.sms');
+        if ($sms == session('sms')) {
+            $this->ajaxReturn(true);
+        }else{
+            $this->ajaxReturn(false);
+        }
 
     }
 }
