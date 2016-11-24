@@ -250,7 +250,7 @@
             <form action="<{:U('Post/doAdd')}>" method="post">
                 <input type="hidden" name="bid" value="<{$bar.id}>"> 
                 <input type="hidden" name="uid" value="<{$Think.session.home_user.id}>"> 
-                <input type="text" id='title' name="title" style='width:658px;height:30px' placeholder="请输入不超过30个字符的标题">  
+                <input type="text" id='title' name="title" style='width:658px;height:30px' placeholder="请输入不超过19个字符的标题">  
             <script id="container" name="descr" type="text/plain" style="width:650px;height:220px">
             </script>
             <!-- 配置文件 -->
@@ -468,7 +468,7 @@
               title: '标题'
               ,content: '标题不为空'
             });
-        } else if ($(this).val().length > 30) {
+        } else if ($(this).val().length > 19) {
             layer.open({
               title: '标题'
               ,content: '标题长度不正确'
