@@ -36,7 +36,7 @@
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
 </block>
 <block name="main">
-<include file="User:nav" />
+<include file="Barboss:nav" />
 <if condition="$follow eq null">
 </div> 
     <div class="hot_feed_blank">
@@ -49,36 +49,32 @@
  <else/>
 <div class="clearfix u-f-wrap" id="forum_group_wrap">
     <div class="page-container">
-        <div class="cl pd-5 bg-1 bk-gray "> <span style='color:blue'>共有粉丝：<strong><{$follow|count=###}></strong></span> </div>
+        <div class="cl pd-5 bg-1 bk-gray "> <span style='color:blue'>共有粉丝：<strong><{$count}></strong></span> </div>
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
                 <tr class="text-c">
                     <th width="100">粉丝头像</th>
                     <th width="80">粉丝名</th>
                     <th width="150">粉丝等级</th>
-                    <th width="150" style='display: none;'>注册时间</th>
+                    <th width="150" >注册时间</th>
                     <th width="100">粉丝简介</th>
-                    <!-- <th width="25" style='display: none;'></th>
-                    <th width="80" style='display: none;'></th>
-                    <th width="150" style="display: none;"></th>
-                    <th width="90" style='display: none;'></th>
-                    <th width="70" style='display: none;'></th> -->
                 </tr>
                 </thead>
                 <tbody> 
-                <foreach name='$follow' item='v'>
-                    <td><img src="__UPLOAD__/img/avatar-thumb/"><{$v.picname}></td>
-                    <td><{$v.name}></td>
-                    <td><{$v.exp|grade}></td>
-                    <td><{$v.regtime}></td>
-                    <td><{$v.regtime}></td>
+                <foreach name='follow' item='v'>
+                <tr>
+                    <td style='text-align: center;'><img width=50 src="__UPLOAD__/img/avatar-thumb/<{$v.picname}>"></td>
+                    <td style='text-align: center;'><{$v.name}></td>
+                    <td style='text-align: center;'><{$v.exp|grade}></td>
+                    <td style='text-align: center;'><{$v.regtime|date='Y-m-d',###}></td>
+                    <td style='text-align: center;'><{$v.descr}></td>
+                </tr>
                 </foreach>
               </tbody>
         </table>
-    </div>
-</div><!--page-container-->
-        
-   </div>
+        <{$page}>
+    </div><!--page-container-->
+
 </if>
 </div> 
 </block>
