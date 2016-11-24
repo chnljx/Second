@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<extend name="Public:base"/>
+<block name="head">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -13,32 +12,21 @@
    
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
-	
-	<!-- Custom CSS -->
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="__PUBLIC__/looK/css/style.css">
-	
-	<!-- Owl Carousel Assets -->
+    
+    <!-- Owl Carousel Assets -->
     <link href="__PUBLIC__/looK/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="__PUBLIC__/looK/owl-carousel/owl.theme.css" rel="stylesheet">
-	
-	<!-- Custom Fonts -->
+    
+    <!-- Custom Fonts -->
     <link rel="stylesheet" href="__PUBLIC__/looK/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
 
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/layui/css/layui.css">
-	<!-- jQuery and Modernizr-->
-	<script src="__PUBLIC__/looK/js/jquery-2.1.1.js"></script>
+    <!-- jQuery and Modernizr-->
+    <script src="__PUBLIC__/looK/js/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
-
-	
-	<!-- Core JavaScript Files -->  	 
-	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->
-
     <style type="text/css">
         .container{
             width:1000px;
@@ -100,8 +88,8 @@
         .heading{
             margin-top: 20px;
         }
-		.setchose ul li{float: left;width: 100px;list-style: none;}
-        .prev,.num,.current,.next{
+        .setchose ul li{float: left;width: 100px;list-style: none;}
+        /*.prev,.num,.current,.next{
             display: block;
             width:30px;
             height:30px;
@@ -111,14 +99,14 @@
             font-size: 20px;
             color: #999;
             border:1px solid #999;
-        }
+        }*/
         /*#main-content #text img{
             width:40px;
             height:40px;
         }*/
 
         .ptitle{
-            font-size: 15px;
+            font-size: 16px;
             color: #2D64B3;
         }
         .ptitle:hover{
@@ -126,70 +114,73 @@
             color: #2D64B3;
         }
     </style>
-	
-
-</head>
-
-<body>
-<header>
-	<!--Top-->
-    <nav id="top">
-    <div class="row" style="margin: 0">
-        <div class="col-md-6">
-            <a href="<{:U('Home/Index/index')}>"><strong><i class="fa fa-home"></i>首页</strong></a>
-        </div>
-        <div class="col-md-6">
-            <ul class="list-inline top-link link">
-                <if condition='$Think.session.home_user eq ""'>
-                  <li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
-                  <li><a href="<{:U('Register/index')}>">注册</a></li>
-                  <else />
-                  <li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li>
-                </if>
-            </ul>
-        </div>
-    </div>
-    </nav>
-	<!-- <nav id="top"> -->
-	<div class="container">
-	<form action="<{:U('Bar/dosearch')}>" method="post" style="margin-left:70px;" class="navbar-form navbar-right" role="search">
+</block>
+<block name="main">
+    <!--Top-->
+    <!-- <nav id="top"> -->
+    <div class="container">
+    <form action="<{:U('Bar/dosearch')}>" method="post" style="margin-left:70px;" class="navbar-form navbar-right" role="search">
       <div style="width:400px;" class="input-group">
         <input style="width:360px;" type="text" class="form-control" placeholder="请输入要查询的贴吧名" name="name" id="name"><span class="input-group-btn">
           <button class="btn btn-default" type="submit">搜索</button>
         </span>
        </div>
     </form>
-</header>	
+</header>   
 <!-- 轮播图 -->
-	<div class="featured container">
-		<div id="owl-demo" class="owl-carousel">    
-		<volist name='datas' id='vo'>
-			<div class="item">
-				<div class="zoom-container">
-					<div class="zoom-caption">
-						<a href="single.html">
-							<i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-						</a>
-					</div>
-					<img src="__UPLOAD__/img/barpic-thumb/<{$vo.picname}>" />
-				</div>
-			</div>
-		</volist>
+    <!-- <div class="featured container">
+        <div id="owl-demo" class="owl-carousel">    
+        <volist name='datas' id='vo'>
+            <div class="item">
+                <div class="zoom-container">
+                    <div class="zoom-caption">
+                        <a href="single.html">
+                            <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                        </a>
+                    </div>
+                    <img src="__UPLOAD__/img/barpic-thumb/<{$vo.picname}>" />
+                </div>
+            </div>
+        </volist>
         
-		</div>    
-	</div>
+        </div>    
+    </div>
     <div class='nav-main container'>
         <ul>
             <li><a href="">看帖</a></li>
-            <!-- <li><a href="">图片</a></li> -->
+            <li><a href="">图片</a></li>
         </ul>
-    </div>
-	<!-- Header -->
-	
-	<!-- /////////////////////////////////////////Content -->
+    </div> -->
+
+
+    <!-- Header -->
     
-	<div id="page-content" class="archive-page container">
+    <!-- /////////////////////////////////////////Content -->
+    
+    <div id="page-content" class="archive-page container">
         
+    <div class="jumbotron" style="margin-top: 40px">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <img src="__UPLOAD__/img/tieba-thumb/<{$bar.picname}>" alt="...">
+                </div>
+            </div>
+            <div class="content" style='margin-top: 10px;'>
+                <span class='actionbtn'>
+                    <if condition='($Think.session.home_user eq "") or ($user eq "")'>
+                        <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
+                        <else/>
+                        <a href="javascript:;" class="btn btn-default" style='margin-left:40px' onclick="closebtn()"><span class='glyphicon glyphicon-ok' ></span>已关注 | 取消</a>
+                    </if>
+                </span>
+                    <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">关注：<span style="color:#f9ab55;" id="follow"><{$follow}></span></span>
+                <div style="overflow: hidden;text-overflow: ellipsis;margin-left:40px;margin-top:5px;width:500px;height:44px;">本吧介绍：<{$bar.descr}></div>
+            </div>
+        </div>
+    </div>
+
+
         <div class="">
       <div class="row">
 
@@ -220,19 +211,30 @@
             <{$page}> -->
 
             <div class="box">
-                <table class="table table-hover">
+                <table class="table table-hover"  style="table-layout: fixed;overflow: hidden;text-overflow: ellipsis;">
                     <tbody>
                     <foreach name='list' item='v'>
                         <tr>
                             <td class="col-md-1"><span class="badge" style="width:35px;color:#666666;background-color: #F7F7F7;"><{$v.comcount}></span></td>
                             <td class="col-md-7">
-                                <p><a href="#" class="ptitle"><{$v.title}></a></p>
+                                <p  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-bottom: 10px;"><a href="<{:U('Post/index')}>?id=<{$v.id}>" class="ptitle" target='_blank'><{$v.title}></a></p>
                                 <span style="font-size: 10px;"><{$v.descr}></span>
                             </td>
                             <td><{$v.uname}></td>
-                            <td><{$v.ctime|date="Y-m-d H:i:s",###}></td>
+                            <td class="col-md-3" style="text-align: right;"><{$v.ctime|post_time}></td>
                         </tr>
                     </foreach>
+                    <if condition="$list eq null">
+                        <tr>
+                            <td class="col-md-1"><span class="badge" style="width:35px;color:#666666;background-color: #F7F7F7;">0</span></td>
+                            <td class="col-md-7">
+                                <p  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-bottom: 10px;"><a class="ptitle">欢迎来到本吧</a></p>
+                                <span style="font-size: 10px;">你可以开始畅所欲言了</span>
+                            </td>
+                            <td>admin</td>
+                            <td class="col-md-3" style="text-align: right;"></td>
+                        </tr>
+                    </if>
                     </tbody>
                 </table>
                 <{$page}>
@@ -280,51 +282,51 @@
                     
         <!-- 发表评论结束-->
         </div>
-		
-			<div id="sidebar" class="col-md-4">
-				<!---- Start Widget ---->
-				<div class="widget wid-follow">
-					
-					<div class="heading"><h4><{$bar.name}></h4></div>
-					<div class="content">
+        
+            <div id="sidebar" class="col-md-4">
+                <!---- Start Widget ---->
+                <div class="widget wid-follow">
+                    
+                    <div class="heading"><h4><{$bar.name}></h4></div>
+                    <div class="content">
                         <div>
-						<div class='col-md-4'>
-							<img src="__UPLOAD__/img/tieba-thumb/<{$bar.picname}>" width=100>
+                        <div class='col-md-4'>
+                            <img src="__UPLOAD__/img/tieba-thumb/<{$bar.picname}>" width=100>
                             <input type="hidden" id='bid' value='<{$bar.id}>'>
-						</div>
-						<div class='col-md-8'>
-							<if condition='$bar.uname eq "admin"'>
-								<a href='<{:U("Bar/boss")}>?bid=<{$bar.id}>&uid=<{$Think.session.home_user.id}>'  class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</a>
-							<else/>
-								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6></a>
-							</if>
-							<h6 style='color:#999;margin-top: 10px;font-weight: bold'>目录：<{$bar.tname}></h6>
-							<p style='color:#999;margin-top: 10px'><b>简介：<{$bar.descr}></b></p>
-						</div>
                         </div>
-						<div>
-						<ul class="list-inline">
-							<li>
-								<!-- <a href="facebook.com/"> -->
-								<div class="box-twitter">
-									<span class="fa fa-twitter fa-2x icon"></span>
-									<span><{$num}></span>
-									<span>帖子数</span>
-								</div>
-								<!-- </a> -->
-							</li>
-							<li>
-								<!-- <a href="facebook.com/"> -->
-								<div class="box-google">
-									<span class="fa fa-google-plus fa-2x icon"></span>
-									<span><{$follow}></span>
-									<span>关注数</span>
-								</div>
-								<!-- </a> -->
-							</li>
+                        <div class='col-md-8'>
+                            <if condition='$bar.uname eq "admin"'>
+                                <a href='<{:U("Bar/boss")}>?bid=<{$bar.id}>&uid=<{$Think.session.home_user.id}>'  class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</a>
+                            <else/>
+                                <h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6></a>
+                            </if>
+                            <h6 style='color:#999;margin-top: 10px;font-weight: bold'>目录：<{$bar.tname}></h6>
+                            <p style='color:#999;margin-top: 10px'><b>简介：<{$bar.descr}></b></p>
+                        </div>
+                        </div>
+                        <div>
+                        <ul class="list-inline">
+                            <li>
+                                <!-- <a href="facebook.com/"> -->
+                                <div class="box-twitter">
+                                    <span class="fa fa-twitter fa-2x icon"></span>
+                                    <span><{$num}></span>
+                                    <span>帖子数</span>
+                                </div>
+                                <!-- </a> -->
+                            </li>
+                            <li>
+                                <!-- <a href="facebook.com/"> -->
+                                <div class="box-google">
+                                    <span class="fa fa-google-plus fa-2x icon"></span>
+                                    <span><{$follow}></span>
+                                    <span>关注数</span>
+                                </div>
+                                <!-- </a> -->
+                            </li>
 
-						</ul>
-						</div>
+                        </ul>
+                        </div>
                         <div class="heading"><h4>关注贴吧</h4></div>
                         <div class="content" style='margin-top: 10px'>
                         <span class='actionbtn'>
@@ -335,53 +337,53 @@
                             </if>
                         </span>
                         </div>
-					</div>
+                    </div>
 
-				</div>
+                </div>
 
                 <if condition='$supfans eq null'><div class="widget wid-post"  style='display:none'>
                 <else/><div class="widget wid-post">
                 </if>
                     
-				<!---- Start Widget ---->
-				<!-- <div class="widget wid-post"  style='display:none'> -->
-					<div class="heading"><h4>本吧名人</h4></div>
-					<div class="content">
+                <!---- Start Widget ---->
+                <!-- <div class="widget wid-post"  style='display:none'> -->
+                    <div class="heading"><h4>本吧名人</h4></div>
+                    <div class="content">
                         <foreach name='supfans' item='va' key='k'> 
-    						<div class="post wrap-vid">
-    							<div class="zoom-container">
-    								<img width=100 src="__UPLOAD__/img/avatar-thumb/<{$va.picname}>" />
-    							</div>
-    							<div class="wrapper">
-    								<h5 class="vid-name"><{$va.name}>></h5>
-    								<div class="info">
-    									<h6>本吧名气<{$k+1}></h6>
-    									<span><i class="fa fa-calendar"></i>用户等级：<{$va.exp|grade}></span> 
-    									<!-- <span><i class="fa fa-heart"></i>48</span> -->
-    								</div>
-    							</div>
-    						</div>
+                            <div class="post wrap-vid">
+                                <div class="zoom-container">
+                                    <img width=100 src="__UPLOAD__/img/avatar-thumb/<{$va.picname}>" />
+                                </div>
+                                <div class="wrapper">
+                                    <h5 class="vid-name"><{$va.name}>></h5>
+                                    <div class="info">
+                                        <h6>本吧名气<{$k+1}></h6>
+                                        <span><i class="fa fa-calendar"></i>用户等级：<{$va.exp|grade}></span> 
+                                        <!-- <span><i class="fa fa-heart"></i>48</span> -->
+                                    </div>
+                                </div>
+                            </div>
                         </foreach>
-					</div>
-				</div>
+                    </div>
+                </div>
                 <input type="hidden" id="uid" name="uid" value="<{$Think.session.home_user.id}>">
-				<!---- Start Widget ---->
+                <!---- Start Widget ---->
                 <if condition='$Think.session.home_user.id eq "" '>
                 <else/>
-				<div class="widget ">
-					<div class="heading"><h4>个人信息</h4></div>
-					<div class="content">
-						<div class="wrap-vid">
-							<div class="zoom-container">
-								<a href="<{:U('User/index')}>"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>								
-							</div>
+                <div class="widget ">
+                    <div class="heading"><h4>个人信息</h4></div>
+                    <div class="content">
+                        <div class="wrap-vid">
+                            <div class="zoom-container">
+                                <a href="<{:U('User/index')}>"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>                               
+                            </div>
                             <h3 style='color:blue;font-size: 20px'><a href="<{:U('User/index')}>"><{$Think.session.home_user.name}></a></h3>
-							<h3 class="vid-name" style='color:blue;font-size: 20px'>我的等级：<{$Think.session.home_user.exp|grade}></h3>
-							<h3 class="vid-name">注册时间<{$Think.session.home_user.regtime|date="Y-m-d H:i:s",###}></h3>
-						</div>
-						
-					</div>
-				</div>
+                            <h3 class="vid-name" style='color:blue;font-size: 20px'>我的等级：<{$Think.session.home_user.exp|grade}></h3>
+                            <h3 class="vid-name">注册时间<{$Think.session.home_user.regtime|date="Y-m-d H:i:s",###}></h3>
+                        </div>
+                        
+                    </div>
+                </div>
                 </if>
                 <div class="widget ">
                     <div class="heading"><h4>天气查询</h4></div>
@@ -420,45 +422,16 @@
                     </if>
                     </div>
                 </div>
-			</div>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
-
-	<!-- <hr> -->
-
-	<footer>
-		<div class="footer" alog-alias="footer">
-		    <div class="wrap-footer">
-		        <div class="container">
-		            <div class="row">
-		                <div class="col-md-8 col-footer footer-3">
-		                <div class="footer-heading"><h4>友情链接</h4></div>
-		                <volist name='data' id='vo'>
-		                    <div class="content">
-		                        <ul id='footer'>
-		                        <volist name='vo' id='v'>
-		                            <li><a href="<{$v.url}>"><{$v.name}></a></li>
-		                        </volist>
-		                        </ul>
-		                    </div>
-		                </volist>
-		                </div>
-		            </div>
-		        </div>
-		        <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"></a><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"></p>
-		    </div>
-		</div>
-		
-		
-	</footer>
-	<!-- Footer -->
-	
-	<!-- JS -->
-	<script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
+</block>
+<block name="myjs">
+    <script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
     <script src="__PUBLIC__/js/bootstrap.js"></script>
-	<script src="__PUBLIC__/looK/owl-carousel/owl.carousel.js"></script>
+    <script src="__PUBLIC__/looK/owl-carousel/owl.carousel.js"></script>
     <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
 
     <script>
@@ -518,6 +491,7 @@
             success: function(data){
                 if (data) {
                     $('.actionbtn').html('<a href="javascript:;" class="btn btn-danger" onclick="start()" style=\'margin-left:40px\'><span class=\'glyphicon glyphicon-heart\'></span>关注</a>');
+                    $('#follow').html(parseInt($('#follow').html())-1);
                 } else {
                     layer.open({
                       title: '取消关注'
@@ -546,6 +520,7 @@
             success: function(data){
                 if (data) {
                     $('.actionbtn').html('<a href="javascript:;" onclick="closebtn()" class="btn btn-default" style="margin-left:40px"><span class="glyphicon glyphicon-ok" ></span>已关注 | 取消</a>');
+                    $('#follow').html(parseInt($('#follow').html())+1);
 
                 } else {
                     layer.open({
@@ -556,6 +531,5 @@
             }
         });
     }
-  	</script>
-</body>
-</html>
+    </script>
+</block>
