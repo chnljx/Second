@@ -34,11 +34,29 @@ class BarController extends HomeController
         // 关注人数
         $follow = M('follow')->where('bid='.I('get.id'))->count();
         // 帖子
-        $list = M('post')->field('u.name uname,u.picname upic, p.title, p.descr, p.state, p.ctime, p.id')->table('qm_user u,qm_post p')->where('p.bid='.I('get.id').' and p.state=1 and p.uid=u.id')->order('p.ctime desc')->page($_GET['p'],5)->select();
+        $list = M('post')->field('u.name uname,u.picname upic, p.title, p.descr, p.state, p.ctime, p.id')->table('qm_user u,qm_post p')->where('p.bid='.I('get.id').' and p.state=1 and p.uid=u.id')->order('p.ctime desc')->page($_GET['p'],10)->select();
         // 分页
         $count = M('post')->table('qm_user u,qm_post p')->where('p.bid='.I('get.id').' and p.state=1 and p.uid=u.id')->count();
 
-        $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数
+
+        $Page->setConfig('first','首页');
+        $Page->setConfig('last','尾页');
+        $Page->setConfig('prev','上一页');
+        $Page->setConfig('next','下一页');
+        
+        $Page->setConfig('theme','
+            <nav>
+              <ul class="pagination">
+                <li>%FIRST%</li>
+                <li>%UP_PAGE%</li>
+                <li>%LINK_PAGE%</li>
+                <li>%DOWN_PAGE%</li>
+                <li>%END%</li>
+              </ul>
+            </nav>
+        ');
+
         $show = $Page->show();// 分页显示输出
         $this->assign('page',$show);
 
