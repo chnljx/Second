@@ -11,7 +11,6 @@ class PostController extends HomeController
 {
 	public function index()
 	{
-        session_start();
         if (empty(I('get.id'))) {
             $this->display('Public:404');
             exit;
@@ -68,7 +67,6 @@ class PostController extends HomeController
     // 添加帖子
     public function doAdd()
     {
-        session_start();
         if (empty($_SESSION['home_user'])) {
             $this->error('登录后再发帖，请先登录！！',U('Login/index'));
             exit;

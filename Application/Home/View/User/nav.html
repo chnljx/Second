@@ -4,23 +4,18 @@
     <div id="userinfo_wrap" class="userinfo_wrap clearfix">
      <div class="userinfo_left ">
       <div class="userinfo_left_head" id="j_userhead" data-sign="106c9955?t=1478689543">
-       <a href="javascript:;" style="" class="userinfo_head"><img src="__UPLOAD__/img/avatar-thumb/<{$Think.session.home_user.picname}>" /></a>
+       <a href="javascript:;" style="" class="userinfo_head"><img src="__UPLOAD__/img/tieba-thumb/<{$bar.picname}>" /></a>
      </div>
    </div>
    <div class="userinfo_middle">
-    <div class="userinfo_relation">
-     <div class="btn_grounps">
-      <a class="btn-sub btn-small" target="_blank" href="<{:U('User:editview')}>"><i class="icon-edit"></i>编辑资料</a>
-    </div> 
-  </div>
   <div class="userinfo_title"> 
-   <span class="userinfo_username "><{$Think.session.home_user.name}></span> 
+   <span class="userinfo_username "><{$bar.name}></span>
  </div>
  <div class="userinfo_num">
    <div class="userinfo_userdata">
-    <span>吧龄：<{$Think.session.home_user.regtime|barage}>年</span>
+    <span>注册时间：<{$bar.ctime|date="Y-m-d",###}></span>
     <span class="userinfo_split"></span>
-    <span>发贴：<{$Think.session.home_user.post_count}></span> 
+    <span>简介：<{$bar.descr}></span> 
   </div>
 </div> 
 <div class="userinfo_honor clearfix"> 
@@ -36,24 +31,24 @@
   <ul class="ihome_nav_list"> 
   <li <if condition="ACTION_NAME eq 'index'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_main" href="<{:U('User:index')}>" locate="tab_main#ihome_v1">主页</a></p> 
+       <p class="space"> <a class="nav_icon nav_main" href="<{:U('Barboss:index')}>" locate="tab_main#ihome_v1">首页</a></p> 
      </div>
   </li> 
   <li <if condition="ACTION_NAME eq 'msgview'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:msgview','p=1','html')}>" locate="tab_msg#ihome_v1">通知</a></p> 
+       <p class="space"> <a class="nav_icon nav_post" href="<{:U('User:msgview','p=1','html')}>" locate="tab_msg#ihome_v1">帖子</a></p> 
        <span></span> 
      </div>
   </li> 
-  <li <if condition="ACTION_NAME eq 'collectionview'">class="focus"</if>> 
+  <!-- <li <if condition="ACTION_NAME eq 'collectionview'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:collectionview','p=1','html')}>" locate="tab_collect#ihome_v1">收藏</a></p> 
+       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:collectionview','p=1','html')}>" locate="tab_collect#ihome_v1">评论</a></p> 
        <span></span> 
      </div>
-  </li> 
+  </li>  -->
   <li <if condition="ACTION_NAME eq 'postview'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_post" href="<{:U('User:postview','p=1','html')}>" locate="tab_post#ihome_v1">贴子</a></p> 
+       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('User:postview','p=1','html')}>" locate="tab_post#ihome_v1">修改贴吧信息</a></p> 
      </div>
   </li> 
   </ul>

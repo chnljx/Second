@@ -13,7 +13,6 @@ class ReplyController extends HomeController
     // 添加回复
     public function doAdd()
     {
-        session_start();
         if (empty($_SESSION['home_user'])) {
             $this->error('登录后再回复，请先登录！！',U('Login/index'));
             exit;

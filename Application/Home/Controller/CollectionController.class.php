@@ -40,7 +40,6 @@ class CollectionController extends HomeController
     */
     public function coll()
     {
-        session_start();
         if (empty($_SESSION['home_user'])) {
             $this->error('登录后再发帖，请先登录！！',U('Login/index'));
             exit;
