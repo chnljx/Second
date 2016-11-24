@@ -96,4 +96,33 @@ class TypeController extends HomeController
              $this->display('Type/robet');
         }
 
+    public function weixi()
+    {
+        $this->display();
+    }
+//微信精选接口
+public function wx()
+{
+    $ch = curl_init();
+    $infos = '精选';
+    $infos = urlencode($infos);
+    $url = 'http://apis.baidu.com/txapi/weixin/wxhot?num=10&rand=1&word='.$infos.'&page=1&src=%E4%BA%BA%E6%B0%91%E6%97%A5%E6%8A%A5';
+    $header = array(
+        'apikey: b848d17197e4ead6adc43f2af62b4ac8',
+    );
+    // 添加apikey到header
+    curl_setopt($ch, CURLOPT_HTTPHEADER  , $header);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    // 执行HTTP请求
+    curl_setopt($ch , CURLOPT_URL , $url);
+    $res = curl_exec($ch);
+    $res = json_decode($res);
+    $infos = $res->newslist;
+    // var_dump($info);
+    $this->assign('infos',$infos);
+   
+    $this->display('Type/wx');
+}
+
+
 }
