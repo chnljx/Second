@@ -71,10 +71,10 @@ class LoginController extends HomeController
                             $this->error('账户已被禁用');
                         }
                     }else {
-                        $url = "<a href='http://michael.com/index.php/Home/Register/active?key={$data['validate']}&uid={$data['id']}' target='_blank'>http://michael.com/index.php/Home/Register/active?key={$data['validate']}&uid={$data['id']}</a>";
+                        $url = "<a href='http://112.74.49.16/qianmo/index.php/Home/Register/active?key={$data['validate']}&uid={$data['id']}' target='_blank'>点击激活</a>";
 
                         // 邮箱发送激活信息
-                        $result = sendMail($data['email'], $data['name'], '阡陌之家在线激活','请点击连接激活帐号：'.$url);
+                        $result = sendMail($data['email'], $data['name'], '阡陌之家在线激活',$url);
                         $this->error('请登录到您的邮箱激活帐号');
                     }
                 }
