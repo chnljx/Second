@@ -20,6 +20,11 @@ class BarbossController extends HomeController
             $this->display('Public:404');
             exit;
         }
+
+        $boss = M('bar')->where('id='.I('get.id').' and uid='.session('home_user.id'))->find();
+        if ($boss == '') {
+            $this->error('权限不足', U('Index/index'));
+        }
         $bar = M('bar')->field('state, begstate')->where('id='.I('get.id'))->find();
         if($bar['state'] == 0){
             $this->error('该吧已被禁用', U('Index/index'));
@@ -33,12 +38,16 @@ class BarbossController extends HomeController
         $bar = M('bar')->where('id='.I('get.id'))->find();
         
         // $post_count = M('Post')->where('uid='.session('home_user.id'))->count("id");
-        // $follow = M('Follow')->table('qm_follow f, qm_user u')->where('bid='.I('get.id').'')->join('__BAR__ ON f.bid = __BAR__.id')->select();
+
+        $follow = M('Follow')->field('u.name, u.picname, u.exp')->table('qm_follow f, qm_user u')->where('f.bid='.I('get.id').' and f.uid=u.id and u.state=1')->order('u.exp desc')->select();
+
 
         // session('home_user.post_count', $post_count);
 
         // $this->assign('post_count', $post_count);
+
         $this->assign('bar', $bar);
+        $this->assign('follow', $follow);
         $this->display();
     }
 

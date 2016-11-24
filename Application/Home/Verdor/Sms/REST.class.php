@@ -33,7 +33,7 @@ class REST {
 		$this->ServerIP = $ServerIP;
 		$this->ServerPort = $ServerPort;
 		$this->SoftVersion = $SoftVersion;
-        $this->Handle = fopen($this->Filename, 'a');
+    $this->Handle = fopen($this->Filename, 'a');
 	}
 
    /**
