@@ -119,13 +119,11 @@
     <!--Top-->
     <!-- <nav id="top"> -->
     <div class="container">
-    <form action="<{:U('Bar/dosearch')}>" method="post" style="margin-left:70px;" class="navbar-form navbar-right" role="search">
-      <div style="width:400px;" class="input-group">
+    <div style="width:400px;margin-left:580px;margin-top:10px;" class="input-group">
         <input style="width:360px;" type="text" class="form-control" placeholder="请输入要查询的贴吧名" name="name" id="name"><span class="input-group-btn">
           <button class="btn btn-default" type="submit" onclick="search()">搜索</button>
         </span>
        </div>
-    </form>
 </header>   
 <!-- 轮播图 -->
     <!-- <div class="featured container">
@@ -176,6 +174,10 @@
                 </span>
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">关注：<span style="color:#f9ab55;" id="follow"><{$follow}></span></span>
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">贴子：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
+
+                    <if condition="$Think.session.home_user.id eq $bar['uid']">
+                        <a href='<{:U("Barboss/index")}>?id=<{$bar.id}>'  class="btn btn-danger" style='margin-left: 80px'>管理贴吧</a>
+                    </if>
                 <div style="overflow: hidden;text-overflow: ellipsis;margin-left:40px;margin-top:5px;width:500px;height:44px;"><{$bar.descr}></div>
             </div>
             <div class="content col-md-4"  style="text-align:center;"><span>欢迎来到</span><br><span style="font-size: 30px;"><{$bar.name}></span></div>
@@ -251,6 +253,7 @@
                 <input type="hidden" name="bid" value="<{$bar.id}>"> 
                 <input type="hidden" name="uid" value="<{$Think.session.home_user.id}>"> 
                 <input type="text" id='title' name="title" style='width:658px;height:30px' placeholder="请输入不超过19个字符的标题">  
+
             <script id="container" name="descr" type="text/plain" style="width:650px;height:220px">
             </script>
             <!-- 配置文件 -->
@@ -302,23 +305,15 @@
 								<!-- <div  class="btn btn-danger bossbeg" style='margin-left: 80px'>申请吧主</div> -->
                                 <a href='<{:U("Bar/boss")}>?id=<{$bar.id}>'  class="btn btn-danger" style='margin-left: 80px'>申请吧主</a>
 							<else/>
-								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6></a>
+								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6>
+                                
 							</if>
 							<h6 style='color:#999;margin-top: 10px;font-weight: bold'>目录：<{$bar.tname}></h6>
 							<p style='color:#999;margin-top: 10px'><b>简介：<{$bar.descr}></b></p>
 						</div>
 
                         </div>
-                        <!-- <div class='col-md-8'>
-                            <if condition='$bar.uname eq "admin"'>
-                                <a href='<{:U("Bar/boss")}>?bid=<{$bar.id}>&uid=<{$Think.session.home_user.id}>'  class="btn btn-danger" style='margin-left: 80px'></span>申请吧主</a>
-                            <else/>
-                                <h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6></a>
-                            </if>
-                            <h6 style='color:#999;margin-top: 10px;font-weight: bold'>目录：<{$bar.tname}></h6>
-                            <p style='color:#999;margin-top: 10px'><b>简介：<{$bar.descr}></b></p>
-                        </div> -->
-                        <!-- </div> -->
+                        
                         <div>
                         <ul class="list-inline">
                             <li>
@@ -478,7 +473,7 @@
 
     function search()
     {
-       $.post("<{:U('Bar/dosearch')}>", {'name': $('#name').val()}, function(data) {
+       $.post("<{:U('Type/dosearch')}>", {'name': $('#name').val()}, function(data) {
             if(data === false) {
                 alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Bar/apply")}>?name="+$('#name').val();
             } else {
@@ -546,19 +541,8 @@
             }
         });
     }
-
-     
-    function demo(){ 
-        if (m<=0) {
-             $('#send').html('发送');
-             $('#send').removeAttr('disabled');
-             clearInterval(timer);
-        }else{
-            $('#send').html('已发送,'+m+'秒后重新输入');
-            m--;
-
-        }
-
-    }
+    
+    
     </script>
+
 </block>

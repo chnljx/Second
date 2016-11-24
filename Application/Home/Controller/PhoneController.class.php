@@ -33,14 +33,14 @@ class PhoneController extends Controller{
         // var_dump($to);die;
 
         //主帐号,对应开官网发者主账号下的 ACCOUNT SID
-        $accountSid= '8aaf0708582eefe9015847f6b3231231';
+        $accountSid= '8a216da8588b296f015890aecdd6049b';
 
         //主帐号令牌,对应官网开发者主账号下的 AUTH TOKEN
-        $accountToken= '25da071ee43b4e3684baed8194ec0978';
+        $accountToken= 'fdf7f411e8ed4143a40c0f75b810d664';
 
         //应用Id，在官网应用列表中点击应用，对应应用详情中的APP ID
         //在开发调试的时候，可以使用官网自动为您分配的测试Demo的APP ID
-        $appId='8aaf0708582eefe9015847f6b3651235';
+        $appId='8a216da8588b296f015890aecf4004a2';
 
         //请求地址
         //沙盒环境（用于应用开发调试）：sandboxapp.cloopen.com
@@ -68,7 +68,7 @@ class PhoneController extends Controller{
         }
         if($result->statusCode!=0) {
             //echo "error code :" . $result->statusCode . "<br>";
-            //echo "error msg :" . $result->statusMsg . "<br>";
+            echo "error msg :" . $result->statusMsg . "<br>";
             //TODO 添加错误处理逻辑
             $this->error('发送失败11');
         }else{
@@ -103,5 +103,14 @@ class PhoneController extends Controller{
     }
 
 
+    public function phoneyzm(){
+        $sms = I('post.sms');
+        if ($sms == session('sms')) {
+            $this->ajaxReturn(true);
+        }else{
+            $this->ajaxReturn(false);
+        }
+
+    }
 
 }

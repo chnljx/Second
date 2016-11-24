@@ -1,0 +1,53 @@
+<extend name="Public:base"/>
+<block name="head">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+  <title>个人中心--阡陌之家</title>
+  
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/style.css">
+  
+  <!-- Owl Carousel Assets -->
+  <link href="__PUBLIC__/looK/owl-carousel/owl.carousel.css" rel="stylesheet">
+  <link href="__PUBLIC__/looK/owl-carousel/owl.theme.css" rel="stylesheet">
+  
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
+  
+  <link rel="stylesheet" href="__PUBLIC__/css/info.css" />  
+
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+</block>
+<block name="main">
+<include file="User:nav" />
+ <div class="clearfix u-f-wrap" id="forum_group_wrap"> 
+    
+ </div>
+</div> 
+    <div class="hot_feed_blank">
+    <if condition="$follow eq null">
+        你还没有粉丝哦
+        <else/>&nbsp;
+    </if>
+    </div>
+</div>
+</div> 
+</block>
+<block name="footer"></block>

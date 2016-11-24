@@ -12,6 +12,10 @@ class BarController extends HomeController
 
     public function _initialize()
     {
+        if (empty(I('get.id'))) {
+            $this->display('Public:404');
+            exit;
+        }
         $bar = M('bar')->field('state')->where('id='.I('get.id'))->find();
         if($bar == 0){
             $this->error('该吧已被禁用', U('Index/index'));
@@ -20,7 +24,6 @@ class BarController extends HomeController
 
     public function index()
     {
-        session_start();
         if (empty(I('get.id'))) {
             $this->display('Public:404');
             exit;
@@ -31,7 +34,7 @@ class BarController extends HomeController
         // 图片轮播
         $data = M('picture')->where('bid='.I('get.id'))->limit(12)->select();
         // 贴吧名
-        $bar = M('bar')->field('b.name, b.picname, b.id, u.name uname, b.descr, t.name tname')->table('qm_bar b,qm_user u, qm_type t')->where('b.id='.I('get.id').' and b.uid=u.id and t.id=b.typeid')->find();
+        $bar = M('bar')->field('b.name, b.picname, b.id, b.uid, u.name uname, b.descr, t.name tname')->table('qm_bar b,qm_user u, qm_type t')->where('b.id='.I('get.id').' and b.uid=u.id and t.id=b.typeid')->find();
         // 关注人数
         $follow = M('follow')->where('bid='.I('get.id'))->count();
         // 帖子
@@ -186,26 +189,6 @@ class BarController extends HomeController
         }
     }
 
-
-     public function dosearch()
-    {
-
-       if(IS_AJAX){
-        $name = urlencode(rtrim(I('post.name'), '吧').'吧');
-        $data=M('bar')->where("name='$name'")->find();
-        if($data){
-            $id=$data['id'];
-            $this->ajaxReturn($id);
-        }else{
-
-            // $this->error('找不到该吧，即将跳到申请界面', U('Bar/apply', array('name'=>$name)), 3);
-
-            $this->ajaxReturn(false);
-
-        }
-       } 
-    }
-
     // 申请吧主
     public function boss() 
     {
@@ -215,8 +198,6 @@ class BarController extends HomeController
             exit;
         }
 
-
-
         $arr = M('bar')->field('id, name, uid')->where('id='.I('get.id'))->find();
 
         if ($arr['uid'] != 1) {
@@ -225,17 +206,23 @@ class BarController extends HomeController
         }  
 
         $this->assign('arr',$arr);
-        $this->display();  
-   
-
+        $this->display();
     }
-    public function phoneyzm(){
-        $sms = I('post.sms');
-        if ($sms == session('sms')) {
-            $this->ajaxReturn(true);
-        }else{
-            $this->ajaxReturn(false);
-        }
 
+    
+    public function send()
+    {
+        $data['bid'] = I('post.bid');
+        $data['uid'] = session('home_user.id');
+        $data['ctime'] = time();
+        if (M('barboss_beg')->create($data)) {
+            $send = M('barboss_beg')->add();
+            if ($send>0) {
+                $this->success('已发送申请，请等待管理员处理',U('Bar/index',array('id'=>$data['bid'])));
+            }  else {
+                $this->error('发送申请失败');
+            }
+        }
+        
     }
 }
