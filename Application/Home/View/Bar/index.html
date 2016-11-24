@@ -159,14 +159,14 @@
     
     <div id="page-content" class="archive-page container">
         
-    <div class="jumbotron" style="margin-top: 40px">
+    <div class="jumbotron" style="margin-top: 40px;background-color: #F7F7F7;">
         <div class="row">
             <div class="col-md-2">
                 <div class="thumbnail">
                     <img src="__UPLOAD__/img/tieba-thumb/<{$bar.picname}>" alt="...">
                 </div>
             </div>
-            <div class="content" style='margin-top: 10px;'>
+            <div class="content col-md-6" style='margin-top: 10px;'>
                 <span class='actionbtn'>
                     <if condition='($Think.session.home_user eq "") or ($user eq "")'>
                         <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
@@ -178,6 +178,7 @@
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">贴子：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
                 <div style="overflow: hidden;text-overflow: ellipsis;margin-left:40px;margin-top:5px;width:500px;height:44px;"><{$bar.descr}></div>
             </div>
+            <div class="content col-md-4"  style="text-align:center;"><span>欢迎来到</span><br><span style="font-size: 30px;"><{$bar.name}></span></div>
         </div>
     </div>
 
@@ -212,16 +213,16 @@
             <{$page}> -->
 
             <div class="box">
-                <table class="table table-hover"  style="table-layout: fixed;overflow: hidden;text-overflow: ellipsis;">
+                <table class="table table-hover" style="table-layout:fixed;">
                     <tbody>
                     <foreach name='list' item='v'>
                         <tr>
                             <td class="col-md-1"><span class="badge" style="width:35px;color:#666666;background-color: #F7F7F7;"><{$v.comcount}></span></td>
-                            <td class="col-md-7">
-                                <p  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-bottom: 10px;"><a href="<{:U('Post/index')}>?id=<{$v.id}>" class="ptitle" target='_blank'><{$v.title}></a></p>
+                            <td class="col-md-7" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                                <p style="padding-bottom:10px;"><a href="<{:U('Post/index')}>?id=<{$v.id}>" class="ptitle" target='_blank'><{$v.title}></a></p>
                                 <span style="font-size: 10px;"><{$v.descr}></span>
                             </td>
-                            <td><{$v.uname}></td>
+                            <td style="text-align: center;"><{$v.uname}></td>
                             <td class="col-md-3" style="text-align: right;"><{$v.ctime|post_time}></td>
                         </tr>
                     </foreach>
@@ -229,7 +230,7 @@
                         <tr>
                             <td class="col-md-1"><span class="badge" style="width:35px;color:#666666;background-color: #F7F7F7;">0</span></td>
                             <td class="col-md-7">
-                                <p  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-bottom: 10px;"><a class="ptitle">欢迎来到本吧</a></p>
+                                <p  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-bottom: 10px;"><a class="ptitle">欢迎来到<{$bar.name}></a></p>
                                 <span style="font-size: 10px;">你可以开始畅所欲言了</span>
                             </td>
                             <td>admin</td>
