@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-offset-1 control-label">手机号</label>
                                     <div class="col-sm-6">
-                                        <input class='col-sm-12' type="text" class="form-control" name="phone" id="phone" placeholder="您的手机号码">
+                                        <input class='col-sm-12' type="text" class="form-control" name="phone" id="phone" value='<{$session.home_user.phone|replace(/(\d{3})\d{4}(\d{4})/, "$1****$2")}>'>
                                         <div class='col-sm-12'>
                                             <button class='col-md-6' style='background:#4B97E4;margin-top: 5px;margin-left: -15px;color:#eee;' onclick='sendsms()' id = 'send' class='btn btn-info btn-block btn-sm'>点击发送验证码</button>
                                         </div>
@@ -154,6 +154,8 @@
 
     });
 
+    var timer = null;
+     var m = 60;
     function sendsms(){
        $.post("<{:U('Phone/sendSms')}>",{'val':"<{$list['phone']}>"},function(res){
             console.log(res);

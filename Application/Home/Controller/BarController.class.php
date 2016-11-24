@@ -187,17 +187,21 @@ class BarController extends HomeController
     }
 
 
-    public function dosearch()
+     public function dosearch()
     {
-       if(!IS_AJAX){
-        $name = I('post.name');
-        // var_dump($name);
+
+       if(IS_AJAX){
+        $name = urlencode(rtrim(I('post.name'), '吧').'吧');
         $data=M('bar')->where("name='$name'")->find();
         if($data){
             $id=$data['id'];
-            $this->redirect("bar/index?id='$id'");
+            $this->ajaxReturn($id);
         }else{
-            $this->error('没有该吧');
+
+            // $this->error('找不到该吧，即将跳到申请界面', U('Bar/apply', array('name'=>$name)), 3);
+
+            $this->ajaxReturn(false);
+
         }
        } 
     }
@@ -219,8 +223,6 @@ class BarController extends HomeController
              $this->error('该吧已有吧主,申请失败',U('Index/index'));
              exit;
         }  
-
-
 
         $this->assign('arr',$arr);
         $this->display();  
