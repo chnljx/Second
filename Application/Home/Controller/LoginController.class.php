@@ -82,45 +82,18 @@ class LoginController extends HomeController
         }
     }
 
-    // 找回密码
-    public function findwd()
-    {
-        $this->display();
-    }
-    // 找回密码问题
-    public function findwd1()
-    {
-        $name=I('post.name');
-        $phone=I('post.phone');
-        // var_dump($name);
-        $data=M('user')->where("name='$name' and phone='$phone'")->find();
-        if($data){
-            if($data['state']==1){
-                $this->assign('data',$data);
-                $this->display();
-            }else{
-                $this->error('该账户已被禁用');
-            }
-        }else{
-            $this->error('账户名和手机号不匹配');
-        }
-
-    }
     // 执行找回密码
     public function dofindwd()
     {
-         $name=I('post.name'); 
-         $type=I('post.type');
-         // var_dump($name);
-         $data=M('user')->where("name='$name'")->find();
-         $id=$data['id'];
-         $phone=$data['phone'];
+         $id=session('id');
+         $data=M('user')->where("id='$id'")->find();
          if(!$data){
             die('没有得到此用户');
          } else {
             $newpwd=rand(100000,999999);
 
-            //发邮件或发短信
+            //发邮件或发
+            $type=I('post.type');
             switch ($type) {
                 case 'email':
 
@@ -151,8 +124,103 @@ class LoginController extends HomeController
          }
 
     }
+public function sms()
+{
+    $this->display();
+}
+
+    public function psms()
+    {
+        $map['name'] = I('post.name');
+        $map['phone'] =I('post.phone');
+        $data=M('user')->where($map)->find();
+        // $data = $user->where(array('phone'=>$_POST['phone']))->find();
+        
+        if(empty($data)){
+            $this->ajaxReturn(false);
+        }else{    
+            $code = mt_rand(100000,999999);
+            session('code',$code);
+            session('id',$data['id']);
+            $result = $this->sendTemplateSMS('18159801957',array($code,'5'),'1');
+            // $this->ajaxReturn($code);
+        }
+     
+    }
+
+    public function sendTemplateSMS($to,$datas,$tempId)
+    {
+        include_once("./CCPRestSmsSDK.php");
+        $code;
+        //主帐号,对应开官网发者主账号下的 ACCOUNT SID
+        $accountSid= '8a216da8588b296f015890aecdd6049b';
+
+        //主帐号令牌,对应官网开发者主账号下的 AUTH TOKEN
+        $accountToken= 'fdf7f411e8ed4143a40c0f75b810d664';
+
+        //应用Id，在官网应用列表中点击应用，对应应用详情中的APP ID
+        //在开发调试的时候，可以使用官网自动为您分配的测试Demo的APP ID
+        $appId='8a216da8588b296f015890aecf4004a2';
+
+        //请求地址
+        //沙盒环境（用于应用开发调试）：sandboxapp.cloopen.com
+        //生产环境（用户应用上线使用）：app.cloopen.com
+        $serverIP='sandboxapp.cloopen.com';
 
 
+        //请求端口，生产环境和沙盒环境一致
+        $serverPort='8883';
 
+        //REST版本号，在官网文档REST介绍中获得。
+        $softVersion='2013-12-26';
+
+         // 初始化REST SDK
+         // global $accountSid,$accountToken,$appId,$serverIP,$serverPort,$softVersion;
+         $rest = new \Home\Verdor\Sms\REST($serverIP,$serverPort,$softVersion);
+         // var_dump($rest);exit;
+         $rest->setAccount($accountSid,$accountToken);
+         $rest->setAppId($appId);
+        
+         // 发送模板短信
+         // echo "Sending TemplateSMS to $to <br/>";
+         $result = $rest->sendTemplateSMS($to,$datas,$tempId);
+         // var_dump($result->statusMsg);die;
+         return $result;
+         // $this->code = $datas;
+         // var_dump($result);
+         // if($result == NULL) {
+         //     echo "result error!";
+         //     exit(0);
+         //     // break;
+         // }
+         // if($result->statusCode!=0) {
+         //     echo "error code :" . $result->statusCode . "<br>";
+         //     echo "error msg :" . $result->statusMsg . "<br>";
+         //     //TODO 添加错误处理逻辑
+         // }else{
+         //     echo "Sendind TemplateSMS success!<br/>";
+         //     // 获取返回信息
+         //     $smsmessage = $result->TemplateSMS;
+         //     echo "dateCreated:".$smsmessage->dateCreated."<br/>";
+         //     echo "smsMessageSid:".$smsmessage->smsMessageSid."<br/>";
+         //     //TODO 添加成功处理逻辑
+         // }
+    }
+
+    public function yzm()
+    {
+        $yzm=I('post.phoneyzm');
+        $code=session('code');
+        if($yzm==$code){
+            $this->ajaxReturn(true);
+        }else{
+            $this->ajaxReturn(false);
+        }
+    } 
+
+    public function findwd1()
+    {
+        $this->display();
+    }
 
 }
