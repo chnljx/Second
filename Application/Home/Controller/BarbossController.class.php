@@ -33,7 +33,7 @@ class BarbossController extends HomeController
         $bar = M('bar')->where('id='.I('get.id'))->find();
         
         // $post_count = M('Post')->where('uid='.session('home_user.id'))->count("id");
-        $follow = M('Follow')->table('qm_follow f, qm_user u')->where('bid='.I('get.id').'')->join('__BAR__ ON f.bid = __BAR__.id')->select();
+        // $follow = M('Follow')->table('qm_follow f, qm_user u')->where('bid='.I('get.id').'')->join('__BAR__ ON f.bid = __BAR__.id')->select();
 
         // session('home_user.post_count', $post_count);
 
