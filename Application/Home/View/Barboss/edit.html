@@ -1,0 +1,135 @@
+<extend name="Public:base"/>
+<block name="head">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+  <title>个人中心--阡陌之家</title>
+  
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/style.css">
+  
+  <!-- Owl Carousel Assets -->
+  <link href="__PUBLIC__/looK/owl-carousel/owl.carousel.css" rel="stylesheet">
+  <link href="__PUBLIC__/looK/owl-carousel/owl.theme.css" rel="stylesheet">
+  
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
+  
+  <link rel="stylesheet" href="__PUBLIC__/css/info.css" />  
+
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+</block>
+<block name="main">
+<include file="Barboss:nav" />
+
+<div class="clearfix u-f-wrap" id="forum_group_wrap">
+    <form action="<{:U('Barboss/save',array('id'=>$bar['id']))}>" method="post" class="form form-horizontal" id="form-barboss-save" enctype="multipart/form-data">
+        <input type="hidden" name="id" value='<{$list.id}>'>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>贴吧类型：</label>
+            <div class="formControls col-xs-8 col-sm-6">
+                <input type="text" name="typeid" class="input-text" disabled value="<{$list.tname}>">
+            </div><span style="color: red; line-height: 30px;" id="selecttips"></span>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>吧名：</label>
+            <div class="formControls col-xs-8 col-sm-6">
+                <input type="text" class="input-text" disabled value="<{$list.name}>" placeholder="" id="name" name="name">
+                
+            </div><span style="color: red; line-height: 30px;" id="nametips"></span>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上传头像：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img src="__UPLOAD__/img/tieba-thumb/<{$list.picname}>">
+                <input type="file" name="picname">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>简介：</label>
+            <div class="formControls col-xs-8 col-sm-6">
+                <textarea name="descr" id='descr' cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="textarealength(this,50)"><{$list.descr}></textarea>
+                <p class="textarea-numberbar"><em class="textarea-length"><{$list.descr|mb_strlen=###}></em>/50</p>
+            </div><span style="color: red; line-height: 30px;" id="descrtips"></span>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
+            <div class="formControls col-xs-8 col-sm-6">
+                <if condition='$bar["state"] eq 0'>
+                    <input name="state" type="radio" id="status-1" <if condition='$list.state eq 0'>checked</if> value='0'>
+                    <label for="status-1">禁用</label>
+                <elseif condition='$bar["state"] eq 1'/>
+                    <input type="radio" id="status-2" name="state" <if condition='$list.state eq 1'>checked</if> value='1'>
+                    <label for="status-2">启用</label>
+                </if>
+            </div>
+        </div>
+        
+          <div class="row cl">
+            <div class="col-xs-8 col-sm-6 col-xs-offset-4 col-sm-offset-3">
+                <button class="btn btn-primary radius" type="submit" id="submitbtn">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div> 
+</block>
+<block name="footer"></block>
+
+<block name='myjs'>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script>
+$(function(){
+    $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
+    });
+  
+    $("#form-barboss-save").validate({
+        rules:{
+            
+            descr: {
+                required: true,
+                rangelength: [10,50],
+            },
+            
+        },
+        messages: {
+            descr: {
+                required: "简介长度不正确",
+            },
+            
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            // $(form).ajaxSubmit();
+            // var index = parent.layer.getFrameIndex(window.name);
+            // //parent.$('.btn-refresh').click();
+            // parent.layer.close(index);
+            form.submit();
+        }
+    });
+});
+</script>
+</block>
