@@ -9,10 +9,10 @@ function barage($param)
 function post_time($param)
 {
     if (date('Y', $param) != date("Y")) {
-        return date('Y-m-d H:i', $param);
+        return date('Y-m-d', $param);
     } elseif (date('Y-m-d', $param) == date("Y-m-d")) {
-        return date('H:i:s', $param);
+        return date('H:i', $param);
     } else {
-        return date('m-d H:i', $param);
+        return date('m-d', $param);
     }
 }
