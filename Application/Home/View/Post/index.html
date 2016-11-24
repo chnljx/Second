@@ -136,7 +136,7 @@
             </div>
             <hr class="line">
             
-            <foreach name='comment' item='v'>
+            <volist name='comment' id='v'>
             <div class="box">
               <div class="col-md-3" style='background: #f0f0f0'>
               <eq name="v.uid" value="$arr.uid"  >
@@ -158,18 +158,28 @@
                 <volist name='v.r' id='vs'>
                   <div class='col-md-12' style='margin-top:5px;'>
                     <div class='col-md-2'><img width=40 src="__UPLOAD__/img/avatar-thumb/<{$vs.picname}>"></div>
-                    <div class='col-md-8'><span id='name'><{$vs.name}></span><span><{$vs.content}></span></div>
-                    <div class='col-md-2'><a href="javascript:;" class='replyname'>回复</a></div>
+                    <div class='col-md-8'>
+                      <span id='name'><{$vs.name}></span>&nbsp;
+                      <eq name='vs.t' value=""><span> : </span>
+                      <else/>
+                      <span>回复 <volist name='vs.t' id='vt'><{$vt}></volist>：</span>
+                      </eq>
+                     <span><{$vs.content}></span>
+                     <input type="hidden" name="" class='tid' value="<{$vs.id}>">
+                     </div>
+                    <div class='col-md-2'>
+                      <a href="javascript:;" class='replyname'>回复</a>
+                    </div>
                   </div>
                 </volist>
-                <input type="text" id='content' name="content" style='width:400px;margin-left: 10px;height:30px;margin-top: 20px;' placeholder="" >
+                <input type="text" id='content' name="content" style='width:400px;margin-left: 10px;height:30px;margin-top: 20px;' placeholder="" ><input type="hidden" name="" id='tid' value="">
                 <a href="javascript:;" class='btn btn-primary replybtn' style='margin-left: 350px'>发送</a>
               </div>
               
             </div>
             </div>
             <hr class="line">
-            </foreach>
+            </volist>
         
         <!-- <div> -->
             <{$page}>
@@ -317,8 +327,9 @@
   <script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
     <script src="__PUBLIC__/js/bootstrap.js"></script>
   <script src="__PUBLIC__/looK/owl-carousel/owl.carousel.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
+    
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","weixin","renren","tqq","tqf","douban","thx","fbook","twi","linkedin"],"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"1","bdPos":"right","bdTop":"100"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
     <script>
     $(document).ready(function() {
       $("#owl-demo").owlCarousel({
@@ -352,23 +363,22 @@
             });
             return false;
         }
-        var placeholder = $(this).prev().attr('placeholder');
+        var placeholder = $(this).prev().prev().attr('placeholder');
+        var tid = $(this).prev().attr('value');
         // console.log(placeholder);
 
-        var content = $(this).prev().val();
+        var content = $(this).prev().prev().val();
         // console.log(content);
         if (content=='') {
           layer.open({
-              title: '取消关注'
+              title: '回复'
               ,content: '请输入回复内容'
             });
           
           return false;
         }
-        content = placeholder+':'+content;
-        // console.log(content);
          
-        var uid = <{:session("home_user")["id"]}>;
+        var uid = '<{:session("home_user")["id"]}>';
         var name = '<{:session("home_user")["name"]}>';
         var picname = '<{:session("home_user")["picname"]}>';
         var cmtid =$(this).parent().children('#cmtid').val(); 
@@ -377,23 +387,32 @@
         $.ajax({
             type: "POST",
             url:"<{:U('Reply/doAdd')}>" ,
-            data: "content="+content+"&uid="+uid+"&cmtid="+cmtid, 
+            data: "content="+content+"&uid="+uid+"&cmtid="+cmtid+"&to_uid="+tid, 
             success: function(data){
                 if (data === true) {
                   // console.log($(obj));
-                  obj.prev().before("<div class='col-md-12' style='margin-top:5px;'><div class='col-md-2'><img width=40 src='__UPLOAD__/img/avatar-thumb/"+picname+"'></div><div class='col-md-8'>"+name+"<span>"+content+"</span></div><div class='col-md-2'><a href='javascript:;' class='replyname'>回复</a></div></div>");
-                  obj.prev().val('');
-                  obj.prev().attr('placeholder','');
+                  obj.prev().prev().before("<div class='col-md-12' style='margin-top:5px;'><div class='col-md-2'><img width=40 src='__UPLOAD__/img/avatar-thumb/"+picname+"'></div><div class='col-md-8'>"+name+"<span>"+placeholder+':'+content+"</span></div><div class='col-md-2'><a href='javascript:;' class='replyname'>回复</a></div></div>");
+                  obj.prev().prev().val('');
+                  obj.prev().prev().attr('placeholder','');
+                  obj.prev().attr('value','');
                 }
             }  
         });
       });
 
       $(document).on('click','.replyname',function(){
-          var holder = ' 回复 '+$(this).parent().prev().children('#name').html();
           // console.log(placeholder);
-          
+          var tid = $(this).parent().prev().children('.tid').val();
+          if (tid == '<{:session("home_user")["id"]}>') {
+            layer.open({
+              title: '回复'
+              ,content: '不能回复自己'
+            });
+            return false;
+          }
+          var holder = ' 回复 '+$(this).parent().prev().children('#name').html();
           $(this).parent().parent().parent().find('#content').attr('placeholder',holder);
+          $(this).parent().parent().parent().find('#tid').attr('value',tid);
       });
 
     });
@@ -407,7 +426,7 @@
             });
             return false;
         }
-        var uid = <{:session("home_user")["id"]}>;
+        var uid = '<{:session("home_user")["id"]}>';
         $.ajax({
             type:"POST",
             url: "<{:U('Collection/coll')}>",
@@ -432,7 +451,7 @@
             });
             return false;
         }
-        var uid = <{:session("home_user")["id"]}>;
+        var uid = '<{:session("home_user")["id"]}>';
         $.ajax({
             type:"POST",
             url: "<{:U('Collection/delcoll')}>",
@@ -447,19 +466,19 @@
         });
     }
 
-    // $('.reply').blur(function(){
-    //     if ($(this).val().length == '') {
-    //         layer.open({
-    //           title: '回复'
-    //           ,content: '请输入回复'
-    //         });
-    //     } else if ($(this).val().length > 30) {
-    //         layer.open({
-    //           title: '回复'
-    //           ,content: '回复长度不正确'
-    //         });
-    //     }
-    // });
+    $('#content').blur(function(){
+        if ($(this).val().length == '') {
+            layer.open({
+              title: '回复'
+              ,content: '请输入回复'
+            });
+        } else if ($(this).val().length > 30) {
+            layer.open({
+              title: '回复'
+              ,content: '回复长度不正确'
+            });
+        }
+    });
 
     // 取消关注贴吧
     function closebtn() {
@@ -471,7 +490,7 @@
             return false;
         }
         var bid = $('#bid').val();
-        var uid = <{:session("home_user")["id"]}>;
+        var uid = '<{:session("home_user")["id"]}>';
         $.ajax({
             type:"POST",
             url: "<{:U('Follow/closebtn')}>",
@@ -499,7 +518,7 @@
             });
             return false;
         }
-        var uid = <{:session("home_user")["id"]}>;
+        var uid = '<{:session("home_user")["id"]}>';
         var bid = $('#bid').val();
         $.ajax({
             type:"POST",
