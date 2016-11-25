@@ -17,7 +17,7 @@ class BarController extends HomeController
             exit;
         }
         $bar = M('bar')->field('state')->where('id='.I('get.id'))->find();
-        if($bar == 0){
+        if($bar['state'] == 0){
             $this->error('该吧已被禁用', U('Index/index'));
         }
     }
@@ -34,7 +34,13 @@ class BarController extends HomeController
         // 图片轮播
         $data = M('picture')->where('bid='.I('get.id'))->limit(12)->select();
         // 贴吧名
-        $bar = M('bar')->field('b.name, b.picname, b.id, b.uid, u.name uname, b.descr, t.name tname')->table('qm_bar b,qm_user u, qm_type t')->where('b.id='.I('get.id').' and b.uid=u.id and t.id=b.typeid')->find();
+        $bar = M('bar')->field('b.name, b.picname, b.id, b.uid, u.name uname, u.descr udescr, u.picname upic, b.descr, t.name tname')->table('qm_bar b,qm_user u, qm_type t')->where('b.id='.I('get.id').' and b.uid=u.id and t.id=b.typeid')->find();
+
+        if ($bar.uid != 1) {
+            $counts['follow'] = M('follow')->where('uid='.$bar['uid'])->count();
+            $counts['post'] = M('post')->where('uid='.$bar['uid'])->count();
+
+        }
         // 关注人数
         $follow = M('follow')->where('bid='.I('get.id'))->count();
         // 帖子
@@ -89,6 +95,8 @@ class BarController extends HomeController
         $this->assign('bar',$bar);
         $this->assign('follow',$follow);
         $this->assign('supfans',$supfans);
+        $this->assign('count',$counts);
+
 
 
         // 天气
@@ -124,69 +132,6 @@ class BarController extends HomeController
         $this->assign('update',$update);
         $this->assign('daily',$daily);
         $this->display();
-    }
-    
-
-    // 贴吧创建申请
-    public function apply()
-    {
-        if(empty(session('home_user'))){
-            $this->error('请先登录', U('Login/index'));
-        }
-
-        $type = D('Type');
-        $list = $type->getAdminCate();
-        $this->assign('list',$list);
-        $this->display();
-    } 
-
-    public function doapply()
-    {
-        if(!IS_POST){
-            $this->error('数据传入非法');
-        }
-
-        $Bar = D("Bar"); // 实例化User对象
-        if (!$Bar->create()){
-            // 如果创建失败 表示验证没有通过 输出错误提示信息
-            $this->error($Bar->getError());
-        }else{
-            // 验证通过 可以进行其他数据操作
-
-            $config = array(
-                'maxSize' => 3145728,
-                'rootPath' => './Upload/img/tieba/',
-                'saveName' => array('uniqid',''),
-                'exts' => array('jpg', 'gif', 'png', 'jpeg'),
-                'autoSub' => true,
-                'subName' => array('date','Ymd'),
-                );
-            $upload = new \Think\Upload($config);// 实例化上传类
-            // 上传单个文件
-            $info = $upload->uploadOne($_FILES['picname']);
-            if(!$info) {// 上传错误提示错误信息
-                $this->error($upload->getError());
-            } else {// 上传成功 获取上传文件信息
-                $path = $info['savepath'].$info['savename'];
-                $image = new \Think\Image();
-                $image->open("./Upload/img/tieba/".$path);
-                // 按照原图的比例生成一个最大为90*90的缩略图并保存为thumb.jpg
-                $path = time().$info['savename'];
-                $image->thumb(100, 100)->save('./Upload/img/tieba-thumb/'.$path);
-            }
-
-
-            $Bar->name = rtrim(I('post.name'), '吧').'吧';
-            $Bar->uid = session('home_user.id');
-            $Bar->picname = $path;
-            // $Bar->typeid = I('post.typeid');
-            // $Bar->descr = I('post.descr');
-            if($Bar->add()){
-                $this->success('贴吧申请成功');
-            }else{
-                $this->error('贴吧申请失败');
-            }
-        }
     }
 
     // 申请吧主
@@ -225,4 +170,5 @@ class BarController extends HomeController
         }
         
     }
+
 }

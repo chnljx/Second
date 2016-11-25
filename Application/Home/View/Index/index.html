@@ -180,21 +180,23 @@
 
 
 <!-- 分类开始 -->
-				<div class="widget wid-comment">
-				    <div class="heading"><h4>贴吧分类</h4></div>
+<div class="widget wid-comment">
+<div class="heading"><h4>贴吧分类</h4></div>
 
-					<ul style="background-color:white;" class="layui-nav layui-nav-tree">
-						<foreach name="ptype" item="p">
-						    <li class="layui-nav-item ">
-						        <a  style="color:#333;" href="javascript:;"><{$p.name}></a>
-						            <dl class="layui-nav-child">
-						            	<foreach name="p['child']" item="ch">
-						                    <dd><a target="_blank" style="color:black;" href="<{:U('type/index')}>?id=<{$ch.id}>"><{$ch.name}></a></dd>
-						                </foreach>
-						            </dl>
-						    </li>
-						</foreach>
-					</ul>
+<ul style="background-color:white;" class="layui-nav layui-nav-tree">
+	<foreach name="ptype" item="p">
+	    <li class="layui-nav-item ">
+	        <a  style="color:#333;" href="javascript:;"><{$p.name}></a>
+	            <dl class="layui-nav-child">
+	            	<foreach name="p['child']" item="ch">
+	                    <dd><a target="_blank" style="color:black;" href="<{:U('Type/index')}>?id=<{$ch.id}>"><{$ch.name}></a></dd>
+	                </foreach>
+	            </dl>
+	    </li>
+	</foreach>
+</ul>
+
+</div>
 
 				</div>
 
@@ -346,6 +348,7 @@
 		</foreach>
 		</div>
 	</div>
+
     <div class="widget wid-new-post">
 	    <div class="heading"><h4>豪友俱乐部</h4></div>
 	        <div class="content">
@@ -371,16 +374,26 @@
                 <hr>
             </foreach>
             </div>
-            </div>
-        </div>
-    </div>
-</div> 
-</block>
+
+   </div>
+   <hr>
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+    
+ <footer>
+
+
+
 
 <block name="myjs">
 <script src='__PUBLIC__/js/jquery.min.js'></script>
 <script src='__PUBLIC__/js/holder.js'></script>
-  <!-- jQuery and Modernizr-->
+  <!-- jQuery and Modernizr
   
   <!-- Core JavaScript Files -->     
 <!-- JS -->
@@ -435,7 +448,7 @@ function search()
         if(data === false) {
             // alert("没有该吧");
             // location.assign('<{:U("Bar/apply", "","",true)}>');
-            alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Bar/apply")}>?name="+$('#name').val();
+            alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Apply/index")}>?name="+$('#name').val();
         } else {
             location.assign('<{:U("bar/index", "","",true)}>?id=' + data);
         }

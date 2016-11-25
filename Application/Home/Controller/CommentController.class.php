@@ -17,6 +17,11 @@ class CommentController extends HomeController
             $this->error('登录后再评论，请先登录！！',U('Login/index'));
             exit;
         }
+        $post = M('post')->field('state,bid')->where('id='.I('post.postid'))->find();
+        if($post['state'] == 0){
+            $this->error('该帖已被删除',U('Bar/index',array('id'=>$post['bid'])));
+            exit;
+        }
         $data = $_POST;
         $post = D("Comment"); // 实例化User对象
         if (!$post->create($data)){ 

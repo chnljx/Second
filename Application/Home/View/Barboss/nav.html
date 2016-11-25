@@ -9,7 +9,7 @@
    </div>
    <div class="userinfo_middle">
   <div class="userinfo_title"> 
-   <span class="userinfo_username "><{$bar.name}></span>
+   <span class="userinfo_username "><{$bar.name}></span>&nbsp;&nbsp;&nbsp;<a href="<{:U('Bar/index',array('id'=>$bar['id']))}>" style='color:blue'>去发帖</a>
  </div>
  <div class="userinfo_num">
    <div class="userinfo_userdata">
@@ -43,18 +43,18 @@
      </div>
   </li>
   
-  <li <if condition="ACTION_NAME eq 'editview'">class="focus"</if>> 
+  <!-- <li <if condition="ACTION_NAME eq 'picsView'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('Barboss:editview',array('id'=>$bar['id']))}>">修改贴吧信息</a></p> </div>
-     </li>
+       <p class="space"> <a class="nav_collect" href="<{:U('Barboss:picsView',array('id'=>$bar['id']))}>">相册</a></p> 
+      </div>
+  </li> -->
  
-  <!-- <li <if condition="ACTION_NAME eq 'collectionview'">class="focus"</if>> 
+ <li <if condition="ACTION_NAME eq 'editview'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:collectionview','p=1','html')}>" locate="tab_collect#ihome_v1">评论</a></p> 
-       <span></span> 
-     </div>
-  </li>  -->
- 
+       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('Barboss:editview',array('id'=>$bar['id']))}>">修改贴吧信息</a></p> 
+      </div>
+  </li>
+  
   </ul>
  </div>
  <div class="ihome_forum_group ihome_section clearfix"> 
