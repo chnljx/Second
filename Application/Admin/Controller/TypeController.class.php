@@ -68,7 +68,7 @@ class TypeController extends AdminController
             //执行修改
             M('type')->create();
             if (M('type')->save() > 0) {
-            $this->success('恭喜您,编辑成功!', U('Type/index'));
+            $this->success('恭喜您,编辑成功!');
             } else {
               $this->error('编辑失败....');
                 }
@@ -101,7 +101,7 @@ class TypeController extends AdminController
       $map['path']=array('like','%'.I('id').'%');
       $map['_logic']='or';
       if($type->where($map)->delete()>0){
-        $this->success("删除成功！",U('Type/index'));
+        $this->success("删除成功！");
       }else{
         $this->error("删除失败");
       }
