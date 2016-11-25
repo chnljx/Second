@@ -101,7 +101,7 @@ class LoginController extends AdminController
                     //查看查询出来的信息
 
                     $nodelist = array();
-                    // $nodelist['Index'] = array('index','desktop');
+                    $nodelist['Index'] = array('index','desktop');
                     $nodelist['Logout'] = array('index','desktop');
                     //遍历重新拼装
                     foreach($list as $v){
