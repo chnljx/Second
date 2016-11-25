@@ -193,5 +193,37 @@ class BarbossController extends HomeController
         $this->display('Barboss/content-show');
     }
 
+    public function picsView ()
+    {
+        $bar = M('bar')->field('t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t')->where('b.typeid=t.id and b.id='.I('get.id'))->find();
+        $pics = M('picture')->where('bid='.I('get.id'))->select();
+        // $count = M('picture')->where('bid='.I('get.id'))->select();
+        // $Page = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数
+
+        // $Page->setConfig('first','首页');
+        // $Page->setConfig('last','尾页');
+        // $Page->setConfig('prev','上一页');
+        // $Page->setConfig('next','下一页');
+        
+        // $Page->setConfig('theme','
+        //     <nav>
+        //       <ul class="pagination">
+        //         <li>%FIRST%</li>
+        //         <li>%UP_PAGE%</li>
+        //         <li>%LINK_PAGE%</li>
+        //         <li>%DOWN_PAGE%</li>
+        //         <li>%END%</li>
+        //       </ul>
+        //     </nav>
+        // ');
+
+
+        // $show = $Page->show();// 分页显示输出
+        // $this->assign('page',$show);
+        $this->assign('pics',$pics);
+        $this->assign('bar',$bar);
+
+        $this->display('Barboss/picture');
+    }
     
 }

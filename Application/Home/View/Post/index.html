@@ -304,7 +304,6 @@
   </div>
 
   <!-- <hr> -->
-  <{:session("home_user")["id"]}>
   <footer>
     <div class="footer" alog-alias="footer">
         <div class="wrap-footer">
@@ -404,6 +403,11 @@
                   obj.prev().prev().val('');
                   obj.prev().prev().attr('placeholder','');
                   obj.prev().attr('value','');
+                }  else {
+                  layer.open({
+                    title: '回复'
+                    ,content: data
+                  });
                 }
             }  
         });

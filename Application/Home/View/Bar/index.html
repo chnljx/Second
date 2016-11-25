@@ -89,21 +89,7 @@
             margin-top: 20px;
         }
         .setchose ul li{float: left;width: 100px;list-style: none;}
-        /*.prev,.num,.current,.next{
-            display: block;
-            width:30px;
-            height:30px;
-            background: #fff;
-            text-align: center;
-            float: left;
-            font-size: 20px;
-            color: #999;
-            border:1px solid #999;
-        }*/
-        /*#main-content #text img{
-            width:40px;
-            height:40px;
-        }*/
+       
 
         .ptitle{
             font-size: 16px;
@@ -165,13 +151,7 @@
                 </div>
             </div>
             <div class="content col-md-6" style='margin-top: 10px;'>
-                <!-- <span class='actionbtn'>
-                    <if condition='($Think.session.home_user eq "") or ($user eq "")'>
-                        <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
-                        <else/>
-                        <a href="javascript:;" class="btn btn-default" style='margin-left:40px' onclick="closebtn()"><span class='glyphicon glyphicon-ok' ></span>已关注 | 取消</a>
-                    </if>
-                </span> -->
+                
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">关注：<span style="color:#f9ab55;" id="follow"><{$follow}></span></span>
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">贴子：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
 
@@ -189,31 +169,6 @@
       <div class="row">
 
        <div id="main-content" class="col-md-8">
-            <!-- <foreach name='list' item='v'>
-            <div class="box">
-                <div class="col-md-3" >
-                    <a href="<{:U('User/index')}>?id=<{$v.uid}>"><img style="width:100px;height:100px;" src="__UPLOAD__/img/avatar-thumb/<{$v.upic}>" alt=""></a>
-                    <a href='<{:U("User/index")}>?id=<{$v.uid}>' style='font-size: 20px;color:blue;font-weight: bold;'> &nbsp;&nbsp;<{$v.uname}></a><br>
-                    <span><i class="fa fa-comment"></i><{$v.comcount}></span>&nbsp;&nbsp;
-                    <span><i class="fa fa-heart"></i><{$v.count}></span>
-                </div>
-                <div class="col-md-9">
-                    <div>
-                        <a href="<{:U('Post/index')}>?id=<{$v.id}>" target='_blank'><h4 class="vid-name" style='color:blue;font-size: 16px;font-weight: bold;'><{$v.title}></h4></a>
-                        <p style="margin-top: 20px;"><{$v.descr}></p>
-                    </div>
-                    <div style="margin-top: 50px;margin-left: 220px;"><p><span><i class="fa fa-calendar"></i> <{$v.ctime|date="Y-m-d H:i:s",###}></span>
-                    </div> 
-                    
-                    </p>   
-                </div>
-                
-            </div>
-            <hr class="line">
-            </foreach>
-            
-            <{$page}> -->
-
             <div class="box">
                 <table class="table table-hover" style="table-layout:fixed;">
                     <tbody>
@@ -292,24 +247,25 @@
                 <!---- Start Widget ---->
                 <div class="widget wid-follow">
                     
-                    <div class="heading"><h4><{$bar.name}></h4></div>
+                    <div class="heading"><h4>吧主</h4></div>
                     <div class="content">
                         <div>
-                        <div class='col-md-4'>
-                            <img src="__UPLOAD__/img/tieba-thumb/<{$bar.picname}>" width=100>
-                            <input type="hidden" id='bid' value='<{$bar.id}>'>
-
-						</div>
-						<div class='col-md-8'>
+                        
+						<div class='col-md-10'>
 							<if condition='$bar.uname eq "admin"'>
 								<!-- <div  class="btn btn-danger bossbeg" style='margin-left: 80px'>申请吧主</div> -->
                                 <a href='<{:U("Bar/boss")}>?id=<{$bar.id}>'  class="btn btn-danger" style='margin-left: 80px'>申请吧主</a>
 							<else/>
-								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6>
+                                <div class='col-md-6'>
+                                    <img src="__UPLOAD__/img/avatar-thumb/<{$bar.upic}>" width=100>
+                                    <input type="hidden" id='bid' value='<{$bar.id}>'>
+                                </div>
                                 
+								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6>
+                           
 							</if>
-							<h6 style='color:#999;margin-top: 10px;font-weight: bold'>目录：<{$bar.tname}></h6>
-							<p style='color:#999;margin-top: 10px'><b>简介：<{$bar.descr}></b></p>
+							
+							<p style='color:#999;margin-top: 10px'><b>吧主简介：<{$bar.udescr}></b></p>
 						</div>
 
                         </div>
@@ -320,8 +276,8 @@
                                 <!-- <a href="facebook.com/"> -->
                                 <div class="box-twitter">
                                     <span class="fa fa-twitter fa-2x icon"></span>
-                                    <span><{$num}></span>
-                                    <span>帖子数</span>
+                                    <span><{$count.post}></span>
+                                    <span>发帖量</span>
                                 </div>
                                 <!-- </a> -->
                             </li>
@@ -329,7 +285,7 @@
                                 <!-- <a href="facebook.com/"> -->
                                 <div class="box-google">
                                     <span class="fa fa-google-plus fa-2x icon"></span>
-                                    <span><{$follow}></span>
+                                    <span><{$count.follow}></span>
                                     <span>关注数</span>
                                 </div>
                                 <!-- </a> -->

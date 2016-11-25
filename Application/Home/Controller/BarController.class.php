@@ -34,7 +34,13 @@ class BarController extends HomeController
         // 图片轮播
         $data = M('picture')->where('bid='.I('get.id'))->limit(12)->select();
         // 贴吧名
-        $bar = M('bar')->field('b.name, b.picname, b.id, b.uid, u.name uname, b.descr, t.name tname')->table('qm_bar b,qm_user u, qm_type t')->where('b.id='.I('get.id').' and b.uid=u.id and t.id=b.typeid')->find();
+        $bar = M('bar')->field('b.name, b.picname, b.id, b.uid, u.name uname, u.descr udescr, u.picname upic, b.descr, t.name tname')->table('qm_bar b,qm_user u, qm_type t')->where('b.id='.I('get.id').' and b.uid=u.id and t.id=b.typeid')->find();
+
+        if ($bar.uid != 1) {
+            $counts['follow'] = M('follow')->where('uid='.$bar['uid'])->count();
+            $counts['post'] = M('post')->where('uid='.$bar['uid'])->count();
+
+        }
         // 关注人数
         $follow = M('follow')->where('bid='.I('get.id'))->count();
         // 帖子
@@ -89,6 +95,8 @@ class BarController extends HomeController
         $this->assign('bar',$bar);
         $this->assign('follow',$follow);
         $this->assign('supfans',$supfans);
+        $this->assign('count',$counts);
+
 
 
         // 天气
@@ -225,4 +233,5 @@ class BarController extends HomeController
         }
         
     }
+
 }

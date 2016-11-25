@@ -146,7 +146,7 @@ class IndexController extends HomeController {
             $num++;
         }
         $this->assign('data',$arr);
-        $this->display();
+        $this->display('Public/footer');
     }
 
     

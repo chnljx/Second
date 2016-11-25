@@ -17,6 +17,11 @@ class ReplyController extends HomeController
             $this->error('登录后再回复，请先登录！！',U('Login/index'));
             exit;
         }
+        $comment = M('comment')->field('state')->where('id='.I('post.cmtid'))->find();
+        if($comment['state'] == 0){
+            echo '该评论已被删除，请刷新页面';
+            exit;
+        }
         if (IS_AJAX) {
             $data = $_POST;
             $reply = D("Reply"); // 实例化User对象
@@ -30,7 +35,7 @@ class ReplyController extends HomeController
                     M('User')->where('id='.$data['uid'])->save($exp);
                     $this->ajaxReturn(true);
                 } else {
-                    $this->ajaxReturn(false);
+                    echo '回复失败';
                 }
             }
         }  

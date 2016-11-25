@@ -16,9 +16,9 @@ class PostController extends HomeController
             exit;
         }
 
-        $post = M('post')->field('state')->where('id='.I('get.id'))->find();
-        if($post == 0){
-            $this->error('该帖已被删除');
+        $post = M('post')->field('state,bid')->where('id='.I('get.id'))->find();
+        if($post['state'] == 0){
+            $this->error('该帖已被删除',U('Bar/index',array('id'=>$post['bid'])));
             exit;
         }
         // 楼主
@@ -52,6 +52,7 @@ class PostController extends HomeController
         }
         // dump($comment);
         $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
+        
         $show = $Page->show();// 分页显示输出
         $this->assign('page',$show);
         $this->assign('user',$user);
@@ -73,7 +74,7 @@ class PostController extends HomeController
         }
 
         $bar = M('bar')->field('state')->where('id='.I('post.bid'))->find();
-        if($bar == 0){
+        if($bar['state'] == 0){
             $this->error('该吧已被禁用', U('Index/index'));
             exit;
         }
