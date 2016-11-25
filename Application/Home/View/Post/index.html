@@ -69,14 +69,18 @@
           <img style="width:100px;height:100px;" src="__UPLOAD__/img/tieba-thumb/<{$arr.bpic}>" alt="">
         </li>
         <li><b><{$arr.bname}></b></li>
+
         <li>
-            <span class='actionbtn'>
+            <!-- <span class='actionbtn'>
                 <if condition='($Think.session.home_user eq null) or ($user eq null)'>
                     <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
                 <else/>
                     <a href="javascript:;" class="btn btn-default" style='margin-left:40px' onclick="closebtn()"><span class='glyphicon glyphicon-ok' ></span>已关注 | 取消</a>
                 </if>
-            </span>
+            </span> -->
+            <if condition="$Think.session.home_user.id eq $arr['uid']">
+                <a href='<{:U("Barboss/index")}>?id=<{$arr.bid}>' target='_blank' class="btn btn-danger" style='margin-left: 80px'>管理贴吧</a>
+            </if>
         </li>
         <li style="color:#b9b1c4">关注：<span style="color:#f9ab55;"><{$follow}></span></li>
         <li style="color:#b9b1c4">帖子：<span style="color:#f9ab55;"><{$post}></span></li>
@@ -190,7 +194,7 @@
             <h5 style='color: blue;font-size: 16px;margin-top: 10px'><span class='glyphicon glyphicon-pencil'>发表评论</span></h5>
             <form action="<{:U('Comment/doAdd')}>" method="post">
                   <input type="hidden" name="postid" value="<{$arr.id}>"> 
-                  <input type="hidden" name="uid" value="5"> 
+                  <input type="hidden" name="uid" value="<{$Think.session.home_user.id}>"> 
                   
                   
             <script id="container" name="content" type="text/plain" style="width:650px;height:220px">
@@ -227,17 +231,22 @@
         <!-- 发表评论结束-->
         </div>
         <div id="sidebar" class="col-md-4">
+
           <!---- Start Widget ---->
-          <!-- <div class="widget wid-follow">
+          <div class="widget wid-follow">
             <div>
-              <div class="heading"><h4>获得经验</h4></div>
-              <div class="content" style='margin-top: 10px'>
-                  <a href="javascript:;" class="btn btn-danger" style='margin-left: 40px'><span class='glyphicon glyphicon-heart'></span>关注</a>
-                  <button class="btn btn-primary " style='margin-left: 50px'><span class='glyphicon glyphicon-pencil'></span>签到</button>
-              </div>
+              <div class="heading"><h4>关注贴吧</h4></div>
+                  <div class="content" style='margin-top: 10px'>
+                  <span class='actionbtn'>
+                      <if condition='($Think.session.home_user eq "") or ($user eq "")'>
+                          <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
+                      <else/>
+                          <a href="javascript:;" class="btn btn-default" style='margin-left:40px' onclick="closebtn()"><span class='glyphicon glyphicon-ok' ></span>已关注 | 取消</a>
+                      </if>
+                  </span>
             </div>
 
-          </div> -->
+          </div>
 
             <if condition='$supfans eq ""'><div class="widget wid-post"  style='display:none'>
             <else/><div class="widget wid-post">
@@ -295,7 +304,7 @@
   </div>
 
   <!-- <hr> -->
-
+  <{:session("home_user")["id"]}>
   <footer>
     <div class="footer" alog-alias="footer">
         <div class="wrap-footer">

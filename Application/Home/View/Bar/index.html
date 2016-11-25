@@ -165,18 +165,18 @@
                 </div>
             </div>
             <div class="content col-md-6" style='margin-top: 10px;'>
-                <span class='actionbtn'>
+                <!-- <span class='actionbtn'>
                     <if condition='($Think.session.home_user eq "") or ($user eq "")'>
                         <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
                         <else/>
                         <a href="javascript:;" class="btn btn-default" style='margin-left:40px' onclick="closebtn()"><span class='glyphicon glyphicon-ok' ></span>已关注 | 取消</a>
                     </if>
-                </span>
+                </span> -->
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">关注：<span style="color:#f9ab55;" id="follow"><{$follow}></span></span>
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">贴子：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
 
                     <if condition="$Think.session.home_user.id eq $bar['uid']">
-                        <a href='<{:U("Barboss/index")}>?id=<{$bar.id}>'  class="btn btn-danger" style='margin-left: 80px'>管理贴吧</a>
+                        <a href='<{:U("Barboss/index")}>?id=<{$bar.id}>' target='_blank'  class="btn btn-danger" style='margin-left: 80px'>管理贴吧</a>
                     </if>
                 <div style="overflow: hidden;text-overflow: ellipsis;margin-left:40px;margin-top:5px;width:500px;height:44px;"><{$bar.descr}></div>
             </div>
@@ -485,7 +485,7 @@
 
 
     function closebtn() {
-        var uid = $('#uid').val();
+        var uid = '<{:session("home_user")["id"]}>';
         if (uid == "") {
             layer.open({
               title: '取消关注'
@@ -513,7 +513,7 @@
     }
 
     function start() {
-        var uid = $('#uid').val();
+        var uid = '<{:session("home_user")["id"]}>';
         // console.log(uid);
         if (uid == "") {
             layer.open({
