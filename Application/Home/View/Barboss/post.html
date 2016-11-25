@@ -70,7 +70,7 @@
                     <td><a href="javascript:;" onclick="member_add('<{$v.title}>','<{:U('Barboss/postshow')}>?poid=<{$v.id}>&id=<{$bar.id}>','','510')" ><{$v.title}></a></td>
                     <!-- <td><{$v.title}></td> -->
                     <!-- <td><{$v.descr}></td> -->
-                    <td><{$v.ctime}></td>
+                    <td><{$v.ctime|date="Y-m-d",###}></td>
                     <td style="text-align: center;"><a href="<{:U('barboss/hind')}>?postid=<{$v.id}>&id=<{$bar.id}>">删除</a></td>
                 </tr>
                 </foreach>

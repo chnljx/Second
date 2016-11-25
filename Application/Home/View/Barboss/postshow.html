@@ -25,12 +25,40 @@
 <body>
 <div class="cl pd-20" style=" background-color:#5bacb6">
   <dl style="margin-left:80px; color:#fff">
-    <dt><span class="f-18">标题:<{$data.title}></span></dt>
+    <dt>帖子内容:<span class="f-18"><{$data.descr}></span></dt>
     <!-- <dd class="pt-10 f-12" style="margin-left:0">内容：<{$data.descr}></dd> -->
   </dl>
 </div>
+
+<hr>
+<div>该贴的评论：</div>
 <div class="pd-20">
-	<{$data.descr}>
+<if condition='$count eq 0'>
+	该帖子还没有评论
+<else />
+	 <table class="table table-border table-bordered table-hover table-bg table-sort">
+               <foreach name='list' item='v'>
+              <tr style="background:#feeeed;">
+              	<th>评论id</th>
+              	<td><{$v.id}></td>
+              </tr>
+              <tr>
+              	<th>评论人</th>
+              	<td><{$v.name}></td>
+              </tr> <tr>
+              	<th>评论时间</th>
+              	<td><{$v.ctime|date="Y-m-d",###}></td>
+              </tr> <tr>
+              	<th>内容</th>
+              	<td><{$v.content}></td>
+              </tr> <tr>
+              	<th>操作</th>
+              	<td><a href="<{:U('barboss/commenthind')}>?posid=<{$v.id}>&id=<{$id}>">删除</a></td>
+              </tr>
+              </foreach>
+        </table>
+        <{$page}>
+</if>
 </div>
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script>

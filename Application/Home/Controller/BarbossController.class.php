@@ -170,6 +170,12 @@ class BarbossController extends HomeController
         $this->display('Barboss:post');
     }
 
+
+    /**
+    * 帖子删除/隐藏
+    * @access public        
+    * @return void
+    */
     public function hind()
     {
         $postid=I('get.postid');
@@ -185,14 +191,50 @@ class BarbossController extends HomeController
     }
 
 
-    // 显示帖子内容页面
+     /**
+    * 帖子整个内容
+    * @access public        
+    * @return void
+    */
     public function postshow()
     {
+        $id = I('get.id');
         $poid=I('get.poid');
+
         $data=M('post')->where("id='$poid'")->find();
 
+        $list=M('')->table('qm_user u,qm_comment c')->field('u.name,c.id,c.ctime,c.content')->where("u.id=c.uid and c.postid='$poid' and c.state=1")->page($_GET['p'],5)->select();
+
+        $count=M('')->table('qm_user u,qm_comment c')->field('u.name,c.id,c.ctime,c.content')->where("u.id=c.uid and c.postid='$poid' and c.state=1")->count('c.id');
+        $Page = new \Think\Page($count,5);
+
+        $show =$Page->show();
+
         $this->assign('data',$data);
+        $this->assign('id',$id);
+        $this->assign('count',$count);
+        $this->assign('list',$list);
+        $this->assign('page',$show);
         $this->display('Barboss/postshow');
+    }
+
+    /**
+    * 帖子评论的删除/隐藏
+    * @access public        
+    * @return void
+    */
+     public function commenthind()
+    {
+        $posid=I('get.posid');
+        // var_dump($postid);
+        $map['state']=0;
+        $data=M('comment')->where("id='$posid'")->save($map);
+        if($data>0){
+            $this->success("删除成功");
+        }else{
+            $this->error("删除失败");
+        }
+
     }
 
     
