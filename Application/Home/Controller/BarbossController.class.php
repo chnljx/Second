@@ -192,6 +192,5 @@ class BarbossController extends HomeController
         $this->assign('data', $data);
         $this->display('Barboss/content-show');
     }
-
     
 }
