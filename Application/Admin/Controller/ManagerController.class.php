@@ -32,7 +32,7 @@ class ManagerController extends AdminController
 
     public function doadd()
     {
-        $User = D("Manager"); // 实例化User对象
+        $User = D("User"); // 实例化User对象
         if (!$User->create()){
             // 如果创建失败 表示验证没有通过 输出错误提示信息
             if(IS_AJAX){    
