@@ -162,9 +162,11 @@ class BarbossController extends HomeController
         $list=M('')->table('qm_post p,qm_user u')->field('p.id,p.title,p.descr,p.ctime,u.name')->where("p.uid=u.id and p.bid='$bid' and p.state=1")->select();
         // var_dump($list);die;
         $count = M('Post')->where("bid='$bid' and state=1")->count('id');// 查询满足要求的总记录数
+
         $this->assign('bar',$bar);
         $this->assign('list',$list);
         $this->assign('count',$count);
+        $this->assign('post',$post);
         $this->display('Barboss:post');
     }
 
@@ -183,14 +185,14 @@ class BarbossController extends HomeController
     }
 
 
-    // 显示帖子完整内容
-    public function show()
+    // 显示帖子内容页面
+    public function postshow()
     {
-        $data=M('post')->where('id='.I('get.pid'))->find();
+        $poid=I('get.poid');
+        $data=M('post')->where("id='$poid'")->find();
 
-        // var_dump($pic);
-        $this->assign('data', $data);
-        $this->display('Barboss/content-show');
+        $this->assign('data',$data);
+        $this->display('Barboss/postshow');
     }
 
     
