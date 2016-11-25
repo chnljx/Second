@@ -136,13 +136,14 @@ public function sms()
         $data=M('user')->where($map)->find();
         // $data = $user->where(array('phone'=>$_POST['phone']))->find();
         
+        $phone=I('post.phone');
         if(empty($data)){
             $this->ajaxReturn(false);
         }else{    
             $code = mt_rand(100000,999999);
             session('code',$code);
             session('id',$data['id']);
-            $result = $this->sendTemplateSMS('18159801957',array($code,'5'),'1');
+            $result = $this->sendTemplateSMS($phone,array($code,'5'),'1');
             // $this->ajaxReturn($code);
         }
      

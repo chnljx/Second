@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<extend name="Public:base"/>
+
+<block name="head">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -69,11 +69,11 @@
         .type_e_descr{width: 180px;height: 100px;float: left;margin-left: 20px;margin-top: 5px;}
         .type_e_descr ul li{width: 150px;height: 30px;list-style: none;margin-top: 2px;line-height: 30px;text-align: center;}
     </style>
-
-	<block name='head'></block>
+</block>
 </head>
 
 <body>
+<block name="main">
 <header>
 	
 <!--导航开始-->
@@ -101,7 +101,7 @@
 		<li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
 		<li><a href="<{:U('Register/index')}>">注册</a></li>
 		<else />
-		<li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li>
+		<!-- <li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li> -->
 	</if>
   </ul>
  </div>
@@ -183,10 +183,9 @@
 <div id="sidebar">
 </div>
 </div>
+</block>
     
-<footer>
-
-
+<!-- <footer>
 <div class="footer" alog-alias="footer">
     <div class="wrap-footer">
         <div class="container">
@@ -206,13 +205,12 @@
             </div>
         </div>
         <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"></a>
-    </div>
-    
-</footer>
+    </div>   
+</footer> -->
 
 
 
-
+<block name="myjs">
 <!-- end main -->
 <script src='__PUBLIC__/js/jquery.min.js'></script>
 <!-- <script src="__PUBLIC__/js/holder.js"></script> -->
@@ -251,5 +249,4 @@ layui.use('element', function(){
 
 
 </script>
-</body>
-</html>
+</block>
