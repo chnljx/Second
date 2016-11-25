@@ -34,18 +34,16 @@
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+  <style>
+  </style>
 </block>
 <block name="main">
-<<<<<<< HEAD
-<include file="Barboss:nav" />
-=======
 <include file="barboss:nav" />
->>>>>>> lyn
-<if condition="$follow eq null">
+<if condition="$list eq null">
 </div> 
     <div class="hot_feed_blank">
     
-        你还没有粉丝哦
+        该吧还没有帖子
         &nbsp;
     
     </div>
@@ -53,33 +51,52 @@
  <else/>
 <div class="clearfix u-f-wrap" id="forum_group_wrap">
     <div class="page-container">
-        <div class="cl pd-5 bg-1 bk-gray "> <span style='color:blue'>共有粉丝：<strong><{$count}></strong></span> </div>
+        <div class="cl pd-5 bg-1 bk-gray "> <span style='color:blue'>共有帖子：<strong><{$count}></strong></span> </div>
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
                 <tr class="text-c">
-                    <th width="100">粉丝头像</th>
-                    <th width="80">粉丝名</th>
-                    <th width="150">粉丝等级</th>
-                    <th width="150" >注册时间</th>
-                    <th width="100">粉丝简介</th>
+                    <th width="100">发帖人</th>
+                    <th width="80">标题</th>
+                    <!-- <th width="150">内容</th> -->
+                    <th width="150">发帖时间</th>
+                    <th width="100">操作</th>
                 </tr>
                 </thead>
                 <tbody> 
-                <foreach name='follow' item='v'>
-                <tr>
-                    <td style='text-align: center;'><img width=50 src="__UPLOAD__/img/avatar-thumb/<{$v.picname}>"></td>
-                    <td style='text-align: center;'><{$v.name}></td>
-                    <td style='text-align: center;'><{$v.exp|grade}></td>
-                    <td style='text-align: center;'><{$v.regtime|date='Y-m-d',###}></td>
-                    <td style='text-align: center;'><{$v.descr}></td>
+
+                <foreach name='list' item='v'>
+                	<tr>
+                    <td><{$v.name}></td>
+                    <td><a href="javascript:;" onclick="member_add('你现在正在和机器人对话','<{:U('Barboss/show')}>','','510')" >详情</a></td>
+                    <!-- <td><{$v.title}></td> -->
+                    <!-- <td><{$v.descr}></td> -->
+                    <td><{$v.ctime}></td>
+                    <td style="text-align: center;"><a href="<{:U('barboss/hind')}>?postid=<{$v.id}>&id=<{$bar.id}>">删除</a></td>
                 </tr>
                 </foreach>
               </tbody>
         </table>
-        <{$page}>
-    </div><!--page-container-->
-
+    </div>
+</div><!--page-container-->
+        
+   </div>
 </if>
 </div> 
 </block>
+<!-- end main -->
+<script src='__PUBLIC__/js/jquery.min.js'></script>
+<!-- <script src="__PUBLIC__/js/holder.js"></script> -->
+<!-- <script src='__PUBLIC__/js/bootstrap.min.js'></script> -->
+
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+/*分类-添加*/
+function member_add(title,url,w,h){
+    layer_show(title,url,w,h);
+}
+</script>
 <block name="footer"></block>

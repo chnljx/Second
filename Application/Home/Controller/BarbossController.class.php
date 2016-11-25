@@ -145,7 +145,46 @@ class BarbossController extends HomeController
                     $this->error('修改失败');
                 }   
             }
-        }
+
+
+    public function postview()
+    {
+        $bid=I('get.id');
+        $bar = M('bar')->field('t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t')->where('b.typeid=t.id and b.id='.I('get.id'))->find();
+        // $list = M('Post')->where("bid='$bid' and state=1")->select();
+        $list=M('')->table('qm_post p,qm_user u')->field('p.id,p.title,p.descr,p.ctime,u.name')->where("p.uid=u.id and p.bid='$bid' and p.state=1")->select();
+        // var_dump($list);die;
+        $count = M('Post')->where("bid='$bid' and state=1")->count('id');// 查询满足要求的总记录数
+        $this->assign('bar',$bar);
+        $this->assign('list',$list);
+        $this->assign('count',$count);
+        $this->display('Barboss:post');
     }
+
+    public function hind()
+    {
+        $postid=I('get.postid');
+        // var_dump($postid);
+        $map['state']=0;
+        $data=M('post')->where("id='$postid'")->save($map);
+        if($data>0){
+            $this->success("删除成功");
+        }else{
+            $this->error("删除失败");
+        }
+
+    }
+
+
+    // 显示帖子完整内容
+    public function show()
+    {
+        $data=M('post')->where('id='.I('get.pid'))->find();
+
+        // var_dump($pic);
+        $this->assign('data', $data);
+        $this->display('Barboss/content-show');
+    }
+
     
 }
