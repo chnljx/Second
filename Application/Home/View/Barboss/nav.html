@@ -36,29 +36,25 @@
        <p class="space"> <a class="nav_icon nav_main" href="<{:U('Barboss:index',array('id'=>$bar['id'],'p'=>1))}>" locate="tab_main#ihome_v1">首页</a></p> 
      </div>
   </li> 
-<<<<<<< HEAD
-  
-  <li <if condition="ACTION_NAME eq 'editview'">class="focus"</if>> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('Barboss:editview',array('id'=>$bar['id']))}>">修改贴吧信息</a></p> 
-=======
+
    <li <if condition="ACTION_NAME eq 'postview'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
        <p class="space"> <a class="nav_icon nav_post" href="<{:U('Barboss:postview','p=1','html')}>?id=<{$bar.id}>" locate="tab_post#ihome_v1">贴子</a></p> 
      </div>
-  </li> 
+  </li>
+  
+  <li <if condition="ACTION_NAME eq 'editview'">class="focus"</if>> 
+      <div class="tbnav_tab_inner"> 
+       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('Barboss:editview',array('id'=>$bar['id']))}>">修改贴吧信息</a></p> </div>
+     </li>
+ 
   <!-- <li <if condition="ACTION_NAME eq 'collectionview'">class="focus"</if>> 
       <div class="tbnav_tab_inner"> 
        <p class="space"> <a class="nav_icon nav_msg" href="<{:U('User:collectionview','p=1','html')}>" locate="tab_collect#ihome_v1">评论</a></p> 
        <span></span> 
      </div>
   </li>  -->
-  <li <if condition="ACTION_NAME eq 'postview'">class="focus"</if>> 
-      <div class="tbnav_tab_inner"> 
-       <p class="space"> <a class="nav_icon nav_collect" href="<{:U('barboss:postview','p=1','html')}>" locate="tab_post#ihome_v1">修改贴吧信息</a></p> 
->>>>>>> lyn
-     </div>
-  </li> 
+ 
   </ul>
  </div>
  <div class="ihome_forum_group ihome_section clearfix"> 

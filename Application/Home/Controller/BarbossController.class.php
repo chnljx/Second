@@ -145,8 +145,15 @@ class BarbossController extends HomeController
                     $this->error('修改失败');
                 }   
             }
+        }
+    }
 
 
+    /**
+    * 帖子管理
+    * @access public        
+    * @return void
+    */
     public function postview()
     {
         $bid=I('get.id');
