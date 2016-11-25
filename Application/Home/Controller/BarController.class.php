@@ -17,7 +17,7 @@ class BarController extends HomeController
             exit;
         }
         $bar = M('bar')->field('state')->where('id='.I('get.id'))->find();
-        if($bar == 0){
+        if($bar['state'] == 0){
             $this->error('该吧已被禁用', U('Index/index'));
         }
     }
