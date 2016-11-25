@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图灵机器人</title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+</head>
+<body>
+	
+	<div class="container" style="margin-top:20px;margin-left: 25px;">
+		<div class="col-md-6 ">
+			<h3 style="margin-bottom:5px; ">机器人成精了</h3>
+			<div style="background: #feeeed;font-size: 20px; font-family: 微软雅黑;margin-bottom:5px; "><{$news}></div>
+			<form class="form-horizontal" role="form" method="post" action="<{:U('type/jiqi')}>">
+		  	  <textarea class="form-control" rows="6" name="info"></textarea>
+		      <button type="submit" class="btn btn-success" style="width: 70px;margin-top:5px;">发送</button>   
+		</form>
+	</div>
+</div>
+
+</body>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微信精选</title>
+</head>
+<body>
+	<h1>微信精选</h1>
+	<table>
+	<foreach name="infos" item="li">
+		<tr>
+   			<td>栏目</td>
+			<td><{$li->description}>&nbsp;&nbsp;<{$li->ctime}></td>
+   		</tr>
+		<tr>
+   			<td></td>
+			<td><a href="<{$li->url}>"><img src="<{$li->picUrl}>" alt="" target="_blank"></a></td>
+   		</tr>
+   		<tr>
+			<td>标题</td>
+			<td style="background: #ccc"><{$li->title}></td>
+		</tr>
+	</foreach>
+	</table>
+</body>
+</html>
