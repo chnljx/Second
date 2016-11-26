@@ -1,49 +1,28 @@
-<!-- <footer>
-<div class="footer" alog-alias="footer">
-    <div class="wrap-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-footer footer-3">
-                <div class="footer-heading"><h4>友情链接</h4></div>
-                <volist name='data' id='vo'>
-                    <div class="content">
-                        <ul id='footer'>
-                        <volist name='vo' id='v'>
-                            <li><a target="_blank" href="<{$v.url}>"><{$v.name}></a></li>
-                        </volist>
-                        </ul>
-                    </div>
-                </volist>
-                </div>
-            </div>
-        </div>
-        <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"><
-</div>   
-</footer> -->
-
-
 <footer>
 
 
 <div class="footer" alog-alias="footer">
     <div class="wrap-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-footer footer-3">
-                <div class="footer-heading"><h4>友情链接</h4></div>
-                <volist name='data' id='vo'>
-                    <div class="content">
-                        <ul id='footer'>
-                        <volist name='vo' id='v'>
-                            <li><a href="<{$v.url}>"><{$v.name}></a></li>
-                        </volist>
-                        </ul>
+            <div class="row" style='margin-left: 100px'>
+                <div class="col-md-10 col-footer footer-3">
+                    <div class="col-md-2" >
+                        <div class="footer-heading"><h4>友情链接</h4></div>
                     </div>
-                </volist>
+                    <div class="col-md-8">
+                    <volist name='data' id='vo'>
+                        <div class='row' style='margin-top: 10px'>
+                            <volist name='vo' id='v'>
+                                <div class="col-md-3" ><a style='color:#999;font-size:16px;' href="<{$v.url}>" target='_blank'><{$v.name}></a></div>
+                            </volist>
+                        </div>
+                        
+                    </volist>
+                    </div>
                 </div>
             </div>
         </div>
-        <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"></a>
+        <p alog-group="copy" style='margin-top: 15px'>©2016 Baidu<a href="http://www.baidu.com/duty/">使用阡陌前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">阡陌之家协议</a><a href="http://tieba.baidu.com/hermes/feedback">投诉反馈</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"></a>
     </div>
     
 </footer>

@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<extend name="Public:base"/>
+<block name="head">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="renderer" content="webkit">
-    <title><{$bar.name}></title>
+    <title><{$arr.bname}></title>
     <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css"  media="all">
     
    
@@ -37,31 +36,9 @@
         <script src="js/respond.min.js"></script>
     <![endif]-->
 
-</head>
+</block>
+<block name="main">
 
-<body>
-<header>
-  <!--Top-->
-  <nav id="top">
-    <div class="row" style="margin: 0">
-        <div class="col-md-6">
-            <a href="<{:U('Home/Index/index')}>"><strong><i class="fa fa-home"></i>首页</strong></a>
-        </div>
-        <div class="col-md-6">
-            <ul class="list-inline top-link link">
-                <if condition='$Think.session.home_user eq ""'>
-                  <li style="margin-left: 340px;"><a href="<{:U('Login/index')}>">登录</a></li>
-                  <li><a href="<{:U('Register/index')}>">注册</a></li>
-                  <else />
-                  <li style="margin-left: 410px;"><a href="<{:U('Logout/doLogout')}>">退出</a></li>
-                </if>
-            </ul>
-        </div>
-    </div>
-    </nav>
-  
-</header> 
-  
   <div class='nav-main container'>
     
       <ul>
@@ -71,13 +48,7 @@
         <li><b><{$arr.bname}></b></li>
 
         <li>
-            <!-- <span class='actionbtn'>
-                <if condition='($Think.session.home_user eq null) or ($user eq null)'>
-                    <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
-                <else/>
-                    <a href="javascript:;" class="btn btn-default" style='margin-left:40px' onclick="closebtn()"><span class='glyphicon glyphicon-ok' ></span>已关注 | 取消</a>
-                </if>
-            </span> -->
+            
             <if condition="$Think.session.home_user.id eq $arr['uid']">
                 <a href='<{:U("Barboss/index")}>?id=<{$arr.bid}>' target='_blank' class="btn btn-danger" style='margin-left: 80px'>管理贴吧</a>
             </if>
@@ -293,51 +264,33 @@
             </div>
             </if>
 
-              <!-- <div class="widget ">
-                  <div class="heading"><h4>天气查询</h4></div>
+            
+            <div class="widget wid-calendar">
+              <div class="heading"><h4>娱乐</h4></div>
+                <div class="jumbotron">       
+                  <p><a href="javascript:;" onclick="joke('雷人笑话','<{:U('Post/joke')}>','450','300')" >雷人笑话</a></p>
+                  <p><a href="javascript:;" onclick="word('娱乐花边','<{:U('Post/word')}>','600','600')" >娱乐花边</a></p>
                   
-              </div> -->
+                </div>
+              </div>
+            </div>
+            
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- <hr> -->
-  <footer>
-    <div class="footer" alog-alias="footer">
-        <div class="wrap-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-footer footer-3">
-                    <div class="footer-heading"><h4>友情链接</h4></div>
-                    <volist name='data' id='vo'>
-                        <div class="content">
-                            <ul id='footer'>
-                            <volist name='vo' id='v'>
-                                <li><a href="<{$v.url}>"><{$v.name}></a></li>
-                            </volist>
-                            </ul>
-                        </div>
-                    </volist>
-                    </div>
-                </div>
-            </div>
-            <p alog-group="copy">©2016 Baidu<a href="http://www.baidu.com/duty/">使用百度前必读</a><a href="http://tb1.bdstatic.com/tb/eula.html">贴吧协议</a>信息网络传播视听节目许可证 0110516<a href="http://net.china.cn/chinese/index.htm" target="_blank"></a><img src="//tb2.bdstatic.com/tb/static-common/img/net_0d27e51.png" width="20"></p>
-        </div>
-    </div>
-    
-    
-  </footer>
-  <!-- Footer -->
-  
-  <!-- JS -->
+</block>
+<block name="myjs">
   <script src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
-    <script src="__PUBLIC__/js/bootstrap.js"></script>
+  <script src="__PUBLIC__/js/bootstrap.js"></script>
   <script src="__PUBLIC__/look/owl-carousel/owl.carousel.js"></script>
-    
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","weixin","renren","tqq","tqf","douban","thx","fbook","twi","linkedin"],"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"1","bdPos":"right","bdTop":"100"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+  <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","weixin","renren","tqq","tqf","douban","thx","fbook","twi","linkedin"],"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"1","bdPos":"right","bdTop":"100"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+    <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script>
     <script>
     $(document).ready(function() {
       $("#owl-demo").owlCarousel({
@@ -549,7 +502,16 @@
             }
         });
     }
+
+
+    /*雷人笑话-添加*/
+    function joke(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*娱乐花边-添加*/
+    function word(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
     
     </script>
-</body>
-</html>
+</block>

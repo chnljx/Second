@@ -13,23 +13,27 @@ class BarbossController extends HomeController
     public function _initialize()
     {
         date_default_timezone_set('PRC');
+        // 用户未登录
         if(empty(session('home_user'))){
             $this->error('请先登录', U('Login/index'));
         }
+        // 未获取吧id
         if (empty(I('get.id'))) {
             $this->display('Public:404');
             exit;
         }
 
+        $bar = M('bar')->field('state, begstate')->where('id='.I('get.id'))->find();
+        if ($bar['begstate'] == 1 || $bar['begstate'] == 3) {
+            $this->error('该吧未创建', U('Index/index'));
+        } elseif ($bar['state'] == 0){
+            $this->error('该吧已被禁用', U('Index/index'));
+        } 
+
         $boss = M('bar')->where('id='.I('get.id').' and uid='.session('home_user.id'))->find();
+        // 没有找到对应的吧主
         if ($boss == '') {
             $this->error('权限不足', U('Index/index'));
-        }
-        $bar = M('bar')->field('state, begstate')->where('id='.I('get.id'))->find();
-        if($bar['state'] == 0){
-            $this->error('该吧已被禁用', U('Index/index'));
-        } else if ($bar['begstate'] == 1 || $bar['begstate'] == 3) {
-            $this->error('该吧未创建', U('Index/index'));
         }
     }
 
@@ -72,7 +76,6 @@ class BarbossController extends HomeController
     /**
     * 修改贴吧信息页面
     * @access public        
-    * @return void
     */
     public function editView()
     {
@@ -88,7 +91,6 @@ class BarbossController extends HomeController
     /**
     * 执行修改贴吧
     * @access public        
-    * @return void
     */
     public function save()
     {
@@ -238,38 +240,108 @@ class BarbossController extends HomeController
     }
 
 
-    // public function picsView ()
-    // {
-    //     $bar = M('bar')->field('t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t')->where('b.typeid=t.id and b.id='.I('get.id'))->find();
-    //     $pics = M('picture')->where('bid='.I('get.id'))->select();
-        // $count = M('picture')->where('bid='.I('get.id'))->select();
-        // $Page = new \Think\Page($count,6);// 实例化分页类 传入总记录数和每页显示的记录数
-
-        // $Page->setConfig('first','首页');
-        // $Page->setConfig('last','尾页');
-        // $Page->setConfig('prev','上一页');
-        // $Page->setConfig('next','下一页');
+    public function picsView ()
+    {
+        $bar = M('bar')->field('t.name tname, b.id, b.name, b.descr, b.picname, b.ctime, b.state')->table('qm_bar b, qm_type t')->where('b.typeid=t.id and b.id='.I('get.id'))->find();
+        $p = 0;
+        $pics = M('picture')->where('bid='.I('get.id'))->page($_GET['p'],12)->select();
+        foreach ($pics as $k => $v) {
+            if ($k%4 == 0) {
+                $p++;
+                $arr[$p][] = $v;
+            } else {
+                $arr[$p][] = $v;
+            } 
+        }
         
-        // $Page->setConfig('theme','
-        //     <nav>
-        //       <ul class="pagination">
-        //         <li>%FIRST%</li>
-        //         <li>%UP_PAGE%</li>
-        //         <li>%LINK_PAGE%</li>
-        //         <li>%DOWN_PAGE%</li>
-        //         <li>%END%</li>
-        //       </ul>
-        //     </nav>
-        // ');
+        $count = M('picture')->where('bid='.I('get.id'))->count();
+        $Page = new \Think\Page($count,12);// 实例化分页类 传入总记录数和每页显示的记录数
+
+        $Page->setConfig('first','首页');
+        $Page->setConfig('last','尾页');
+        $Page->setConfig('prev','上一页');
+        $Page->setConfig('next','下一页');
+        
+        $Page->setConfig('theme','
+            <nav>
+              <ul class="pagination">
+                <li>%FIRST%</li>
+                <li>%UP_PAGE%</li>
+                <li>%LINK_PAGE%</li>
+                <li>%DOWN_PAGE%</li>
+                <li>%END%</li>
+              </ul>
+            </nav>
+        ');
 
 
-        // $show = $Page->show();// 分页显示输出
-        // $this->assign('page',$show);
-    //     $this->assign('pics',$pics);
-    //     $this->assign('bar',$bar);
+        $show = $Page->show();// 分页显示输出
+        $this->assign('page',$show);
+        $this->assign('pics',$arr);
+        $this->assign('bar',$bar);
+        $this->assign('count',$count);
 
-    //     $this->display('Barboss/picture');
-    // }
+        $this->display('Barboss/picture');
+    }
 
-    
+    public function addpic()
+    {
+        $this->assign('id',I('get.id'));
+        $this->display();
+    }
+
+    public function savepic()
+    {
+        $pic = M('picture');
+        // 验证通过 可以进行其他数据操作
+        if(!empty($_FILES['picname']['tmp_name'])){
+            $config = array(
+                'maxSize' => 5242880,
+                'rootPath' => './Upload/img/barpic/',
+                'saveName' => array('uniqid',''),
+                'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+                'autoSub' => true,
+                'subName' => array('date','Ymd'),
+            );
+            $upload = new \Think\Upload($config);// 实例化上传类
+            // 上传单个文件
+            $info = $upload->uploadOne($_FILES['picname']);
+            if(!$info) {// 上传错误提示错误信息
+                $this->error($upload->getError());
+            }else{// 上传成功 获取上传文件信息
+                $path = $info['savepath'].$info['savename'];
+                $image = new \Think\Image();
+                $image->open("./Upload/img/barpic/".$path);
+                $path = time().$info['savename'];
+                $image->thumb(160, 120)->save('./Upload/img/barpic-thumb/'.$path);
+            }
+        }
+        
+        if($path != ''){
+            $map['picname'] = $path;
+            $map['bid'] = I('get.id');
+            $pics = M('picture')->add($map);
+            if ($pics > 0) {
+                $this->success('添加成功'); 
+            } else {
+                $this->error('添加失败');
+            }
+            
+        } else {
+            $this->error('请上传图片');
+        }
+
+    }
+
+    public function del()
+    {
+        $data['id'] = I('get.picid');
+        $data['bid'] = I('get.id');
+        $del = M('picture')->where($data)->delete();
+        if ($del>0) {
+            $this->redirect('Barboss:picsView',array('id'=>$data['bid']));
+        } else {
+            $this->redirect('Barboss:picsView',array('id'=>$data['bid']));
+        }
+    }
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>娱乐花边</title>
+</head>
+<body>
+<foreach name='list' item='v'>
+    <div>
+        <h3 style='color:blue'><a href="<{$v.url}>">标题：<{$v.title}></a></h3>
+        <h4>类型：<{$v.description}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$v.ctime}></h4>
+    </div> 
+</foreach>
+</body>
+</html>

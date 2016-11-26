@@ -16,10 +16,13 @@ class BarController extends HomeController
             $this->display('Public:404');
             exit;
         }
-        $bar = M('bar')->field('state')->where('id='.I('get.id'))->find();
-        if($bar['state'] == 0){
+        
+        $bar = M('bar')->field('state, begstate')->where('id='.I('get.id'))->find();
+        if ($bar['begstate'] == 1 || $bar['begstate'] == 3) {
+            $this->error('该吧未创建', U('Index/index'));
+        } elseif ($bar['state'] == 0){
             $this->error('该吧已被禁用', U('Index/index'));
-        }
+        }  
     }
 
     public function index()

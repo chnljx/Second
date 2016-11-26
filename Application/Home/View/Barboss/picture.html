@@ -1,0 +1,82 @@
+<extend name="Public:base"/>
+<block name="head">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+  <title>个人中心--阡陌之家</title>
+  
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/css/style.css">
+  
+  <!-- Owl Carousel Assets -->
+  <link href="__PUBLIC__/looK/owl-carousel/owl.carousel.css" rel="stylesheet">
+  <link href="__PUBLIC__/looK/owl-carousel/owl.theme.css" rel="stylesheet">
+  
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="__PUBLIC__/looK/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
+  
+  <link rel="stylesheet" href="__PUBLIC__/css/info.css" />  
+
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui/css/H-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/Hui-iconfont/1.0.7/iconfont.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/lib/icheck/icheck.css" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/H-ui/static/h-ui.admin/css/style.css" />
+</block>
+<block name="main">
+<include file="Barboss:nav" />
+<if condition="$pics eq null">
+</div> 
+    <div class="hot_feed_blank">
+    
+        该吧还没有相册，去 <a href="javascript:;" onclick="picture_add('添加图片','<{:U('Barboss/addpic',array('id'=>$bar['id']))}>','400','300')">添加图片</a>
+        &nbsp;
+    
+    </div>
+</div>
+ <else/>
+<div class="clearfix u-f-wrap" id="forum_group_wrap">
+<div class="cl pd-5 bg-1 bk-gray " style='margin-bottom: 15px'> <span style='color:blue;float: left'>共有图片：<strong><{$count}></strong>张</span> <span style="float: right;color: blue" >去 <a href="javascript:;" class='btn btn-primary' onclick="picture_add('添加图片','<{:U('Barboss/addpic',array('id'=>$bar['id']))}>','400','300')">添加图片</a></span></div>
+<foreach name='pics' item='vs'>
+    <div class="row">
+    <foreach name='vs' item='v'>
+        <div class="col-xs-6 col-md-3">
+            <div class="zoom-container">
+            <img src="__UPLOAD__/img/barpic-thumb/<{$v.picname}>" class="img-rounded"></div><br>
+            <span><a href="<{:U('Barboss:del',array('id'=>$bar['id'],'picid'=>$v['id']))}>">删除</a></span>
+        </div>
+    </foreach>    
+    </div>
+</foreach>
+</div> 
+<{$page}>
+</if>
+</block>
+
+<block name="myjs">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script>
+
+<script>
+
+/*分类-添加*/
+function picture_add(title,url,w,h){
+    layer_show(title,url,w,h);
+}
+</script>
+</block>
+<block name="footer"></block>
