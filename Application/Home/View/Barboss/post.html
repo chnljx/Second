@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   
-  <title>个人中心--阡陌之家</title>
+  <title>帖子详情--阡陌之家</title>
   
   <!-- Bootstrap Core CSS -->
   <link rel="stylesheet" href="__PUBLIC__/looK/css/bootstrap.min.css"  type="text/css">
@@ -67,10 +67,10 @@
                 <foreach name='list' item='v'>
                 	<tr>
                     <td><{$v.name}></td>
-                    <td><a href="javascript:;" onclick="member_add('你现在正在和机器人对话','<{:U('Barboss/show')}>','','510')" >详情</a></td>
+                    <td><a href="javascript:;" onclick="member_add('<{$v.title}>','<{:U('Barboss/postshow')}>?poid=<{$v.id}>&id=<{$bar.id}>','','510')" ><{$v.title}></a></td>
                     <!-- <td><{$v.title}></td> -->
                     <!-- <td><{$v.descr}></td> -->
-                    <td><{$v.ctime}></td>
+                    <td><{$v.ctime|date="Y-m-d",###}></td>
                     <td style="text-align: center;"><a href="<{:U('barboss/hind')}>?postid=<{$v.id}>&id=<{$bar.id}>">删除</a></td>
                 </tr>
                 </foreach>
@@ -84,19 +84,18 @@
 </div> 
 </block>
 <!-- end main -->
-<script src='__PUBLIC__/js/jquery.min.js'></script>
-<!-- <script src="__PUBLIC__/js/holder.js"></script> -->
-<!-- <script src='__PUBLIC__/js/bootstrap.min.js'></script> -->
-
-<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
-<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<block name="myjs">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script>
+
 <script>
+
 /*分类-添加*/
 function member_add(title,url,w,h){
     layer_show(title,url,w,h);
 }
 </script>
+</block>
 <block name="footer"></block>

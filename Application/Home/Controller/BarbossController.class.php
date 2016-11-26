@@ -164,12 +164,20 @@ class BarbossController extends HomeController
         $list=M('')->table('qm_post p,qm_user u')->field('p.id,p.title,p.descr,p.ctime,u.name')->where("p.uid=u.id and p.bid='$bid' and p.state=1")->select();
         // var_dump($list);die;
         $count = M('Post')->where("bid='$bid' and state=1")->count('id');// 查询满足要求的总记录数
+
         $this->assign('bar',$bar);
         $this->assign('list',$list);
         $this->assign('count',$count);
+        $this->assign('post',$post);
         $this->display('Barboss:post');
     }
 
+
+    /**
+    * 帖子删除/隐藏
+    * @access public        
+    * @return void
+    */
     public function hind()
     {
         $postid=I('get.postid');
@@ -185,14 +193,50 @@ class BarbossController extends HomeController
     }
 
 
-    // 显示帖子完整内容
-    public function show()
+     /**
+    * 帖子整个内容
+    * @access public        
+    * @return void
+    */
+    public function postshow()
     {
-        $data=M('post')->where('id='.I('get.pid'))->find();
+        $id = I('get.id');
+        $poid=I('get.poid');
 
-        // var_dump($pic);
-        $this->assign('data', $data);
-        $this->display('Barboss/content-show');
+        $data=M('post')->where("id='$poid'")->find();
+
+        $list=M('')->table('qm_user u,qm_comment c')->field('u.name,c.id,c.ctime,c.content')->where("u.id=c.uid and c.postid='$poid' and c.state=1")->page($_GET['p'],5)->select();
+
+        $count=M('')->table('qm_user u,qm_comment c')->field('u.name,c.id,c.ctime,c.content')->where("u.id=c.uid and c.postid='$poid' and c.state=1")->count('c.id');
+        $Page = new \Think\Page($count,5);
+
+        $show =$Page->show();
+
+        $this->assign('data',$data);
+        $this->assign('id',$id);
+        $this->assign('count',$count);
+        $this->assign('list',$list);
+        $this->assign('page',$show);
+        $this->display('Barboss/postshow');
+    }
+
+    /**
+    * 帖子评论的删除/隐藏
+    * @access public        
+    * @return void
+    */
+     public function commenthind()
+    {
+        $posid=I('get.posid');
+        // var_dump($postid);
+        $map['state']=0;
+        $data=M('comment')->where("id='$posid'")->save($map);
+        if($data>0){
+            $this->success("删除成功");
+        }else{
+            $this->error("删除失败");
+        }
+
     }
 
 

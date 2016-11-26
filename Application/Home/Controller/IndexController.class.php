@@ -28,14 +28,16 @@ class IndexController extends HomeController {
         $t_id=M('type')->where("name='$t_name'")->field('id')->find();
         $tid=$t_id['id'];
         $bar=M('bar')->where('state=1')->order('id desc')->select();
-        $dmbar=M('bar')->where("state=1 and typeid='$tid'")->limit(2)->select();
         $zxbar=M('bar')->where("state=1 and typeid='$tid'")->order('id desc')->find();
+        $zxid=$zxbar['id'];
+        $dmbar=M('bar')->where("state=1 and typeid='$tid' and id!='$zxid'")->limit(2)->select();
 
         // 内地综艺
         $typename="内地综艺";
         $typename_id=M('type')->field('id')->where("name='$typename'")->find();
         $bar_type_id=$typename_id['id'];
         $bar_mes=M('bar')->where("state=1 and typeid='$bar_type_id'")->limit('2')->select();
+        $bar_count=M('bar')->where("state=1 and typeid='$bar_type_id'")->limit('2')->count('id');
         // var_dump($bar_mes);
 
         // 豪友俱乐部
@@ -47,6 +49,7 @@ class IndexController extends HomeController {
         $bar_id=M('bar')->field('id')->where("state=1 and name='$name'")->find();
         $barid=$bar_id['id'];
         $picture=M('picture')->field('picname')->where("bid='$barid'")->select();
+        $pic_count=M('picture')->field('picname')->where("bid='$barid'")->count('id');
         $a=0;
         foreach ($picture as $k => $v) {
             // var_dump($v);
@@ -117,8 +120,10 @@ class IndexController extends HomeController {
         $this->assign('user_exp',$user_exp);
 
         $this->assign('bar_mes',$bar_mes);
+        $this->assign('bar_count',$bar_count);
 
         $this->assign('arr',$arr);
+        $this->assign('pic_count',$pic_count);
 
         $this->assign('photo',$photo);
 

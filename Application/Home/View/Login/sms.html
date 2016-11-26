@@ -108,7 +108,7 @@ function sendyzm()
 {
     $.post("<{:U('Login/yzm')}>", {'phoneyzm': $('#phoneyzm').val()}, function(data) {
         if(data === false) {
-            alert("没有该用户");
+            alert("验证码错误");
         } else {
             location.assign("<{:U('findwd1')}>")
         }
