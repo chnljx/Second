@@ -130,7 +130,7 @@
             <div class="content col-md-6" style='margin-top: 10px;'>
                 
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">关注：<span style="color:#f9ab55;" id="follow"><{$follow}></span></span>
-                    <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">图片：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
+                    <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">相册：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
 
                     <if condition="$Think.session.home_user.id eq $bar['uid']">
                         <a href='<{:U("Barboss/index")}>?id=<{$bar.id}>' target='_blank'  class="btn btn-danger" style='margin-left: 80px'>管理贴吧</a>
@@ -349,7 +349,7 @@
     {
        $.post("<{:U('Type/dosearch')}>", {'name': $('#name').val()}, function(data) {
             if(data === false) {
-                alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Barboss/apply")}>?name="+$('#name').val();
+                alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Bar/apply")}>?name="+$('#name').val();
             } else {
                 location.assign('<{:U("bar/index", "","",true)}>?id=' + data);
             }
