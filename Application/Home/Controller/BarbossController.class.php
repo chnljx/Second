@@ -24,11 +24,11 @@ class BarbossController extends HomeController
         }
 
         $bar = M('bar')->field('state, begstate')->where('id='.I('get.id'))->find();
-        if($bar['state'] == 0){
-            $this->error('该吧已被禁用', U('Index/index'));
-        } else if ($bar['begstate'] == 1 || $bar['begstate'] == 3) {
+        if ($bar['begstate'] == 1 || $bar['begstate'] == 3) {
             $this->error('该吧未创建', U('Index/index'));
-        }
+        } elseif ($bar['state'] == 0){
+            $this->error('该吧已被禁用', U('Index/index'));
+        } 
 
         $boss = M('bar')->where('id='.I('get.id').' and uid='.session('home_user.id'))->find();
         // 没有找到对应的吧主
@@ -286,7 +286,51 @@ class BarbossController extends HomeController
 
     public function addpic()
     {
+        $this->assign('id',I('get.id'));
         $this->display();
+    }
+
+    public function savepic()
+    {
+        $pic = M('picture');
+        // 验证通过 可以进行其他数据操作
+        if(!empty($_FILES['picname']['tmp_name'])){
+            $config = array(
+                'maxSize' => 5242880,
+                'rootPath' => './Upload/img/barpic/',
+                'saveName' => array('uniqid',''),
+                'exts' => array('jpg', 'gif', 'png', 'jpeg'),
+                'autoSub' => true,
+                'subName' => array('date','Ymd'),
+            );
+            $upload = new \Think\Upload($config);// 实例化上传类
+            // 上传单个文件
+            $info = $upload->uploadOne($_FILES['picname']);
+            if(!$info) {// 上传错误提示错误信息
+                $this->error($upload->getError());
+            }else{// 上传成功 获取上传文件信息
+                $path = $info['savepath'].$info['savename'];
+                $image = new \Think\Image();
+                $image->open("./Upload/img/barpic/".$path);
+                $path = time().$info['savename'];
+                $image->thumb(160, 120)->save('./Upload/img/barpic-thumb/'.$path);
+            }
+        }
+        
+        if($path != ''){
+            $map['picname'] = $path;
+            $map['bid'] = I('get.id');
+            $pics = M('picture')->add($map);
+            if ($pics > 0) {
+                $this->success('添加成功'); 
+            } else {
+                $this->error('添加失败');
+            }
+            
+        } else {
+            $this->error('请上传图片');
+        }
+
     }
 
     public function del()

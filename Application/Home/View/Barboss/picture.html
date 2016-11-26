@@ -41,20 +41,20 @@
 </div> 
     <div class="hot_feed_blank">
     
-        该吧还没有相册，去 <a href="">添加图片</a>
+        该吧还没有相册，去 <a href="javascript:;" onclick="picture_add('添加图片','<{:U('Barboss/addpic',array('id'=>$bar['id']))}>','400','300')">添加图片</a>
         &nbsp;
     
     </div>
 </div>
  <else/>
 <div class="clearfix u-f-wrap" id="forum_group_wrap">
-<div class="cl pd-5 bg-1 bk-gray " style='margin-bottom: 15px'> <span style='color:blue;float: left'>共有图片：<strong><{$count}></strong>张</span> <span style="float: right;color: blue" onclick="addpic()">去 <a href="javascript:;" class='btn btn-primary'>添加图片</a></span></div>
+<div class="cl pd-5 bg-1 bk-gray " style='margin-bottom: 15px'> <span style='color:blue;float: left'>共有图片：<strong><{$count}></strong>张</span> <span style="float: right;color: blue" >去 <a href="javascript:;" class='btn btn-primary' onclick="picture_add('添加图片','<{:U('Barboss/addpic',array('id'=>$bar['id']))}>','400','300')">添加图片</a></span></div>
 <foreach name='pics' item='vs'>
     <div class="row">
     <foreach name='vs' item='v'>
         <div class="col-xs-6 col-md-3">
             <div class="zoom-container">
-            <img src="__UPLOAD__/img/barpic-thumb/<{$v.picname}>" class="img-rounded"></div>
+            <img src="__UPLOAD__/img/barpic-thumb/<{$v.picname}>" class="img-rounded"></div><br>
             <span><a href="<{:U('Barboss:del',array('id'=>$bar['id'],'picid'=>$v['id']))}>">删除</a></span>
         </div>
     </foreach>    
@@ -63,33 +63,20 @@
 </div> 
 <{$page}>
 </if>
-<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
-<script type="text/javascript" src="__PUBLIC__/H-ui/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script>
-<script type="text/javascript">
-function addpic(){
-  // layer_show(title,url,w,h);
-  layer.open({
-          type: 1,
-          skin: 'layui-layer-rim', //加上边框
-          area: ['450px', '280px'], //宽高
-          btn: ['确认', '取消'],
-          title: '添加图片',
-          yes: function(index, layero){
-            $.post("<{:U('Barboss/addpic')}>",{'sms':$('#smsinput').val()},function(res){
-                  if (res == true) {
-                    location.href="<{:U('Profile/updatepwd')}>";
-                    // layer.closeAll();
-                    // changepwd();
-                  }else{
-                    layer.tips('验证码不正确','#smsinput');
-                  }
-            })
-          },
-          content: '<form action="<{:U(\'User/save\')}>" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data"><label class="form-label col-xs-4 col-sm-3">头像：</label><div class="formControls col-xs-6 col-sm-7"> <span class="btn-upload form-group"><input class="input-text upload-url" type="text" placeholder="图片大小限制5MB" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px"><a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a><input type="file" multiple name="picname" class="input-file"></span> </div></form>'
-        });
+</block>
+
+<block name="myjs">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script>
+
+<script>
+
+/*分类-添加*/
+function picture_add(title,url,w,h){
+    layer_show(title,url,w,h);
 }
 </script>
 </block>
-
 <block name="footer"></block>

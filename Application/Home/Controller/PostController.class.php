@@ -21,6 +21,12 @@ class PostController extends HomeController
             $this->error('该帖已被删除',U('Bar/index',array('id'=>$post['bid'])));
             exit;
         }
+
+        $bar = M('bar')->field('state')->where('id='.$post['bid'])->find();
+        if($bar['state'] == 0){
+            $this->error('该吧已被禁用', U('Index/index'));
+            exit;
+        }
         // 楼主
         $arr = M('post')->field('b.name bname, b.picname bpic, u.name uname, u.picname upic, u.exp, p.uid ,p.bid, p.title, p.descr, p.ctime, p.id')->table('qm_user u, qm_bar b, qm_post p')->where('p.id='.I('get.id').' and u.id=p.uid and b.id=p.bid')->find();
         if (!empty($_SESSION['home_user'])) {
@@ -62,7 +68,9 @@ class PostController extends HomeController
         $this->assign('follow',$follow);
         $this->assign('post',$post);
         $this->assign('arr',$arr);
-		$this->display();
+
+        $this->display();
+
 	}
 
     // 添加帖子
@@ -98,8 +106,81 @@ class PostController extends HomeController
     }
 
     //百度分享
-    public function baidu(){
+    public function baidu()
+    {
         $this->display('Post/index');
     }
 
+    // 雷人笑话 接口
+    public function joke()
+    {
+        
+        $curl = curl_init();
+        // var_dump($curl);//得到资源
+
+        // 设置APIKEY url形式
+        $apikey = "c7d6375287125e39a083e2c6e9372840";
+        //URL 设置
+        curl_setopt($curl, CURLOPT_URL, 'http://api.tianapi.com/txapi/joke/?key='.$apikey);
+        //将 curl_exec() 获取的信息以 文件流的形式返回,而不是直接输出
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        //curl执行
+        $data = curl_exec($curl);
+        // var_dump($data);//得到的是一个json字串
+
+        //关闭curl
+        curl_close($curl);
+
+        //处理JSON数据
+        $jsonObj = json_decode($data);
+        //提取文章列表
+        $newslist = $jsonObj->newslist;
+        // var_dump($newslist[0]);
+        $list = $newslist[0];
+        $arr['title'] = $list->title;
+        $arr['type'] = $list->type;
+        $arr['content'] = $list->content;
+        $this->assign('list',$arr);
+        $this->display();  
+    }
+
+    // 脑筋急转弯 接口
+    public function word()
+    {
+        
+        $curl = curl_init();
+        // var_dump($curl);//得到资源
+
+        // 设置APIKEY url形式
+        $apikey = "c7d6375287125e39a083e2c6e9372840";
+        //URL 设置
+        curl_setopt($curl, CURLOPT_URL, 'http://api.tianapi.com/huabian/?key='.$apikey.'&num=10');
+        //将 curl_exec() 获取的信息以 文件流的形式返回,而不是直接输出
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        //curl执行
+        $data = curl_exec($curl);
+        // var_dump($data);//得到的是一个json字串
+
+        //关闭curl
+        curl_close($curl);
+
+        //处理JSON数据
+        $jsonObj = json_decode($data);
+        //提取文章列表
+        $newslist = $jsonObj->newslist;
+        
+        foreach ($newslist as $k => $v) {
+            $arr[$k]['ctime'] =$v->ctime;
+            $arr[$k]['title'] =$v->title;
+            $arr[$k]['url'] =$v->url;
+            $arr[$k]['description'] =$v->description;
+            $arr[$k]['picUrl'] =$v->picUrl;
+
+        }
+        
+        $this->assign('list',$arr);
+        $this->display();  
+    }
 }

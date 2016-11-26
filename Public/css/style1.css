@@ -21,32 +21,7 @@
 
 }
 
-.wrap-footer{
-    /*background: #EFEFEF;*/
-}
-#footer{
-    list-style: none;
-}
-#footer li{
-    width:100px;
-    border-right: 1px dashed #999;
-    margin-top: 10px;
-}
-.footer-heading{
-    float: left;
-}
-.footer {
-    /*background-color: #EFEFEF;*/
-    border-top: 1px solid #E7E7E7;
-    margin: 0;
-    font-size: 12px;
-    text-align: center;
-    clear: both;
-    line-height: 22px;
-    text-align: center;
-    margin: 8px auto 0;
-    display: block;
-}
+
 .content{
     float:left;
     margin-left: -15px;

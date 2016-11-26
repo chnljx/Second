@@ -22,6 +22,11 @@ class CommentController extends HomeController
             $this->error('该帖已被删除',U('Bar/index',array('id'=>$post['bid'])));
             exit;
         }
+        $bar = M('bar')->field('state')->where('id='.$post['bid'])->find();
+        if($bar['state'] == 0){
+            $this->error('该吧已被禁用', U('Index/index'));
+            exit;
+        }
         $data = $_POST;
         $post = D("Comment"); // 实例化User对象
         if (!$post->create($data)){ 

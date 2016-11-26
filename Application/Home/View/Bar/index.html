@@ -55,32 +55,7 @@
             background: #fff;
             border-radius: 50px;
         }
-        .wrap-footer{
-            /*background: #EFEFEF;*/
-        }
-        #footer{
-            list-style: none;
-        }
-        #footer li{
-            width:100px;
-            border-right: 1px dashed #999;
-            margin-top: 10px;
-        }
-        .footer-heading{
-            float: left;
-        }
-        .footer {
-            /*background-color: #EFEFEF;*/
-            border-top: 1px solid #E7E7E7;
-            margin: 0;
-            font-size: 12px;
-            text-align: center;
-            clear: both;
-            line-height: 22px;
-            text-align: center;
-            margin: 8px auto 0;
-            display: block;
-        }
+        
         .content{
             float:left;
             margin-left: -15px;
@@ -249,13 +224,12 @@
                     
                     <div class="heading"><h4>吧主</h4></div>
                     <div class="content">
-                        <div>
-                        
 						<div class='col-md-10'>
 							<if condition='$bar.uname eq "admin"'>
 								<!-- <div  class="btn btn-danger bossbeg" style='margin-left: 80px'>申请吧主</div> -->
                                 <a href='<{:U("Bar/boss")}>?id=<{$bar.id}>'  class="btn btn-danger" style='margin-left: 80px'>申请吧主</a>
 							<else/>
+                            <div>
                                 <div class='col-md-6'>
                                     <img src="__UPLOAD__/img/avatar-thumb/<{$bar.upic}>" width=100>
                                     <input type="hidden" id='bid' value='<{$bar.id}>'>
@@ -263,7 +237,7 @@
                                 
 								<h6 style='color:blue;font-size: 18px;font-weight: bold;'>吧主：<{$bar.uname}></h6>
                            
-							</if>
+							
 							
 							<p style='color:#999;margin-top: 10px'><b>吧主简介：<{$bar.udescr}></b></p>
 						</div>
@@ -292,12 +266,14 @@
                             </li>
 
                         </ul>
+
                         </div>
+                        </if>
                         <div class="heading"><h4>关注贴吧</h4></div>
                         <div class="content" style='margin-top: 10px'>
                         <span class='actionbtn'>
                             <if condition='($Think.session.home_user eq "") or ($user eq "")'>
-                                <a href="javascript:;" class="btn btn-danger" style='margin-left:40px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
+                                <a href="javascript:;" class="btn btn-danger" style='margin-left:100px' onclick="start()"><span class='glyphicon glyphicon-heart'></span>关注</a>
                             <else/>
                                 <a href="javascript:;" class="btn btn-default" style='margin-left:40px' onclick="closebtn()"><span class='glyphicon glyphicon-ok' ></span>已关注 | 取消</a>
                             </if>

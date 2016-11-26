@@ -303,12 +303,33 @@ class BarController extends AdminController
             
             $data['begstate'] = 2;
             $data['state'] = 1;
+
             $user = M('bar')->where('id='.I('post.id'))->save($data);
             if ($user == false) {
                 $this->ajaxReturn(false);                
-               
             } else {
-                $this->ajaxReturn(true);
+                // 同意创建贴吧 则默认申请人为吧主
+                $uid = M('bar')->where('id='.I('post.id'))->find();
+                $role['uid'] = $uid['uid'];
+                $rid = M('role')->field('id')->where(array('name'=>array('eq', '吧主')))->find();
+                $role['rid'] = $rid['id'];
+                $rolenum = M('user_role')->where($role)->find();
+                // 判断用户角色表中是否已有 没有  进行添加
+                if ($rolenum) {
+                    $this->ajaxReturn(true);
+                } else {
+                    $user_role = M('user_role')->add($role);
+                    // 如果用户角色表没有添加成功 则将创建贴吧申请状态恢复
+                    if ($user_role == false) {
+                        $bar['state'] = 0;
+                        $bar['begstate'] = 1;
+                        
+                        $msg = M('bar')->where('id='.I('post.bid'))->save($bar);
+                        $this->ajaxReturn(false);
+                    } else {
+                        $this->ajaxReturn(true);
+                    }
+                }
             } 
         }
            
