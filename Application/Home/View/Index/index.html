@@ -435,7 +435,7 @@ function search()
         if(data === false) {
             // alert("没有该吧");
             // location.assign('<{:U("Bar/apply", "","",true)}>');
-            alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Bar/apply")}>?name="+$('#name').val();
+            alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Apply/index")}>?name="+$('#name').val();
         } else {
             location.assign('<{:U("bar/index", "","",true)}>?id=' + data);
         }
