@@ -80,7 +80,7 @@ class IndexController extends HomeController {
         // var_dump($curl);
 
         // 设置APIKEY url 形式
-        // $apikey="85b64c40553fa3027b064ca0d7e53b7e";
+        $apikey="85b64c40553fa3027b064ca0d7e53b7e";
 
         // URL设置
         curl_setopt($curl, CURLOPT_URL, 'http://api.tianapi.com/keji/?key='.$apikey.'&num=5');
