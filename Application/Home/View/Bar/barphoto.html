@@ -130,7 +130,7 @@
             <div class="content col-md-6" style='margin-top: 10px;'>
                 
                     <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">关注：<span style="color:#f9ab55;" id="follow"><{$follow}></span></span>
-                    <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">贴子：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
+                    <span style="color:#b9b1c4;font-size:19px;margin-left: 20px;">图片：<span style="color:#f9ab55;" id="follow"><{$num}></span></span>
 
                     <if condition="$Think.session.home_user.id eq $bar['uid']">
                         <a href='<{:U("Barboss/index")}>?id=<{$bar.id}>' target='_blank'  class="btn btn-danger" style='margin-left: 80px'>管理贴吧</a>
@@ -161,8 +161,8 @@
     </div> -->
     <div class='nav-main container' style="background:#f2f2f2;">
         <ul>
-            <li style="background:white;"><a href="">看帖</a></li>
-            <li><a href='<{:U("Bar/barphoto")}>?id=<{$bar.id}>'>相册</a></li>
+            <li><a href='<{:U("Bar/index")}>?id=<{$bar.id}>'>看帖</a></li>
+            <li style="background:white;"><a href='<{:U("Bar/barphoto")}>?id=<{$bar.id}>'>相册</a></li>
         </ul>
     </div>
 
@@ -175,26 +175,15 @@
                 <table class="table table-hover" style="table-layout:fixed;">
                     <tbody>
                     <foreach name='list' item='v'>
-                        <tr>
-                            <td class="col-md-1"><span class="badge" style="width:35px;color:#666666;background-color: #F7F7F7;"><{$v.comcount}></span></td>
-                            <td class="col-md-7" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                                <p style="padding-bottom:10px;"><a href="<{:U('Post/index')}>?id=<{$v.id}>" class="ptitle" target='_blank'><{$v.title}></a></p>
-                                <span style="font-size: 10px;"><{$v.descr}></span>
-                            </td>
-                            <td style="text-align: center;"><{$v.uname}></td>
-                            <td class="col-md-3" style="text-align: right;"><{$v.ctime|post_time}></td>
-                        </tr>
+                        <div style="margin-top:5px;">
+                        <img style="width:250px;height:200px;float:left;margin-top:5px;margin-left:10px;" src="__UPLOAD__/img/tieba-thumb/<{$v.picname}>" alt="">
+                        </div>
                     </foreach>
                     <if condition="$list eq null">
-                        <tr>
-                            <td class="col-md-1"><span class="badge" style="width:35px;color:#666666;background-color: #F7F7F7;">0</span></td>
-                            <td class="col-md-7">
-                                <p  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-bottom: 10px;"><a class="ptitle">欢迎来到<{$bar.name}></a></p>
-                                <span style="font-size: 10px;">你可以开始畅所欲言了</span>
-                            </td>
-                            <td>admin</td>
-                            <td class="col-md-3" style="text-align: right;"></td>
-                        </tr>
+                        <div style="height:500px;">
+                        该吧还没有上传任何照片
+                        <img src="__UPLOAD__/img/tieba-thumb/pao.gif" alt="">
+                    </div>
                     </if>
                     </tbody>
                 </table>
@@ -202,45 +191,7 @@
             </div>
         
                 
-        <!-- 发表评论开始 -->
-        <div style='background:#EFEFEF;margin-top: 50px'>
-            <h5 style='color: blue;font-size: 16px;margin-top: 10px'><span class='glyphicon glyphicon-pencil'>发表新帖</span></h5>
-            <span style='font-size: 16px;margin-top: 10px'>标题</span>
-            <form action="<{:U('Post/doAdd')}>" method="post">
-                <input type="hidden" name="bid" value="<{$bar.id}>"> 
-                <input type="hidden" name="uid" value="<{$Think.session.home_user.id}>"> 
-                <input type="text" id='title' name="title" style='width:658px;height:30px' placeholder="请输入不超过19个字符的标题">  
-
-            <script id="container" name="descr" type="text/plain" style="width:650px;height:220px">
-            </script>
-            <!-- 配置文件 -->
-            <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
-            <!-- 编辑器源码文件 -->
-            <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
-            <!-- 实例化编辑器 -->
-            <script type="text/javascript">
-                var ue = UE.getEditor('container',{
-                    indentValue:'2em'
-                    ,initialFrameWidth:650  //初始化编辑器宽度,默认1000
-                    ,initialFrameHeight:220  //初始化编辑器高度,默认320
-                    ,zindex:650
-                    , toolbars: [[
-                    'fullscreen', 'undo', 'redo', '|',
-                    'bold', 'italic', 'underline', 'fontborder', 'rowspacingbottom', 'lineheight', '|', 'fontfamily', 'fontsize', '|',
-                    'directionalityltr', 'directionalityrtl', 'indent', '|',
-                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
-                    'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', '|',
-                    'horizontal', 'date', 'time', 'snapscreen'
-                    ]]
-                    //是否启用元素路径，默认是显示
-                    ,elementPathEnabled :false
-                    ,autoHeightEnabled: false
-                });
-            </script>
-            <input type="submit" name="" value="提交" id='submit' class='btn btn-primary'>
-            </form>
-                    
-        </div> 
+    
                     
         <!-- 发表评论结束-->
         </div>
@@ -355,42 +306,7 @@
                     </div>
                 </div>
                 </if>
-                <div class="widget ">
-                    <div class="heading"><h4>天气预报</h4></div>
-                    <!-- <form action="<{:U('Bar/index')}>" method="post">
-                        <input type="text" name="city" value="" placeholder="请输入城市名拼音:">
-                        <button>查询</button>
-                    </form> -->
-                    <if condition="$daily eq null">
-                       查无数据!
-                    <else/>
-                    <table width="280" style="text-align:center;margin-top: 15px"> 
-                        <span style="margin-top: 15px;font-size: 16px">城市:<{$city}></span>
-                        <tr>
-                            <th>天气:</th>
-                            <th>气温:</th>
-                            <th>日期:</th>
-                        </tr>
-                        
-                        <volist name="daily" id="t">
-                            <tr>
-                                <td>
-                                    <{$t->text_day}> 转 
-                                    <{$t->text_night}>
-                                </td>
-                                <td>
-                                     <{$t->low}>℃ ~
-                                     <{$t->high}>℃
-                                </td>
-                                <td>
-                                    <{$t->date}>
-                                </td>
-                            </tr>
-
-                        </volist>
-                    </table>
-                    </if>
-                    </div>
+               
                 </div>
             </div>
 
@@ -433,7 +349,7 @@
     {
        $.post("<{:U('Type/dosearch')}>", {'name': $('#name').val()}, function(data) {
             if(data === false) {
-                alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Bar/apply")}>?name="+$('#name').val();
+                alert("没有该吧，马上去申请建吧");window.location.href="<{:U("Barboss/apply")}>?name="+$('#name').val();
             } else {
                 location.assign('<{:U("bar/index", "","",true)}>?id=' + data);
             }

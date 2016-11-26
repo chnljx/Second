@@ -171,4 +171,80 @@ class BarController extends HomeController
         
     }
 
+    public function barphoto()
+    {
+       
+        if (empty(I('get.id'))) {
+            $this->display('Public:404');
+            exit;
+        }
+        if (!empty($_SESSION['home_user'])) {
+            $user = M('follow')->where('bid='.I('get.id').' and uid='.$_SESSION['home_user']['id'])->find();
+        }
+        // 贴吧名
+        $bar = M('bar')->field('b.name, b.picname, b.id, b.uid, u.name uname, u.descr udescr, u.picname upic, b.descr, t.name tname')->table('qm_bar b,qm_user u, qm_type t')->where('b.id='.I('get.id').' and b.uid=u.id and t.id=b.typeid')->find();
+
+        if ($bar.uid != 1) {
+            $counts['follow'] = M('follow')->where('uid='.$bar['uid'])->count();
+            $counts['post'] = M('post')->where('uid='.$bar['uid'])->count();
+
+        }
+        // 关注人数
+        $follow = M('follow')->where('bid='.I('get.id'))->count();
+
+        // 图片
+        $list=M('picture')->where('bid='.I('get.id'))->select();
+
+        // 分页
+        $count = M('picture')->where('bid='.I('get.id'))->count();
+
+        $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
+
+        $Page->setConfig('first','首页');
+        $Page->setConfig('last','尾页');
+        $Page->setConfig('prev','上一页');
+        $Page->setConfig('next','下一页');
+        
+        $Page->setConfig('theme','
+            <nav>
+              <ul class="pagination">
+                <li>%FIRST%</li>
+                <li>%UP_PAGE%</li>
+                <li>%LINK_PAGE%</li>
+                <li>%DOWN_PAGE%</li>
+                <li>%END%</li>
+              </ul>
+            </nav>
+        ');
+
+        $show = $Page->show();// 分页显示输出
+        $this->assign('page',$show);
+
+        // 贴吧名人
+        $supfans = M('follow')->field('u.name, u.exp, u.picname')->table('qm_user u, qm_follow f')->where('f.bid='.I('get.id').' and f.uid=u.id')->order('u.exp desc')->limit(3)->select();
+
+        foreach ($list as $k=>$v) {
+            // 收藏
+            $num = M('collection')->where('postid='.$v['id'])->select();
+            // 回复
+            $nums = M('comment')->where('postid='.$v['id'])->select();
+            // $pics = M('post_photo')->field('picname')->where('postid='.$v['id'])->limit(1)->select();
+            $list[$k]['count']=count($num);
+            $list[$k]['comcount']=count($nums);
+            // $list[$k]['pics']=$pics[0]['picname'];
+            // $list[$k]['picnum']=count($pics);
+
+        }
+
+        $this->assign('datas',$data);
+        $this->assign('user',$user);
+        $this->assign('list',$list);
+        $this->assign('num',$count);
+        $this->assign('bar',$bar);
+        $this->assign('follow',$follow);
+        $this->assign('supfans',$supfans);
+        $this->assign('count',$counts);
+        $this->display();
+    }
+
 }
