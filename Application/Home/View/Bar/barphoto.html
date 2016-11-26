@@ -24,82 +24,11 @@
     <link rel="stylesheet" href="__PUBLIC__/look/font-awesome-4.4.0/css/font-awesome.min.css"  type="text/css">
 
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style2.css">
     <!-- jQuery and Modernizr-->
     <script src="__PUBLIC__/look/js/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
-    <style type="text/css">
-        .container{
-            width:1000px;
-        }
-        .nav-main{
-            margin-top: 10px;
-            width:1000px;
-            height:50px;
-            line-height: 50px;
-            background: #A2E3EA;
-        }
-        .nav-main ul{
-            list-style: none;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .nav-main ul li{
-            float: left;
-            margin-left: 20px;
-            display:block;
-            width:100px;
-            text-align: center;
-
-        }
-        .nav-main ul li:hover{
-            background: #fff;
-            border-radius: 50px;
-        }
-        .wrap-footer{
-            /*background: #EFEFEF;*/
-        }
-        #footer{
-            list-style: none;
-        }
-        #footer li{
-            width:100px;
-            border-right: 1px dashed #999;
-            margin-top: 10px;
-        }
-        .footer-heading{
-            float: left;
-        }
-        .footer {
-            /*background-color: #EFEFEF;*/
-            border-top: 1px solid #E7E7E7;
-            margin: 0;
-            font-size: 12px;
-            text-align: center;
-            clear: both;
-            line-height: 22px;
-            text-align: center;
-            margin: 8px auto 0;
-            display: block;
-        }
-        .content{
-            float:left;
-            margin-left: -15px;
-        }
-        .heading{
-            margin-top: 20px;
-        }
-        .setchose ul li{float: left;width: 100px;list-style: none;}
-       
-
-        .ptitle{
-            font-size: 16px;
-            color: #2D64B3;
-        }
-        .ptitle:hover{
-            text-decoration: underline;
-            color: #2D64B3;
-        }
-    </style>
+    
 </block>
 <block name="main">
     <!--Top-->
@@ -141,24 +70,7 @@
         </div>
     </div>
 
-    <!-- 轮播图 -->
-<!--     <div class="featured container">
-        <div id="owl-demo" class="owl-carousel">    
-        <volist name='datas' id='vo'>
-            <div class="item">
-                <div class="zoom-container">
-                    <div class="zoom-caption">
-                        <a href="single.html">
-                            <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-                        </a>
-                    </div>
-                    <img src="__UPLOAD__/img/barpic-thumb/<{$vo.picname}>" />
-                </div>
-            </div>
-        </volist>
-        
-        </div>    
-    </div> -->
+
     <div class='nav-main container' style="background:#f2f2f2;">
         <ul>
             <li><a href='<{:U("Bar/index")}>?id=<{$bar.id}>'>看帖</a></li>
@@ -175,14 +87,14 @@
                 <table class="table table-hover" style="table-layout:fixed;">
                     <tbody>
                     <foreach name='list' item='v'>
-                        <div style="margin-top:5px;">
-                        <img style="width:250px;height:200px;float:left;margin-top:5px;margin-left:10px;" src="__UPLOAD__/img/tieba-thumb/<{$v.picname}>" alt="">
+                        <div>
+                        <img style="width:150px;height:100px;float:left;margin-top:50px;margin-left:50px;" src="__UPLOAD__/img/barpic-thumb/<{$v.picname}>" alt="">
                         </div>
                     </foreach>
                     <if condition="$list eq null">
                         <div style="height:500px;">
                         该吧还没有上传任何照片
-                        <img src="__UPLOAD__/img/tieba-thumb/pao.gif" alt="">
+                        <img src="__UPLOAD__/img/barpic-thumb/pao.gif" alt="">
                     </div>
                     </if>
                     </tbody>

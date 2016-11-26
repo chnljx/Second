@@ -1,0 +1,46 @@
+.container{
+            width:1000px;
+        }
+        .nav-main{
+            margin-top: 10px;
+            width:1000px;
+            height:50px;
+            line-height: 50px;
+            background: #A2E3EA;
+        }
+        .nav-main ul{
+            list-style: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-main ul li{
+            float: left;
+            margin-left: 20px;
+            display:block;
+            width:100px;
+            text-align: center;
+
+        }
+        .nav-main ul li:hover{
+            background: #fff;
+            border-radius: 50px;
+        }
+        
+        .content{
+            float:left;
+            margin-left: -15px;
+        }
+        .heading{
+            margin-top: 20px;
+        }
+        .setchose ul li{float: left;width: 100px;list-style: none;}
+       
+
+        .ptitle{
+            font-size: 16px;
+            color: #2D64B3;
+        }
+        .ptitle:hover{
+            text-decoration: underline;
+            color: #2D64B3;
+        }

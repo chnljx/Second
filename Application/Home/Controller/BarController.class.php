@@ -196,12 +196,12 @@ class BarController extends HomeController
         $follow = M('follow')->where('bid='.I('get.id'))->count();
 
         // 图片
-        $list=M('picture')->where('bid='.I('get.id'))->select();
+        $list=M('picture')->where('bid='.I('get.id'))->page($_GET['p'],12)->select();
 
         // 分页
         $count = M('picture')->where('bid='.I('get.id'))->count();
 
-        $Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
+        $Page = new \Think\Page($count,12);// 实例化分页类 传入总记录数和每页显示的记录数
 
         $Page->setConfig('first','首页');
         $Page->setConfig('last','尾页');
