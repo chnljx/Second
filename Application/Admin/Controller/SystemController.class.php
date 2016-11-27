@@ -30,7 +30,7 @@ class SystemController extends AdminController
 
         // 统计用户
 
-        $user = M('user_role')->field('u.regtime ctime')->table('qm_user u, qm_user_role ur,qm_role r')->where('r.id=ur.rid and u.id=ur.uid and (r.name="普通用户" or r.name="吧主")')->select();
+        $user = M('user_role')->field('u.regtime ctime')->table('qm_user u, qm_user_role ur,qm_role r')->where('r.id=ur.rid and u.id=ur.uid and r.name="普通用户"')->select();
         $usernum = $this->num($user);
         $usernum['num'] = count($user);
 
