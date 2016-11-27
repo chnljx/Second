@@ -76,7 +76,7 @@ function pieChart() {
       } else {
        var value = parseFloat($(this).text());
        totalValue += value;
-       value = value.toFixed(2);
+       // value = value.toFixed(2);
        chartData[currentRow]['value'] = value;
       }
 
