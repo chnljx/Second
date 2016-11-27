@@ -35,7 +35,8 @@ class CommentController extends HomeController
 
             // 执行添加
             if ($post->add() > 0) {
-                $exp['exp']=50;
+                $exps = M('User')->where('id='.$data['uid'])->find();
+                $exp['exp']=50+$exps['exp'];
                 M('User')->where('id='.$data['uid'])->save($exp);
                 $this->success('添加成功', U('Post/index',array('id'=>$data['postid'])));
             } else {
