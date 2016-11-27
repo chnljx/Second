@@ -8,7 +8,7 @@ use Think\Controller;
 * @author xiao 
 * @version 1.0
 */
-class LinkController extends Controller
+class LinkController extends AdminController
 {
     public function index()
     {
