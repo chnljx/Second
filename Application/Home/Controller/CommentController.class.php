@@ -30,12 +30,9 @@ class CommentController extends HomeController
         $data = $_POST;
         $post = D("Comment"); // 实例化User对象
         if (!$post->create($data)){ 
-            $this->error($post->getError(), U('Post/index',array('id'=>$data['postid'])));
+            $this->error($post->getError());
         }else{
-            if (!array_key_exists("content",$data)) {
-                $this->error('请输入发表的内容', U('Post/index',array('id'=>$data['postid'])));
-                exit;
-            }
+
             // 执行添加
             if ($post->add() > 0) {
                 $exps = M('User')->where('id='.$data['uid'])->find();
