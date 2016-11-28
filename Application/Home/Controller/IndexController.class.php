@@ -70,7 +70,7 @@ class IndexController extends HomeController {
         if(!empty($_SESSION['home_user'])){
 
             $id=$_SESSION['home_user']['id'];
-            $data=M('')->table('qm_bar b,qm_follow f')->where("b.id=f.bid and f.uid='$id'")->select();
+            $data=M('')->table('qm_bar b,qm_follow f')->field('b.name,b.id')->where("b.id=f.bid and f.uid='$id'")->select();
            // var_dump($data);
         }
 

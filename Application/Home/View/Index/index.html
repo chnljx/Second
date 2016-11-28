@@ -169,7 +169,7 @@
 									<else />
 								    </if>
 									    <foreach name="list" item="vo">
-											<p><a href=""><{$vo.name}></a></p>	
+											<p><a href="<{:U('bar/index')}>?id=<{$vo.id}>"><{$vo.name}></a></p>	
 									    </foreach>
 								</div>
 							</div>
