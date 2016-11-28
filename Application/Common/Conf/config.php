@@ -1,20 +1,19 @@
-﻿<?php
+<?php
 return array(
-	
+    //'配置?=>'配置?
 
-    /* 数据库配置 */
-    'DB_TYPE'               =>  'mysql',            
-    'DB_HOST'               =>  'localhost',                 
-    'DB_NAME'               =>  'qianmo',           
-    'DB_USER'               =>  'root',                
-    'DB_PWD'                =>  '`123456',                 
-    'DB_PORT'               =>  '3306',             
-    'DB_PREFIX'             =>  'qm_',               
+    /* 数据库设?*/
+    'DB_TYPE'               =>  'mysql',            // 数据库类?
+    'DB_HOST'               =>  'localhost',                 // 服务器地址
+    'DB_NAME'               =>  'qianmo',           // 数据库名
+    'DB_USER'               =>  'root',                 // 用户?
+    'DB_PWD'                =>  '',                 // 密码
+    'DB_PORT'               =>  '3306',             // 端口
+    'DB_PREFIX'             =>  'qm_',               // 数据库表前缀
 
-
-   
-    'TMPL_L_DELIM'          =>  '<{',               
-    'TMPL_R_DELIM'          =>  '}>',               
+    /* 模板引擎设置 */
+    'TMPL_L_DELIM'          =>  '<{',               // 模板引擎普通标签开始标?
+    'TMPL_R_DELIM'          =>  '}>',               // 模板引擎普通标签结束标?
     
     'SHOW_PAGE_TRACE'       =>  true,              
      
