@@ -352,7 +352,7 @@
             success: function(data){
                 if (data === true) {
                   // console.log($(obj));
-                  obj.prev().prev().before("<div class='col-md-12' style='margin-top:5px;'><div class='col-md-2'><img width=40 src='__UPLOAD__/img/avatar-thumb/"+picname+"'></div><div class='col-md-8'>"+name+"<span>"+placeholder+':'+content+"</span></div><div class='col-md-2'><a href='javascript:;' class='replyname'>回复</a></div></div>");
+                  obj.prev().prev().before("<div class='col-md-12' style='margin-top:5px;'><div class='col-md-2'><img width=40 src='__UPLOAD__/img/avatar-thumb/"+picname+"'></div><div class='col-md-8'>"+name+"<span>"+placeholder+':'+content+"</span><input type=\"hidden\"  class='tid' value='"+uid+"'></div><div class='col-md-2'><a href='javascript:;' class='replyname'>回复</a></div></div>");
                   obj.prev().prev().val('');
                   obj.prev().prev().attr('placeholder','');
                   obj.prev().attr('value','');
