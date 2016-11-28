@@ -71,7 +71,7 @@ class LoginController extends HomeController
                             $this->error('账户已被禁用');
                         }
                     }else {
-                        $url = "<a href='http://112.74.49.16/qianmo/index.php/Home/Register/active?key={$data['validate']}&uid={$data['id']}' target='_blank'>点击激活</a>";
+                        $url = "<a href='http://localhost/qianmo/index.php/Home/Register/active?key={$data['validate']}&uid={$data['id']}' target='_blank'>点击激活</a>";
 
                         // 邮箱发送激活信息
                         $result = sendMail($data['email'], $data['name'], '阡陌之家在线激活',$url);
