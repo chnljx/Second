@@ -11,6 +11,7 @@ return array(
     'DB_PORT'               =>  '3306',             
     'DB_PREFIX'             =>  'qm_',               
 
+
    
     'TMPL_L_DELIM'          =>  '<{',               
     'TMPL_R_DELIM'          =>  '}>',               

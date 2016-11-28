@@ -92,8 +92,12 @@ class PostController extends HomeController
         
         $post = D("Post"); // 实例化User对象
         if (!$post->create($data)){ 
-            $this->error($post->getError());
+            $this->error($post->getError(), U('Bar/index',array('id'=>$data['bid'])));
         }else{
+            if (!array_key_exists("descr",$data)) {
+                $this->error('请输入发表的内容', U('Bar/index',array('id'=>$data['bid'])));
+                exit;
+            }
             // 执行添加
             if ($post->add() > 0) {
                 $exps = M('User')->where('id='.$data['uid'])->find();
